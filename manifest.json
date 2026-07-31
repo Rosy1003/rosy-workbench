@@ -1,0 +1,28 @@
+{
+    "icons": [
+        {
+            "type": "image/png",
+            "sizes": "192x192",
+            "src": "icon192.png"
+        },
+        {
+            "type": "image/png",
+            "sizes": "512x512",
+            "src": "icon512.png"
+        },
+        {
+            "type": "image/png",
+            "sizes": "180x180",
+            "src": "icon180.png"
+        }
+    ],
+    "description": "306西医综合考研学习工作台",
+    "background_color": "#F5F2EE",
+    "theme_color": "#8A9A82",
+    "name": "Rosy 学习工作台",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "short_name": "Rosy"
+}
