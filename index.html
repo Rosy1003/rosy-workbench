@@ -3,7 +3,7 @@
 <head>
 <!-- CACHE_BUST -->
 <script>
-// Force clear old service worker cache
+// Force clear old service worker cache then register new one
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(function(regs) {
     regs.forEach(function(reg) {
@@ -17,11 +17,30 @@ if ('serviceWorker' in navigator) {
       caches.delete(name);
     });
   });
+  // Register new service worker after clearing old ones
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      navigator.serviceWorker.register('/sw.js').then(function(reg) {
+        console.log('[SW] Registered:', reg.scope);
+      }).catch(function(err) {
+        console.log('[SW] Registration failed:', err);
+      });
+    }, 1000);
+  });
 }
 </script>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rosy">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#8A9A82">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon512.png">
 <title>Rosy 学习工作台</title>
 <style>
 
@@ -175,6 +194,26 @@ body {
   cursor: pointer;
   font-size: 18px;
   box-shadow: var(--shadow-md);
+}
+#navExpandBtn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: var(--shadow-md);
+  align-items: center;
+  justify-content: center;
+}
+#app.nav-collapsed #navExpandBtn {
+  display: flex;
 }
 
 /* ===== Tab Panels ===== */
@@ -1684,10 +1723,13 @@ body {
   #app.nav-open #navPane {
     transform: translateX(0);
   }
-  #app.nav-collapsed #navPane {
+  #app.nav-collapsed:not(.nav-open) #navPane {
     transform: translateX(-100%);
     width: 240px;
     min-width: 240px;
+  }
+  #navExpandBtn {
+    display: none !important;
   }
   #mobileNavBtn {
     display: flex;
@@ -1955,15 +1997,95 @@ body {
 .dp-task-check.done { background: var(--accent); border-color: var(--accent); color: #fff; }
 .dp-task-info { flex: 1; min-width: 0; }
 .dp-task-text { font-size: 13px; }
+.dp-task-note { font-size: 11px; color: var(--morandi-blue); font-weight: 600; }
 .dp-task-item.done .dp-task-text { text-decoration: line-through; color: var(--muted); }
+.dp-task-item.done .dp-task-note { color: var(--muted); }
 .dp-task-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
 .dp-task-tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; white-space: nowrap; }
 .dp-task-tag.new { background: #E5EDE0; color: var(--accent-dark); }
 .dp-task-tag.con { background: #E3E9F0; color: #7A8FA6; }
 .dp-task-tag.rol { background: #EDE7F0; color: #9A8AA8; }
-.dp-task-delete { width: 22px; height: 22px; border: none; background: none; color: var(--muted); font-size: 14px; cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.15s; }
-.dp-task-item:hover .dp-task-delete { opacity: 1; }
-.dp-task-delete:hover { background: var(--accent2); color: #fff; }
+/* ===== Task action buttons (edit + delete) ===== */
+.dp-task-actions { display: flex; gap: 2px; flex-shrink: 0; }
+.dp-task-btn {
+  width: 24px; height: 24px;
+  border: none; background: none;
+  color: var(--muted); font-size: 13px;
+  cursor: pointer; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s;
+  opacity: 0.65;
+}
+.dp-task-item:hover .dp-task-btn { opacity: 0.85; }
+.dp-task-btn:hover { opacity: 1 !important; background: var(--bg2); color: var(--ink); }
+.dp-task-btn.danger:hover { background: #F5E0DE; color: #C4756B; }
+/* Mobile: always visible */
+@media (max-width: 768px) {
+  .dp-task-btn { opacity: 0.7; }
+}
+/* ===== Inline edit mode ===== */
+.dp-edit-wrap {
+  display: flex; gap: 6px; flex: 1; align-items: center;
+}
+.dp-edit-input {
+  flex: 1; padding: 6px 10px; font-size: 13px;
+  border: 2px solid var(--accent); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+  outline: none; font-family: inherit;
+  min-width: 0; width: 100%;
+  box-sizing: border-box;
+}
+.dp-edit-save {
+  padding: 6px 14px; font-size: 12px; font-weight: 500;
+  background: var(--accent); color: #fff; border: none;
+  border-radius: 6px; cursor: pointer; white-space: nowrap;
+}
+.dp-edit-cancel {
+  padding: 6px 10px; font-size: 12px;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--rule); border-radius: 6px; cursor: pointer;
+  white-space: nowrap;
+}
+/* Mobile: edit mode full-width */
+@media (max-width: 768px) {
+  .dp-edit-wrap { flex-wrap: wrap; gap: 4px; }
+  .dp-edit-input { font-size: 14px; padding: 8px 10px; }
+  .dp-edit-save, .dp-edit-cancel { padding: 8px 16px; font-size: 13px; flex: 1; }
+  .dp-task-actions { gap: 4px; }
+  .dp-task-btn { width: 28px; height: 28px; font-size: 14px; }
+}
+/* iPad touch targets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dp-task-btn { width: 28px; height: 28px; opacity: 0.7; }
+}
+/* ===== Custom confirm modal ===== */
+.dp-confirm-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.2); z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.dp-confirm-box {
+  background: var(--surface); border-radius: 14px;
+  padding: 24px 28px; max-width: 340px; width: 90%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  text-align: center;
+}
+.dp-confirm-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.dp-confirm-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.dp-confirm-desc { font-size: 12px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.dp-confirm-actions { display: flex; gap: 8px; justify-content: center; }
+.dp-confirm-btn {
+  padding: 8px 20px; font-size: 13px; font-weight: 500;
+  border-radius: 8px; cursor: pointer; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); transition: all 0.12s;
+}
+.dp-confirm-btn:hover { background: var(--bg2); }
+.dp-confirm-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dp-confirm-btn.primary:hover { opacity: 0.85; }
+.dp-confirm-btn.danger { background: #C4756B; border-color: #C4756B; color: #fff; }
+.dp-confirm-btn.danger:hover { opacity: 0.85; }
 
 /* ===== Subject Sub-Groups ===== */
 
@@ -2145,6 +2267,35 @@ body {
 .tp-todo-tag-sel.new { background: #E5EDE0; color: var(--accent-dark); border-color: var(--accent); }
 .tp-todo-tag-sel.con { background: #E3E9F0; color: #7A8FA6; border-color: var(--morandi-blue); }
 .tp-todo-tag-sel.rol { background: #EDE7F0; color: #9A8AA8; border-color: var(--morandi-purple); }
+/* ===== Reference Todo: Smart Match ===== */
+.tp-todo-item.matched { border-left: 3px solid var(--accent); }
+.tp-todo-item.unmatched { border-left: 3px solid var(--accent2); }
+.tp-todo-meta { display: flex; align-items: center; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
+.tp-chapter-badge { font-size: 10px; padding: 1px 6px; border-radius: 4px; background: rgba(168,184,160,0.15); color: var(--accent-dark); display: inline-flex; align-items: center; gap: 3px; }
+.tp-chapter-badge .subj { opacity: 0.7; }
+.tp-match-btn { font-size: 10px; padding: 1px 6px; border-radius: 4px; background: rgba(201,169,161,0.15); color: var(--accent2); cursor: pointer; border: none; font-family: inherit; transition: all 0.12s; white-space: nowrap; }
+.tp-match-btn:hover { background: rgba(201,169,161,0.25); }
+.tp-todo-type-icon { font-size: 11px; flex-shrink: 0; opacity: 0.6; }
+/* Chapter Selection Modal */
+.tp-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.2); z-index: 9999; align-items: center; justify-content: center; }
+.tp-modal-overlay.active { display: flex; }
+.tp-modal-box { background: var(--surface); border-radius: 14px; padding: 20px; max-width: 340px; width: 90%; box-shadow: 0 8px 30px rgba(0,0,0,0.12); max-height: 80vh; display: flex; flex-direction: column; }
+.tp-modal-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+.tp-modal-search { width: 100%; padding: 8px 10px; font-size: 13px; border: 2px solid var(--rule); border-radius: 8px; background: var(--bg2); color: var(--ink); outline: none; font-family: inherit; box-sizing: border-box; margin-bottom: 8px; }
+.tp-modal-search:focus { border-color: var(--accent); }
+.tp-modal-list { flex: 1; overflow-y: auto; max-height: 200px; }
+.tp-modal-opt { padding: 7px 8px; font-size: 12px; border-radius: 6px; cursor: pointer; transition: background 0.1s; display: flex; align-items: center; gap: 6px; }
+.tp-modal-opt:hover { background: var(--bg2); }
+.tp-modal-opt .subj-tag { font-size: 9px; padding: 1px 6px; border-radius: 4px; background: var(--accent); color: #fff; }
+.tp-modal-opt.selected { background: rgba(168,184,160,0.15); }
+.tp-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; flex-shrink: 0; }
+.tp-modal-btn { padding: 6px 16px; font-size: 12px; border-radius: 6px; cursor: pointer; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); font-family: inherit; }
+.tp-modal-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* Mobile nav overlay */
+#navOverlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.15); z-index: 98; }
+#app.nav-open #navOverlay { display: block; }
+/* Touch target enhancement */
+.tp-todo-check { width: 20px; height: 20px; font-size: 12px; }
 .tp-hint { font-size: 11px; color: var(--accent-dark); background: rgba(168,184,160,0.1); padding: 6px 10px; border-radius: var(--radius); margin-top: 8px; }
 .preview-date-sub { font-size: 9px; color: var(--muted); opacity: 0.7; }
 
@@ -2662,7 +2813,9 @@ body {
 <body>
 
 <button id="mobileNavBtn">&#9776;</button>
+<div id="navOverlay" onclick="closeMobileNav()"></div>
 <div id="app">
+  <button id="navExpandBtn" onclick="toggleNav()">&#9776;</button>
   <nav id="navPane">
     <div class="nav-header">
       <h1>Rosy 学习工作台</h1>
@@ -2801,20 +2954,36 @@ var CHAPTER_TOPIC_GROUPS = [
   {病理学:['肺炎'], 内科学:['肺炎','急性肺脓肿']},
 
   // === 消化系统 ===
-  // 食管疾病
-  {生理学:['口腔和食管的消化'], 病理学:['消化系统肿瘤（概述、食管癌、胃癌、大肠癌）'], 内科学:['胃食管反流病 GERD'], 外科学:['食管疾病']},
-  // 胃疾病 - 胃炎、胃溃疡、胃癌
-  {生理学:['胃内消化'], 病理学:['消化系统肿瘤（概述、食管癌、胃癌、大肠癌）','慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病'], 内科学:['慢性A型胃炎','慢性B型胃炎','胃溃疡 GU','十二指肠溃疡 DU','消化道出血'], 外科学:['胃肿瘤','消化道出血、消化性溃疡的并发症与外科治疗']},
-  // 肠梗阻
-  {生理学:['肠内消化','肠内吸收'], 外科学:['肠梗阻']},
-  // 阑尾炎
-  {病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病'], 内科学:['急性胰腺炎 AP'], 外科学:['急性阑尾炎','消化道出血、消化性溃疡的并发症与外科治疗']},
-  // 大肠癌
-  {病理学:['消化系统肿瘤（概述、食管癌、胃癌、大肠癌）'], 外科学:['大肠癌']},
-  // 肝胆疾病
-  {病理学:['病毒性肝炎','肝硬化','原发性肝癌'], 内科学:['肝硬化-肝功能减退','肝硬化-门静脉高压','原发性肝细胞癌 HCC','急性胰腺炎 AP'], 外科学:['门脉高压症','肝癌、胰腺炎']},
+  // 食管疾病 - 生理+病理(食管癌)+内科(GERD)+外科
+  {生理学:['口腔和食管的消化'], 病理学:['消化系统肿瘤（概述、食管癌、胃癌、大肠癌）'], 内科学:['胃食管反流病 GERD'], 外科学:['食管疾病'], _note:'食管癌'},
+  // 胃炎 - 生理+病理(慢性胃炎)+内科
+  {生理学:['胃内消化'], 病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病'], 内科学:['急性糜烂出血性胃炎','慢性A型胃炎','慢性B型胃炎'], _note:'慢性胃炎'},
+  // 消化性溃疡 - 生理+病理(消化性溃疡)+内科+外科并发症
+  {生理学:['胃内消化'], 病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病'], 内科学:['胃溃疡 GU','十二指肠溃疡 DU'], 外科学:['消化道出血、消化性溃疡的并发症与外科治疗'], _note:'消化性溃疡'},
+  // 胃肿瘤 - 生理+病理(胃癌)+外科
+  {生理学:['胃内消化'], 病理学:['消化系统肿瘤（概述、食管癌、胃癌、大肠癌）'], 外科学:['胃肿瘤'], _note:'胃癌'},
+  // 消化道出血 - 内科+外科
+  {内科学:['消化道出血'], 外科学:['消化道出血、消化性溃疡的并发症与外科治疗'], _note:'消化道出血'},
+  // 肠道非肿瘤疾病 - 生理+内科+外科(肠梗阻、腹外疝)
+  {生理学:['肠内消化','肠内吸收'], 内科学:['肠结核','结核性腹膜炎','溃疡性结肠炎 UC','克罗恩病 CD','肠易激综合征 IBS'], 外科学:['肠梗阻','腹外疝'], _note:'肠道疾病'},
+  // 阑尾炎 - 病理(阑尾炎)+外科
+  {病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病'], 外科学:['急性阑尾炎'], _note:'阑尾炎'},
+  // 大肠癌 - 病理(大肠癌)+外科
+  {病理学:['消化系统肿瘤（概述、食管癌、胃癌、大肠癌）'], 外科学:['大肠癌','其他大肠与肛管疾病'], _note:'大肠癌'},
+  // 病毒性肝炎 - 病理+内科(关联肝硬化)
+  {病理学:['病毒性肝炎'], 内科学:['肝硬化-肝功能减退','肝硬化-门静脉高压'], _note:'病毒性肝炎'},
+  // 肝硬化及并发症 - 病理+内科+外科(门脉高压)
+  {病理学:['肝硬化'], 内科学:['肝硬化-肝功能减退','肝硬化-门静脉高压','肝性脑病'], 外科学:['门脉高压症'], _note:'肝硬化'},
+  // 肝癌 - 病理+内科+外科
+  {病理学:['原发性肝癌'], 内科学:['原发性肝细胞癌 HCC'], 外科学:['肝癌、胰腺炎'], _note:'肝癌'},
+  // 肝脓肿 - 外科
+  {外科学:['细菌性肝脓肿'], _note:'肝脓肿'},
+  // 胆系疾病 - 外科
+  {外科学:['胆系疾病'], _note:'胆系疾病'},
+  // 急性胰腺炎 - 病理(胰腺疾病)+内科+外科
+  {病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病'], 内科学:['急性胰腺炎 AP'], 外科学:['肝癌、胰腺炎'], _note:'胰腺炎'},
   // 胰腺肿瘤 - 内分泌+消化
-  {生理学:['内分泌概述','胰岛素和胰高血糖素'], 病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病','胰岛疾病（糖尿病、胰岛细胞瘤）'], 外科学:['胰腺肿瘤']},
+  {生理学:['内分泌概述','胰岛素和胰高血糖素'], 病理学:['慢性胃炎、消化性溃疡、阑尾炎、胰腺疾病','胰岛疾病（糖尿病、胰岛细胞瘤）'], 外科学:['胰腺肿瘤'], _note:'胰腺肿瘤'},
 
   // === 内分泌系统 ===
   // 甲状腺疾病
@@ -2899,7 +3068,10 @@ function defaultStore() {
     motivationInsightDate: '',
     activeTab: 'home',
     homeSubtab: 'morning',
-    navCollapsed: false
+    navCollapsed: false,
+    syncCode: '',
+    lastSyncAt: '',
+    lastPullAt: ''
   };
 }
 
@@ -2971,6 +3143,19 @@ function saveStore() {
   } catch(e) {
     console.error('saveStore error:', e);
   }
+  // Auto-push to cloud if synced (debounced)
+  if (store.syncCode) {
+    scheduleSyncPush();
+  }
+}
+
+// Debounced sync push
+var syncPushTimer = null;
+function scheduleSyncPush() {
+  if (syncPushTimer) clearTimeout(syncPushTimer);
+  syncPushTimer = setTimeout(function() {
+    syncPushData(false); // silent push
+  }, 3000); // 3 second debounce
 }
 
 // ===== Data Loading =====
@@ -3074,7 +3259,11 @@ function getCrossSubjectChapters(system, currentSubject) {
           });
           if (found && !seen[found.id]) {
             seen[found.id] = true;
-            result.push(found);
+            var chCopy = Object.assign({}, found);
+            if (group._note) {
+              chCopy.topicNote = group._note;
+            }
+            result.push(chCopy);
           }
         });
       }
@@ -4708,7 +4897,22 @@ function renderTasks() {
 
 // ===== Client-side Teacher Plan Fetch (for deployment) =====
 async function fetchTeacherPlanClient(date) {
-  // Try direct fetch first (may work if CORS is enabled)
+  // 1st: try Cloudflare Pages Function proxy (same endpoint as local server)
+  try {
+    const resp = await fetch('/api/teacher-plan?date=' + date);
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data.ok) return data;
+      if (data.error && !data.dailyPlans) {
+        // Function responded but with an error (e.g. plan not updated yet)
+        return data;
+      }
+    }
+  } catch(e) {
+    console.log('Function proxy not available, trying direct...', e.message);
+  }
+
+  // 2nd: try direct fetch (may work if CORS is enabled)
   const apiUrl = 'https://toashore.cn/public/apps/calendar/online/api.php?action=daily&date=' + date;
   
   try {
@@ -4722,15 +4926,14 @@ async function fetchTeacherPlanClient(date) {
     if (resp.ok) {
       const rawData = await resp.json();
       if (rawData.success || rawData.dailyPlans) {
-        // Process the raw API response same as server did
         return processTeacherPlanResponse(rawData, date);
       }
     }
   } catch(e) {
-    console.log('Direct fetch failed, trying proxy...', e.message);
+    console.log('Direct fetch failed, trying CORS proxy...', e.message);
   }
   
-  // Fallback: use CORS proxy
+  // 3rd: fallback CORS proxy
   try {
     const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(apiUrl);
     const resp2 = await fetch(proxyUrl, {
@@ -4746,14 +4949,14 @@ async function fetchTeacherPlanClient(date) {
       }
     }
   } catch(e2) {
-    console.log('Proxy fetch also failed:', e2.message);
+    console.log('CORS proxy also failed:', e2.message);
   }
   
   // Return error response
   return {
     ok: false,
     error: '网络请求失败，请稍后重试或手动粘贴',
-    hint: '部署版无法直接同步天天师兄计划，请手动粘贴。',
+    hint: '同步服务暂时不可用，请稍后重试。',
     syncTime: new Date().toLocaleString('zh-CN'),
   };
 }
@@ -4916,17 +5119,23 @@ function renderRollingBySubject(rollingReviews, customTasks, today, groupPrefix)
     html += renderSubGroupHeader(subject, parsed.groups[subject].length, groupId, color);
     parsed.groups[subject].forEach(function(ch) {
       var done = store.rollingStatus[ch.id] && store.rollingStatus[ch.id].done;
-      html += '<div class="dp-task-item' + (done ? ' done' : '') + '"><div class="dp-task-check' + (done ? ' done' : '') + '" onclick="toggleRollingDone(' + ch.id + ')">' + (done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(ch.name) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag rol">\u6eda\u52a8</span></div>';
+      var noteHtml = ch.topicNote ? ' <span class="dp-task-note">\u2192 ' + escapeHtml(ch.topicNote) + '</span>' : '';
+      var displayText = (store.rollingStatus[ch.id] && store.rollingStatus[ch.id].customText) ? store.rollingStatus[ch.id].customText : ch.name;
+      var actionsHtml = '';
+      if (store.rollingStatus[ch.id] && store.rollingStatus[ch.id].linkedTaskId) {
+        actionsHtml = '<div class="dp-task-actions"><button class="dp-task-btn" onclick="editRollingReview(\'' + ch.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteRollingReview(\'' + ch.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div>';
+      }
+      html += '<div class="dp-task-item' + (done ? ' done' : '') + '" id="rr-' + ch.id + '"><div class="dp-task-check' + (done ? ' done' : '') + '" onclick="toggleRollingDone(\'' + ch.id + '\')">' + (done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(displayText) + noteHtml + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag rol">\u6eda\u52a8</span>' + actionsHtml + '</div>';
     });
     html += '</div></div>';
   });
   // Custom tasks in "其他" group
-  var rolCustom = (customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol'; });
+  var rolCustom = (customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && !t.chapterId; });
   if (rolCustom.length > 0) {
     var groupId = groupPrefix + '-other';
     html += renderSubGroupHeader('\u5176\u4ed6', rolCustom.length, groupId, '#b0a8a0');
     rolCustom.forEach(function(t) {
-      html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag rol">\u6eda\u52a8</span><button class="dp-task-delete" onclick="deleteCustomTask(\'' + t.id + '\')">\u00d7</button></div>';
+      html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag rol">\u6eda\u52a8</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
     });
     html += '</div></div>';
   }
@@ -4955,12 +5164,12 @@ function renderConsolidationBySubject(consolidationReviews, customTasks, today, 
     html += '</div></div>';
   });
   // Custom tasks in "其他" group
-  var conCustom = (customTasks || []).filter(function(t) { return t.date === today && t.category === 'con'; });
+  var conCustom = (customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && !t.chapterId; });
   if (conCustom.length > 0) {
     var groupId = groupPrefix + '-other';
     html += renderSubGroupHeader('\u5176\u4ed6', conCustom.length, groupId, '#b0a8a0');
     conCustom.forEach(function(t) {
-      html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag con">\u5de9\u56fa</span><button class="dp-task-delete" onclick="deleteCustomTask(\'' + t.id + '\')">\u00d7</button></div>';
+      html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag con">\u5de9\u56fa</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
     });
     html += '</div></div>';
   }
@@ -4974,12 +5183,12 @@ function renderDailyPlan() {
 
   const today = fmtDate(new Date());
   const todayNew = store.newLearnRecords.filter(function(r) { return r.date === today; });
-  const todayCustomNew = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.done; });
-  const todayCustomCon = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && !t.done; });
-  const todayCustomRol = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && !t.done; });
-  const todayCustomNewDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && t.done; });
-  const todayCustomConDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && t.done; });
-  const todayCustomRolDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && t.done; });
+  const todayCustomNew = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.done && !t.chapterId; });
+  const todayCustomCon = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && !t.done && !t.chapterId; });
+  const todayCustomRol = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && !t.done && !t.chapterId; });
+  const todayCustomNewDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && t.done && !t.chapterId; });
+  const todayCustomConDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && t.done && !t.chapterId; });
+  const todayCustomRolDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && t.done && !t.chapterId; });
   const allConsolidationReviews = getAllConsolidationReviews();
   const pendingConsolidationReviews = getConsolidationReviews();
   const rollingReviews = getRollingReviews();
@@ -5043,10 +5252,11 @@ function renderDailyPlan() {
   todayNew.forEach(function(r) {
     const ch = getChapterById(r.chapterId);
     if (!ch) return;
-    html += '<div class="dp-task-item done"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(ch.name) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><button class="dp-task-delete" onclick="deleteNewLearnRecord(\'' + r.id + '\')">\u00d7</button></div>';
+    var displayText = r.customText || ch.name;
+    html += '<div class="dp-task-item done" id="nlr-' + r.id + '"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(displayText) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editNewLearnRecord(\'' + r.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteNewLearnRecord(\'' + r.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
-  (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new'; }).forEach(function(t) {
-    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><button class="dp-task-delete" onclick="deleteCustomTask(\'' + t.id + '\')">\u00d7</button></div>';
+  (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.chapterId; }).forEach(function(t) {
+    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
   if (newTotal === 0) html += '<div class="empty-hint">\u4eca\u5929\u6682\u65e0\u65b0\u5b66\u4efb\u52a1</div>';
   html += '</div></div>';
@@ -5075,10 +5285,11 @@ function renderDailyPlan() {
   todayNew.forEach(function(r) {
     const ch = getChapterById(r.chapterId);
     if (!ch) return;
-    html += '<div class="dp-task-item done"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(ch.name) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><button class="dp-task-delete" onclick="deleteNewLearnRecord(\'' + r.id + '\')">\u00d7</button></div>';
+    var displayText = r.customText || ch.name;
+    html += '<div class="dp-task-item done" id="nlr-' + r.id + '"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(displayText) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editNewLearnRecord(\'' + r.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteNewLearnRecord(\'' + r.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
-  (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new'; }).forEach(function(t) {
-    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><button class="dp-task-delete" onclick="deleteCustomTask(\'' + t.id + '\')">\u00d7</button></div>';
+  (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.chapterId; }).forEach(function(t) {
+    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
   if (newTotal === 0) html += '<div class="empty-hint">\u4eca\u5929\u6682\u65e0\u65b0\u5b66\u4efb\u52a1\uff0c\u70b9\u51fb\u4e0a\u65b9\u6dfb\u52a0</div>';
   html += '</div>';
@@ -5510,7 +5721,8 @@ function renderWeekView(refDate, todayStr) {
           var doneDate = store.rollingStatus[ch.id] && store.rollingStatus[ch.id].lastDate;
           // Only show rolling reviews completed on this date
           if (done && doneDate === dateStr) {
-            rolItems.push({ name: ch.name, subject: ch.subject });
+            var noteSuffix = ch.topicNote ? ' \u2192 ' + ch.topicNote : '';
+            rolItems.push({ name: ch.name + noteSuffix, subject: ch.subject });
           }
         }
       });
@@ -5805,6 +6017,42 @@ function renderSkillManagement() {
   html += '<button class="btn-sm btn-danger" onclick="resetData()">\u91cd\u7f6e\u6570\u636e</button>';
   html += '</div></div>';
   
+  // Cloud sync panel
+  html += '<div class="home-card" id="syncPanel"><div class="home-card-header"><h3>\u4e91\u7aef\u540c\u6b65</h3></div>';
+  if (store.syncCode) {
+    // Already bound - show sync status
+    html += '<div style="padding:12px 0;">';
+    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">';
+    html += '<span style="font-size:13px;color:var(--muted);">\u540c\u6b65\u7801\uff1a</span>';
+    html += '<code style="background:var(--card-bg);padding:4px 12px;border-radius:6px;font-size:16px;font-weight:bold;letter-spacing:2px;color:var(--accent);">' + store.syncCode + '</code>';
+    html += '<button class="btn-sm" onclick="copySyncCode()" style="padding:2px 8px;font-size:11px;">\u590d\u5236</button>';
+    html += '</div>';
+    if (store.lastSyncAt) {
+      html += '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">\u4e0a\u6b21\u540c\u6b65\uff1a' + store.lastSyncAt + '</div>';
+    }
+    html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    html += '<button class="btn-sm" onclick="syncPushData(true)">\u7acb\u5373\u4e0a\u4f20</button>';
+    html += '<button class="btn-sm" onclick="syncPullData()">\u4ece\u4e91\u7aef\u62c9\u53d6</button>';
+    html += '<button class="btn-sm" onclick="unbindSync()" style="color:var(--danger);">\u89e3\u7ed1</button>';
+    html += '</div>';
+    html += '<div id="syncStatus" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>';
+    html += '</div>';
+  } else {
+    // Not bound - show bind/register options
+    html += '<div style="padding:12px 0;">';
+    html += '<p style="font-size:13px;color:var(--muted);margin-bottom:12px;">\u7ed1\u5b9a\u540c\u6b65\u7801\u540e\uff0c\u591a\u8bbe\u5907\u95f4\u6570\u636e\u81ea\u52a8\u540c\u6b65</p>';
+    html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">';
+    html += '<button class="btn-sm" onclick="registerSyncCode()">\u751f\u6210\u65b0\u540c\u6b65\u7801</button>';
+    html += '</div>';
+    html += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">';
+    html += '<input type="text" id="bindSyncInput" placeholder="\u8f93\u5165\u540c\u6b65\u7801" style="flex:1;min-width:120px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:14px;text-transform:uppercase;" maxlength="6" />';
+    html += '<button class="btn-sm" onclick="bindSyncCode()">\u7ed1\u5b9a</button>';
+    html += '</div>';
+    html += '<div id="syncStatus" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  
   container.innerHTML = html;
 }
 
@@ -5854,62 +6102,330 @@ function resetData() {
   }
 }
 
+// ===== Cloud Sync Functions =====
+function showSyncStatus(msg, isError) {
+  var el = document.getElementById('syncStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = isError ? 'var(--danger)' : 'var(--muted)';
+  setTimeout(function() {
+    if (el.textContent === msg) el.textContent = '';
+  }, 5000);
+}
+
+function getDeviceName() {
+  var ua = navigator.userAgent;
+  var isMobile = /Mobile|Android|iPhone|iPad/.test(ua);
+  var browser = /Chrome/.test(ua) ? 'Chrome' : /Firefox/.test(ua) ? 'Firefox' : /Safari/.test(ua) ? 'Safari' : 'Browser';
+  return (isMobile ? 'Mobile-' : 'PC-') + browser;
+}
+
+async function registerSyncCode() {
+  showSyncStatus('\u6b63\u5728\u751f\u6210\u540c\u6b65\u7801...');
+  try {
+    var resp = await fetch('/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'register', deviceName: getDeviceName() })
+    });
+    var result = await resp.json();
+    if (result.ok) {
+      store.syncCode = result.syncCode;
+      saveStore();
+      await syncPushData(false);
+      showSyncStatus('\u540c\u6b65\u7801\u5df2\u751f\u6210\u5e76\u4e0a\u4f20\u6570\u636e');
+      renderPanel('skill');
+    } else {
+      showSyncStatus(result.error || '\u751f\u6210\u5931\u8d25', true);
+    }
+  } catch(e) {
+    showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
+  }
+}
+
+async function bindSyncCode() {
+  var input = document.getElementById('bindSyncInput');
+  if (!input || !input.value.trim()) {
+    showSyncStatus('\u8bf7\u8f93\u5165\u540c\u6b65\u7801', true);
+    return;
+  }
+  var code = input.value.trim().toUpperCase();
+  showSyncStatus('\u6b63\u5728\u9a8c\u8bc1\u540c\u6b65\u7801...');
+  try {
+    var resp = await fetch('/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'check', syncCode: code })
+    });
+    var result = await resp.json();
+    if (result.ok) {
+      store.syncCode = code;
+      saveStore();
+      showSyncStatus('\u7ed1\u5b9a\u6210\u529f\uff01');
+      if (result.hasData) {
+        if (confirm('\u4e91\u7aef\u5df2\u6709\u6570\u636e\uff0c\u662f\u5426\u4ece\u4e91\u7aef\u62c9\u53d6\uff1f\n\u70b9\u51fb\u201c\u786e\u5b9a\u201d\u62c9\u53d6\u4e91\u7aef\u6570\u636e\uff0c\u201c\u53d6\u6d88\u201d\u4fdd\u7559\u672c\u5730\u6570\u636e\u3002')) {
+          await syncPullData();
+        }
+      } else {
+        await syncPushData(false);
+        showSyncStatus('\u7ed1\u5b9a\u6210\u529f\uff0c\u672c\u5730\u6570\u636e\u5df2\u4e0a\u4f20');
+      }
+      renderPanel('skill');
+    } else {
+      showSyncStatus(result.error || '\u540c\u6b65\u7801\u4e0d\u5b58\u5728', true);
+    }
+  } catch(e) {
+    showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
+  }
+}
+
+async function syncPushData(showFeedback) {
+  if (!store.syncCode) return;
+  if (showFeedback) showSyncStatus('\u6b63\u5728\u4e0a\u4f20...');
+  try {
+    var resp = await fetch('/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'push',
+        syncCode: store.syncCode,
+        data: store,
+        deviceName: getDeviceName()
+      })
+    });
+    var result = await resp.json();
+    if (result.ok) {
+      store.lastSyncAt = new Date().toLocaleString('zh-CN');
+      localStorage.setItem('rosy_store_v3', JSON.stringify(store));
+      if (showFeedback) showSyncStatus('\u4e0a\u4f20\u6210\u529f ' + store.lastSyncAt);
+    } else {
+      if (showFeedback) showSyncStatus(result.error || '\u4e0a\u4f20\u5931\u8d25', true);
+    }
+  } catch(e) {
+    if (showFeedback) showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
+  }
+}
+
+async function syncPullData() {
+  if (!store.syncCode) return;
+  showSyncStatus('\u6b63\u5728\u62c9\u53d6\u4e91\u7aef\u6570\u636e...');
+  try {
+    var resp = await fetch('/api/sync?code=' + store.syncCode);
+    var result = await resp.json();
+    if (result.ok && result.data) {
+      var localSyncCode = store.syncCode;
+      store = Object.assign(defaultStore(), result.data);
+      store.syncCode = localSyncCode;
+      store.lastPullAt = new Date().toLocaleString('zh-CN');
+      localStorage.setItem('rosy_store_v3', JSON.stringify(store));
+      showSyncStatus('\u62c9\u53d6\u6210\u529f ' + store.lastPullAt);
+      renderPanel(store.activeTab);
+      renderTopBar();
+    } else {
+      showSyncStatus(result.error || '\u4e91\u7aef\u65e0\u6570\u636e', true);
+    }
+  } catch(e) {
+    showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
+  }
+}
+
+async function autoSyncPull() {
+  if (!store.syncCode) return;
+  try {
+    var resp = await fetch('/api/sync?code=' + store.syncCode);
+    var result = await resp.json();
+    if (result.ok && result.data) {
+      var cloudTime = result.updatedAt || '';
+      var localLastSync = store.lastSyncAt || '';
+      if (cloudTime && localLastSync && cloudTime > localLastSync) {
+        var localSyncCode = store.syncCode;
+        store = Object.assign(defaultStore(), result.data);
+        store.syncCode = localSyncCode;
+        store.lastPullAt = new Date().toLocaleString('zh-CN');
+        localStorage.setItem('rosy_store_v3', JSON.stringify(store));
+        renderPanel(store.activeTab);
+        renderTopBar();
+        console.log('Auto-pulled from cloud:', cloudTime);
+      }
+    }
+  } catch(e) {
+    console.log('Auto-pull failed:', e.message);
+  }
+}
+
+function unbindSync() {
+  if (confirm('\u786e\u5b9a\u89e3\u7ed1\u540c\u6b65\u7801\u5417\uff1f\u89e3\u7ed1\u540e\u672c\u8bbe\u5907\u6570\u636e\u4ecd\u4fdd\u7559\uff0c\u4f46\u4e0d\u518d\u81ea\u52a8\u540c\u6b65\u3002')) {
+    syncPushData(false);
+    store.syncCode = '';
+    store.lastSyncAt = '';
+    store.lastPullAt = '';
+    saveStore();
+    renderPanel('skill');
+  }
+}
+
+function copySyncCode() {
+  if (store.syncCode) {
+    navigator.clipboard.writeText(store.syncCode).then(function() {
+      showSyncStatus('\u5df2\u590d\u5236\u5230\u526a\u8d34\u677f');
+    }).catch(function() {
+      showSyncStatus('\u590d\u5236\u5931\u8d25\uff0c\u8bf7\u624b\u52a8\u590d\u5236\uff1a' + store.syncCode, true);
+    });
+  }
+}
+
 // ===== Mobile Nav =====
 function setupMobileNav() {
   const btn = document.getElementById('mobileNavBtn');
   if (!btn) return;
   btn.addEventListener('click', function() {
     const app = document.getElementById('app');
-    if (app) app.classList.toggle('nav-open');
+    if (!app) return;
+    // If nav is collapsed, expand it and open it
+    if (store.navCollapsed) {
+      store.navCollapsed = false;
+      saveStore();
+      app.classList.remove('nav-collapsed');
+      const navBtn = document.getElementById('navToggle');
+      if (navBtn) navBtn.textContent = '\u6298\u53e0\u83dc\u5355';
+      app.classList.add('nav-open');
+      return;
+    }
+    app.classList.toggle('nav-open');
   });
 }
 
 
-// ===== Todo Extraction =====
+// ===== Chapter Matching =====
+function matchChapterByText(text) {
+  if (!text || !CHAPTER_DATA || CHAPTER_DATA.length === 0) return [];
+  var q = text.replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+  if (!q) return [];
+  var results = [];
+  CHAPTER_DATA.forEach(function(ch) {
+    var name = (ch.name || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+    var chapter = (ch.chapter || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+    var system = (ch.system || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+    var score = 0;
+    // Exact match
+    if (name === q || chapter === q) { score = 100; }
+    // Name starts with query or query starts with name
+    else if (name.indexOf(q) === 0 || q.indexOf(name) === 0) { score = 90; }
+    else if (chapter.indexOf(q) === 0 || q.indexOf(chapter) === 0) { score = 85; }
+    // Name/chapter contains query or vice versa
+    else if (name.indexOf(q) >= 0 || q.indexOf(name) >= 0) { score = 70; }
+    else if (chapter.indexOf(q) >= 0 || q.indexOf(chapter) >= 0) { score = 65; }
+    // System match
+    else if (system.indexOf(q) >= 0 || q.indexOf(system) >= 0) { score = 40; }
+    // Partial word match (e.g. "COPD" matches "慢性阻塞性肺疾病")
+    if (score === 0) {
+      var nameWords = name.split('');
+      var qChars = q.split('');
+      var matchCount = 0;
+      qChars.forEach(function(c) { if (nameWords.indexOf(c) >= 0) matchCount++; });
+      if (matchCount / qChars.length > 0.7 && name.length > 0) { score = 50; }
+    }
+    if (score > 0) {
+      results.push({ chapter: ch, score: score, matchField: score >= 85 ? 'chapter' : (score >= 70 ? 'name' : 'system') });
+    }
+  });
+  results.sort(function(a, b) { return b.score - a.score; });
+  return results.slice(0, 5);
+}
+
+// ===== Extract quoted text from a string =====
+function extractQuotedTexts(str) {
+  var matches = str.match(/[""]([^""]+)[""]/g);
+  if (!matches) return [];
+  return matches.map(function(m) { return m.replace(/[""]/g, '').trim(); }).filter(function(t) { return t.length > 0; });
+}
+
+// ===== Enhanced Todo Extraction =====
 function extractTodos(description) {
   if (!description) return [];
   const todos = [];
-  // Split by （数字） pattern
   const sections = description.split(/（\d+）/);
   
   sections.forEach(function(section) {
     const trimmed = section.trim();
     if (!trimmed) return;
+    var isLive = /直播/.test(trimmed) && !/没有直播/.test(trimmed);
+    var isReview = /复习/.test(trimmed) && !/直播/.test(trimmed.substring(0, 10));
+    var isRolling = /滚动/.test(trimmed);
+    var isQuiz = /做题|真题|练习/.test(trimmed);
+    var isMemorize = /背诵|记忆/.test(trimmed);
     
-    // Check for review keywords
-    if (/复习/.test(trimmed) && !/直播/.test(trimmed.substring(0, 10))) {
-      const content = trimmed.replace(/^复习[：:]\s*/, '').trim();
-      if (content) {
-        todos.push({ type: 'review', text: content.substring(0, 150), done: false });
+    if (isLive) {
+      // Live: split by quoted text into multiple items, auto-category='new'
+      var quoted = extractQuotedTexts(trimmed);
+      if (quoted.length > 0) {
+        quoted.forEach(function(q) {
+          var matches = matchChapterByText(q);
+          todos.push({
+            type: 'live', text: q, sourceText: trimmed.substring(0, 60),
+            done: false, category: 'new',
+            chapterId: matches.length > 0 ? matches[0].chapter.id : null,
+            matchInfo: matches.length > 0 ? matches[0] : null,
+            allMatches: matches
+          });
+        });
+      } else {
+        // No quoted text, add whole as one item
+        var content = trimmed.replace(/^直播[：:]\s*/, '').trim();
+        if (content) {
+          var matches = matchChapterByText(content);
+          todos.push({
+            type: 'live', text: content.substring(0, 150), sourceText: '',
+            done: false, category: 'new',
+            chapterId: matches.length > 0 ? matches[0].chapter.id : null,
+            matchInfo: matches.length > 0 ? matches[0] : null,
+            allMatches: matches
+          });
+        }
       }
     }
-    // Check for quiz/exercise keywords
-    else if (/做题|真题|练习/.test(trimmed)) {
-      const content = trimmed.replace(/^做题[：:]\s*/, '').trim();
-      if (content) {
-        todos.push({ type: 'quiz', text: content.substring(0, 150), done: false });
+    else if (isReview || isRolling) {
+      // Review/Rolling: extract quoted text, auto-category='rol'
+      var quoted = extractQuotedTexts(trimmed);
+      if (quoted.length > 0) {
+        quoted.forEach(function(q) {
+          var matches = matchChapterByText(q);
+          todos.push({
+            type: isRolling ? 'rolling' : 'review', text: q, sourceText: trimmed.substring(0, 60),
+            done: false, category: 'rol',
+            chapterId: matches.length > 0 ? matches[0].chapter.id : null,
+            matchInfo: matches.length > 0 ? matches[0] : null,
+            allMatches: matches
+          });
+        });
+      } else {
+        var content = trimmed.replace(/^[滚动复习]+[：:]\s*/, '').trim();
+        if (content) {
+          var matches = matchChapterByText(content);
+          todos.push({
+            type: isRolling ? 'rolling' : 'review', text: content.substring(0, 150), sourceText: '',
+            done: false, category: 'rol',
+            chapterId: matches.length > 0 ? matches[0].chapter.id : null,
+            matchInfo: matches.length > 0 ? matches[0] : null,
+            allMatches: matches
+          });
+        }
       }
     }
-    // Check for live course keywords
-    else if (/直播/.test(trimmed) && !/没有直播/.test(trimmed)) {
-      const content = trimmed.replace(/^直播[：:]\s*/, '').trim();
+    else if (isQuiz) {
+      var content = trimmed.replace(/^做题[：:]\s*/, '').trim();
       if (content) {
-        todos.push({ type: 'live', text: content.substring(0, 150), done: false });
+        todos.push({ type: 'quiz', text: content.substring(0, 150), sourceText: '', done: false, category: 'con', chapterId: null, matchInfo: null, allMatches: [] });
       }
     }
-    // Check for memorization keywords
-    else if (/背诵|记忆/.test(trimmed)) {
-      const content = trimmed.replace(/^[背诵记忆]+[：:]\s*/, '').trim();
+    else if (isMemorize) {
+      var content = trimmed.replace(/^[背诵记忆]+[：:]\s*/, '').trim();
       if (content) {
-        todos.push({ type: 'other', text: content.substring(0, 150), done: false });
+        todos.push({ type: 'other', text: content.substring(0, 150), sourceText: '', done: false, category: 'con', chapterId: null, matchInfo: null, allMatches: [] });
       }
     }
+    // Ignore "没有直播" sections
   });
-  
-  // Also check for "今天没有直播" pattern
-  if (/没有直播/.test(description)) {
-    // Don't add live todo
-  }
   
   return todos;
 }
@@ -6307,12 +6823,19 @@ function renderTeacherTodoPanel() {
 
   // Preserve user's checkbox/category state when re-rendering
   const oldState = {};
-  teacherTodoItems.forEach(function(t) { oldState[t.text] = { checked: t.checked, category: t.category }; });
+  teacherTodoItems.forEach(function(t) { oldState[t.text] = { checked: t.checked, category: t.category, chapterId: t.chapterId, matchInfo: t.matchInfo, allMatches: t.allMatches }; });
 
   const todos = extractTodos(store.teacherPlan.content || '');
   teacherTodoItems = todos.map(function(t) {
     var prev = oldState[t.text];
-    return { text: t.text, type: t.type, checked: prev ? prev.checked : false, category: prev ? prev.category : 'new' };
+    return {
+      text: t.text, type: t.type,
+      checked: prev ? prev.checked : false,
+      category: prev ? prev.category : 'new',
+      chapterId: prev ? prev.chapterId : t.chapterId,
+      matchInfo: prev ? prev.matchInfo : t.matchInfo,
+      allMatches: t.allMatches
+    };
   });
 
   let html = '';
@@ -6330,9 +6853,26 @@ function renderTeacherTodoPanel() {
   html += '</div>';
 
   teacherTodoItems.forEach(function(todo, idx) {
-    html += '<div class="tp-todo-item">';
+    var isMatched = todo.chapterId && todo.matchInfo;
+    var itemClass = 'tp-todo-item' + (isMatched ? ' matched' : ' unmatched');
+    html += '<div class="' + itemClass + '">';
     html += '<div class="tp-todo-check' + (todo.checked ? ' checked' : '') + '" onclick="toggleTeacherTodo(' + idx + ')">' + (todo.checked ? '\u2713' : '') + '</div>';
+    // Type icon
+    var iconMap = { live: '\u25b6', review: '\u21ba', rolling: '\u21bb', quiz: '\u270f', other: '\u2605' };
+    html += '<span class="tp-todo-type-icon">' + (iconMap[todo.type] || '\u25cf') + '</span>';
+    html += '<div style="flex:1;min-width:0;">';
     html += '<span class="tp-todo-text">' + escapeHtml(todo.text) + '</span>';
+    // Match info row
+    html += '<div class="tp-todo-meta">';
+    if (isMatched) {
+      var ch = todo.matchInfo.chapter;
+      var subjColor = SUBJECT_COLORS[ch.subject] || '#b0a8a0';
+      html += '<span class="tp-chapter-badge"><span class="subj" style="color:' + subjColor + '">' + ch.subject + '</span> ' + escapeHtml(ch.name) + '</span>';
+    } else {
+      html += '<button class="tp-match-btn" onclick="openChapterModal(' + idx + ')">\u2191 \u5339\u914d\u7ae0\u8282</button>';
+    }
+    html += '</div>';
+    html += '</div>';
     var catLabel = todo.category === 'new' ? '\u65b0\u5b66' : (todo.category === 'con' ? '\u5de9\u56fa' : '\u6eda\u52a8');
     html += '<span class="tp-todo-tag-sel ' + todo.category + '" onclick="cycleTodoCategory(' + idx + ')">' + catLabel + ' \u25be</span>';
     html += '</div>';
@@ -6369,15 +6909,63 @@ function addSelectedTodos() {
   var dateInput = document.getElementById('tpDateInput');
   var targetDate = dateInput && dateInput.value ? dateInput.value : fmtDate(new Date());
 
+  var newLearnCount = 0;
+  var taskCount = 0;
+
   selected.forEach(function(todo) {
+    var taskId = 'ct_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+
+    // Always add as customTask (with edit/delete)
     if (!store.customTasks) store.customTasks = [];
     store.customTasks.push({
-      id: 'ct_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+      id: taskId,
       text: todo.text,
       date: targetDate,
       category: todo.category,
-      done: false
+      done: false,
+      chapterId: todo.chapterId || null
     });
+    taskCount++;
+
+    // For matched 'new' items, also create newLearnRecord
+    if (todo.category === 'new' && todo.chapterId) {
+      var record = {
+        id: 'r_' + Date.now() + '_' + todo.chapterId,
+        chapterId: todo.chapterId,
+        date: targetDate,
+        completedReviews: [],
+        customText: todo.text,
+        linkedTaskId: taskId
+      };
+      if (!store.newLearnRecords) store.newLearnRecords = [];
+      store.newLearnRecords.push(record);
+      if (!isLearned(todo.chapterId)) store.learnedChapters.push(todo.chapterId);
+      if (!store.reviewRecords[todo.chapterId]) {
+        store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
+      }
+      store.reviewRecords[todo.chapterId].count++;
+      store.reviewRecords[todo.chapterId].lastDate = targetDate;
+      store.reviewRecords[todo.chapterId].dates.push(targetDate);
+      newLearnCount++;
+    }
+
+    // For matched 'rol' items, also mark rollingStatus
+    if (todo.category === 'rol' && todo.chapterId) {
+      if (!store.rollingStatus[todo.chapterId]) {
+        store.rollingStatus[todo.chapterId] = { done: false, lastDate: '' };
+      }
+      store.rollingStatus[todo.chapterId].done = true;
+      store.rollingStatus[todo.chapterId].lastDate = targetDate;
+      store.rollingStatus[todo.chapterId].customText = todo.text;
+      store.rollingStatus[todo.chapterId].linkedTaskId = taskId;
+      if (!store.reviewRecords[todo.chapterId]) {
+        store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
+      }
+      store.reviewRecords[todo.chapterId].count++;
+      store.reviewRecords[todo.chapterId].lastDate = targetDate;
+      store.reviewRecords[todo.chapterId].dates.push(targetDate);
+      if (!isLearned(todo.chapterId)) store.learnedChapters.push(todo.chapterId);
+    }
   });
 
   // Uncheck added items
@@ -6386,8 +6974,9 @@ function addSelectedTodos() {
   saveStore();
   renderTeacherTodoPanel();
   renderDailyPlan();
+  renderHome();
 
-  // Visual feedback instead of alert
+  // Visual feedback
   var hint = document.getElementById('todoAddHint');
   if (!hint) {
     hint = document.createElement('div');
@@ -6395,7 +6984,10 @@ function addSelectedTodos() {
     hint.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.2);';
     document.body.appendChild(hint);
   }
-  hint.textContent = '\u2705 \u5df2\u6dfb\u52a0 ' + selected.length + ' \u4e2a\u5f85\u529e\u5230 ' + targetDate;
+  var parts = [];
+  if (newLearnCount > 0) parts.push(newLearnCount + '\u4e2a\u65b0\u5b66');
+  if (taskCount > 0) parts.push(taskCount + '\u4e2a\u4efb\u52a1');
+  hint.textContent = '\u2705 \u5df2\u6dfb\u52a0 ' + parts.join('+') + ' \u5230 ' + targetDate;
   hint.style.display = 'block';
   setTimeout(function() { hint.style.display = 'none'; }, 2500);
 }
@@ -6409,13 +7001,88 @@ function toggleGroup(groupId) {
   if (el) el.classList.toggle('collapsed');
 }
 
+// ===== Edit custom task (inline) =====
+function editCustomTask(taskId) {
+  if (!store.customTasks) return;
+  var task = store.customTasks.find(function(t) { return t.id === taskId; });
+  if (!task) return;
+  
+  var itemEl = document.getElementById('task-' + taskId);
+  if (!itemEl) return;
+  
+  var infoEl = itemEl.querySelector('.dp-task-info');
+  if (!infoEl) return;
+  
+  infoEl.innerHTML = '<div class="dp-edit-wrap"><input class="dp-edit-input" type="text" value="' + escapeHtml(task.text) + '" maxlength="200" /><button class="dp-edit-save" onclick="saveEditTask(\'' + taskId + '\')">\u4fdd\u5b58</button><button class="dp-edit-cancel" onclick="cancelEditTask(\'' + taskId + '\')">\u53d6\u6d88</button></div>';
+  
+  var input = infoEl.querySelector('.dp-edit-input');
+  if (input) {
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') saveEditTask(taskId);
+      if (e.key === 'Escape') cancelEditTask(taskId);
+    });
+  }
+}
+
+function saveEditTask(taskId) {
+  if (!store.customTasks) return;
+  var itemEl = document.getElementById('task-' + taskId);
+  if (!itemEl) return;
+  var input = itemEl.querySelector('.dp-edit-input');
+  if (!input) return;
+  var newText = input.value.trim();
+  if (!newText) { cancelEditTask(taskId); return; }
+  
+  var task = store.customTasks.find(function(t) { return t.id === taskId; });
+  if (task) {
+    task.text = newText;
+    saveStore();
+    renderDailyPlan();
+  }
+}
+
+function cancelEditTask(taskId) {
+  renderDailyPlan();
+}
+
+// ===== Custom confirm dialog =====
+function showConfirmDialog(title, desc, confirmLabel, isDanger, onConfirm) {
+  var overlay = document.createElement('div');
+  overlay.className = 'dp-confirm-overlay';
+  overlay.innerHTML = '<div class="dp-confirm-box"><span class="dp-confirm-icon">' + (isDanger ? '\u26A0' : '\u2753') + '</span><div class="dp-confirm-title">' + title + '</div><div class="dp-confirm-desc">' + desc + '</div><div class="dp-confirm-actions"><button class="dp-confirm-btn" id="confirm-cancel">\u53d6\u6d88</button><button class="dp-confirm-btn ' + (isDanger ? 'danger' : 'primary') + '" id="confirm-ok">' + confirmLabel + '</button></div></div>';
+  
+  document.body.appendChild(overlay);
+  
+  document.getElementById('confirm-cancel').addEventListener('click', function() {
+    overlay.remove();
+  });
+  
+  document.getElementById('confirm-ok').addEventListener('click', function() {
+    overlay.remove();
+    if (typeof onConfirm === 'function') onConfirm();
+  });
+  
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.remove();
+  });
+}
+
 // ===== Delete custom task =====
 function deleteCustomTask(taskId) {
   if (!store.customTasks) return;
-  if (!confirm('\u786e\u8ba4\u5220\u9664\u8fd9\u4e2a\u4efb\u52a1\uff1f\u5220\u9664\u540e\u53ef\u4ece\u5929\u5929\u5e08\u5144\u5f85\u529e\u91cd\u65b0\u6dfb\u52a0\u3002')) return;
-  store.customTasks = store.customTasks.filter(function(t) { return t.id !== taskId; });
-  saveStore();
-  renderDailyPlan();
+  showConfirmDialog(
+    '\u5220\u9664\u4efb\u52a1',
+    '\u786e\u8ba4\u5220\u9664\u8fd9\u4e2a\u4efb\u52a1\uff1f<br>\u5220\u9664\u540e\u53ef\u4ece\u5929\u5929\u5e08\u5144\u5f85\u529e\u91cd\u65b0\u6dfb\u52a0\u3002',
+    '\u5220\u9664',
+    true,
+    function() {
+      store.customTasks = store.customTasks.filter(function(t) { return t.id !== taskId; });
+      saveStore();
+      renderDailyPlan();
+    }
+  );
 }
 
 // ===== Toggle custom task done =====
@@ -6431,12 +7098,142 @@ function toggleCustomTaskDone(taskId) {
 
 // ===== Delete new learn record (allows re-adding) =====
 function deleteNewLearnRecord(recordId) {
-  if (!confirm('\u786e\u8ba4\u5220\u9664\u8fd9\u6761\u65b0\u5b66\u8bb0\u5f55\uff1f\u5220\u9664\u540e\u53ef\u4ee5\u91cd\u65b0\u6dfb\u52a0\uff0c\u4f46\u5df2\u4ea7\u751f\u7684\u5de9\u56fa\u590d\u4e60\u8bb0\u5f55\u4e5f\u4f1a\u4e00\u5e76\u6e05\u9664\u3002')) return;
-  store.newLearnRecords = store.newLearnRecords.filter(function(r) { return r.id !== recordId; });
+  showConfirmDialog(
+    '\u5220\u9664\u4efb\u52a1',
+    '\u786e\u8ba4\u5220\u9664\u8fd9\u6761\u65b0\u5b66\u8bb0\u5f55\uff1f<br>\u5220\u9664\u540e\u53ef\u4ee5\u91cd\u65b0\u6dfb\u52a0\uff0c\u4f46\u5df2\u4ea7\u751f\u7684\u5de9\u56fa\u590d\u4e60\u8bb0\u5f55\u4e5f\u4f1a\u4e00\u5e76\u6e05\u9664\u3002',
+    '\u5220\u9664',
+    true,
+    function() {
+      var record = store.newLearnRecords.find(function(r) { return r.id === recordId; });
+      if (record && record.linkedTaskId) {
+        store.customTasks = (store.customTasks || []).filter(function(t) { return t.id !== record.linkedTaskId; });
+      }
+      store.newLearnRecords = store.newLearnRecords.filter(function(r) { return r.id !== recordId; });
+      saveStore();
+      renderDailyPlan();
+      renderHome();
+      renderStatusBarPanel();
+    }
+  );
+}
+
+// ===== Edit new learn record (inline) =====
+function editNewLearnRecord(recordId) {
+  var record = store.newLearnRecords.find(function(r) { return r.id === recordId; });
+  if (!record) return;
+
+  var itemEl = document.getElementById('nlr-' + recordId);
+  if (!itemEl) return;
+
+  var infoEl = itemEl.querySelector('.dp-task-info');
+  if (!infoEl) return;
+
+  var ch = getChapterById(record.chapterId);
+  var currentText = record.customText || (ch ? ch.name : '');
+  infoEl.innerHTML = '<div class="dp-edit-wrap"><input class="dp-edit-input" type="text" value="' + escapeHtml(currentText) + '" maxlength="200" /><button class="dp-edit-save" onclick="saveNewLearnEdit(\'' + recordId + '\')">\u4fdd\u5b58</button><button class="dp-edit-cancel" onclick="cancelNewLearnEdit(\'' + recordId + '\')">\u53d6\u6d88</button></div>';
+
+  var input = infoEl.querySelector('.dp-edit-input');
+  if (input) {
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') saveNewLearnEdit(recordId);
+      if (e.key === 'Escape') cancelNewLearnEdit(recordId);
+    });
+  }
+}
+
+function saveNewLearnEdit(recordId) {
+  var record = store.newLearnRecords.find(function(r) { return r.id === recordId; });
+  if (!record) return;
+  var itemEl = document.getElementById('nlr-' + recordId);
+  if (!itemEl) return;
+  var input = itemEl.querySelector('.dp-edit-input');
+  if (!input) return;
+  var newText = input.value.trim();
+  if (!newText) { cancelNewLearnEdit(recordId); return; }
+
+  record.customText = newText;
+  if (record.linkedTaskId) {
+    var task = (store.customTasks || []).find(function(t) { return t.id === record.linkedTaskId; });
+    if (task) task.text = newText;
+  }
   saveStore();
   renderDailyPlan();
-  renderHome();
-  renderStatusBarPanel();
+}
+
+function cancelNewLearnEdit(recordId) {
+  renderDailyPlan();
+}
+
+// ===== Edit rolling review (inline) =====
+function editRollingReview(chapterId) {
+  var itemEl = document.getElementById('rr-' + chapterId);
+  if (!itemEl) return;
+
+  var infoEl = itemEl.querySelector('.dp-task-info');
+  if (!infoEl) return;
+
+  var ch = getChapterById(chapterId);
+  var currentText = (store.rollingStatus[chapterId] && store.rollingStatus[chapterId].customText) || (ch ? ch.name : '');
+  infoEl.innerHTML = '<div class="dp-edit-wrap"><input class="dp-edit-input" type="text" value="' + escapeHtml(currentText) + '" maxlength="200" /><button class="dp-edit-save" onclick="saveRollingEdit(\'' + chapterId + '\')">\u4fdd\u5b58</button><button class="dp-edit-cancel" onclick="cancelRollingEdit(\'' + chapterId + '\')">\u53d6\u6d88</button></div>';
+
+  var input = infoEl.querySelector('.dp-edit-input');
+  if (input) {
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') saveRollingEdit(chapterId);
+      if (e.key === 'Escape') cancelRollingEdit(chapterId);
+    });
+  }
+}
+
+function saveRollingEdit(chapterId) {
+  var itemEl = document.getElementById('rr-' + chapterId);
+  if (!itemEl) return;
+  var input = itemEl.querySelector('.dp-edit-input');
+  if (!input) return;
+  var newText = input.value.trim();
+  if (!newText) { cancelRollingEdit(chapterId); return; }
+
+  if (!store.rollingStatus[chapterId]) store.rollingStatus[chapterId] = { done: false, lastDate: '' };
+  store.rollingStatus[chapterId].customText = newText;
+  var linkedTaskId = store.rollingStatus[chapterId].linkedTaskId;
+  if (linkedTaskId) {
+    var task = (store.customTasks || []).find(function(t) { return t.id === linkedTaskId; });
+    if (task) task.text = newText;
+  }
+  saveStore();
+  renderDailyPlan();
+}
+
+function cancelRollingEdit(chapterId) {
+  renderDailyPlan();
+}
+
+// ===== Delete rolling review =====
+function deleteRollingReview(chapterId) {
+  showConfirmDialog(
+    '\u5220\u9664\u4efb\u52a1',
+    '\u786e\u8ba4\u5220\u9664\u8fd9\u4e2a\u6eda\u52a8\u590d\u4e60\u4efb\u52a1\uff1f<br>\u5220\u9664\u540e\u53ef\u4ece\u5929\u5929\u5e08\u5144\u5f85\u529e\u91cd\u65b0\u6dfb\u52a0\u3002',
+    '\u5220\u9664',
+    true,
+    function() {
+      if (store.rollingStatus[chapterId]) {
+        var linkedTaskId = store.rollingStatus[chapterId].linkedTaskId;
+        store.rollingStatus[chapterId].done = false;
+        store.rollingStatus[chapterId].lastDate = '';
+        delete store.rollingStatus[chapterId].customText;
+        delete store.rollingStatus[chapterId].linkedTaskId;
+        if (linkedTaskId) {
+          store.customTasks = (store.customTasks || []).filter(function(t) { return t.id !== linkedTaskId; });
+        }
+      }
+      saveStore();
+      renderDailyPlan();
+    }
+  );
 }
 
 // ===== Skip consolidation review (removes from today only) =====
@@ -6494,6 +7291,13 @@ async function init() {
   if (!store.teacherPlan.syncTime || !store.teacherPlan.syncTime.startsWith(today)) {
     syncTeacherPlan();
   }
+  
+  // Auto-pull from cloud if syncCode is bound (delayed to not block initial render)
+  if (store.syncCode) {
+    setTimeout(autoSyncPull, 2000);
+    // Periodic auto-pull every 5 minutes
+    setInterval(autoSyncPull, 300000);
+  }
 }
 
 init();
@@ -6545,6 +7349,116 @@ function debugReviewData() {
   console.log('===== End Debug =====');
 }
 
+// ===== Chapter Selection Modal Functions =====
+var pendingTodoIdx = -1;
+var modalSelectedChapterId = null;
+
+function openChapterModal(todoIdx) {
+  pendingTodoIdx = todoIdx;
+  modalSelectedChapterId = null;
+  var overlay = document.getElementById('chapterModal');
+  if (!overlay) return;
+  overlay.classList.add('active');
+  
+  var list = document.getElementById('modalList');
+  var searchInput = document.getElementById('modalSearch');
+  if (searchInput) { searchInput.value = ''; searchInput.focus(); }
+  
+  // Show all chapters grouped by subject
+  renderChapterOptions('');
+}
+
+function closeChapterModal() {
+  var overlay = document.getElementById('chapterModal');
+  if (overlay) overlay.classList.remove('active');
+  pendingTodoIdx = -1;
+  modalSelectedChapterId = null;
+}
+
+function renderChapterOptions(filter) {
+  var list = document.getElementById('modalList');
+  if (!list) return;
+  var q = (filter || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+  
+  var opts = [];
+  CHAPTER_DATA.forEach(function(ch) {
+    var name = (ch.name || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+    if (!q || name.indexOf(q) >= 0 || (ch.system || '').indexOf(q) >= 0 || (ch.subject || '').indexOf(q) >= 0) {
+      opts.push(ch);
+    }
+  });
+  
+  if (opts.length === 0) {
+    list.innerHTML = '<div style="padding:10px;font-size:12px;color:var(--muted);text-align:center;">\u6ca1\u6709\u5339\u914d\u7ae0\u8282</div>';
+    return;
+  }
+  
+  var html = '';
+  opts.forEach(function(ch) {
+    var sel = modalSelectedChapterId === ch.id ? ' selected' : '';
+    var subjColor = SUBJECT_COLORS[ch.subject] || '#b0a8a0';
+    html += '<div class="tp-modal-opt' + sel + '" data-ch-id="' + ch.id + '" onclick="selectChapterOption(\'' + ch.id + '\')">';
+    html += '<span class="subj-tag" style="background:' + subjColor + '">' + ch.subject + '</span>';
+    html += '<span>' + escapeHtml(ch.name) + '</span>';
+    html += '<span style="font-size:10px;color:var(--muted);margin-left:auto;">' + ch.system + '</span>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+}
+
+function filterChapterOptions() {
+  var searchInput = document.getElementById('modalSearch');
+  renderChapterOptions(searchInput ? searchInput.value : '');
+}
+
+function selectChapterOption(chId) {
+  modalSelectedChapterId = chId;
+  // Re-render to show selection highlight
+  var searchInput = document.getElementById('modalSearch');
+  renderChapterOptions(searchInput ? searchInput.value : '');
+}
+
+function confirmChapterMatch() {
+  if (pendingTodoIdx < 0 || !teacherTodoItems[pendingTodoIdx]) {
+    closeChapterModal();
+    return;
+  }
+  if (!modalSelectedChapterId) {
+    alert('\u8bf7\u9009\u62e9\u4e00\u4e2a\u7ae0\u8282');
+    return;
+  }
+  
+  var ch = getChapterById(modalSelectedChapterId);
+  if (!ch) { closeChapterModal(); return; }
+  
+  var todo = teacherTodoItems[pendingTodoIdx];
+  todo.chapterId = ch.id;
+  todo.matchInfo = { chapter: ch, score: 100, matchField: 'manual' };
+  // Also update allMatches to include this chapter
+  if (!todo.allMatches) todo.allMatches = [];
+  var exists = todo.allMatches.some(function(m) { return m.chapter && m.chapter.id === ch.id; });
+  if (!exists) {
+    todo.allMatches.push({ chapter: ch, score: 100, matchField: 'manual' });
+  }
+  
+  closeChapterModal();
+  renderTeacherTodoPanel();
+}
+
 </script>
+
+<!-- Chapter Selection Modal -->
+<div class="tp-modal-overlay" id="chapterModal">
+  <div class="tp-modal-box">
+    <div class="tp-modal-title">选择匹配章节</div>
+    <input class="tp-modal-search" id="modalSearch" placeholder="搜索章节名称..." oninput="filterChapterOptions()" />
+    <div class="tp-modal-list" id="modalList"></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn" onclick="closeChapterModal()">取消</button>
+      <button class="tp-modal-btn primary" onclick="confirmChapterMatch()">确认匹配</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

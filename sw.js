@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rosy-deploy-v1';
+const CACHE_NAME = 'rosy-deploy-v9';
 const ASSETS = ['/', '/index.html', '/manifest.json', '/icon192.png', '/icon512.png'];
 
 self.addEventListener('install', e => {
@@ -10,6 +10,14 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+
+  // Never cache API requests - always go to network
+  if (url.pathname.startsWith('/api/')) {
+    e.respondWith(fetch(e.request));
+    return;
+  }
+
   // Network-first strategy for HTML, cache-first for static assets
   if (e.request.mode === 'navigate' || e.request.destination === 'document') {
     e.respondWith(
