@@ -3287,14 +3287,11 @@ function getConsolidationReviews() {
   const reviews = [];
   
   store.newLearnRecords.forEach(function(record) {
-    const learnDate = parseDate(record.date);
-    
     EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
       if (record.completedReviews && record.completedReviews.indexOf(idx) >= 0) return;
       if (record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0) return;
-      const reviewDate = new Date(learnDate);
-      reviewDate.setDate(reviewDate.getDate() + interval);
-      const reviewDateStr = fmtDate(reviewDate);
+      var reviewDate = getShiftedReviewDate(record, idx);
+      var reviewDateStr = fmtDate(reviewDate);
       
       // String comparison: only push if review date <= today
       if (reviewDateStr <= todayStr) {
@@ -3327,12 +3324,9 @@ function getAllConsolidationReviews() {
   var reviews = [];
 
   store.newLearnRecords.forEach(function(record) {
-    var learnDate = parseDate(record.date);
-
     EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
       if (record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0) return;
-      var reviewDate = new Date(learnDate);
-      reviewDate.setDate(reviewDate.getDate() + interval);
+      var reviewDate = getShiftedReviewDate(record, idx);
       var reviewDateStr = fmtDate(reviewDate);
 
       if (reviewDateStr <= todayStr) {
@@ -3377,12 +3371,10 @@ function get7DayPreview() {
     var items = [];
 
     store.newLearnRecords.forEach(function(record) {
-      var learnDate = parseDate(record.date);
       EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
         if (record.completedReviews && record.completedReviews.indexOf(idx) >= 0) return;
         if (record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0) return;
-        var reviewDate = new Date(learnDate);
-        reviewDate.setDate(reviewDate.getDate() + interval);
+        var reviewDate = getShiftedReviewDate(record, idx);
         if (fmtDate(reviewDate) === dateStr) {
           count++;
           var ch = getChapterById(record.chapterId);
@@ -5348,18 +5340,47 @@ function markConsolidationDone(recordId, intervalIdx) {
   if (!record.completedReviews) record.completedReviews = [];
   record.completedReviews.push(intervalIdx);
   
+  // Track actual completion date for this interval
+  var todayStr = fmtDate(new Date());
+  if (!record.completedDates) record.completedDates = {};
+  record.completedDates[intervalIdx] = todayStr;
+  
+  // Calculate delay and update shiftDays for subsequent reviews
+  var shift = record.shiftDays || 0;
+  var learnDate = parseDate(record.date);
+  var shiftedDueDate = new Date(learnDate);
+  shiftedDueDate.setDate(shiftedDueDate.getDate() + EBINGHAUS_INTERVALS[intervalIdx] + shift);
+  var shiftedDueStr = fmtDate(shiftedDueDate);
+  // delay in days: if completed after the shifted due date
+  if (todayStr > shiftedDueStr) {
+    var delayMs = new Date(todayStr) - new Date(shiftedDueStr);
+    var delayDays = Math.floor(delayMs / (1000 * 60 * 60 * 24));
+    if (delayDays > 0) {
+      record.shiftDays = shift + delayDays;
+    }
+  }
+  
   const chId = record.chapterId;
   if (!store.reviewRecords[chId]) {
     store.reviewRecords[chId] = { count: 0, lastDate: '', dates: [] };
   }
   store.reviewRecords[chId].count++;
-  store.reviewRecords[chId].lastDate = fmtDate(new Date());
-  store.reviewRecords[chId].dates.push(fmtDate(new Date()));
+  store.reviewRecords[chId].lastDate = todayStr;
+  store.reviewRecords[chId].dates.push(todayStr);
   
   saveStore();
   renderDailyPlan();
   renderHome();
   showTaskToast();
+}
+
+// Helper: calculate shifted review date for a record + interval index
+function getShiftedReviewDate(record, intervalIdx) {
+  var learnDate = parseDate(record.date);
+  var shift = record.shiftDays || 0;
+  var reviewDate = new Date(learnDate);
+  reviewDate.setDate(reviewDate.getDate() + EBINGHAUS_INTERVALS[intervalIdx] + shift);
+  return reviewDate;
 }
 
 function toggleRollingDone(chapterId) {
@@ -5695,18 +5716,26 @@ function renderWeekView(refDate, todayStr) {
       return ch ? ch.name : null;
     }).filter(function(n) { return n; });
 
-    // Consolidation review items (due on this date)
+    // Consolidation review items
+    // Completed: show on actual completion date; Pending: show on shifted due date
     var conItems = [];
     store.newLearnRecords.forEach(function(record) {
-      var learnDate = parseDate(record.date);
       EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
         if (record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0) return;
-        var reviewDate = new Date(learnDate);
-        reviewDate.setDate(reviewDate.getDate() + interval);
-        if (fmtDate(reviewDate) === dateStr) {
+        var isDone = record.completedReviews && record.completedReviews.indexOf(idx) >= 0;
+        var matchDate = false;
+        if (isDone) {
+          // Show completed on actual completion date
+          var completionDate = record.completedDates && record.completedDates[idx];
+          if (completionDate === dateStr) matchDate = true;
+        } else {
+          // Show pending on shifted due date
+          var reviewDate = getShiftedReviewDate(record, idx);
+          if (fmtDate(reviewDate) === dateStr) matchDate = true;
+        }
+        if (matchDate) {
           var ch = getChapterById(record.chapterId);
           if (ch) {
-            var isDone = record.completedReviews && record.completedReviews.indexOf(idx) >= 0;
             conItems.push({ name: ch.name, subject: ch.subject, interval: EBINGHAUS_LABELS[idx], done: isDone });
           }
         }
@@ -7044,17 +7073,27 @@ function markConsolidationForChapter(chapterId, todayStr) {
     if (!record.completedReviews) record.completedReviews = [];
     if (record.skippedReviews && record.skippedReviews.indexOf(-1) >= 0) return;
 
-    var learnDate = parseDate(record.date);
     EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
       if (record.completedReviews.indexOf(idx) >= 0) return;
       if (record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0) return;
 
-      var reviewDate = new Date(learnDate);
-      reviewDate.setDate(reviewDate.getDate() + interval);
+      var reviewDate = getShiftedReviewDate(record, idx);
       var reviewDateStr = fmtDate(reviewDate);
 
       if (reviewDateStr <= todayStr) {
         record.completedReviews.push(idx);
+        // Track actual completion date
+        if (!record.completedDates) record.completedDates = {};
+        record.completedDates[idx] = todayStr;
+        // Calculate delay and update shiftDays for subsequent reviews
+        var shift = record.shiftDays || 0;
+        if (todayStr > reviewDateStr) {
+          var delayMs = new Date(todayStr) - new Date(reviewDateStr);
+          var delayDays = Math.floor(delayMs / (1000 * 60 * 60 * 24));
+          if (delayDays > 0) {
+            record.shiftDays = shift + delayDays;
+          }
+        }
         if (!store.reviewRecords[chapterId]) {
           store.reviewRecords[chapterId] = { count: 0, lastDate: '', dates: [] };
         }
@@ -7444,13 +7483,12 @@ function debugReviewData() {
     console.log('  skippedReviews:', record.skippedReviews);
     
     EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
-      var reviewDate = new Date(learnDate);
-      reviewDate.setDate(reviewDate.getDate() + interval);
+      var reviewDate = getShiftedReviewDate(record, idx);
       var daysUntil = daysBetween(today, reviewDate);
       var isCompleted = record.completedReviews && record.completedReviews.indexOf(idx) >= 0;
       var isSkipped = record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0;
       var status = isCompleted ? 'DONE' : (isSkipped ? 'SKIPPED' : (daysUntil <= 0 ? 'DUE' : 'FUTURE'));
-      console.log('  ' + EBINGHAUS_LABELS[idx] + ' (idx=' + idx + ', interval=' + interval + '): reviewDate=' + fmtDate(reviewDate) + ', daysUntil=' + daysUntil + ', status=' + status);
+      console.log('  ' + EBINGHAUS_LABELS[idx] + ' (idx=' + idx + ', interval=' + interval + '): shiftedReviewDate=' + fmtDate(reviewDate) + ', shift=' + (record.shiftDays || 0) + ', daysUntil=' + daysUntil + ', status=' + status);
     });
   });
   
