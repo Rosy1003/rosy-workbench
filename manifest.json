@@ -1,22 +1,27 @@
 {
+    "name": "Rosy 学习工作台",
+    "short_name": "Rosy",
+    "description": "306西医综合考研学习工作台",
     "icons": [
         {
             "type": "image/png",
             "sizes": "192x192",
-            "src": "icon192.png"
+            "src": "icon192.png",
+            "purpose": "any maskable"
         },
         {
             "type": "image/png",
             "sizes": "512x512",
-            "src": "icon512.png"
+            "src": "icon512.png",
+            "purpose": "any maskable"
         },
         {
             "type": "image/png",
             "sizes": "180x180",
-            "src": "icon180.png"
+            "src": "icon180.png",
+            "purpose": "any"
         }
     ],
-    "description": "306西医综合考研学习工作台",
     "background_color": "#F5F2EE",
     "theme_color": "#8A9A82",
     "name": "Rosy 学习工作台",
@@ -24,5 +29,6 @@
     "scope": "/",
     "display": "standalone",
     "orientation": "any",
-    "short_name": "Rosy"
+    "short_name": "Rosy",
+    "categories": ["education", "productivity"]
 }

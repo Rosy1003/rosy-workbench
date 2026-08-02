@@ -6349,7 +6349,7 @@ function extractTodos(description) {
   sections.forEach(function(section) {
     const trimmed = section.trim();
     if (!trimmed) return;
-    var isLive = /直播/.test(trimmed) && !/没有直播/.test(trimmed);
+    var isLive = (/直播|讲解|授课/.test(trimmed)) && !/没有直播/.test(trimmed);
     var isReview = /复习/.test(trimmed) && !/直播/.test(trimmed.substring(0, 10));
     var isRolling = /滚动/.test(trimmed);
     var isQuiz = /做题|真题|练习/.test(trimmed);
@@ -6909,33 +6909,48 @@ function addSelectedTodos() {
   var dateInput = document.getElementById('tpDateInput');
   var targetDate = dateInput && dateInput.value ? dateInput.value : fmtDate(new Date());
 
+  // Check for duplicate chapters in 'new' category
+  var duplicates = [];
+  selected.forEach(function(todo) {
+    if (todo.category === 'new' && todo.chapterId && isLearned(todo.chapterId)) {
+      var ch = getChapterById(todo.chapterId);
+      if (ch) duplicates.push({ todo: todo, chapter: ch });
+    }
+  });
+
+  if (duplicates.length > 0) {
+    var dupNames = duplicates.map(function(d) {
+      return '<span style="color:var(--accent);">' + d.chapter.subject + ' \u00b7 ' + escapeHtml(d.chapter.name) + '</span>';
+    }).join('<br>');
+    showConfirmDialog(
+      '\u7ae0\u8282\u5df2\u5b66\u8fc7',
+      '\u4ee5\u4e0b\u7ae0\u8282\u5df2\u5728\u5df2\u5b66\u5217\u8868\u4e2d\uff1a<br>' + dupNames + '<br><br>\u662f\u5426\u91cd\u65b0\u5f00\u59cb\u590d\u4e60\u66f2\u7ebf\uff1f<br>\u786e\u8ba4\u540e\u5c06\u521b\u5efa\u65b0\u7684\u5b66\u4e60\u8bb0\u5f55\uff0c\u539f\u8bb0\u5f55\u7684\u590d\u4e60\u8ba1\u5212\u4e0d\u53d7\u5f71\u54cd\u3002',
+      '\u786e\u8ba4\u91cd\u65b0\u6dfb\u52a0',
+      false,
+      function() { doAddSelectedTodos(selected, targetDate); }
+    );
+    return;
+  }
+
+  doAddSelectedTodos(selected, targetDate);
+}
+
+function doAddSelectedTodos(selected, targetDate) {
   var newLearnCount = 0;
+  var conCount = 0;
+  var rolCount = 0;
   var taskCount = 0;
+  var todayStr = fmtDate(new Date());
 
   selected.forEach(function(todo) {
-    var taskId = 'ct_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-
-    // Always add as customTask (with edit/delete)
-    if (!store.customTasks) store.customTasks = [];
-    store.customTasks.push({
-      id: taskId,
-      text: todo.text,
-      date: targetDate,
-      category: todo.category,
-      done: false,
-      chapterId: todo.chapterId || null
-    });
-    taskCount++;
-
-    // For matched 'new' items, also create newLearnRecord
     if (todo.category === 'new' && todo.chapterId) {
+      // Matched new learn: same logic as addBatchNewLearn (no customTask)
       var record = {
-        id: 'r_' + Date.now() + '_' + todo.chapterId,
+        id: 'r_' + Date.now() + '_' + todo.chapterId + '_' + Math.random().toString(36).substr(2, 4),
         chapterId: todo.chapterId,
         date: targetDate,
         completedReviews: [],
-        customText: todo.text,
-        linkedTaskId: taskId
+        customText: todo.text
       };
       if (!store.newLearnRecords) store.newLearnRecords = [];
       store.newLearnRecords.push(record);
@@ -6947,17 +6962,24 @@ function addSelectedTodos() {
       store.reviewRecords[todo.chapterId].lastDate = targetDate;
       store.reviewRecords[todo.chapterId].dates.push(targetDate);
       newLearnCount++;
-    }
-
-    // For matched 'rol' items, also mark rollingStatus
-    if (todo.category === 'rol' && todo.chapterId) {
+    } else if (todo.category === 'con' && todo.chapterId) {
+      // Matched consolidation: mark due Ebbinghaus review nodes as done
+      var marked = markConsolidationForChapter(todo.chapterId, todayStr);
+      if (marked > 0) {
+        conCount += marked;
+      } else {
+        // No due reviews found, create plain customTask (without chapterId for display)
+        addCustomTaskForTodo(todo, targetDate);
+        taskCount++;
+      }
+    } else if (todo.category === 'rol' && todo.chapterId) {
+      // Matched rolling: mark rolling review as done
       if (!store.rollingStatus[todo.chapterId]) {
         store.rollingStatus[todo.chapterId] = { done: false, lastDate: '' };
       }
       store.rollingStatus[todo.chapterId].done = true;
       store.rollingStatus[todo.chapterId].lastDate = targetDate;
       store.rollingStatus[todo.chapterId].customText = todo.text;
-      store.rollingStatus[todo.chapterId].linkedTaskId = taskId;
       if (!store.reviewRecords[todo.chapterId]) {
         store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
       }
@@ -6965,6 +6987,11 @@ function addSelectedTodos() {
       store.reviewRecords[todo.chapterId].lastDate = targetDate;
       store.reviewRecords[todo.chapterId].dates.push(targetDate);
       if (!isLearned(todo.chapterId)) store.learnedChapters.push(todo.chapterId);
+      rolCount++;
+    } else {
+      // Unmatched or no chapter: create plain customTask
+      addCustomTaskForTodo(todo, targetDate);
+      taskCount++;
     }
   });
 
@@ -6986,10 +7013,58 @@ function addSelectedTodos() {
   }
   var parts = [];
   if (newLearnCount > 0) parts.push(newLearnCount + '\u4e2a\u65b0\u5b66');
+  if (conCount > 0) parts.push(conCount + '\u4e2a\u5de9\u56fa');
+  if (rolCount > 0) parts.push(rolCount + '\u4e2a\u6eda\u52a8');
   if (taskCount > 0) parts.push(taskCount + '\u4e2a\u4efb\u52a1');
   hint.textContent = '\u2705 \u5df2\u6dfb\u52a0 ' + parts.join('+') + ' \u5230 ' + targetDate;
   hint.style.display = 'block';
   setTimeout(function() { hint.style.display = 'none'; }, 2500);
+}
+
+// Mark all due consolidation review nodes for a chapter as done
+function markConsolidationForChapter(chapterId, todayStr) {
+  var marked = 0;
+  store.newLearnRecords.forEach(function(record) {
+    if (record.chapterId !== chapterId) return;
+    if (!record.completedReviews) record.completedReviews = [];
+    if (record.skippedReviews && record.skippedReviews.indexOf(-1) >= 0) return;
+
+    var learnDate = parseDate(record.date);
+    EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
+      if (record.completedReviews.indexOf(idx) >= 0) return;
+      if (record.skippedReviews && record.skippedReviews.indexOf(idx) >= 0) return;
+
+      var reviewDate = new Date(learnDate);
+      reviewDate.setDate(reviewDate.getDate() + interval);
+      var reviewDateStr = fmtDate(reviewDate);
+
+      if (reviewDateStr <= todayStr) {
+        record.completedReviews.push(idx);
+        if (!store.reviewRecords[chapterId]) {
+          store.reviewRecords[chapterId] = { count: 0, lastDate: '', dates: [] };
+        }
+        store.reviewRecords[chapterId].count++;
+        store.reviewRecords[chapterId].lastDate = todayStr;
+        store.reviewRecords[chapterId].dates.push(todayStr);
+        marked++;
+      }
+    });
+  });
+  return marked;
+}
+
+// Create a plain customTask (without chapterId for proper display)
+function addCustomTaskForTodo(todo, targetDate) {
+  if (!store.customTasks) store.customTasks = [];
+  var taskId = 'ct_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+  store.customTasks.push({
+    id: taskId,
+    text: todo.text,
+    date: targetDate,
+    category: todo.category,
+    done: false,
+    chapterId: null
+  });
 }
 
 // ===== Toggle group collapse =====
@@ -7397,13 +7472,21 @@ function renderChapterOptions(filter) {
   opts.forEach(function(ch) {
     var sel = modalSelectedChapterId === ch.id ? ' selected' : '';
     var subjColor = SUBJECT_COLORS[ch.subject] || '#b0a8a0';
-    html += '<div class="tp-modal-opt' + sel + '" data-ch-id="' + ch.id + '" onclick="selectChapterOption(\'' + ch.id + '\')">';
+    html += '<div class="tp-modal-opt' + sel + '" data-ch-id="' + ch.id + '">';
     html += '<span class="subj-tag" style="background:' + subjColor + '">' + ch.subject + '</span>';
     html += '<span>' + escapeHtml(ch.name) + '</span>';
     html += '<span style="font-size:10px;color:var(--muted);margin-left:auto;">' + ch.system + '</span>';
     html += '</div>';
   });
   list.innerHTML = html;
+
+  // Event delegation: click on option to select (replaces inline onclick for reliability)
+  list.querySelectorAll('.tp-modal-opt').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var chId = this.getAttribute('data-ch-id');
+      if (chId) selectChapterOption(chId);
+    });
+  });
 }
 
 function filterChapterOptions() {
