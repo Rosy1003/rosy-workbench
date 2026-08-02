@@ -6989,19 +6989,18 @@ function doAddSelectedTodos(selected, targetDate) {
         taskCount++;
       }
     } else if (todo.category === 'rol' && todo.chapterId) {
-      // Matched rolling: mark rolling review as done
+      // Matched rolling: create customTask for display + update rollingStatus for tracking
+      var rolTaskId = addCustomTaskForTodo(todo, targetDate, todo.chapterId);
+      taskCount++;
+      // Also update rollingStatus and reviewRecords for tracking
       if (!store.rollingStatus[todo.chapterId]) {
         store.rollingStatus[todo.chapterId] = { done: false, lastDate: '' };
       }
-      store.rollingStatus[todo.chapterId].done = true;
-      store.rollingStatus[todo.chapterId].lastDate = targetDate;
       store.rollingStatus[todo.chapterId].customText = todo.text;
+      store.rollingStatus[todo.chapterId].linkedTaskId = rolTaskId;
       if (!store.reviewRecords[todo.chapterId]) {
         store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
       }
-      store.reviewRecords[todo.chapterId].count++;
-      store.reviewRecords[todo.chapterId].lastDate = targetDate;
-      store.reviewRecords[todo.chapterId].dates.push(targetDate);
       if (!isLearned(todo.chapterId)) store.learnedChapters.push(todo.chapterId);
       rolCount++;
     } else {
@@ -7070,17 +7069,20 @@ function markConsolidationForChapter(chapterId, todayStr) {
 }
 
 // Create a plain customTask (without chapterId for proper display)
-function addCustomTaskForTodo(todo, targetDate) {
+function addCustomTaskForTodo(todo, targetDate, linkedChapterId) {
   if (!store.customTasks) store.customTasks = [];
   var taskId = 'ct_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-  store.customTasks.push({
+  var task = {
     id: taskId,
     text: todo.text,
     date: targetDate,
     category: todo.category,
     done: false,
     chapterId: null
-  });
+  };
+  if (linkedChapterId) task.linkedChapterId = linkedChapterId;
+  store.customTasks.push(task);
+  return taskId;
 }
 
 // ===== Toggle group collapse =====
@@ -7182,8 +7184,31 @@ function toggleCustomTaskDone(taskId) {
   var task = store.customTasks.find(function(t) { return t.id === taskId; });
   if (task) {
     task.done = !task.done;
+    var justCompleted = task.done;
+
+    // If this is a linked rolling review task, update rollingStatus + reviewRecords
+    if (task.linkedChapterId && task.category === 'rol') {
+      var chId = task.linkedChapterId;
+      if (!store.rollingStatus[chId]) {
+        store.rollingStatus[chId] = { done: false, lastDate: '' };
+      }
+      store.rollingStatus[chId].done = justCompleted;
+      if (justCompleted) {
+        var todayStr = fmtDate(new Date());
+        store.rollingStatus[chId].lastDate = todayStr;
+        if (!store.reviewRecords[chId]) {
+          store.reviewRecords[chId] = { count: 0, lastDate: '', dates: [] };
+        }
+        store.reviewRecords[chId].count++;
+        store.reviewRecords[chId].lastDate = todayStr;
+        store.reviewRecords[chId].dates.push(todayStr);
+      }
+    }
+
     saveStore();
     renderDailyPlan();
+    renderHome();
+    if (justCompleted) showTaskToast();
   }
 }
 
