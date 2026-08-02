@@ -2275,6 +2275,7 @@ body {
 .tp-chapter-badge .subj { opacity: 0.7; }
 .tp-match-btn { font-size: 10px; padding: 1px 6px; border-radius: 4px; background: rgba(201,169,161,0.15); color: var(--accent2); cursor: pointer; border: none; font-family: inherit; transition: all 0.12s; white-space: nowrap; }
 .tp-match-btn:hover { background: rgba(201,169,161,0.25); }
+.tp-subj-sel { font-size: 10px; padding: 1px 4px; border-radius: 4px; border: 1px solid var(--rule); background: var(--bg2); color: var(--ink); font-family: inherit; outline: none; max-width: 70px; }
 .tp-todo-type-icon { font-size: 11px; flex-shrink: 0; opacity: 0.6; }
 /* Chapter Selection Modal */
 .tp-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.2); z-index: 9999; align-items: center; justify-content: center; }
@@ -3200,7 +3201,8 @@ function getSystemContents(subject, system) {
 }
 
 function getChapterById(id) {
-  return CHAPTER_DATA.find(function(ch) { return ch.id === id; });
+  var numId = typeof id === 'string' ? parseInt(id, 10) : id;
+  return CHAPTER_DATA.find(function(ch) { return ch.id === numId; });
 }
 
 function isLearned(id) {
@@ -6335,9 +6337,9 @@ function matchChapterByText(text) {
 
 // ===== Extract quoted text from a string =====
 function extractQuotedTexts(str) {
-  var matches = str.match(/[""]([^""]+)[""]/g);
+  var matches = str.match(/[\u201C\u201D\u300C\u300E"]([^\u201C\u201D\u300C\u300E"]+)[\u201C\u201D\u300C\u300E"]/g);
   if (!matches) return [];
-  return matches.map(function(m) { return m.replace(/[""]/g, '').trim(); }).filter(function(t) { return t.length > 0; });
+  return matches.map(function(m) { return m.replace(/[\u201C\u201D\u300C\u300E"]/g, '').trim(); }).filter(function(t) { return t.length > 0; });
 }
 
 // ===== Enhanced Todo Extraction =====
@@ -6821,9 +6823,9 @@ function renderTeacherTodoPanel() {
   const container = document.getElementById('teacherTodoContent');
   if (!container) return;
 
-  // Preserve user's checkbox/category state when re-rendering
+  // Preserve user's checkbox/category/subject state when re-rendering
   const oldState = {};
-  teacherTodoItems.forEach(function(t) { oldState[t.text] = { checked: t.checked, category: t.category, chapterId: t.chapterId, matchInfo: t.matchInfo, allMatches: t.allMatches }; });
+  teacherTodoItems.forEach(function(t) { oldState[t.text] = { checked: t.checked, category: t.category, chapterId: t.chapterId, matchInfo: t.matchInfo, allMatches: t.allMatches, subject: t.subject }; });
 
   const todos = extractTodos(store.teacherPlan.content || '');
   teacherTodoItems = todos.map(function(t) {
@@ -6834,7 +6836,8 @@ function renderTeacherTodoPanel() {
       category: prev ? prev.category : 'new',
       chapterId: prev ? prev.chapterId : t.chapterId,
       matchInfo: prev ? prev.matchInfo : t.matchInfo,
-      allMatches: t.allMatches
+      allMatches: t.allMatches,
+      subject: prev ? prev.subject : ''
     };
   });
 
@@ -6868,7 +6871,15 @@ function renderTeacherTodoPanel() {
       var ch = todo.matchInfo.chapter;
       var subjColor = SUBJECT_COLORS[ch.subject] || '#b0a8a0';
       html += '<span class="tp-chapter-badge"><span class="subj" style="color:' + subjColor + '">' + ch.subject + '</span> ' + escapeHtml(ch.name) + '</span>';
+      html += '<button class="tp-match-btn" style="margin-left:4px;font-size:9px;padding:1px 5px;" onclick="openChapterModal(' + idx + ')">\u2715\u91cd\u9009</button>';
     } else {
+      // Subject selector dropdown
+      html += '<select class="tp-subj-sel" onchange="setTodoSubject(' + idx + ', this.value)">';
+      html += '<option value="">\u5168\u79d1\u76ee</option>';
+      COURSE_ORDER.forEach(function(s) {
+        html += '<option value="' + s + '"' + (todo.subject === s ? ' selected' : '') + '>' + s + '</option>';
+      });
+      html += '</select>';
       html += '<button class="tp-match-btn" onclick="openChapterModal(' + idx + ')">\u2191 \u5339\u914d\u7ae0\u8282</button>';
     }
     html += '</div>';
@@ -6897,6 +6908,11 @@ function cycleTodoCategory(idx) {
   var cur = cats.indexOf(teacherTodoItems[idx].category);
   teacherTodoItems[idx].category = cats[(cur + 1) % cats.length];
   renderTeacherTodoPanel();
+}
+
+function setTodoSubject(idx, subject) {
+  if (!teacherTodoItems[idx]) return;
+  teacherTodoItems[idx].subject = subject;
 }
 
 function addSelectedTodos() {
@@ -7427,10 +7443,13 @@ function debugReviewData() {
 // ===== Chapter Selection Modal Functions =====
 var pendingTodoIdx = -1;
 var modalSelectedChapterId = null;
+var modalSubjectFilter = '';
 
 function openChapterModal(todoIdx) {
   pendingTodoIdx = todoIdx;
   modalSelectedChapterId = null;
+  // Get subject filter from the todo item
+  modalSubjectFilter = teacherTodoItems[todoIdx] ? (teacherTodoItems[todoIdx].subject || '') : '';
   var overlay = document.getElementById('chapterModal');
   if (!overlay) return;
   overlay.classList.add('active');
@@ -7439,7 +7458,9 @@ function openChapterModal(todoIdx) {
   var searchInput = document.getElementById('modalSearch');
   if (searchInput) { searchInput.value = ''; searchInput.focus(); }
   
-  // Show all chapters grouped by subject
+  // Show chapters filtered by subject
+  var hintEl = document.getElementById('modalSubjHint');
+  if (hintEl) hintEl.textContent = modalSubjectFilter ? '（仅显示 ' + modalSubjectFilter + '）' : '（全部科目）';
   renderChapterOptions('');
 }
 
@@ -7448,23 +7469,27 @@ function closeChapterModal() {
   if (overlay) overlay.classList.remove('active');
   pendingTodoIdx = -1;
   modalSelectedChapterId = null;
+  modalSubjectFilter = '';
 }
 
 function renderChapterOptions(filter) {
   var list = document.getElementById('modalList');
   if (!list) return;
-  var q = (filter || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+  var q = (filter || '').replace(/[\u201C\u201D\u300C\u300E（()）""''「」、，,.:：\s]/g, '').toLowerCase();
   
   var opts = [];
   CHAPTER_DATA.forEach(function(ch) {
-    var name = (ch.name || '').replace(/[（()）""''「」、，,.:：\s]/g, '').toLowerCase();
+    // Filter by subject if set
+    if (modalSubjectFilter && ch.subject !== modalSubjectFilter) return;
+    var name = (ch.name || '').replace(/[\u201C\u201D\u300C\u300E（()）""''「」、，,.:：\s]/g, '').toLowerCase();
     if (!q || name.indexOf(q) >= 0 || (ch.system || '').indexOf(q) >= 0 || (ch.subject || '').indexOf(q) >= 0) {
       opts.push(ch);
     }
   });
   
   if (opts.length === 0) {
-    list.innerHTML = '<div style="padding:10px;font-size:12px;color:var(--muted);text-align:center;">\u6ca1\u6709\u5339\u914d\u7ae0\u8282</div>';
+    var hint = modalSubjectFilter ? '\u6ca1\u6709\u5339\u914d\u7ae0\u8282\uff08\u5df2\u7b5b\u9009: ' + modalSubjectFilter + '\uff09' : '\u6ca1\u6709\u5339\u914d\u7ae0\u8282';
+    list.innerHTML = '<div style="padding:10px;font-size:12px;color:var(--muted);text-align:center;">' + hint + '</div>';
     return;
   }
   
@@ -7495,7 +7520,7 @@ function filterChapterOptions() {
 }
 
 function selectChapterOption(chId) {
-  modalSelectedChapterId = chId;
+  modalSelectedChapterId = parseInt(chId, 10);
   // Re-render to show selection highlight
   var searchInput = document.getElementById('modalSearch');
   renderChapterOptions(searchInput ? searchInput.value : '');
@@ -7517,12 +7542,10 @@ function confirmChapterMatch() {
   var todo = teacherTodoItems[pendingTodoIdx];
   todo.chapterId = ch.id;
   todo.matchInfo = { chapter: ch, score: 100, matchField: 'manual' };
-  // Also update allMatches to include this chapter
-  if (!todo.allMatches) todo.allMatches = [];
-  var exists = todo.allMatches.some(function(m) { return m.chapter && m.chapter.id === ch.id; });
-  if (!exists) {
-    todo.allMatches.push({ chapter: ch, score: 100, matchField: 'manual' });
-  }
+  // Replace allMatches with just this manual match
+  todo.allMatches = [{ chapter: ch, score: 100, matchField: 'manual' }];
+  // Sync subject to the matched chapter's subject
+  todo.subject = ch.subject;
   
   closeChapterModal();
   renderTeacherTodoPanel();
@@ -7533,7 +7556,7 @@ function confirmChapterMatch() {
 <!-- Chapter Selection Modal -->
 <div class="tp-modal-overlay" id="chapterModal">
   <div class="tp-modal-box">
-    <div class="tp-modal-title">选择匹配章节</div>
+    <div class="tp-modal-title">选择匹配章节 <span id="modalSubjHint" style="font-size:11px;font-weight:400;color:var(--muted);"></span></div>
     <input class="tp-modal-search" id="modalSearch" placeholder="搜索章节名称..." oninput="filterChapterOptions()" />
     <div class="tp-modal-list" id="modalList"></div>
     <div class="tp-modal-actions">
