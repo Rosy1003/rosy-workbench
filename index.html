@@ -665,6 +665,35 @@ body {
   font-size: 9px;
 }
 
+/* ===== Mobile: 7-day preview horizontal scroll ===== */
+@media (max-width: 768px) {
+  .preview-bar { padding: 12px 14px; }
+  .preview-label { font-size: 11px; margin-bottom: 8px; }
+  .preview-days {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+  .preview-days::-webkit-scrollbar { height: 3px; }
+  .preview-days::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+  .preview-days::-webkit-scrollbar-track { background: transparent; }
+  .preview-day {
+    flex: 0 0 105px;
+    scroll-snap-align: start;
+    padding: 8px 6px;
+  }
+  .preview-date { font-size: 10px; }
+  .preview-date-sub { font-size: 8px; }
+  .preview-count { font-size: 18px; }
+  .preview-items-toggle { font-size: 9px; padding: 2px 4px; }
+  .preview-item { font-size: 11px; padding: 3px 4px; }
+  .preview-item-name { font-size: 11px; }
+  .preview-item-int { font-size: 9px; }
+}
+
 .plan-section {
   background: var(--surface);
   border: 1px solid var(--rule);
@@ -3273,6 +3302,52 @@ function getCrossSubjectChapters(system, currentSubject) {
   });
 
   return result;
+}
+
+// Find directly mapped cross-subject chapters for a given chapter ID
+// Returns array of chapter objects (from other subjects in the same topic group)
+function getDirectlyMappedChapters(chapterId) {
+  var ch = getChapterById(chapterId);
+  if (!ch) return [];
+  if (EXCLUDED_SYSTEMS.indexOf(ch.system) >= 0) return [];
+  if (Object.keys(CHAPTER_TOPIC_INDEX).length === 0) buildTopicIndex();
+
+  var key = ch.subject + '|' + ch.name;
+  var indices = CHAPTER_TOPIC_INDEX[key];
+  if (!indices) return [];
+
+  var result = [];
+  var seen = {};
+  indices.forEach(function(gi) {
+    var group = CHAPTER_TOPIC_GROUPS[parseInt(gi)];
+    Object.keys(group).forEach(function(subj) {
+      if (subj === ch.subject || subj === '_note') return;
+      var names = group[subj];
+      if (Array.isArray(names)) {
+        names.forEach(function(n) {
+          var found = CHAPTER_DATA.find(function(c) {
+            return c.subject === subj && c.name === n;
+          });
+          if (found && !seen[found.id]) {
+            seen[found.id] = true;
+            result.push(found);
+          }
+        });
+      }
+    });
+  });
+  return result;
+}
+
+// Reset rolling review status for chapters directly mapped to the given chapterId
+function resetMappedRollingReviews(chapterId) {
+  var mappedChapters = getDirectlyMappedChapters(chapterId);
+  mappedChapters.forEach(function(mc) {
+    if (store.rollingStatus[mc.id] && store.rollingStatus[mc.id].done) {
+      store.rollingStatus[mc.id].done = false;
+      // Keep lastDate and reviewRecords for history
+    }
+  });
 }
 
 function escapeHtml(str) {
@@ -6633,6 +6708,9 @@ function addBatchNewLearn() {
     store.reviewRecords[chapterId].count++;
     store.reviewRecords[chapterId].lastDate = today;
     store.reviewRecords[chapterId].dates.push(today);
+    
+    // Reset directly mapped cross-subject rolling reviews to "not done"
+    resetMappedRollingReviews(chapterId);
   });
   
   saveStore();
@@ -7006,6 +7084,8 @@ function doAddSelectedTodos(selected, targetDate) {
       store.reviewRecords[todo.chapterId].count++;
       store.reviewRecords[todo.chapterId].lastDate = targetDate;
       store.reviewRecords[todo.chapterId].dates.push(targetDate);
+      // Reset directly mapped cross-subject rolling reviews to "not done"
+      resetMappedRollingReviews(todo.chapterId);
       newLearnCount++;
     } else if (todo.category === 'con' && todo.chapterId) {
       // Matched consolidation: mark due Ebbinghaus review nodes as done
