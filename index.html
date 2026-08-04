@@ -4986,7 +4986,7 @@ function renderHome() {
   htmlP2 += '<div id="teacherPlanSummary">';
   if (store.teacherPlan.content) {
     const preview = store.teacherPlan.content.substring(0, 200);
-    htmlP2 += '<div class="tp-date">' + (store.teacherPlan.date || '') + '</div>';
+    htmlP2 += '<div class="tp-date">' + (store.teacherPlan.displayDate || store.teacherPlan.date || '') + '</div>';
     htmlP2 += '<div class="tp-summary">' + escapeHtml(preview) + (store.teacherPlan.content.length > 200 ? '...' : '') + '</div>';
   } else {
     htmlP2 += '<div class="tp-empty">\u70b9\u51fb\u540c\u6b65\u83b7\u53d6\u4eca\u65e5\u8ba1\u5212</div>';
@@ -5140,18 +5140,32 @@ function processTeacherPlanResponse(data, targetDate) {
 // ===== Render: Teacher Plan =====
 async function syncTeacherPlan(date) {
   const targetDate = date || fmtDate(new Date());
-  const elements = ['teacherPlanContent', 'teacherPlanSummary'];
-  elements.forEach(function(id) {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = '<div class="tp-loading">\u540c\u6b65\u4e2d...</div>';
-  });
+  // Save previous content for restore on failure
+  var prevContent = store.teacherPlan.content || '';
+  var prevDate = store.teacherPlan.date || '';
+  var prevSyncTime = store.teacherPlan.syncTime || '';
+  // Show loading only on content area, not replacing the date input/buttons
+  var loadingEl = document.getElementById('teacherPlanContent');
+  if (loadingEl) {
+    var planArea = loadingEl.querySelector('.tp-content-full, .tp-empty');
+    if (planArea) planArea.innerHTML = '<div class="tp-loading">同步中...</div>';
+    else loadingEl.insertAdjacentHTML('beforeend', '<div class="tp-loading">同步中...</div>');
+  }
+  var summaryEl = document.getElementById('teacherPlanSummary');
+  if (summaryEl) summaryEl.innerHTML = '<div class="tp-loading">同步中...</div>';
   
   try {
-    const data = await fetchTeacherPlanClient(targetDate);
+    // Add 10s timeout to fetch
+    var fetchPromise = fetchTeacherPlanClient(targetDate);
+    var timeoutPromise = new Promise(function(_, reject) {
+      setTimeout(function() { reject(new Error('请求超时')); }, 12000);
+    });
+    const data = await Promise.race([fetchPromise, timeoutPromise]);
     if (data.ok) {
       store.teacherPlan = {
         content: data.content || '',
-        date: data.pageDate || targetDate,
+        date: targetDate,
+        displayDate: data.pageDate || targetDate,
         syncTime: data.syncTime || '',
         countdownDays: data.countdownDays || null,
         countdownLabel: data.countdownLabel || '',
@@ -5175,17 +5189,17 @@ async function syncTeacherPlan(date) {
       });
       saveStore();
     } else {
-      elements.forEach(function(id) {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = '<div class="tp-error">' + escapeHtml(data.error || '\u540c\u6b65\u5931\u8d25') + '</div>';
-      });
+      // API returned error - restore previous UI and show toast
+      renderTeacherPlanCard();
+      renderTeacherTodoPanel();
+      showSyncError(data.error || '同步失败');
       return;
     }
   } catch(e) {
-    elements.forEach(function(id) {
-      const el = document.getElementById(id);
-      if (el) el.innerHTML = '<div class="tp-error">\u7f51\u7edc\u9519\u8bef\uff1a' + escapeHtml(e.message) + '</div>';
-    });
+    // Network error or timeout - restore previous UI and show toast
+    renderTeacherPlanCard();
+    renderTeacherTodoPanel();
+    showSyncError(e.message === '请求超时' ? '同步超时，请稍后重试' : ('网络错误：' + e.message));
     return;
   }
   
@@ -5194,12 +5208,33 @@ async function syncTeacherPlan(date) {
   renderHome();
 }
 
+function showSyncError(msg) {
+  // Show a temporary toast-like notification
+  var toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#E8463A;color:#fff;padding:8px 20px;border-radius:8px;font-size:13px;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.15);animation:fadeIn 0.2s ease;';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function() {
+    toast.style.transition = 'opacity 0.3s';
+    toast.style.opacity = '0';
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 3000);
+}
+
 function renderTeacherPlanCard() {
   const container = document.getElementById('teacherPlanContent');
   if (!container) return;
   const tp = store.teacherPlan;
-  // Use synced date if available, otherwise today
-  const inputDate = tp.date || fmtDate(new Date());
+  // Validate date format for input[type=date] (must be YYYY-MM-DD)
+  // Handle old data where date was stored as Chinese formatted string
+  var inputDate = tp.date;
+  if (!inputDate || !/^\d{4}-\d{2}-\d{2}$/.test(inputDate)) {
+    // Old data format: move Chinese date to displayDate if not set
+    if (inputDate && !tp.displayDate) tp.displayDate = inputDate;
+    inputDate = fmtDate(new Date());
+  }
+  // Display date: prefer displayDate, fallback to date if it's Chinese format, then inputDate
+  var displayDate = tp.displayDate || tp.date || inputDate;
 
   let html = '<div class="home-card"><div class="home-card-header"><h3>\u5929\u5929\u5e08\u5144\u6bcf\u65e5\u8ba1\u5212</h3></div>';
   html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">';
@@ -5211,7 +5246,7 @@ function renderTeacherPlanCard() {
   html += '</div>';
 
   if (tp.content) {
-    html += '<div style="font-size:12px;color:var(--accent-dark);margin-bottom:8px;">\u{1F4C5} ' + (tp.date || '') + ' \u7684\u8ba1\u5212</div>';
+    html += '<div style="font-size:12px;color:var(--accent-dark);margin-bottom:8px;">\u{1F4C5} ' + displayDate + ' \u7684\u8ba1\u5212</div>';
     html += '<div class="tp-content-full">' + escapeHtml(tp.content) + '</div>';
     html += '<div class="tp-sync-time">\u540c\u6b65\u65f6\u95f4\uff1a' + (tp.syncTime || '') + '</div>';
   } else {
@@ -5224,17 +5259,24 @@ function renderTeacherPlanCard() {
 
 function syncTeacherPlanFromInput() {
   var dateInput = document.getElementById('tpDateInput');
-  if (!dateInput || !dateInput.value) {
-    alert('\u8bf7\u5148\u9009\u62e9\u65e5\u671f');
-    return;
+  if (!dateInput) return;
+  var dateStr = dateInput.value;
+  if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    dateStr = fmtDate(new Date());
   }
-  syncTeacherPlan(dateInput.value);
+  syncTeacherPlan(dateStr);
 }
 
 function shiftTeacherPlan(days) {
   var dateInput = document.getElementById('tpDateInput');
-  if (!dateInput || !dateInput.value) return;
-  var currentDate = new Date(dateInput.value);
+  if (!dateInput) return;
+  // Fallback to today if input value is empty or invalid (old data migration)
+  var dateStr = dateInput.value;
+  if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    dateStr = fmtDate(new Date());
+    dateInput.value = dateStr;
+  }
+  var currentDate = new Date(dateStr);
   currentDate.setDate(currentDate.getDate() + days);
   var newDate = fmtDate(currentDate);
   dateInput.value = newDate;
@@ -7695,12 +7737,9 @@ async function init() {
   });
   renderPanel(activeTab);
   
-  // Auto-sync teacher plan if not synced today
-  const today = fmtDate(new Date());
-  if (!store.teacherPlan.syncTime || !store.teacherPlan.syncTime.startsWith(today)) {
-    syncTeacherPlan();
-  }
-  
+  // Teacher plan: use stored data (remember last synced date), no auto-sync on load
+  // User can manually sync or use prev/next day buttons to switch dates
+
   // Auto-pull from cloud if syncCode is bound (delayed to not block initial render)
   if (store.syncCode) {
     setTimeout(autoSyncPull, 2000);

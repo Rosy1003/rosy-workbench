@@ -180,6 +180,9 @@ export default {
       const apiUrl = `${TP_API_URL}?action=daily&date=${date}`;
 
       try {
+        // Add 10s timeout to upstream fetch
+        const fetchController = new AbortController();
+        const fetchTimeout = setTimeout(() => fetchController.abort(), 10000);
         const resp = await fetch(apiUrl, {
           method: 'GET',
           headers: {
@@ -190,7 +193,9 @@ export default {
             'X-Requested-With': 'XMLHttpRequest',
             'X-Calendar-Frontend': '1',
           },
+          signal: fetchController.signal,
         });
+        clearTimeout(fetchTimeout);
 
         if (!resp.ok) {
           return jsonResponse(502, {
