@@ -766,6 +766,13 @@ body {
 .btn-sm:hover {
   background: var(--bg2);
 }
+.tp-nav-btn {
+  padding: 4px 10px !important;
+  font-size: 14px !important;
+  line-height: 1;
+  min-width: 32px;
+  text-align: center;
+}
 .btn-add {
   background: var(--accent);
   color: #fff;
@@ -2087,6 +2094,62 @@ body {
 @media (min-width: 769px) and (max-width: 1024px) {
   .dp-task-btn { width: 28px; height: 28px; opacity: 0.7; }
 }
+/* ===== Custom New Learn Editor ===== */
+.dp-custom-editor {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px dashed var(--rule);
+  background: var(--bg);
+}
+.dp-ce-input {
+  width: 100%; box-sizing: border-box;
+  padding: 8px 10px; font-size: 13px;
+  border: 1px solid var(--rule); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+  outline: none; font-family: inherit;
+  margin-bottom: 6px;
+}
+.dp-ce-input:focus { border-color: var(--accent); }
+.dp-ce-row {
+  display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+}
+.dp-ce-select {
+  padding: 4px 8px; font-size: 12px;
+  border: 1px solid var(--rule); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+  font-family: inherit; outline: none;
+}
+.dp-ce-toggle {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--muted);
+  cursor: pointer; user-select: none;
+}
+.dp-ce-switch {
+  width: 32px; height: 18px; border-radius: 9px;
+  background: var(--rule); position: relative;
+  transition: background 0.15s;
+}
+.dp-ce-switch.on { background: var(--accent); }
+.dp-ce-switch::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fff; transition: left 0.15s;
+}
+.dp-ce-switch.on::after { left: 16px; }
+.dp-ce-btn {
+  margin-left: auto;
+  padding: 6px 16px; font-size: 12px; font-weight: 500;
+  background: var(--accent); color: #fff; border: none;
+  border-radius: 6px; cursor: pointer; white-space: nowrap;
+}
+.dp-ce-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* Mobile: editor full-width */
+@media (max-width: 768px) {
+  .dp-ce-input { font-size: 14px; }
+  .dp-ce-row { flex-wrap: wrap; }
+  .dp-ce-btn { padding: 8px 20px; font-size: 13px; }
+}
 /* ===== Custom confirm modal ===== */
 .dp-confirm-overlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -3234,6 +3297,20 @@ function getChapterById(id) {
   return CHAPTER_DATA.find(function(ch) { return ch.id === numId; });
 }
 
+// Helper: get display info (name, subject, system) from a newLearnRecord
+// Handles both chapter-linked and custom (chapterId=null) records
+function getRecordDisplayInfo(record) {
+  if (record.chapterId) {
+    var ch = getChapterById(record.chapterId);
+    if (ch) return { name: ch.name, subject: ch.subject, system: ch.system };
+  }
+  return {
+    name: record.customText || '自定义内容',
+    subject: record.subject || '自定义',
+    system: ''
+  };
+}
+
 function isLearned(id) {
   return store.learnedChapters.indexOf(id) >= 0;
 }
@@ -3452,10 +3529,8 @@ function get7DayPreview() {
         var reviewDate = getShiftedReviewDate(record, idx);
         if (fmtDate(reviewDate) === dateStr) {
           count++;
-          var ch = getChapterById(record.chapterId);
-          if (ch) {
-            items.push({ name: ch.name, subject: ch.subject, interval: EBINGHAUS_LABELS[idx] });
-          }
+          var info = getRecordDisplayInfo(record);
+          items.push({ name: info.name, subject: info.subject, interval: EBINGHAUS_LABELS[idx] });
         }
       });
     });
@@ -5127,10 +5202,12 @@ function renderTeacherPlanCard() {
   const inputDate = tp.date || fmtDate(new Date());
 
   let html = '<div class="home-card"><div class="home-card-header"><h3>\u5929\u5929\u5e08\u5144\u6bcf\u65e5\u8ba1\u5212</h3></div>';
-  html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">';
+  html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">';
+  html += '<button class="btn-sm tp-nav-btn" onclick="shiftTeacherPlan(-1)" title="\u4e0a\u4e00\u5929">\u2190</button>';
   html += '<span style="font-size:12px;color:var(--muted);">\u9009\u62e9\u65e5\u671f\uff1a</span>';
   html += '<input type="date" id="tpDateInput" value="' + inputDate + '" class="date-input" />';
   html += '<button class="btn-sm" onclick="syncTeacherPlanFromInput()">\u540c\u6b65\u9009\u4e2d\u65e5\u671f</button>';
+  html += '<button class="btn-sm tp-nav-btn" onclick="shiftTeacherPlan(1)" title="\u4e0b\u4e00\u5929">\u2192</button>';
   html += '</div>';
 
   if (tp.content) {
@@ -5152,6 +5229,17 @@ function syncTeacherPlanFromInput() {
     return;
   }
   syncTeacherPlan(dateInput.value);
+}
+
+function shiftTeacherPlan(days) {
+  var dateInput = document.getElementById('tpDateInput');
+  if (!dateInput || !dateInput.value) return;
+  var currentDate = new Date(dateInput.value);
+  currentDate.setDate(currentDate.getDate() + days);
+  var newDate = fmtDate(currentDate);
+  dateInput.value = newDate;
+  // Auto-sync the shifted date
+  syncTeacherPlan(newDate);
 }
 
 // ===== Render: Daily Plan =====
@@ -5212,23 +5300,23 @@ function renderRollingBySubject(rollingReviews, customTasks, today, groupPrefix)
 }
 
 function renderConsolidationBySubject(consolidationReviews, customTasks, today, groupPrefix, showSystem) {
-  var items = consolidationReviews.filter(function(r) { return getChapterById(r.chapterId); });
-  var parsed = groupBySubjectArr(items, function(r) { return getChapterById(r.chapterId).subject; });
+  var items = consolidationReviews.filter(function(r) { return r.chapterId ? getChapterById(r.chapterId) : r.record.customText; });
+  var parsed = groupBySubjectArr(items, function(r) { return getRecordDisplayInfo(r.record).subject; });
   var html = '';
   parsed.order.forEach(function(subject) {
     var groupId = groupPrefix + '-' + subject;
     var color = SUBJECT_COLORS[subject] || '#b0a8a0';
     html += renderSubGroupHeader(subject, parsed.groups[subject].length, groupId, color);
     parsed.groups[subject].forEach(function(r) {
-      var ch = getChapterById(r.chapterId);
+      var info = getRecordDisplayInfo(r.record);
       var isDone = r.record.completedReviews && r.record.completedReviews.indexOf(r.intervalIdx) >= 0;
       var itemClass = 'dp-task-item';
       if (isDone) itemClass += ' done';
       if (r.overdue && !isDone) itemClass += ' overdue';
       var overdueBadge = (r.overdue && !isDone) ? '<span class="dp-overdue-badge">\u903e\u671f' + r.overdueDays + '\u5929</span>' : '';
-      var meta = r.intervalLabel + ' \u00b7 ' + ch.subject;
-      if (showSystem) meta += ' \u00b7 ' + ch.system;
-      html += '<div class="' + itemClass + '"><div class="dp-task-check' + (isDone ? ' done' : '') + '" onclick="markConsolidationDone(\'' + r.record.id + '\', ' + r.intervalIdx + ')">' + (isDone ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(ch.name) + overdueBadge + '</div><div class="dp-task-meta">' + meta + '</div></div><span class="dp-task-tag con">' + r.intervalLabel + '</span>' + (isDone ? '' : '<button class="dp-task-delete" onclick="skipConsolidationReview(\'' + r.record.id + '\', ' + r.intervalIdx + ')">\u00d7</button>') + '</div>';
+      var meta = r.intervalLabel + ' \u00b7 ' + info.subject;
+      if (showSystem && info.system) meta += ' \u00b7 ' + info.system;
+      html += '<div class="' + itemClass + '"><div class="dp-task-check' + (isDone ? ' done' : '') + '" onclick="markConsolidationDone(\'' + r.record.id + '\', ' + r.intervalIdx + ')">' + (isDone ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(info.name) + overdueBadge + '</div><div class="dp-task-meta">' + meta + '</div></div><span class="dp-task-tag con">' + r.intervalLabel + '</span>' + (isDone ? '' : '<button class="dp-task-delete" onclick="skipConsolidationReview(\'' + r.record.id + '\', ' + r.intervalIdx + ')">\u00d7</button>') + '</div>';
     });
     html += '</div></div>';
   });
@@ -5325,7 +5413,8 @@ function renderDailyPlan() {
     html += '<div class="dp-task-item done" id="nlr-' + r.id + '"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(displayText) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editNewLearnRecord(\'' + r.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteNewLearnRecord(\'' + r.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
   (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.chapterId; }).forEach(function(t) {
-    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
+    var tMeta = t.subject ? '<div class="dp-task-meta">' + escapeHtml(t.subject) + '</div>' : '';
+    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div>' + tMeta + '</div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
   if (newTotal === 0) html += '<div class="empty-hint">\u4eca\u5929\u6682\u65e0\u65b0\u5b66\u4efb\u52a1</div>';
   html += '</div></div>';
@@ -5352,15 +5441,24 @@ function renderDailyPlan() {
   html += '<div class="dp-tab4-content' + (taskTab === 'new' ? ' active' : '') + '">';
   html += '<div class="cascading-form"><div class="cascading-header"><span class="cascading-title">\u6dfb\u52a0\u4eca\u65e5\u65b0\u5b66</span><span class="cascading-date">' + today + '</span></div><div id="cascadingFormContainer"></div></div>';
   todayNew.forEach(function(r) {
-    const ch = getChapterById(r.chapterId);
-    if (!ch) return;
-    var displayText = r.customText || ch.name;
-    html += '<div class="dp-task-item done" id="nlr-' + r.id + '"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(displayText) + '</div><div class="dp-task-meta">' + ch.subject + ' \u00b7 ' + ch.system + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editNewLearnRecord(\'' + r.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteNewLearnRecord(\'' + r.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
+    var info = getRecordDisplayInfo(r);
+    var displayText = r.customText || info.name;
+    var metaText = info.subject + (info.system ? ' \u00b7 ' + info.system : '');
+    html += '<div class="dp-task-item done" id="nlr-' + r.id + '"><div class="dp-task-check done">\u2713</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(displayText) + '</div><div class="dp-task-meta">' + escapeHtml(metaText) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editNewLearnRecord(\'' + r.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteNewLearnRecord(\'' + r.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
   (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.chapterId; }).forEach(function(t) {
-    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div></div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
+    var tMeta = t.subject ? '<div class="dp-task-meta">' + escapeHtml(t.subject) + '</div>' : '';
+    html += '<div class="dp-task-item' + (t.done ? ' done' : '') + '" id="task-' + t.id + '"><div class="dp-task-check' + (t.done ? ' done' : '') + '" onclick="toggleCustomTaskDone(\'' + t.id + '\')">' + (t.done ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(t.text) + '</div>' + tMeta + '</div><span class="dp-task-tag new">\u65b0\u5b66</span><div class="dp-task-actions"><button class="dp-task-btn" onclick="editCustomTask(\'' + t.id + '\')" title="\u7f16\u8f91">\u270f</button><button class="dp-task-btn danger" onclick="deleteCustomTask(\'' + t.id + '\')" title="\u5220\u9664">\ud83d\uddd1</button></div></div>';
   });
   if (newTotal === 0) html += '<div class="empty-hint">\u4eca\u5929\u6682\u65e0\u65b0\u5b66\u4efb\u52a1\uff0c\u70b9\u51fb\u4e0a\u65b9\u6dfb\u52a0</div>';
+  // Custom new learn editor
+  html += '<div class="dp-custom-editor">';
+  html += '<input type="text" id="customNewLearnInput" class="dp-ce-input" placeholder="\u8f93\u5165\u5b66\u4e60\u5185\u5bb9\uff08\u5982\uff1a\u8003\u7814\u82f1\u8bed\u9605\u8bfb2010 Text1\uff09" maxlength="200" />';
+  html += '<div class="dp-ce-row">';
+  html += '<select id="customNewLearnSubject" class="dp-ce-select"><option value="">\u4e0d\u9009\u79d1\u76ee</option><option value="\u82f1\u8bed">\u82f1\u8bed</option><option value="\u653f\u6cbb">\u653f\u6cbb</option><option value="\u533b\u5b66">\u533b\u5b66</option><option value="\u5176\u4ed6">\u5176\u4ed6</option></select>';
+  html += '<label class="dp-ce-toggle"><div class="dp-ce-switch" id="ceReviewToggle" onclick="toggleCeReview()"></div><span>\u63a8\u9001\u5de9\u56fa\u590d\u4e60</span></label>';
+  html += '<button class="dp-ce-btn" onclick="addCustomNewLearn()">+ \u6dfb\u52a0</button>';
+  html += '</div></div>';
   html += '</div>';
 
   // === Consolidation Panel ===
@@ -5387,6 +5485,16 @@ function renderDailyPlan() {
 
   container.innerHTML = html;
   renderCascadingForm();
+  // Init custom editor toggle state
+  var ceSw = document.getElementById('ceReviewToggle');
+  if (ceSw) ceSw.classList.toggle('on', ceReviewEnabled);
+  // Enter key to add custom new learn
+  var ceInput = document.getElementById('customNewLearnInput');
+  if (ceInput) {
+    ceInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') addCustomNewLearn();
+    });
+  }
 }
 
 function addNewLearn() {
@@ -5435,7 +5543,7 @@ function markConsolidationDone(recordId, intervalIdx) {
     }
   }
   
-  const chId = record.chapterId;
+  const chId = record.chapterId || ('rec_' + record.id);
   if (!store.reviewRecords[chId]) {
     store.reviewRecords[chId] = { count: 0, lastDate: '', dates: [] };
   }
@@ -5746,6 +5854,8 @@ function renderMonthView(year, month, todayStr) {
     const events = store.calendarEvents[dateStr] || [];
     const newLearnCount = store.newLearnRecords.filter(function(r) {
       return r.date === dateStr;
+    }).length + (store.customTasks || []).filter(function(t) {
+      return t.date === dateStr && t.category === 'new' && !t.chapterId;
     }).length;
     const consolidationCount = getDayCompletedCount(dateStr, 'consolidation');
     const rollingCount = getDayCompletedCount(dateStr, 'rolling');
@@ -5783,13 +5893,18 @@ function renderWeekView(refDate, todayStr) {
     var isToday = dateStr === todayStr;
     var events = store.calendarEvents[dateStr] || [];
 
-    // New learn items
+    // New learn items (from newLearnRecords + custom tasks with category 'new')
     var newLearnItems = store.newLearnRecords.filter(function(r) {
       return r.date === dateStr;
     }).map(function(r) {
-      var ch = getChapterById(r.chapterId);
-      return ch ? ch.name : null;
+      return getRecordDisplayInfo(r).name;
     }).filter(function(n) { return n; });
+    // Add custom new learn tasks (no chapterId)
+    (store.customTasks || []).filter(function(t) {
+      return t.date === dateStr && t.category === 'new' && !t.chapterId;
+    }).forEach(function(t) {
+      newLearnItems.push(t.text);
+    });
 
     // Consolidation review items
     // Completed: show on actual completion date; Pending: show on shifted due date
@@ -5809,10 +5924,8 @@ function renderWeekView(refDate, todayStr) {
           if (fmtDate(reviewDate) === dateStr) matchDate = true;
         }
         if (matchDate) {
-          var ch = getChapterById(record.chapterId);
-          if (ch) {
-            conItems.push({ name: ch.name, subject: ch.subject, interval: EBINGHAUS_LABELS[idx], done: isDone });
-          }
+          var info = getRecordDisplayInfo(record);
+          conItems.push({ name: info.name, subject: info.subject, interval: EBINGHAUS_LABELS[idx], done: isDone });
         }
       });
     });
@@ -6721,6 +6834,68 @@ function addBatchNewLearn() {
   renderHome();
 }
 
+// ===== Custom New Learn Editor =====
+var ceReviewEnabled = true;
+
+function toggleCeReview() {
+  ceReviewEnabled = !ceReviewEnabled;
+  var sw = document.getElementById('ceReviewToggle');
+  if (sw) sw.classList.toggle('on', ceReviewEnabled);
+}
+
+function addCustomNewLearn() {
+  var input = document.getElementById('customNewLearnInput');
+  var subjectSel = document.getElementById('customNewLearnSubject');
+  if (!input || !input.value.trim()) {
+    input && input.focus();
+    return;
+  }
+  var text = input.value.trim();
+  var subject = subjectSel ? subjectSel.value : '';
+  var today = fmtDate(new Date());
+
+  if (ceReviewEnabled) {
+    // Create as newLearnRecord → generates Ebbinghaus consolidation reviews
+    var record = {
+      id: 'r_' + Date.now() + '_custom',
+      chapterId: null,
+      customText: text,
+      subject: subject || '\u81ea\u5b9a\u4e49',
+      date: today,
+      completedReviews: [],
+      shiftDays: 0
+    };
+    store.newLearnRecords.push(record);
+    // Initialize reviewRecords using record ID as key
+    var recKey = 'rec_' + record.id;
+    if (!store.reviewRecords[recKey]) {
+      store.reviewRecords[recKey] = { count: 0, lastDate: '', dates: [] };
+    }
+    store.reviewRecords[recKey].count++;
+    store.reviewRecords[recKey].lastDate = today;
+    store.reviewRecords[recKey].dates.push(today);
+  } else {
+    // Create as customTask → no consolidation review, toggleable
+    if (!store.customTasks) store.customTasks = [];
+    var task = {
+      id: 't_' + Date.now() + '_custom',
+      date: today,
+      category: 'new',
+      text: text,
+      subject: subject || '',
+      done: false
+    };
+    store.customTasks.push(task);
+  }
+
+  // Clear input
+  input.value = '';
+  input.focus();
+  saveStore();
+  renderDailyPlan();
+  renderHome();
+}
+
 // ===== Render Todo Card on Home =====
 function renderTodayCompletedCard() {
   var todayStr = fmtDate(new Date());
@@ -6730,18 +6905,17 @@ function renderTodayCompletedCard() {
   var allCons = getAllConsolidationReviews();
   allCons.forEach(function(r) {
     if (r.isDone) {
-      var reviewRec = store.reviewRecords[r.chapterId];
+      var reviewKey = r.chapterId || ('rec_' + r.record.id);
+      var reviewRec = store.reviewRecords[reviewKey];
       var completedToday = reviewRec && reviewRec.dates && reviewRec.dates.indexOf(todayStr) >= 0;
       if (completedToday) {
-        var ch = getChapterById(r.chapterId);
-        if (ch) {
-          completedItems.push({
-            text: ch.name,
-            meta: ch.subject + ' \u00b7 ' + r.intervalLabel,
-            tag: 'con',
-            tagLabel: '\u5de9\u56fa'
-          });
-        }
+        var info = getRecordDisplayInfo(r.record);
+        completedItems.push({
+          text: info.name,
+          meta: info.subject + ' \u00b7 ' + r.intervalLabel,
+          tag: 'con',
+          tagLabel: '\u5de9\u56fa'
+        });
       }
     }
   });
