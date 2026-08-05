@@ -2286,6 +2286,10 @@ body {
 @keyframes toastFade {
   to { opacity: 0; transform: translateX(-50%) translateY(-10px); }
 }
+@keyframes syncPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
 
 .dp-subgroup {
   margin-bottom: 6px;
@@ -6288,9 +6292,11 @@ function renderSkillManagement() {
     html += '<code style="background:var(--card-bg);padding:4px 12px;border-radius:6px;font-size:16px;font-weight:bold;letter-spacing:2px;color:var(--accent);">' + store.syncCode + '</code>';
     html += '<button class="btn-sm" onclick="copySyncCode()" style="padding:2px 8px;font-size:11px;">\u590d\u5236</button>';
     html += '</div>';
-    if (store.lastSyncAt) {
-      html += '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">\u4e0a\u6b21\u540c\u6b65\uff1a' + store.lastSyncAt + '</div>';
-    }
+    // Auto-sync status indicator
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">';
+    html += '<span id="syncIndicator" style="width:8px;height:8px;border-radius:50%;background:#4caf50;display:inline-block;animation:syncPulse 2s ease-in-out infinite;"></span>';
+    html += '<span style="font-size:12px;color:var(--muted);">\u81ea\u52a8\u540c\u6b65\u5df2\u5f00\u542f\u00b7\u4e0a\u6b21\u540c\u6b65\uff1a<span id="syncLastTime">' + (store.lastSyncAt || '\u672a\u540c\u6b65') + '</span></span>';
+    html += '</div>';
     html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
     html += '<button class="btn-sm" onclick="syncPushData(true)">\u7acb\u5373\u4e0a\u4f20</button>';
     html += '<button class="btn-sm" onclick="syncPullData()">\u4ece\u4e91\u7aef\u62c9\u53d6</button>';
@@ -6374,6 +6380,19 @@ function showSyncStatus(msg, isError) {
   }, 5000);
 }
 
+// Update sync time display without re-rendering entire panel
+function updateSyncStatusUI() {
+  var el = document.getElementById('syncLastTime');
+  if (!el) return;
+  var timeStr = store.lastSyncAt || '\u6ce8\u672a\u540c\u6b65';
+  el.textContent = timeStr;
+  var indicator = document.getElementById('syncIndicator');
+  if (indicator) {
+    indicator.style.background = 'var(--success, #4caf50)';
+    indicator.title = '\u540c\u6b65\u6b63\u5e38';
+  }
+}
+
 function getDeviceName() {
   var ua = navigator.userAgent;
   var isMobile = /Mobile|Android|iPhone|iPad/.test(ua);
@@ -6440,78 +6459,217 @@ async function bindSyncCode() {
   }
 }
 
+var _syncBusy = false; // Prevent concurrent sync operations
+
 async function syncPushData(showFeedback) {
   if (!store.syncCode) return;
+  if (_syncBusy) { console.log('[Sync] Busy, skipping push'); return; }
+  _syncBusy = true;
   if (showFeedback) showSyncStatus('\u6b63\u5728\u4e0a\u4f20...');
   try {
+    // Strip sync metadata from data being pushed (don't push lastPullAt/lastSyncAt to cloud)
+    var pushPayload = JSON.parse(JSON.stringify(store));
+    delete pushPayload.lastPullAt;
+    delete pushPayload.lastSyncAt;
     var resp = await fetch('/api/sync', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         action: 'push',
         syncCode: store.syncCode,
-        data: store,
+        data: pushPayload,
         deviceName: getDeviceName()
       })
     });
     var result = await resp.json();
     if (result.ok) {
       store.lastSyncAt = new Date().toLocaleString('zh-CN');
+      store.lastPullAt = result.updatedAt; // Prevent immediate re-pull after push
       localStorage.setItem('rosy_store_v3', JSON.stringify(store));
+      updateSyncStatusUI();
       if (showFeedback) showSyncStatus('\u4e0a\u4f20\u6210\u529f ' + store.lastSyncAt);
     } else {
       if (showFeedback) showSyncStatus(result.error || '\u4e0a\u4f20\u5931\u8d25', true);
     }
   } catch(e) {
     if (showFeedback) showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
+  } finally {
+    _syncBusy = false;
   }
 }
 
 async function syncPullData() {
   if (!store.syncCode) return;
+  if (_syncBusy) { showSyncStatus('\u540c\u6b65\u8fdb\u884c\u4e2d\uff0c\u8bf7\u7a0d\u5019', true); return; }
+  _syncBusy = true;
   showSyncStatus('\u6b63\u5728\u62c9\u53d6\u4e91\u7aef\u6570\u636e...');
   try {
     var resp = await fetch('/api/sync?code=' + store.syncCode);
     var result = await resp.json();
     if (result.ok && result.data) {
       var localSyncCode = store.syncCode;
-      store = Object.assign(defaultStore(), result.data);
+      var merged = mergeStoreData(store, result.data);
+      store = merged;
       store.syncCode = localSyncCode;
-      store.lastPullAt = new Date().toLocaleString('zh-CN');
+      store.lastPullAt = new Date().toISOString();
+      store.lastSyncAt = new Date().toLocaleString('zh-CN');
       localStorage.setItem('rosy_store_v3', JSON.stringify(store));
-      showSyncStatus('\u62c9\u53d6\u6210\u529f ' + store.lastPullAt);
+      showSyncStatus('\u62c9\u53d6\u5e76\u5408\u5e76\u6210\u529f ' + store.lastSyncAt);
+      updateSyncStatusUI();
       renderPanel(store.activeTab);
       renderTopBar();
+      // Push merged data back so other devices get the combined result
+      setTimeout(function() { syncPushData(false); }, 1000);
     } else {
       showSyncStatus(result.error || '\u4e91\u7aef\u65e0\u6570\u636e', true);
     }
   } catch(e) {
     showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
+  } finally {
+    _syncBusy = false;
   }
 }
 
 async function autoSyncPull() {
   if (!store.syncCode) return;
+  if (_syncBusy) { console.log('[AutoSync] Busy, skipping pull'); return; }
+  _syncBusy = true;
   try {
     var resp = await fetch('/api/sync?code=' + store.syncCode);
     var result = await resp.json();
     if (result.ok && result.data) {
       var cloudTime = result.updatedAt || '';
-      var localLastSync = store.lastSyncAt || '';
-      if (cloudTime && localLastSync && cloudTime > localLastSync) {
+      var localLastPull = store.lastPullAt || '';
+      // Only pull if cloud is newer than our last pull
+      // Use ISO comparison: cloud updatedAt vs local lastPullAt
+      if (!localLastPull || (cloudTime && cloudTime > localLastPull)) {
         var localSyncCode = store.syncCode;
-        store = Object.assign(defaultStore(), result.data);
+        // Smart merge: keep local data that cloud doesn't have
+        var merged = mergeStoreData(store, result.data);
+        store = merged;
         store.syncCode = localSyncCode;
-        store.lastPullAt = new Date().toLocaleString('zh-CN');
+        store.lastPullAt = cloudTime; // Use cloud's updatedAt, not local time
         localStorage.setItem('rosy_store_v3', JSON.stringify(store));
         renderPanel(store.activeTab);
         renderTopBar();
-        console.log('Auto-pulled from cloud:', cloudTime);
+        updateSyncStatusUI();
+        console.log('[AutoSync] Pulled from cloud:', cloudTime, 'from device:', result.deviceName || '');
+        // Push merged data back so other devices get the combined result
+        _syncBusy = false; // Release lock before push
+        setTimeout(function() { syncPushData(false); }, 500);
+        return;
       }
     }
   } catch(e) {
-    console.log('Auto-pull failed:', e.message);
+    console.log('[AutoSync] Pull failed:', e.message);
+  } finally {
+    _syncBusy = false;
   }
+}
+
+// Smart merge: combine local + cloud data, preferring cloud for conflicts
+function mergeStoreData(local, cloud) {
+  if (!cloud) return local;
+  // Start with cloud as base (it's the latest pushed version)
+  var merged = Object.assign(defaultStore(), cloud);
+  
+  // Merge arrays: union by unique IDs
+  var localRecords = local.newLearnRecords || [];
+  var cloudRecords = cloud.newLearnRecords || [];
+  var seenIds = {};
+  var mergedRecords = [];
+  cloudRecords.forEach(function(r) { 
+    if (!seenIds[r.id]) { seenIds[r.id] = true; mergedRecords.push(r); }
+  });
+  localRecords.forEach(function(r) {
+    if (!seenIds[r.id]) { seenIds[r.id] = true; mergedRecords.push(r); }
+  });
+  merged.newLearnRecords = mergedRecords;
+  
+  // Merge learnedChapters: union
+  var learnedSet = {};
+  (local.learnedChapters || []).forEach(function(id) { learnedSet[id] = true; });
+  (cloud.learnedChapters || []).forEach(function(id) { learnedSet[id] = true; });
+  merged.learnedChapters = Object.keys(learnedSet);
+  
+  // Merge customTasks: union by id
+  var localTasks = local.customTasks || [];
+  var cloudTasks = cloud.customTasks || [];
+  var taskSeen = {};
+  var mergedTasks = [];
+  cloudTasks.forEach(function(t) {
+    if (!taskSeen[t.id]) { taskSeen[t.id] = true; mergedTasks.push(t); }
+  });
+  localTasks.forEach(function(t) {
+    if (!taskSeen[t.id]) { taskSeen[t.id] = true; mergedTasks.push(t); }
+  });
+  merged.customTasks = mergedTasks;
+  
+  // Merge reviewRecords: take the higher count + latest date
+  var localRR = local.reviewRecords || {};
+  var cloudRR = cloud.reviewRecords || {};
+  var mergedRR = {};
+  var rrKeys = Object.keys(Object.assign({}, localRR, cloudRR));
+  rrKeys.forEach(function(key) {
+    var lr = localRR[key] || { count: 0, lastDate: '', dates: [] };
+    var cr = cloudRR[key] || { count: 0, lastDate: '', dates: [] };
+    mergedRR[key] = {
+      count: Math.max(lr.count, cr.count),
+      lastDate: lr.lastDate > cr.lastDate ? lr.lastDate : cr.lastDate,
+      dates: Array.from(new Set((lr.dates || []).concat(cr.dates || []))).sort()
+    };
+  });
+  merged.reviewRecords = mergedRR;
+  
+  // Merge rollingStatus: keep done=true if either side is done
+  var localRS = local.rollingStatus || {};
+  var cloudRS = cloud.rollingStatus || {};
+  var mergedRS = {};
+  var rsKeys = Object.keys(Object.assign({}, localRS, cloudRS));
+  rsKeys.forEach(function(key) {
+    var ls = localRS[key] || { done: false, lastDate: '' };
+    var cs = cloudRS[key] || { done: false, lastDate: '' };
+    var done = ls.done || cs.done;
+    mergedRS[key] = {
+      done: done,
+      lastDate: done ? (ls.lastDate > cs.lastDate ? ls.lastDate : cs.lastDate) : ''
+    };
+  });
+  merged.rollingStatus = mergedRS;
+  
+  // Merge calendarEvents: union by date + title
+  var localCE = local.calendarEvents || {};
+  var cloudCE = cloud.calendarEvents || {};
+  var ceKeys = Object.keys(Object.assign({}, localCE, cloudCE));
+  var mergedCE = {};
+  ceKeys.forEach(function(date) {
+    var localEvents = localCE[date] || [];
+    var cloudEvents = cloudCE[date] || [];
+    var seen = {};
+    var mergedEvents = [];
+    localEvents.concat(cloudEvents).forEach(function(e) {
+      var k = (e.type || '') + '|' + (e.title || '');
+      if (!seen[k]) { seen[k] = true; mergedEvents.push(e); }
+    });
+    mergedCE[date] = mergedEvents;
+  });
+  merged.calendarEvents = mergedCE;
+  
+  // Keep local settings (currentSubject, currentSystem, etc) - prefer local
+  if (local.settings) {
+    merged.settings = Object.assign({}, cloud.settings || {}, local.settings);
+  }
+  
+  // Keep local navigation state
+  merged.activeTab = local.activeTab || cloud.activeTab || 'home';
+  merged.navCollapsed = local.navCollapsed !== undefined ? local.navCollapsed : (cloud.navCollapsed || false);
+  
+  // Keep local teacherPlan if it exists and is newer (displayDate etc)
+  if (local.teacherPlan && local.teacherPlan.content && (!cloud.teacherPlan || !cloud.teacherPlan.content)) {
+    merged.teacherPlan = local.teacherPlan;
+  }
+  
+  return merged;
 }
 
 function unbindSync() {
@@ -7743,8 +7901,36 @@ async function init() {
   // Auto-pull from cloud if syncCode is bound (delayed to not block initial render)
   if (store.syncCode) {
     setTimeout(autoSyncPull, 2000);
-    // Periodic auto-pull every 5 minutes
-    setInterval(autoSyncPull, 300000);
+    // Periodic auto-pull every 2 minutes
+    setInterval(autoSyncPull, 120000);
+    // Pull when tab becomes visible (switching back from another tab/app)
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'visible' && store.syncCode) {
+        // Small delay to avoid competing with page re-render
+        setTimeout(autoSyncPull, 500);
+      }
+    });
+    // Auto-push every 3 minutes as a safety net (catches any unsaved changes)
+    setInterval(function() {
+      if (store.syncCode && !_syncBusy) {
+        syncPushData(false);
+      }
+    }, 180000);
+    // Push when page is hidden or closed (use sendBeacon for reliability)
+    window.addEventListener('pagehide', function() {
+      if (store.syncCode && navigator.sendBeacon) {
+        var payload = JSON.parse(JSON.stringify(store));
+        delete payload.lastPullAt;
+        delete payload.lastSyncAt;
+        var blob = new Blob([JSON.stringify({
+          action: 'push',
+          syncCode: store.syncCode,
+          data: payload,
+          deviceName: getDeviceName()
+        })], { type: 'application/json' });
+        navigator.sendBeacon('/api/sync', blob);
+      }
+    });
   }
 }
 
