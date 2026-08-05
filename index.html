@@ -467,6 +467,80 @@ body {
   font-size: 12px;
   color: var(--muted);
 }
+/* ===== Sync Indicator (top bar) ===== */
+.sync-status-item {
+  margin-left: auto;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--surface-muted, rgba(0,0,0,0.03));
+  transition: background 0.2s;
+}
+.sync-status-item:hover {
+  background: var(--surface-hover, rgba(0,0,0,0.06));
+}
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.sync-dot-ok {
+  background: #7BAE7F;
+  animation: syncPulse 2s ease-in-out infinite;
+}
+.sync-dot-syncing {
+  background: #C4A882;
+  animation: syncSpin 0.8s linear infinite;
+}
+.sync-dot-error {
+  background: #C47A7A;
+  animation: none;
+}
+@keyframes syncSpin {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* ===== Sync Toast (auto-sync notification) ===== */
+.sync-toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(237,231,240,0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(154,138,168,0.15);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 12px;
+  color: #7a6a88;
+  box-shadow: 0 4px 16px rgba(154,138,168,0.15);
+  z-index: 10000;
+  animation: syncToastSlide 0.3s ease, syncToastFade 0.3s ease 2.2s forwards;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sync-toast .sync-toast-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7BAE7F;
+  flex-shrink: 0;
+}
+.sync-toast.sync-toast-error .sync-toast-dot {
+  background: #C47A7A;
+}
+@keyframes syncToastSlide {
+  from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes syncToastFade {
+  to { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+}
 
 /* ===== Chip Selectors ===== */
 .chip-section {
@@ -3621,6 +3695,13 @@ function renderTopBar() {
   html += '<span class="status-value">' + (consolidationCount + rollingCount) + '</span>';
   html += '<span class="status-unit">\u9879</span>';
   html += '</div>';
+  // Sync indicator (only show if syncCode is bound)
+  if (store.syncCode) {
+    html += '<div class="status-item sync-status-item" onclick="syncPullData()" style="cursor:pointer;title:\u70b9\u51fb\u624b\u52a8\u62c9\u53d6">';
+    html += '<span id="topSyncDot" class="sync-dot sync-dot-ok"></span>';
+    html += '<span class="status-label" id="topSyncText">\u5df2\u540c\u6b65</span>';
+    html += '</div>';
+  }
   html += '</div>';
   
   // Subject chips
@@ -6383,14 +6464,36 @@ function showSyncStatus(msg, isError) {
 // Update sync time display without re-rendering entire panel
 function updateSyncStatusUI() {
   var el = document.getElementById('syncLastTime');
-  if (!el) return;
-  var timeStr = store.lastSyncAt || '\u6ce8\u672a\u540c\u6b65';
-  el.textContent = timeStr;
-  var indicator = document.getElementById('syncIndicator');
-  if (indicator) {
-    indicator.style.background = 'var(--success, #4caf50)';
-    indicator.title = '\u540c\u6b65\u6b63\u5e38';
+  if (el) {
+    el.textContent = store.lastSyncAt || '\u672a\u540c\u6b65';
   }
+  setSyncIndicator('ok');
+}
+
+// Update top bar sync indicator state: 'ok' | 'syncing' | 'error'
+function setSyncIndicator(state) {
+  var dot = document.getElementById('topSyncDot');
+  var text = document.getElementById('topSyncText');
+  if (!dot) return;
+  dot.className = 'sync-dot sync-dot-' + state;
+  if (text) {
+    if (state === 'syncing') text.textContent = '\u540c\u6b65\u4e2d...';
+    else if (state === 'error') text.textContent = '\u540c\u6b65\u5931\u8d25';
+    else text.textContent = '\u5df2\u540c\u6b65';
+  }
+}
+
+// Lightweight toast for auto-sync events (auto-dismiss after 2.5s)
+function showSyncToast(msg, isError) {
+  var existing = document.querySelector('.sync-toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.className = 'sync-toast' + (isError ? ' sync-toast-error' : '');
+  toast.innerHTML = '<span class="sync-toast-dot"></span><span>' + msg + '</span>';
+  document.body.appendChild(toast);
+  setTimeout(function() {
+    if (toast.parentNode) toast.remove();
+  }, 2500);
 }
 
 function getDeviceName() {
@@ -6465,7 +6568,7 @@ async function syncPushData(showFeedback) {
   if (!store.syncCode) return;
   if (_syncBusy) { console.log('[Sync] Busy, skipping push'); return; }
   _syncBusy = true;
-  if (showFeedback) showSyncStatus('\u6b63\u5728\u4e0a\u4f20...');
+  if (showFeedback) { showSyncStatus('\u6b63\u5728\u4e0a\u4f20...'); setSyncIndicator('syncing'); }
   try {
     // Strip sync metadata from data being pushed (don't push lastPullAt/lastSyncAt to cloud)
     var pushPayload = JSON.parse(JSON.stringify(store));
@@ -6489,9 +6592,11 @@ async function syncPushData(showFeedback) {
       updateSyncStatusUI();
       if (showFeedback) showSyncStatus('\u4e0a\u4f20\u6210\u529f ' + store.lastSyncAt);
     } else {
+      setSyncIndicator('error');
       if (showFeedback) showSyncStatus(result.error || '\u4e0a\u4f20\u5931\u8d25', true);
     }
   } catch(e) {
+    setSyncIndicator('error');
     if (showFeedback) showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
   } finally {
     _syncBusy = false;
@@ -6502,6 +6607,7 @@ async function syncPullData() {
   if (!store.syncCode) return;
   if (_syncBusy) { showSyncStatus('\u540c\u6b65\u8fdb\u884c\u4e2d\uff0c\u8bf7\u7a0d\u5019', true); return; }
   _syncBusy = true;
+  setSyncIndicator('syncing');
   showSyncStatus('\u6b63\u5728\u62c9\u53d6\u4e91\u7aef\u6570\u636e...');
   try {
     var resp = await fetch('/api/sync?code=' + store.syncCode);
@@ -6515,15 +6621,18 @@ async function syncPullData() {
       store.lastSyncAt = new Date().toLocaleString('zh-CN');
       localStorage.setItem('rosy_store_v3', JSON.stringify(store));
       showSyncStatus('\u62c9\u53d6\u5e76\u5408\u5e76\u6210\u529f ' + store.lastSyncAt);
+      showSyncToast('\u2705 \u62c9\u53d6\u5e76\u5408\u5e76\u6210\u529f');
       updateSyncStatusUI();
       renderPanel(store.activeTab);
       renderTopBar();
       // Push merged data back so other devices get the combined result
       setTimeout(function() { syncPushData(false); }, 1000);
     } else {
+      setSyncIndicator('error');
       showSyncStatus(result.error || '\u4e91\u7aef\u65e0\u6570\u636e', true);
     }
   } catch(e) {
+    setSyncIndicator('error');
     showSyncStatus('\u7f51\u7edc\u9519\u8bef\uff1a' + e.message, true);
   } finally {
     _syncBusy = false;
@@ -6534,6 +6643,7 @@ async function autoSyncPull() {
   if (!store.syncCode) return;
   if (_syncBusy) { console.log('[AutoSync] Busy, skipping pull'); return; }
   _syncBusy = true;
+  setSyncIndicator('syncing');
   try {
     var resp = await fetch('/api/sync?code=' + store.syncCode);
     var result = await resp.json();
@@ -6549,19 +6659,31 @@ async function autoSyncPull() {
         store = merged;
         store.syncCode = localSyncCode;
         store.lastPullAt = cloudTime; // Use cloud's updatedAt, not local time
+        store.lastSyncAt = new Date().toLocaleString('zh-CN');
         localStorage.setItem('rosy_store_v3', JSON.stringify(store));
         renderPanel(store.activeTab);
         renderTopBar();
         updateSyncStatusUI();
+        // Show user-visible toast
+        var deviceLabel = result.deviceName ? ('\u6765\u81ea\uff1a' + result.deviceName) : '';
+        showSyncToast('\u2705 \u5df2\u540c\u6b65\u4e91\u7aef\u66f4\u65b0 ' + deviceLabel);
         console.log('[AutoSync] Pulled from cloud:', cloudTime, 'from device:', result.deviceName || '');
         // Push merged data back so other devices get the combined result
         _syncBusy = false; // Release lock before push
         setTimeout(function() { syncPushData(false); }, 500);
         return;
+      } else {
+        // Cloud is not newer, no pull needed
+        setSyncIndicator('ok');
       }
+    } else {
+      setSyncIndicator('ok');
     }
   } catch(e) {
     console.log('[AutoSync] Pull failed:', e.message);
+    setSyncIndicator('error');
+    // Reset to ok after 3 seconds so it doesn't stay red forever
+    setTimeout(function() { setSyncIndicator('ok'); }, 3000);
   } finally {
     _syncBusy = false;
   }

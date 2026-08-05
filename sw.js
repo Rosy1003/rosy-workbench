@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rosy-deploy-v21';
+const CACHE_NAME = 'rosy-deploy-v22';
 const ASSETS = ['/', '/index.html', '/manifest.json', '/icon192.png', '/icon512.png'];
 
 self.addEventListener('install', e => {
