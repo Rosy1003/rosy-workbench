@@ -7690,11 +7690,11 @@ function doAddSelectedTodos(selected, targetDate) {
 
   selected.forEach(function(todo) {
     if (todo.category === 'new' && todo.chapterId) {
-      // Matched new learn: same logic as addBatchNewLearn (no customTask)
+      // Matched new learn: use ACTUAL date (today), not plan date, for D1 calculation
       var record = {
         id: 'r_' + Date.now() + '_' + todo.chapterId + '_' + Math.random().toString(36).substr(2, 4),
         chapterId: todo.chapterId,
-        date: targetDate,
+        date: todayStr,
         completedReviews: [],
         customText: todo.text
       };
@@ -7706,8 +7706,8 @@ function doAddSelectedTodos(selected, targetDate) {
         store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
       }
       store.reviewRecords[todo.chapterId].count++;
-      store.reviewRecords[todo.chapterId].lastDate = targetDate;
-      store.reviewRecords[todo.chapterId].dates.push(targetDate);
+      store.reviewRecords[todo.chapterId].lastDate = todayStr;
+      store.reviewRecords[todo.chapterId].dates.push(todayStr);
       // Reset directly mapped cross-subject rolling reviews to "not done"
       resetMappedRollingReviews(todo.chapterId);
       newLearnCount++;
@@ -7718,12 +7718,12 @@ function doAddSelectedTodos(selected, targetDate) {
         conCount += marked;
       } else {
         // No due reviews found, create plain customTask (without chapterId for display)
-        addCustomTaskForTodo(todo, targetDate);
+        addCustomTaskForTodo(todo, todayStr);
         taskCount++;
       }
     } else if (todo.category === 'rol' && todo.chapterId) {
       // Matched rolling: create customTask for display + update rollingStatus for tracking
-      var rolTaskId = addCustomTaskForTodo(todo, targetDate, todo.chapterId);
+      var rolTaskId = addCustomTaskForTodo(todo, todayStr, todo.chapterId);
       taskCount++;
       // Also update rollingStatus and reviewRecords for tracking
       if (!store.rollingStatus[todo.chapterId]) {
@@ -7739,7 +7739,7 @@ function doAddSelectedTodos(selected, targetDate) {
       rolCount++;
     } else {
       // Unmatched or no chapter: create plain customTask
-      addCustomTaskForTodo(todo, targetDate);
+      addCustomTaskForTodo(todo, todayStr);
       taskCount++;
     }
   });
@@ -7765,7 +7765,7 @@ function doAddSelectedTodos(selected, targetDate) {
   if (conCount > 0) parts.push(conCount + '\u4e2a\u5de9\u56fa');
   if (rolCount > 0) parts.push(rolCount + '\u4e2a\u6eda\u52a8');
   if (taskCount > 0) parts.push(taskCount + '\u4e2a\u4efb\u52a1');
-  hint.textContent = '\u2705 \u5df2\u6dfb\u52a0 ' + parts.join('+') + ' \u5230 ' + targetDate;
+  hint.textContent = '\u2705 \u5df2\u6dfb\u52a0 ' + parts.join('+') + ' \u5230 ' + todayStr;
   hint.style.display = 'block';
   setTimeout(function() { hint.style.display = 'none'; }, 2500);
 }
@@ -8129,6 +8129,60 @@ async function init() {
       });
       saveStore();
       console.log('[Migration] learnedChapters: string IDs converted to numbers');
+    }
+  }
+  
+  // Fix: correct newLearnRecords dates that were set to plan date instead of actual study date
+  // The record ID contains Date.now() timestamp; if its date doesn't match the record.date, fix it
+  if (store.newLearnRecords && store.newLearnRecords.length > 0) {
+    var dateFixed = 0;
+    store.newLearnRecords.forEach(function(record) {
+      if (!record.id || record.id.indexOf('r_') !== 0) return;
+      var parts = record.id.split('_');
+      var ts = parseInt(parts[1], 10);
+      if (isNaN(ts)) return;
+      var actualDate = fmtDate(new Date(ts));
+      if (record.date && record.date !== actualDate) {
+        // Record date doesn't match creation time - fix it
+        var oldDate = record.date;
+        record.date = actualDate;
+        dateFixed++;
+        // Also fix reviewRecords dates
+        var chId = record.chapterId;
+        if (store.reviewRecords[chId] && store.reviewRecords[chId].dates) {
+          var dates = store.reviewRecords[chId].dates;
+          for (var i = 0; i < dates.length; i++) {
+            if (dates[i] === oldDate) { dates[i] = actualDate; break; }
+          }
+          if (store.reviewRecords[chId].lastDate === oldDate) {
+            store.reviewRecords[chId].lastDate = actualDate;
+          }
+        }
+      }
+    });
+    if (dateFixed > 0) {
+      saveStore();
+      console.log('[Migration] Fixed ' + dateFixed + ' newLearnRecords dates (plan date -> actual date)');
+    }
+  }
+  
+  // Fix: correct customTasks dates that were set to plan date instead of actual date
+  if (store.customTasks && store.customTasks.length > 0) {
+    var taskDateFixed = 0;
+    store.customTasks.forEach(function(task) {
+      if (!task.id || task.id.indexOf('ct_') !== 0) return;
+      var parts = task.id.split('_');
+      var ts = parseInt(parts[1], 10);
+      if (isNaN(ts)) return;
+      var actualDate = fmtDate(new Date(ts));
+      if (task.date && task.date !== actualDate) {
+        task.date = actualDate;
+        taskDateFixed++;
+      }
+    });
+    if (taskDateFixed > 0) {
+      saveStore();
+      console.log('[Migration] Fixed ' + taskDateFixed + ' customTasks dates (plan date -> actual date)');
     }
   }
   
