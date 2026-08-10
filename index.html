@@ -3404,7 +3404,11 @@ function getRecordDisplayInfo(record) {
 }
 
 function isLearned(id) {
-  return store.learnedChapters.indexOf(id) >= 0;
+  var numId = typeof id === 'string' ? parseInt(id, 10) : id;
+  return store.learnedChapters.some(function(lid) {
+    var numLid = typeof lid === 'string' ? parseInt(lid, 10) : lid;
+    return numLid === numId;
+  });
 }
 
 function getReviewCount(id) {
@@ -3443,6 +3447,20 @@ function getCrossSubjectChapters(system, currentSubject) {
       indices.forEach(function(gi) { groupIndices[gi] = true; });
     }
   });
+
+  // Fallback: if specific content has no cross-subject mappings, use system-level lookup
+  if (selectedName && Object.keys(groupIndices).length === 0) {
+    lookupChapters = CHAPTER_DATA.filter(function(ch) {
+      return ch.subject === currentSubject && ch.system === system;
+    });
+    lookupChapters.forEach(function(ch) {
+      var key = ch.subject + '|' + ch.name;
+      var indices = CHAPTER_TOPIC_INDEX[key];
+      if (indices) {
+        indices.forEach(function(gi) { groupIndices[gi] = true; });
+      }
+    });
+  }
 
   // Collect all chapters from those groups, excluding same subject
   var result = [];
@@ -4931,7 +4949,7 @@ function renderGrowthTimeline() {
       var subj = ch.subject || ch[0] || '';
       if (total[subj] !== undefined) {
         total[subj]++;
-        if (store.learnedChapters && store.learnedChapters.indexOf(ch.id || ch[3]) >= 0) {
+        if (store.learnedChapters && isLearned(ch.id || ch[3])) {
           learned[subj]++;
         }
       }
@@ -5897,11 +5915,15 @@ function renderReviewChapterList(filterSubject) {
 }
 
 function toggleLearned(chapterId) {
-  const idx = store.learnedChapters.indexOf(chapterId);
+  var numId = typeof chapterId === 'string' ? parseInt(chapterId, 10) : chapterId;
+  var idx = store.learnedChapters.findIndex(function(lid) {
+    var numLid = typeof lid === 'string' ? parseInt(lid, 10) : lid;
+    return numLid === numId;
+  });
   if (idx >= 0) {
     store.learnedChapters.splice(idx, 1);
   } else {
-    store.learnedChapters.push(chapterId);
+    store.learnedChapters.push(numId);
   }
   saveStore();
   renderReviewChapterList('');
@@ -6797,11 +6819,18 @@ function mergeStoreData(local, cloud) {
   });
   merged.newLearnRecords = mergedRecords;
   
-  // Merge learnedChapters: union
+  // Merge learnedChapters: union (preserve numeric type, avoid Object.keys which returns strings)
   var learnedSet = {};
-  (local.learnedChapters || []).forEach(function(id) { learnedSet[id] = true; });
-  (cloud.learnedChapters || []).forEach(function(id) { learnedSet[id] = true; });
-  merged.learnedChapters = Object.keys(learnedSet);
+  var mergedLearned = [];
+  (local.learnedChapters || []).forEach(function(id) {
+    var numId = typeof id === 'string' ? parseInt(id, 10) : id;
+    if (!learnedSet[numId]) { learnedSet[numId] = true; mergedLearned.push(numId); }
+  });
+  (cloud.learnedChapters || []).forEach(function(id) {
+    var numId = typeof id === 'string' ? parseInt(id, 10) : id;
+    if (!learnedSet[numId]) { learnedSet[numId] = true; mergedLearned.push(numId); }
+  });
+  merged.learnedChapters = mergedLearned;
   
   // Merge customTasks: union by id
   var localTasks = local.customTasks || [];
@@ -7224,7 +7253,8 @@ function addBatchNewLearn() {
       completedReviews: []
     };
     store.newLearnRecords.push(record);
-    if (!isLearned(chapterId)) store.learnedChapters.push(chapterId);
+    var numChapterId = typeof chapterId === 'string' ? parseInt(chapterId, 10) : chapterId;
+    if (!isLearned(numChapterId)) store.learnedChapters.push(numChapterId);
     
     if (!store.reviewRecords[chapterId]) {
       store.reviewRecords[chapterId] = { count: 0, lastDate: '', dates: [] };
@@ -7670,7 +7700,8 @@ function doAddSelectedTodos(selected, targetDate) {
       };
       if (!store.newLearnRecords) store.newLearnRecords = [];
       store.newLearnRecords.push(record);
-      if (!isLearned(todo.chapterId)) store.learnedChapters.push(todo.chapterId);
+      var numTodoChId = typeof todo.chapterId === 'string' ? parseInt(todo.chapterId, 10) : todo.chapterId;
+      if (!isLearned(numTodoChId)) store.learnedChapters.push(numTodoChId);
       if (!store.reviewRecords[todo.chapterId]) {
         store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
       }
@@ -7703,7 +7734,8 @@ function doAddSelectedTodos(selected, targetDate) {
       if (!store.reviewRecords[todo.chapterId]) {
         store.reviewRecords[todo.chapterId] = { count: 0, lastDate: '', dates: [] };
       }
-      if (!isLearned(todo.chapterId)) store.learnedChapters.push(todo.chapterId);
+      var numRolChId = typeof todo.chapterId === 'string' ? parseInt(todo.chapterId, 10) : todo.chapterId;
+      if (!isLearned(numRolChId)) store.learnedChapters.push(numRolChId);
       rolCount++;
     } else {
       // Unmatched or no chapter: create plain customTask
@@ -8087,6 +8119,18 @@ async function init() {
   await loadChapters();
   loadStore();
   migrateEbReviews();
+  
+  // Fix: convert string IDs in learnedChapters to numbers (caused by Object.keys in old mergeStoreData)
+  if (store.learnedChapters && store.learnedChapters.length > 0) {
+    var needsFix = store.learnedChapters.some(function(id) { return typeof id === 'string'; });
+    if (needsFix) {
+      store.learnedChapters = store.learnedChapters.map(function(id) {
+        return typeof id === 'string' ? parseInt(id, 10) : id;
+      });
+      saveStore();
+      console.log('[Migration] learnedChapters: string IDs converted to numbers');
+    }
+  }
   
   // Set default learned chapters on first run
   if (store.learnedChapters.length === 0 && CHAPTER_DATA.length > 0) {
