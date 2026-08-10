@@ -3322,10 +3322,24 @@ function saveStore() {
 
 // Debounced sync push
 var syncPushTimer = null;
+var _pendingPushRetry = 0;
 function scheduleSyncPush() {
   if (syncPushTimer) clearTimeout(syncPushTimer);
   syncPushTimer = setTimeout(function() {
-    syncPushData(false); // silent push
+    if (_syncBusy) {
+      // Sync in progress - retry after 2 seconds (max 5 retries)
+      if (_pendingPushRetry < 5) {
+        _pendingPushRetry++;
+        console.log('[Sync] Busy, retrying push (' + _pendingPushRetry + '/5)');
+        scheduleSyncPush();
+      } else {
+        _pendingPushRetry = 0;
+        console.log('[Sync] Max retries reached, giving up (safety net will catch up)');
+      }
+    } else {
+      _pendingPushRetry = 0;
+      syncPushData(false); // silent push
+    }
   }, 3000); // 3 second debounce
 }
 
@@ -3562,7 +3576,11 @@ function getAllConsolidationReviews() {
       if (reviewDateStr <= todayStr) {
         var isDone = record.completedReviews && record.completedReviews.indexOf(idx) >= 0;
         // Hide completed tasks from previous days; keep today's completed for strikethrough
-        if (isDone && reviewDateStr < todayStr) return;
+        // Also keep tasks completed today even if overdue (so user can undo)
+        if (isDone && reviewDateStr < todayStr) {
+          var completionDate = record.completedDates && record.completedDates[idx];
+          if (completionDate !== todayStr) return;
+        }
         reviews.push({
           record: record,
           chapterId: record.chapterId,
@@ -5443,7 +5461,8 @@ function renderConsolidationBySubject(consolidationReviews, customTasks, today, 
       var overdueBadge = (r.overdue && !isDone) ? '<span class="dp-overdue-badge">\u903e\u671f' + r.overdueDays + '\u5929</span>' : '';
       var meta = r.intervalLabel + ' \u00b7 ' + info.subject;
       if (showSystem && info.system) meta += ' \u00b7 ' + info.system;
-      html += '<div class="' + itemClass + '"><div class="dp-task-check' + (isDone ? ' done' : '') + '" onclick="markConsolidationDone(\'' + r.record.id + '\', ' + r.intervalIdx + ')">' + (isDone ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(info.name) + overdueBadge + '</div><div class="dp-task-meta">' + meta + '</div></div><span class="dp-task-tag con">' + r.intervalLabel + '</span>' + (isDone ? '' : '<button class="dp-task-delete" onclick="skipConsolidationReview(\'' + r.record.id + '\', ' + r.intervalIdx + ')">\u00d7</button>') + '</div>';
+      var toggleFn = isDone ? 'unmarkConsolidationDone' : 'markConsolidationDone';
+      html += '<div class="' + itemClass + '"><div class="dp-task-check' + (isDone ? ' done' : '') + '" onclick="' + toggleFn + '(\'' + r.record.id + '\', ' + r.intervalIdx + ')">' + (isDone ? '\u2713' : '') + '</div><div class="dp-task-info"><div class="dp-task-text">' + escapeHtml(info.name) + overdueBadge + '</div><div class="dp-task-meta">' + meta + '</div></div><span class="dp-task-tag con">' + r.intervalLabel + '</span>' + (isDone ? '' : '<button class="dp-task-delete" onclick="skipConsolidationReview(\'' + r.record.id + '\', ' + r.intervalIdx + ')">\u00d7</button>') + '</div>';
     });
     html += '</div></div>';
   });
@@ -5656,19 +5675,23 @@ function markConsolidationDone(recordId, intervalIdx) {
   record.completedDates[intervalIdx] = todayStr;
   
   // Calculate delay and update shiftDays for subsequent reviews
+  if (!record.shiftDeltas) record.shiftDeltas = {};
   var shift = record.shiftDays || 0;
   var learnDate = parseDate(record.date);
   var shiftedDueDate = new Date(learnDate);
   shiftedDueDate.setDate(shiftedDueDate.getDate() + EBINGHAUS_INTERVALS[intervalIdx] + shift);
   var shiftedDueStr = fmtDate(shiftedDueDate);
   // delay in days: if completed after the shifted due date
+  var delayDays = 0;
   if (todayStr > shiftedDueStr) {
     var delayMs = new Date(todayStr) - new Date(shiftedDueStr);
-    var delayDays = Math.floor(delayMs / (1000 * 60 * 60 * 24));
+    delayDays = Math.floor(delayMs / (1000 * 60 * 60 * 24));
     if (delayDays > 0) {
       record.shiftDays = shift + delayDays;
     }
   }
+  record.shiftDeltas[intervalIdx] = delayDays;
+  record.lastModified = Date.now();
   
   const chId = record.chapterId || ('rec_' + record.id);
   if (!store.reviewRecords[chId]) {
@@ -5682,6 +5705,53 @@ function markConsolidationDone(recordId, intervalIdx) {
   renderDailyPlan();
   renderHome();
   showTaskToast();
+}
+
+// Undo consolidation review completion (toggle back to undone)
+function unmarkConsolidationDone(recordId, intervalIdx) {
+  var record = store.newLearnRecords.find(function(r) { return r.id === recordId; });
+  if (!record) return;
+  if (!record.completedReviews) return;
+  
+  var idx = record.completedReviews.indexOf(intervalIdx);
+  if (idx < 0) return;
+  record.completedReviews.splice(idx, 1);
+  
+  // Remove completion date
+  var completionDate = record.completedDates ? record.completedDates[intervalIdx] : null;
+  if (record.completedDates) {
+    delete record.completedDates[intervalIdx];
+  }
+  
+  // Revert shiftDays using stored delta
+  if (record.shiftDeltas && record.shiftDeltas[intervalIdx] !== undefined) {
+    record.shiftDays = (record.shiftDays || 0) - record.shiftDeltas[intervalIdx];
+    if (record.shiftDays < 0) record.shiftDays = 0;
+    delete record.shiftDeltas[intervalIdx];
+  }
+  
+  // Revert reviewRecords
+  var chId = record.chapterId || ('rec_' + record.id);
+  if (store.reviewRecords[chId]) {
+    var rr = store.reviewRecords[chId];
+    rr.count = Math.max(0, rr.count - 1);
+    if (completionDate) {
+      var dates = rr.dates || [];
+      for (var i = dates.length - 1; i >= 0; i--) {
+        if (dates[i] === completionDate) {
+          dates.splice(i, 1);
+          break;
+        }
+      }
+      rr.lastDate = dates.length > 0 ? dates[dates.length - 1] : '';
+    }
+  }
+  
+  record.lastModified = Date.now();
+  
+  saveStore();
+  renderDailyPlan();
+  renderHome();
 }
 
 // Helper: calculate shifted review date for a record + interval index
@@ -6516,7 +6586,9 @@ async function registerSyncCode() {
       store.syncCode = result.syncCode;
       saveStore();
       await syncPushData(false);
+      setupAutoSync(); // Start auto-sync listeners
       showSyncStatus('\u540c\u6b65\u7801\u5df2\u751f\u6210\u5e76\u4e0a\u4f20\u6570\u636e');
+      renderTopBar();
       renderPanel('skill');
     } else {
       showSyncStatus(result.error || '\u751f\u6210\u5931\u8d25', true);
@@ -6553,6 +6625,8 @@ async function bindSyncCode() {
         await syncPushData(false);
         showSyncStatus('\u7ed1\u5b9a\u6210\u529f\uff0c\u672c\u5730\u6570\u636e\u5df2\u4e0a\u4f20');
       }
+      setupAutoSync(); // Start auto-sync listeners
+      renderTopBar();
       renderPanel('skill');
     } else {
       showSyncStatus(result.error || '\u540c\u6b65\u7801\u4e0d\u5b58\u5728', true);
@@ -6617,7 +6691,7 @@ async function syncPullData() {
       var merged = mergeStoreData(store, result.data);
       store = merged;
       store.syncCode = localSyncCode;
-      store.lastPullAt = new Date().toISOString();
+      store.lastPullAt = result.updatedAt || new Date().toISOString();
       store.lastSyncAt = new Date().toLocaleString('zh-CN');
       localStorage.setItem('rosy_store_v3', JSON.stringify(store));
       showSyncStatus('\u62c9\u53d6\u5e76\u5408\u5e76\u6210\u529f ' + store.lastSyncAt);
@@ -6695,13 +6769,28 @@ function mergeStoreData(local, cloud) {
   // Start with cloud as base (it's the latest pushed version)
   var merged = Object.assign(defaultStore(), cloud);
   
-  // Merge arrays: union by unique IDs
+  // Merge arrays: union by unique IDs, field-level merge for duplicates
   var localRecords = local.newLearnRecords || [];
   var cloudRecords = cloud.newLearnRecords || [];
+  var localById = {};
+  localRecords.forEach(function(r) { localById[r.id] = r; });
   var seenIds = {};
   var mergedRecords = [];
   cloudRecords.forEach(function(r) { 
-    if (!seenIds[r.id]) { seenIds[r.id] = true; mergedRecords.push(r); }
+    if (!seenIds[r.id]) {
+      seenIds[r.id] = true;
+      var lr = localById[r.id];
+      if (lr) {
+        // Record exists in both: take the one with more recent lastModified
+        if ((lr.lastModified || 0) > (r.lastModified || 0)) {
+          mergedRecords.push(lr);
+        } else {
+          mergedRecords.push(r);
+        }
+      } else {
+        mergedRecords.push(r);
+      }
+    }
   });
   localRecords.forEach(function(r) {
     if (!seenIds[r.id]) { seenIds[r.id] = true; mergedRecords.push(r); }
@@ -7357,7 +7446,15 @@ function renderStatusBarPanel() {
   html += '<div class="stat-mini"><div class="stat-num-mini" style="color:var(--morandi-blue);">' + todayNewCount + '</div><div class="stat-label-mini">\u4eca\u65e5\u65b0\u5b66</div></div>';
   html += '<div class="stat-mini"><div class="stat-num-mini" style="color:var(--accent-dark);">' + consolidationCount + '</div><div class="stat-label-mini">\u5de9\u56fa\u590d\u4e60</div></div>';
   html += '<div class="stat-mini"><div class="stat-num-mini" style="color:var(--morandi-purple);">' + rollingCount + '</div><div class="stat-label-mini">\u6eda\u52a8\u590d\u4e60</div></div>';
-  html += '</div></div>';
+  html += '</div>';
+  // Sync indicator (only if syncCode is bound)
+  if (store.syncCode) {
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-top:8px;padding:6px 10px;background:var(--bg);border-radius:6px;cursor:pointer;" onclick="syncPullData()">';
+    html += '<span id="topSyncDot" class="sync-dot sync-dot-ok"></span>';
+    html += '<span style="font-size:11px;color:var(--muted);">\u81ea\u52a8\u540c\u6b65\u00b7<span id="topSyncText">' + (store.lastSyncAt || '\u672a\u540c\u6b65') + '</span></span>';
+    html += '</div>';
+  }
+  html += '</div>';
 
   // Progress info
   // Debug: show latest new learn date
@@ -7662,14 +7759,18 @@ function markConsolidationForChapter(chapterId, todayStr) {
         if (!record.completedDates) record.completedDates = {};
         record.completedDates[idx] = todayStr;
         // Calculate delay and update shiftDays for subsequent reviews
+        if (!record.shiftDeltas) record.shiftDeltas = {};
         var shift = record.shiftDays || 0;
+        var delayDays = 0;
         if (todayStr > reviewDateStr) {
           var delayMs = new Date(todayStr) - new Date(reviewDateStr);
-          var delayDays = Math.floor(delayMs / (1000 * 60 * 60 * 24));
+          delayDays = Math.floor(delayMs / (1000 * 60 * 60 * 24));
           if (delayDays > 0) {
             record.shiftDays = shift + delayDays;
           }
         }
+        record.shiftDeltas[idx] = delayDays;
+        record.lastModified = Date.now();
         if (!store.reviewRecords[chapterId]) {
           store.reviewRecords[chapterId] = { count: 0, lastDate: '', dates: [] };
         }
@@ -8021,39 +8122,70 @@ async function init() {
   // User can manually sync or use prev/next day buttons to switch dates
 
   // Auto-pull from cloud if syncCode is bound (delayed to not block initial render)
-  if (store.syncCode) {
-    setTimeout(autoSyncPull, 2000);
-    // Periodic auto-pull every 2 minutes
-    setInterval(autoSyncPull, 120000);
-    // Pull when tab becomes visible (switching back from another tab/app)
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'visible' && store.syncCode) {
-        // Small delay to avoid competing with page re-render
-        setTimeout(autoSyncPull, 500);
-      }
-    });
-    // Auto-push every 3 minutes as a safety net (catches any unsaved changes)
-    setInterval(function() {
-      if (store.syncCode && !_syncBusy) {
-        syncPushData(false);
-      }
-    }, 180000);
-    // Push when page is hidden or closed (use sendBeacon for reliability)
-    window.addEventListener('pagehide', function() {
-      if (store.syncCode && navigator.sendBeacon) {
+  setupAutoSync();
+}
+
+// ===== Auto-sync setup (can be called after binding sync code) =====
+var _autoSyncSetup = false;
+function setupAutoSync() {
+  if (_autoSyncSetup) return; // Only register listeners once
+  _autoSyncSetup = true;
+  
+  // Initial pull after 2 seconds (if syncCode is set)
+  setTimeout(function() {
+    if (store.syncCode) autoSyncPull();
+  }, 2000);
+  
+  // Periodic auto-pull every 2 minutes
+  setInterval(function() {
+    if (store.syncCode) autoSyncPull();
+  }, 120000);
+  
+  // Pull when tab becomes visible (switching back from another tab/app)
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible' && store.syncCode) {
+      setTimeout(autoSyncPull, 500);
+    }
+  });
+  
+  // Auto-push every 3 minutes as a safety net (catches any unsaved changes)
+  setInterval(function() {
+    if (store.syncCode && !_syncBusy) {
+      syncPushData(false);
+    }
+  }, 180000);
+  
+  // Push when page is hidden or closed (use sendBeacon for reliability)
+  window.addEventListener('pagehide', function() {
+    if (store.syncCode) {
+      try {
         var payload = JSON.parse(JSON.stringify(store));
         delete payload.lastPullAt;
         delete payload.lastSyncAt;
-        var blob = new Blob([JSON.stringify({
+        var payloadStr = JSON.stringify({
           action: 'push',
           syncCode: store.syncCode,
           data: payload,
           deviceName: getDeviceName()
-        })], { type: 'application/json' });
-        navigator.sendBeacon('/api/sync', blob);
+        });
+        // sendBeacon has a ~64KB limit; fall back to fetch if too large
+        if (navigator.sendBeacon && payloadStr.length < 60000) {
+          var blob = new Blob([payloadStr], { type: 'application/json' });
+          navigator.sendBeacon('/api/sync', blob);
+        } else if (navigator.sendBeacon) {
+          // Data too large for sendBeacon, use fetch with keepalive
+          fetch('/api/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payloadStr,
+            keepalive: true
+          }).catch(function() {});
+        }
+      } catch(e) {
+        console.log('[Sync] pagehide push failed:', e.message);
       }
-    });
-  }
+    }
+  });
 }
 
 init();
