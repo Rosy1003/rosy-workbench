@@ -12,12 +12,12 @@ const SAMPLE_QUESTIONS = [
   {id:'path_008',subject:'pathology',system:'digestive',chapter:'肝硬化',type:'matching',title:'肝硬化的临床表现',description:'将以下选项归类到肝功能障碍临床表现、门脉高压临床表现或腹水形成机制。注意F(肝肾综合征)为区别内科学的标注项，归入肝功能障碍。',options:[{id:'A',text:'腹水'},{id:'B',text:'白蛋白合成障碍'},{id:'C',text:'侧支循环形成'},{id:'D',text:'凝血因子合成减少'},{id:'E',text:'静水压和通透性↑'},{id:'F',text:'肝肾综合征（区别内科学）'},{id:'G',text:'胃肠瘀血和水肿'},{id:'H',text:'肝性脑病/肝昏迷'},{id:'I',text:'雌激素灭活障碍'},{id:'J',text:'肝处理胆红素障碍'},{id:'K',text:'直肠静脉曲张'},{id:'L',text:'(最早)瘀血性脾大'},{id:'M',text:'蜘蛛痣，肝掌'},{id:'N',text:'氨中毒'},{id:'O',text:'脾亢致血小板减少'},{id:'P',text:'腹壁静脉曲张'},{id:'Q',text:'脾亢'},{id:'R',text:'低蛋白血症'},{id:'S',text:'小叶结构改变致淤胆'},{id:'T',text:'食管胃底静脉曲张'},{id:'U',text:'睾丸萎缩'},{id:'V',text:'淋巴液外溢'},{id:'W',text:'血浆胶渗压降低'},{id:'X',text:'黄疸'},{id:'Z',text:'出血倾向'},{id:'①',text:'门-腔侧支循环分流'},{id:'②',text:'乳房发育'},{id:'③',text:'醛固酮和ADH灭活障碍'},{id:'④',text:'白/球蛋白↓或倒置'},{id:'⑤',text:'月经不调'},{id:'⑥',text:'有效循环血量↓'}],categories:[{id:'C1',label:'肝功能障碍临床表现'},{id:'C2',label:'门脉高压的临床表现'},{id:'C3',label:'腹水形成的机制'}],answer:{'A':'C2','B':'C1','C':'C2','D':'C1','E':['C2','C3'],'F':'C1','G':'C2','H':'C1','I':'C1','J':'C1','K':'C2','L':'C2','M':'C1','N':'C1','O':'C2','P':'C2','Q':'C2','R':'C1','S':'C1','T':'C2','U':'C1','V':['C2','C3'],'W':['C1','C3'],'X':'C1','Z':'C1','①':'C2','②':'C1','③':['C1','C3'],'④':'C1','⑤':'C1','⑥':'C3'},explanation:'肝功能障碍临床表现：BDFHIJMNRSUWXZ ②③④⑤。门脉高压的临床表现：ACEGKLOPQTV①。腹水形成的机制：EVW③⑥。'},
   {id:'path_010',subject:'pathology',system:'digestive',chapter:'大肠癌',type:'matching',title:'大肠癌相关综合征缩写匹配',description:'将以下综合征英文缩写与对应的中文名称匹配',options:[{id:'A',text:'FAP'},{id:'B',text:'Peutz-Jeghers'},{id:'C',text:'Gardner'},{id:'D',text:'Turcot'}],categories:[{id:'C1',label:'家族性/遗传性腺瘤性息肉病'},{id:'C2',label:'胶质瘤息肉病综合征'},{id:'C3',label:'色素沉着黑斑息肉综合征'},{id:'C4',label:'肠息肉病合并多发性骨瘤和软组织瘤'}],answer:{'A':'C1','B':'C3','C':'C4','D':'C2'},explanation:'FAP=家族性腺瘤性息肉病；Peutz-Jeghers=色素沉着黑斑息肉综合征；Gardner=肠息肉病合并多发性骨瘤和软组织瘤；Turcot=胶质瘤息肉病综合征。'},
   {id:'path_012',subject:'pathology',system:'digestive',chapter:'消化性溃疡',type:'matching',title:'胃癌溃疡型vs胃溃疡',description:'将以下选项归类到胃溃疡或胃癌溃疡型',options:[{id:'A',text:'黏膜皱襞呈放射状向溃疡集中'},{id:'B',text:'外形为火山口或皿状'},{id:'C',text:'龛影位于胃腔轮廓之内'},{id:'D',text:'底部较平坦'},{id:'E',text:'大小多<2cm'},{id:'F',text:'周围黏膜皱襞中断，结节状肥厚'},{id:'G',text:'深度较浅(与胃溃疡相比)'},{id:'H',text:'胃酸多正常或↓'},{id:'I',text:'外形为圆形或椭圆形'},{id:'J',text:'胃酸明显↓(缺乏)'},{id:'K',text:'龛影位于胃腔轮廓之外'},{id:'L',text:'边缘不整齐，隆起'},{id:'M',text:'深度较深'},{id:'N',text:'底部凹凸不平，坏死出血明显'},{id:'O',text:'边缘整齐、不隆起'},{id:'P',text:'大小多>2cm'}],categories:[{id:'C1',label:'胃溃疡'},{id:'C2',label:'胃癌溃疡型'}],answer:{'A':'C1','D':'C1','E':'C1','H':'C1','I':'C1','K':'C1','M':'C1','O':'C1','B':'C2','C':'C2','F':'C2','G':'C2','J':'C2','L':'C2','N':'C2','P':'C2'},explanation:'胃溃疡呈圆形/椭圆形，边缘整齐，底部平坦，大小多<2cm，龛影在胃轮廓外；胃癌溃疡型呈火山口状，边缘不齐隆起，底部凹凸不平，大小多>2cm，龛影在胃轮廓内。'},
-  {id:'path_013',subject:'pathology',system:'cardiovascular',chapter:'感染性心内膜炎',type:'matching',title:'急性vs亚急性感染性心内膜炎',description:'将以下选项归类到急性或亚急性感染性心内膜炎',options:[{id:'A',text:'受累瓣膜穿孔'},{id:'B',text:'致病菌为草绿色链球菌等毒力较弱的'},{id:'C',text:'病变部位为病变心瓣膜'},{id:'D',text:'赘生物易脱落形成栓子'},{id:'E',text:'无菌性梗死(栓塞最多见于脑)'},{id:'F',text:'感染性/败血性梗死'},{id:'G',text:'肾小球肾炎和osler小结多见'},{id:'H',text:'致病菌金葡菌最多见'},{id:'I',text:'肾小球肾炎和osler小结少见'},{id:'J',text:'受累瓣膜变形'},{id:'K',text:'正常心瓣膜即可侵犯'},{id:'L',text:'致病菌为金葡菌、溶血性链球菌、肺炎链球菌等毒力较强的化脓菌'},{id:'M',text:'赘生物含菌'}],categories:[{id:'C1',label:'急性感染性心内膜炎'},{id:'C2',label:'亚急性感染性心内膜炎'}],answer:{'A':'C1','F':'C1','H':'C1','I':'C1','K':'C1','L':'C1','M':'C1','B':'C2','C':'C2','D':'C2','E':'C2','G':'C2','J':'C2'},explanation:'急性IE致病菌毒力强(金葡菌等)，侵犯正常瓣膜，赘生物含菌易脱落致败血性梗死；亚急性IE致病菌毒力弱(草绿色链球菌)，侵犯病变瓣膜，赘生物脱落致无菌性梗死，Osler小结和肾小球肾炎多见。D和M在中同时出现在两个类别，'},
+  {id:'path_013',subject:'pathology',system:'cardiovascular',chapter:'感染性心内膜炎',type:'matching',title:'急性vs亚急性感染性心内膜炎',description:'将以下选项归类到急性或亚急性感染性心内膜炎',options:[{id:'A',text:'受累瓣膜穿孔'},{id:'B',text:'致病菌为草绿色链球菌等毒力较弱的'},{id:'C',text:'病变部位为病变心瓣膜'},{id:'D',text:'赘生物易脱落形成栓子'},{id:'E',text:'无菌性梗死(栓塞最多见于脑)'},{id:'F',text:'感染性/败血性梗死'},{id:'G',text:'肾小球肾炎和osler小结多见'},{id:'H',text:'致病菌金葡菌最多见'},{id:'I',text:'肾小球肾炎和osler小结少见'},{id:'J',text:'受累瓣膜变形'},{id:'K',text:'正常心瓣膜即可侵犯'},{id:'L',text:'致病菌为金葡菌、溶血性链球菌、肺炎链球菌等毒力较强的化脓菌'},{id:'M',text:'赘生物含菌'}],categories:[{id:'C1',label:'急性感染性心内膜炎'},{id:'C2',label:'亚急性感染性心内膜炎'}],answer:{'A':'C1','F':'C1','H':'C1','I':'C1','K':'C1','L':'C1','M':['C1','C2'],'B':'C2','C':'C2','D':['C1','C2'],'E':'C2','G':'C2','J':'C2'},explanation:'急性IE致病菌毒力强(金葡菌等)，侵犯正常瓣膜，赘生物含菌易脱落致败血性梗死；亚急性IE致病菌毒力弱(草绿色链球菌)，侵犯病变瓣膜，赘生物脱落致无菌性梗死，Osler小结和肾小球肾炎多见。D和M在中同时出现在两个类别，'},
   {id:'path_014',subject:'pathology',system:'cardiovascular',chapter:'风湿病',type:'matching',title:'风湿病基本病理变化分期',description:'将以下选项归类到风湿病的变质渗出期、增生期或纤维化期。补充：风湿病最有诊断意义的是B(Aschoff小体)；Aschoff小体由聚集在纤维素样坏死灶周围的风湿细胞、淋巴细胞(主要是T细胞)、浆细胞组成；风湿细胞横切面似枭眼状，纵切面似毛虫状，由增生的巨噬细胞吞噬纤维素样坏死物后转变而来。',options:[{id:'A',text:'黏液样变性'},{id:'B',text:'Aschoff小体'},{id:'C',text:'浆液和纤维素渗出'},{id:'D',text:'梭形小瘢痕的形成'},{id:'E',text:'纤维素样坏死'}],categories:[{id:'C1',label:'变质渗出期'},{id:'C2',label:'增生期(肉芽肿期)'},{id:'C3',label:'纤维化期(愈合期)'}],answer:{'A':'C1','C':'C1','E':'C1','B':'C2','D':'C3'},explanation:'变质渗出期表现为黏液样变性、浆液纤维素渗出、纤维素样坏死；增生期形成Aschoff小体(风湿小体)，最具诊断意义；纤维化期形成梭形小瘢痕。'},
-  {id:'path_015',subject:'pathology',system:'cardiovascular',chapter:'风湿病',type:'matching',title:'风湿病vs类风湿',description:'将以下选项归类到风湿病或类风湿',options:[{id:'A',text:'关节腔主要渗出浆液'},{id:'B',text:'变态反应为III型'},{id:'C',text:'没有关节畸形'},{id:'D',text:'炎症类型为慢性肉芽肿(特殊增生性炎)'},{id:'E',text:'关节腔主要渗出纤维素'},{id:'F',text:'主要侵犯大关节'},{id:'G',text:'炎症类型为慢性非特异增生性炎'},{id:'H',text:'常有天鹅颈样、纽扣花样等关节畸形'},{id:'I',text:'主要侵犯小关节'},{id:'J',text:'变态反应为II型'},{id:'K',text:'有环形红斑'},{id:'L',text:'有皮下结节'},{id:'M',text:'手关节尺侧偏斜'}],categories:[{id:'C1',label:'风湿病'},{id:'C2',label:'类风湿'}],answer:{'A':'C1','C':'C1','D':'C1','F':'C1','J':'C1','K':'C1','L':'C1','B':'C2','E':'C2','G':'C2','H':'C2','I':'C2','M':'C2'},explanation:'风湿病为II型变态反应，侵犯大关节，浆液渗出为主，不遗留关节畸形，有环形红斑和皮下结节；类风湿为III型变态反应，侵犯小关节，纤维素渗出，有关节畸形(天鹅颈、尺侧偏斜)。L(皮下结节)在中同时出现在两个类别，已按常见考点归类。'},
-  {id:'path_016',subject:'pathology',system:'cardiovascular',chapter:'动脉粥样硬化',type:'matching',title:'动脉粥样硬化病变特征',description:'将以下选项归类到泡沫细胞的来源、脂纹、纤维斑块或粥样斑块。D(依靠成纤维细胞产生胶原纤维)为错误选项，不归入任何类别。',options:[{id:'A',text:'巨噬细胞摄取脂类'},{id:'B',text:'依靠SMC(平滑肌细胞)产生胶原纤维'},{id:'C',text:'钙盐沉积'},{id:'D',text:'依靠成纤维细胞产生胶原纤维'},{id:'E',text:'针状胆固醇结晶'},{id:'F',text:'动脉中膜平滑肌细胞摄取脂类'},{id:'G',text:'肉芽组织'},{id:'H',text:'泡沫细胞发生大量聚集'},{id:'I',text:'毒性ox-LDL使纤维斑块深层细胞发生坏死'},{id:'J',text:'淋巴细胞'}],categories:[{id:'C1',label:'泡沫细胞的来源'},{id:'C2',label:'脂纹'},{id:'C3',label:'纤维斑块'},{id:'C4',label:'粥样斑块'},{id:'C5',label:'不属于以上任何病变(错误选项)'}],answer:{'A':'C1','F':'C1','H':'C2','B':'C3','C':'C4','E':'C4','G':'C4','I':'C4','J':'C4','D':'C5'},explanation:'泡沫细胞来源于巨噬细胞(A)和平滑肌细胞(F)摄取脂类；脂纹期见泡沫细胞聚集(H)；纤维斑块依靠SMC产生胶原(B)；粥样斑块含胆固醇结晶、钙盐、肉芽组织、坏死物质等。A、F在中同时出现在泡沫细胞来源和脂纹两个类别，此处归入泡沫细胞来源。'},
+  {id:'path_015',subject:'pathology',system:'cardiovascular',chapter:'风湿病',type:'matching',title:'风湿病vs类风湿',description:'将以下选项归类到风湿病或类风湿',options:[{id:'A',text:'关节腔主要渗出浆液'},{id:'B',text:'变态反应为III型'},{id:'C',text:'没有关节畸形'},{id:'D',text:'炎症类型为慢性肉芽肿(特殊增生性炎)'},{id:'E',text:'关节腔主要渗出纤维素'},{id:'F',text:'主要侵犯大关节'},{id:'G',text:'炎症类型为慢性非特异增生性炎'},{id:'H',text:'常有天鹅颈样、纽扣花样等关节畸形'},{id:'I',text:'主要侵犯小关节'},{id:'J',text:'变态反应为II型'},{id:'K',text:'有环形红斑'},{id:'L',text:'有皮下结节'},{id:'M',text:'手关节尺侧偏斜'}],categories:[{id:'C1',label:'风湿病'},{id:'C2',label:'类风湿'}],answer:{'A':'C1','C':'C1','D':'C1','F':'C1','J':'C1','K':'C1','L':['C1','C2'],'B':'C2','E':'C2','G':'C2','H':'C2','I':'C2','M':'C2'},explanation:'风湿病为II型变态反应，侵犯大关节，浆液渗出为主，不遗留关节畸形，有环形红斑和皮下结节；类风湿为III型变态反应，侵犯小关节，纤维素渗出，有关节畸形(天鹅颈、尺侧偏斜)。L(皮下结节)在中同时出现在两个类别，已按常见考点归类。'},
+  {id:'path_016',subject:'pathology',system:'cardiovascular',chapter:'动脉粥样硬化',type:'matching',title:'动脉粥样硬化病变特征',description:'将以下选项归类到泡沫细胞的来源、脂纹、纤维斑块或粥样斑块。D(依靠成纤维细胞产生胶原纤维)为错误选项，不归入任何类别。',options:[{id:'A',text:'巨噬细胞摄取脂类'},{id:'B',text:'依靠SMC(平滑肌细胞)产生胶原纤维'},{id:'C',text:'钙盐沉积'},{id:'D',text:'依靠成纤维细胞产生胶原纤维'},{id:'E',text:'针状胆固醇结晶'},{id:'F',text:'动脉中膜平滑肌细胞摄取脂类'},{id:'G',text:'肉芽组织'},{id:'H',text:'泡沫细胞发生大量聚集'},{id:'I',text:'毒性ox-LDL使纤维斑块深层细胞发生坏死'},{id:'J',text:'淋巴细胞'}],categories:[{id:'C1',label:'泡沫细胞的来源'},{id:'C2',label:'脂纹'},{id:'C3',label:'纤维斑块'},{id:'C4',label:'粥样斑块'},{id:'C5',label:'不属于以上任何病变(错误选项)'}],answer:{'A':['C1','C2'],'F':['C1','C2'],'H':'C2','B':'C3','C':'C4','E':'C4','G':'C4','I':'C4','J':'C4','D':'C5'},explanation:'泡沫细胞来源于巨噬细胞(A)和平滑肌细胞(F)摄取脂类；脂纹期见泡沫细胞聚集(H)；纤维斑块依靠SMC产生胶原(B)；粥样斑块含胆固醇结晶、钙盐、肉芽组织、坏死物质等。A、F在中同时出现在泡沫细胞来源和脂纹两个类别，此处归入泡沫细胞来源。'},
   {id:'path_017',subject:'pathology',system:'cardiovascular',chapter:'心肌疾病',type:'matching',title:'心肌疾病分类',description:'将以下选项归类到肥厚型、扩张型或限制型心肌病',options:[{id:'A',text:'常染色体显性遗传'},{id:'B',text:'心界向两侧扩大'},{id:'C',text:'心内膜及心内膜下心肌纤维化，以心尖部为重'},{id:'D',text:'心室明显非对称性肥厚，尤其室间隔，室间隔厚度大于左心室游离壁'},{id:'E',text:'免疫介导的心肌损害'},{id:'F',text:'心室腔狭窄，心室充盈受限，舒张期容量减少'},{id:'G',text:'室壁运动普遍减弱'},{id:'H',text:'心室腔变小，左心室充盈受阻，舒张期顺应性下降'},{id:'I',text:'开始左心室显著扩张，后期各心腔均扩张'},{id:'J',text:'收缩期二尖瓣向前移动(SAM)'},{id:'K',text:'心室壁薄、略厚或正常，心尖部钝圆形，心内膜增厚'},{id:'L',text:'二尖瓣增厚，主动脉瓣下心内膜增厚'},{id:'M',text:'萎缩和肥大的心肌细胞交错排列，心肌细胞损伤，收缩功能障碍'},{id:'N',text:'青壮年猝死最常见的原因'},{id:'O',text:'心界向两侧扩大'}],categories:[{id:'C1',label:'肥厚型心肌病'},{id:'C2',label:'扩张型心肌病'},{id:'C3',label:'限制型心肌病'}],answer:{'A':'C1','D':'C1','H':'C1','J':'C1','L':'C1','N':'C1','B':'C2','E':'C2','G':'C2','I':'C2','K':'C2','M':'C2','O':'C2','C':'C3','F':'C3'},explanation:'肥厚型心肌病为常染色体显性遗传，室间隔非对称性肥厚，SAM征，青壮年猝死最常见原因；扩张型心肌病心界扩大，室壁运动减弱，免疫介导；限制型心肌病心内膜纤维化，心室充盈受限。'},
-  {id:'path_018',subject:'pathology',system:'respiratory',chapter:'肺气肿',type:'matching',title:'肺气肿分类(腺泡中央型/周围型/全腺泡型)',description:'将以下选项归类到腺泡中央型、腺泡周围型/间隔旁型或全腺泡型肺气肿',options:[{id:'A',text:'终末细支气管、一级呼吸性细支气管管腔狭窄'},{id:'B',text:'二级呼吸性细支气管扩张'},{id:'C',text:'呼吸性细支气管及其肺泡基本正常'},{id:'D',text:'肺泡间隔的胶原纤维收缩'},{id:'E',text:'远端位于其周围的肺泡管/肺泡囊基本正常'},{id:'F',text:'炎症所致氧自由基增多→α抗胰蛋白酶减少'},{id:'G',text:'呼吸性细支气管及其肺泡扩张明显'},{id:'H',text:'遗传性α抗胰蛋白酶缺乏'},{id:'I',text:'远端位于其周围的肺泡管/肺泡囊扩张明显'},{id:'J',text:'主要见于北欧青壮年'},{id:'K',text:'最常见的肺气肿类型'},{id:'L',text:'多不合并慢支'}],categories:[{id:'C1',label:'腺泡中央型肺气肿'},{id:'C2',label:'腺泡周围型/间隔旁型肺气肿'},{id:'C3',label:'全腺泡型肺气肿'}],answer:{'B':'C1','E':'C1','K':'C1','C':'C2','D':'C2','I':'C2','L':'C2','F':'C3','G':'C3','H':'C3','J':'C3','A':'C1'},explanation:'腺泡中央型病变在呼吸性细支气管(近端)，远端正常，最常见；腺泡周围型病变在远端(肺泡管/肺泡囊)，近端正常，多不合并慢支；全腺泡型全腺泡扩张，与α抗胰蛋白酶缺乏有关。中G在腺泡中央型和全腺泡型重叠，A归属存疑，'},
+  {id:'path_018',subject:'pathology',system:'respiratory',chapter:'肺气肿',type:'matching',title:'肺气肿分类(腺泡中央型/周围型/全腺泡型)',description:'将以下选项归类到腺泡中央型、腺泡周围型/间隔旁型或全腺泡型肺气肿',options:[{id:'A',text:'终末细支气管、一级呼吸性细支气管管腔狭窄'},{id:'B',text:'二级呼吸性细支气管扩张'},{id:'C',text:'呼吸性细支气管及其肺泡基本正常'},{id:'D',text:'肺泡间隔的胶原纤维收缩'},{id:'E',text:'远端位于其周围的肺泡管/肺泡囊基本正常'},{id:'F',text:'炎症所致氧自由基增多→α抗胰蛋白酶减少'},{id:'G',text:'呼吸性细支气管及其肺泡扩张明显'},{id:'H',text:'遗传性α抗胰蛋白酶缺乏'},{id:'I',text:'远端位于其周围的肺泡管/肺泡囊扩张明显'},{id:'J',text:'主要见于北欧青壮年'},{id:'K',text:'最常见的肺气肿类型'},{id:'L',text:'多不合并慢支'}],categories:[{id:'C1',label:'腺泡中央型肺气肿'},{id:'C2',label:'腺泡周围型/间隔旁型肺气肿'},{id:'C3',label:'全腺泡型肺气肿'}],answer:{'B':'C1','E':'C1','K':'C1','C':'C2','D':'C2','I':['C2','C3'],'L':'C2','F':'C3','G':['C1','C3'],'H':'C3','J':'C3','A':'C1'},explanation:'腺泡中央型病变在呼吸性细支气管(近端)，远端正常，最常见；腺泡周围型病变在远端(肺泡管/肺泡囊)，近端正常，多不合并慢支；全腺泡型全腺泡扩张，与α抗胰蛋白酶缺乏有关。中G在腺泡中央型和全腺泡型重叠，A归属存疑，'},
   {id:'path_019',subject:'pathology',system:'respiratory',chapter:'慢性支气管炎与肺气肿',type:'matching',title:'慢性支气管炎导致肺气肿的机制',description:'将以下选项归类到与细支气管不完全阻塞有关或与末梢肺组织弹性减弱有关',options:[{id:'A',text:'中性粒细胞活跃导致内源性弹性蛋白酶增多'},{id:'B',text:'破坏终末细支气管、一级呼吸性细支气管的管壁结构，导致管壁纤维化和管腔狭窄'},{id:'C',text:'纤毛柱状上皮受损和鳞化导致粘液潴留'},{id:'D',text:'氧自由基增多导致α抗胰蛋白酶减少'},{id:'E',text:'柱状细胞增多，腺体增生肥大，粘液腺化生导致呼吸道粘液增多'}],categories:[{id:'C1',label:'与细支气管不完全阻塞有关'},{id:'C2',label:'与末梢肺组织弹性减弱有关'}],answer:{'B':'C1','C':'C1','E':'C1','A':'C2','D':'C2'},explanation:'不完全阻塞由管壁纤维化狭窄、粘液潴留等引起；弹性减弱由弹性蛋白酶增多(中性粒细胞)、α抗胰蛋白酶减少导致弹性纤维破坏引起。将C误读入弹性减弱组，。'},
   {id:'path_020',subject:'pathology',system:'respiratory',chapter:'肺气肿',type:'matching',title:'肺气肿其他类型分类',description:'将以下选项归类到肺泡性/阻塞性肺气肿、间质性肺气肿或其他类型肺气肿',options:[{id:'A',text:'肋骨骨折'},{id:'B',text:'腺泡中央型'},{id:'C',text:'代偿性肺气肿'},{id:'D',text:'胸部穿透伤'},{id:'E',text:'老年性肺气肿'},{id:'F',text:'腺泡周围型'},{id:'G',text:'剧烈咳嗽'},{id:'H',text:'全腺泡型'},{id:'I',text:'瘢痕旁肺气肿(不规则肺气肿)'},{id:'J',text:'串珠状气泡'},{id:'K',text:'皮下气肿'}],categories:[{id:'C1',label:'肺泡性/阻塞性肺气肿'},{id:'C2',label:'间质性肺气肿'},{id:'C3',label:'其他类型肺气肿'}],answer:{'B':'C1','F':'C1','H':'C1','A':'C2','D':'C2','G':'C2','J':'C2','K':'C2','C':'C3','E':'C3','I':'C3'},explanation:'肺泡性/阻塞性包括腺泡中央型、周围型、全腺泡型；间质性由肋骨骨折、胸部穿透伤、剧烈咳嗽等致肺泡破裂气体进入间质；其他类型包括代偿性、老年性、瘢痕旁肺气肿。'},
   {id:'path_021',subject:'pathology',system:'respiratory',chapter:'肺气肿',type:'matching',title:'瘢痕旁/不规则肺气肿vs腺泡周围型/间隔旁型肺气肿',description:'将以下选项归类到瘢痕旁/不规则肺气肿或腺泡周围型/间隔旁型肺气肿',options:[{id:'A',text:'属于肺泡性/阻塞性肺气肿'},{id:'B',text:'瘢痕牵拉'},{id:'C',text:'累及肺腺泡的结构不定，主要累及肺泡'},{id:'D',text:'属于其他类型肺气肿'},{id:'E',text:'累及腺泡远端的所有结构(肺泡管/肺泡囊)，即腺泡远端肺气肿'}],categories:[{id:'C1',label:'瘢痕旁/不规则肺气肿'},{id:'C2',label:'腺泡周围型/间隔旁型肺气肿'}],answer:{'B':'C1','C':'C1','D':'C1','A':'C2','E':'C2'},explanation:'瘢痕旁肺气肿由瘢痕牵拉引起，结构不定主要累及肺泡，属其他类型；腺泡周围型属肺泡性/阻塞性，累及腺泡远端结构。中B同时出现在两个类别，'},
@@ -25,61 +25,61 @@ const SAMPLE_QUESTIONS = [
   {id:'path_023',subject:'pathology',system:'respiratory',chapter:'肺炎',type:'matching',title:'大叶性vs小叶性vs军团菌肺炎特征',description:'将以下选项归类到大叶性肺炎、小叶性/支气管肺炎或军团菌肺炎',options:[{id:'A',text:'肺泡的纤维素性炎'},{id:'B',text:'细支气管及末梢肺组织的化脓性炎'},{id:'C',text:'可呈小叶、大叶等分布'},{id:'D',text:'以细支气管为中心'},{id:'E',text:'纤维素性化脓性炎'}],categories:[{id:'C1',label:'大叶性肺炎'},{id:'C2',label:'小叶性/支气管肺炎'},{id:'C3',label:'军团菌肺炎'}],answer:{'A':'C1','B':'C2','D':'C2','C':'C3','E':'C3'},explanation:'大叶性肺炎为肺泡纤维素性炎；小叶性/支气管肺炎为细支气管及末梢肺组织化脓性炎，以细支气管为中心；军团菌肺炎为纤维素性化脓性炎，可呈小叶或大叶分布。'},
   {id:'path_024',subject:'pathology',system:'respiratory',chapter:'肺炎',type:'matching',title:'病毒性肺炎包涵体定位',description:'将以下病毒归类到其包涵体的定位特征：胞核+胞质、胞质(嗜酸性)或胞核(嗜碱性)。原图标注：A=胞核+胞质，B=胞质(嗜酸性)，C=胞核(嗜碱性)。',options:[{id:'A',text:'单纯疱疹病毒'},{id:'B',text:'呼吸道合胞病毒'},{id:'C',text:'麻疹病毒'},{id:'D',text:'腺病毒'},{id:'E',text:'巨细胞病毒'}],categories:[{id:'C1',label:'胞核+胞质'},{id:'C2',label:'胞质(嗜酸性)'},{id:'C3',label:'胞核(嗜碱性)'}],answer:{'C':'C1','B':'C2','A':'C3','D':'C3','E':'C3'},explanation:'麻疹病毒包涵体在胞核+胞质；呼吸道合胞病毒包涵体在胞质(嗜酸性)；单纯疱疹病毒、腺病毒、巨细胞病毒包涵体在胞核(嗜碱性)。'},
   {id:'path_025',subject:'pathology',system:'endocrine',chapter:'甲状腺炎',type:'matching',title:'慢性淋巴细胞性甲状腺炎(桥本)vs亚急性甲状腺炎',description:'将以下选项归类到桥本甲状腺炎或亚急性/肉芽肿性/巨细胞性甲状腺炎',options:[{id:'A',text:'免疫介导'},{id:'B',text:'甲状腺不对称、结节状肿大'},{id:'C',text:'痛'},{id:'D',text:'常与周围组织粘连'},{id:'E',text:'病毒感染'},{id:'F',text:'广泛滤泡被破坏、萎缩'},{id:'G',text:'部分滤泡被破坏、胶质外溢'},{id:'H',text:'淋巴滤泡'},{id:'I',text:'异物巨细胞'},{id:'J',text:'无痛'},{id:'K',text:'类似结核结节肉芽肿(但无干酪样坏死)'},{id:'L',text:'甲状腺双侧弥漫性肿大(对称)'},{id:'M',text:'伴大量淋巴细胞和不等量的嗜酸性粒细胞浸润'},{id:'N',text:'质韧，与周围组织无粘连'},{id:'O',text:'伴多量中性粒细胞和不等量的嗜酸性粒细胞、淋巴细胞、浆细胞浸润，微小脓肿'}],categories:[{id:'C1',label:'慢性淋巴细胞性/自身免疫性甲状腺炎/桥本'},{id:'C2',label:'亚急性/肉芽肿性/巨细胞性甲状腺炎'}],answer:{'A':'C1','F':'C1','H':'C1','J':'C1','L':'C1','M':'C1','N':'C1','B':'C2','C':'C2','D':'C2','E':'C2','G':'C2','I':'C2','K':'C2','O':'C2'},explanation:'桥本为自身免疫性，无痛，双侧对称肿大，质韧无粘连，广泛滤泡破坏，大量淋巴细胞和嗜酸性粒细胞，淋巴滤泡；亚急性为病毒感染，有痛，不对称，与周围粘连，部分滤泡破坏胶质外溢，异物巨细胞和结核样肉芽肿，中性粒细胞浸润微小脓肿。将C误归入桥本，。'},
-  {id:'path_026',subject:'pathology',system:'endocrine',chapter:'甲状腺疾病',type:'matching',title:'结节性甲状腺肿vs甲状腺腺瘤',description:'将以下选项归类到结节性甲状腺肿或甲状腺腺瘤',options:[{id:'A',text:'常多发、常累及双侧'},{id:'B',text:'结节包膜完整'},{id:'C',text:'滤泡大小不一致'},{id:'D',text:'邻近甲状腺组织受挤压'},{id:'E',text:'常单发、常累及单侧'},{id:'F',text:'结节包膜不完整'},{id:'G',text:'滤泡大小较一致'},{id:'H',text:'邻近甲状腺组织无受挤压'},{id:'I',text:'囊性变、出血继发性改变'}],categories:[{id:'C1',label:'结节性甲状腺肿'},{id:'C2',label:'甲状腺腺瘤'}],answer:{'A':'C1','C':'C1','F':'C1','H':'C1','I':'C1','B':'C2','D':'C2','E':'C2','G':'C2'},explanation:'结节性甲状腺肿多发累及双侧，包膜不完整，滤泡大小不一，邻近组织无受挤压；甲状腺腺瘤单发单侧，包膜完整，滤泡大小较一致，邻近组织受挤压。I(囊性变出血)在中同时出现在两个类别，此处归入结甲。'},
+  {id:'path_026',subject:'pathology',system:'endocrine',chapter:'甲状腺疾病',type:'matching',title:'结节性甲状腺肿vs甲状腺腺瘤',description:'将以下选项归类到结节性甲状腺肿或甲状腺腺瘤',options:[{id:'A',text:'常多发、常累及双侧'},{id:'B',text:'结节包膜完整'},{id:'C',text:'滤泡大小不一致'},{id:'D',text:'邻近甲状腺组织受挤压'},{id:'E',text:'常单发、常累及单侧'},{id:'F',text:'结节包膜不完整'},{id:'G',text:'滤泡大小较一致'},{id:'H',text:'邻近甲状腺组织无受挤压'},{id:'I',text:'囊性变、出血继发性改变'}],categories:[{id:'C1',label:'结节性甲状腺肿'},{id:'C2',label:'甲状腺腺瘤'}],answer:{'A':'C1','C':'C1','F':'C1','H':'C1','I':['C1','C2'],'B':'C2','D':'C2','E':'C2','G':'C2'},explanation:'结节性甲状腺肿多发累及双侧，包膜不完整，滤泡大小不一，邻近组织无受挤压；甲状腺腺瘤单发单侧，包膜完整，滤泡大小较一致，邻近组织受挤压。I(囊性变出血)在中同时出现在两个类别，此处归入结甲。'},
   {id:'path_027',subject:'pathology',system:'endocrine',chapter:'甲状腺疾病',type:'matching',title:'甲状腺肿分类(单纯性/Graves/桥本/亚急性)',description:'将以下选项归类到单纯性/弥漫性非毒性甲状腺肿、弥漫性毒性甲状腺肿(Graves病)、慢性淋巴细胞性甲状腺炎(桥本)或亚急性甲状腺炎',options:[{id:'A',text:'缺碘致内分泌病理性增生'},{id:'B',text:'双侧弥漫性肿大(对称)'},{id:'C',text:'甲减'},{id:'D',text:'免疫介导'},{id:'E',text:'常伴突眼'},{id:'F',text:'甲亢'},{id:'G',text:'病毒感染'},{id:'H',text:'不对称肿大、压痛'},{id:'I',text:'早期无甲减，但是可致甲减'},{id:'J',text:'早期：双侧弥漫性肿大(对称)'},{id:'K',text:'后期：少数变为结甲(不对称)'}],categories:[{id:'C1',label:'单纯性/弥漫性非毒性甲状腺肿'},{id:'C2',label:'弥漫性毒性甲状腺肿(Graves病)'},{id:'C3',label:'慢性淋巴细胞性/自身免疫性甲状腺炎/桥本'},{id:'C4',label:'亚急性/肉芽肿性/巨细胞性甲状腺炎'}],answer:{'A':'C1','J':'C1','K':'C1','B':['C2','C3'],'D':['C2','C3'],'E':'C2','F':'C2','C':'C3','G':'C4','H':'C4','I':'C4'},explanation:'单纯性/弥漫性非毒性甲状腺肿：AJK。弥漫性毒性甲状腺肿Graves病：BDEF。慢性淋巴细胞性/自身免疫性甲状腺炎/桥本：BDC。亚急性/肉芽肿性/巨细胞性甲状腺炎：GHI。'},
-  {id:'path_028',subject:'pathology',system:'endocrine',chapter:'甲状腺癌',type:'matching',title:'甲状腺癌分类',description:'将以下选项归类到乳头状癌、滤泡状癌、未分化癌或髓样癌。注意：N(TTF-1(+))、P(TG(+))、Q(TG(-))在中同时出现在多个类别，已按各癌型首次出现归类。',options:[{id:'A',text:'乳头中心砂粒体(钙化小体)'},{id:'B',text:'早期易血道转移'},{id:'C',text:'恶性肿瘤由未分化细胞构成，异型性显著、分化程度极低、极高恶性、预后最差'},{id:'D',text:'来源于甲状腺滤泡旁/C细胞'},{id:'E',text:'毛玻璃样核(核染色质少)'},{id:'F',text:'依靠生物学行为鉴别'},{id:'G',text:'核沟、核重叠、核内假包涵体'},{id:'H',text:'淀粉样变性'},{id:'I',text:'早期易局部和远处转移'},{id:'J',text:'包膜侵犯和血管侵犯(浸润)'},{id:'K',text:'分泌降钙素致低钙血症，分泌5-HT等致类癌综合征'},{id:'L',text:'多中心病灶，局部淋巴结转移较早、但预后最好'},{id:'M',text:'类型：小、梭形、巨、混合细胞型'},{id:'N',text:'TTF-1(+)'},{id:'O',text:'TTF-1(-)'},{id:'P',text:'TG(+)'},{id:'Q',text:'TG(-)'},{id:'R',text:'CT(降钙素)(+)'},{id:'S',text:'Syn(+)'},{id:'T',text:'最常见，好发于青少年女性'}],categories:[{id:'C1',label:'乳头状癌'},{id:'C2',label:'滤泡状癌'},{id:'C3',label:'未分化癌'},{id:'C4',label:'髓样癌'}],answer:{'A':'C1','E':'C1','G':'C1','L':'C1','T':'C1','N':['C1','C2'],'P':['C1','C2'],'B':'C2','F':'C2','J':'C2','C':'C3','I':'C3','M':'C3','O':['C3','C4'],'Q':['C3','C4'],'D':'C4','H':'C4','K':'C4','R':'C4','S':'C4'},explanation:'乳头状癌：AEGLNPT。滤泡状癌：BFJNP。未分化癌：CIMOQ。髓样癌：DHKNQRS。'},
+  {id:'path_028',subject:'pathology',system:'endocrine',chapter:'甲状腺癌',type:'matching',title:'甲状腺癌分类',description:'将以下选项归类到乳头状癌、滤泡状癌、未分化癌或髓样癌。注意：N(TTF-1(+))、P(TG(+))、Q(TG(-))在中同时出现在多个类别，已按各癌型首次出现归类。',options:[{id:'A',text:'乳头中心砂粒体(钙化小体)'},{id:'B',text:'早期易血道转移'},{id:'C',text:'恶性肿瘤由未分化细胞构成，异型性显著、分化程度极低、极高恶性、预后最差'},{id:'D',text:'来源于甲状腺滤泡旁/C细胞'},{id:'E',text:'毛玻璃样核(核染色质少)'},{id:'F',text:'依靠生物学行为鉴别'},{id:'G',text:'核沟、核重叠、核内假包涵体'},{id:'H',text:'淀粉样变性'},{id:'I',text:'早期易局部和远处转移'},{id:'J',text:'包膜侵犯和血管侵犯(浸润)'},{id:'K',text:'分泌降钙素致低钙血症，分泌5-HT等致类癌综合征'},{id:'L',text:'多中心病灶，局部淋巴结转移较早、但预后最好'},{id:'M',text:'类型：小、梭形、巨、混合细胞型'},{id:'N',text:'TTF-1(+)'},{id:'O',text:'TTF-1(-)'},{id:'P',text:'TG(+)'},{id:'Q',text:'TG(-)'},{id:'R',text:'CT(降钙素)(+)'},{id:'S',text:'Syn(+)'},{id:'T',text:'最常见，好发于青少年女性'}],categories:[{id:'C1',label:'乳头状癌'},{id:'C2',label:'滤泡状癌'},{id:'C3',label:'未分化癌'},{id:'C4',label:'髓样癌'}],answer:{'A':'C1','E':'C1','G':'C1','L':'C1','T':'C1','N':['C1','C2','C4'],'P':['C1','C2'],'B':'C2','F':'C2','J':'C2','C':'C3','I':'C3','M':'C3','O':['C3','C4'],'Q':['C3','C4'],'D':'C4','H':'C4','K':'C4','R':'C4','S':'C4'},explanation:'乳头状癌：AEGLNPT。滤泡状癌：BFJNP。未分化癌：CIMOQ。髓样癌：DHKNQRS。'},
   {id:'path_029',subject:'pathology',system:'endocrine',chapter:'甲状腺疾病',type:'matching',title:'结节性甲状腺肿vs弥漫性毒性甲状腺肿(Graves病)',description:'将以下选项归类到结节性甲状腺肿或弥漫性毒性甲状腺肿(Graves病)',options:[{id:'A',text:'甲状腺不对称、结节状肿大'},{id:'B',text:'甲状腺双侧弥漫性肿大(对称)'},{id:'C',text:'结节大小不等、常无完整包膜'},{id:'D',text:'滤泡上皮增生呈高柱状'},{id:'E',text:'切面常有囊性变、出血、坏死、钙化、瘢痕等继发性改变'},{id:'F',text:'滤泡腔内胶质稀薄、滤泡周边胶质出现许多大小不一的上皮细胞的吸收空泡'},{id:'G',text:'部分滤泡上皮增生、复旧或萎缩不一致'},{id:'H',text:'间质血管丰富、淋巴组织增生'},{id:'I',text:'基底膜上有IgG沉着'}],categories:[{id:'C1',label:'结节性甲状腺肿'},{id:'C2',label:'弥漫性毒性甲状腺肿(Graves病)'}],answer:{'A':'C1','C':'C1','E':'C1','G':'C1','B':'C2','D':'C2','F':'C2','H':'C2','I':'C2'},explanation:'结节性甲状腺肿不对称结节状肿大，结节大小不等无完整包膜，有继发性改变，滤泡增生复旧不一致；Graves病双侧对称弥漫性肿大，滤泡上皮高柱状，胶质稀薄有吸收空泡，间质血管丰富淋巴组织增生，基底膜IgG沉着。'},
   {id:'path_030',subject:'pathology',system:'immune',chapter:'免疫缺陷病',type:'matching',title:'原发性免疫缺陷病分类',description:'将以下选项归类到T细胞缺陷、B细胞和γ球蛋白缺陷、T和B细胞联合缺陷或粒细胞功能缺陷',options:[{id:'A',text:'Bruton综合征(X染色体隐性遗传)'},{id:'B',text:'原发性重症联合免疫缺陷病(SCID)'},{id:'C',text:'先天性胸腺发育不良/DiGeorge综合征'},{id:'D',text:'慢性肉芽肿病(CGD)'}],categories:[{id:'C1',label:'T细胞缺陷'},{id:'C2',label:'B细胞和γ球蛋白缺陷'},{id:'C3',label:'T、B细胞缺陷'},{id:'C4',label:'粒细胞功能缺陷(过氧化氢产生障碍)'}],answer:{'C':'C1','A':'C2','B':'C3','D':'C4'},explanation:'DiGeorge综合征为T细胞缺陷(先天性胸腺发育不良)；Bruton综合征为B细胞缺陷(X连锁隐性遗传，丙种球蛋白缺乏)；SCID为T和B细胞联合缺陷；慢性肉芽肿病为粒细胞功能缺陷(过氧化氢产生障碍)。答案'},
   {id:'path_031',subject:'pathology',system:'immune',chapter:'移植排斥反应',type:'matching',title:'移植排斥反应分类',description:'将以下选项归类到超急性、急性或慢性排斥反应',options:[{id:'A',text:'受者血液中已有供者特异性HLA抗体、或供者与受者ABO血型不符'},{id:'B',text:'血管型：亚急性血管炎为主(血管内膜增厚)'},{id:'C',text:'血管内膜纤维化'},{id:'D',text:'广泛的急性小动脉炎(纤维素样坏死)伴纤维素性血栓形成、缺血性坏死'},{id:'E',text:'细胞型：间质CD4和CD8 T细胞为主的单个核细胞浸润'},{id:'F',text:'移植后数分钟至数小时出现'}],categories:[{id:'C1',label:'超急性排斥反应'},{id:'C2',label:'急性排斥反应'},{id:'C3',label:'慢性排斥反应'}],answer:{'A':'C1','D':'C1','F':'C1','B':'C2','E':'C2','C':'C3'},explanation:'超急性排斥反应在移植后数分钟至数小时出现，由预存抗体引起，表现为广泛急性小动脉炎纤维素样坏死；急性排斥反应分血管型(亚急性血管炎)和细胞型(CD4/CD8 T细胞浸润)；慢性排斥反应表现为血管内膜纤维化。'},
   {id:'path_032',subject:'pathology',system:'immune',chapter:'超敏反应',type:'matching',title:'超敏反应(各型)分类',description:'将以下选项归类到I型(速发型)、II型(细胞毒型)、III型(免疫复合物/血管炎型)或IV型(迟发型)',options:[{id:'A',text:'荨麻疹'},{id:'B',text:'输血'},{id:'C',text:'溶血'},{id:'D',text:'支气管哮喘'},{id:'E',text:'风湿'},{id:'F',text:'类风湿'},{id:'G',text:'甲亢'},{id:'H',text:'过敏性休克'},{id:'I',text:'超急性排斥反应'},{id:'J',text:'慢性排斥反应'},{id:'K',text:'急性排斥反应血管型'},{id:'L',text:'急性排斥反应细胞型'},{id:'M',text:'SLE全血细胞减少'},{id:'N',text:'多数SLE'},{id:'O',text:'结核'},{id:'P',text:'血吸虫虫卵'},{id:'Q',text:'急进性肾炎I型'},{id:'R',text:'肺出血肾炎综合征'},{id:'S',text:'大动脉炎'},{id:'T',text:'多数肾小球肾炎'},{id:'U',text:'体液免疫为主'},{id:'V',text:'T细胞介导'}],categories:[{id:'C1',label:'I型(速发型)'},{id:'C2',label:'II型(细胞毒型)'},{id:'C3',label:'III型(免疫复合物/血管炎型)'},{id:'C4',label:'IV型(迟发型)'}],answer:{'A':'C1','D':'C1','H':'C1','B':'C2','C':'C2','E':'C2','G':'C2','K':'C2','M':'C2','Q':'C2','R':'C2','U':'C2','F':'C3','I':'C3','N':'C3','S':'C3','T':'C3','J':'C4','L':'C4','O':'C4','P':'C4','V':'C4'},explanation:'I型(速发型)：荨麻疹、哮喘、过敏性休克；II型(细胞毒型)：输血、溶血、风湿、甲亢、急性排斥血管型、SLE全血细胞减少、急进性肾炎I型、肺出血肾炎综合征、体液免疫为主；III型(免疫复合物型)：类风湿、超急性排斥反应、多数SLE、大动脉炎、多数肾小球肾炎；IV型(迟发型)：慢性排斥反应、急性排斥细胞型、结核、血吸虫虫卵、T细胞介导。'},
   {id:'path_033',subject:'pathology',system:'immune',chapter:'免疫系统疾病',type:'matching',title:'原发性免疫缺陷病常见类型',description:'将下列免疫缺陷病与相应类型进行匹配',options:[{id:'A',text:'原发性丙种球蛋白缺乏症'},{id:'B',text:'重症联合性免疫缺陷病'},{id:'C',text:'DiGeorge综合征'},{id:'D',text:'孤立性IgA缺乏症'},{id:'E',text:'Wiskott-Aldrich综合征'},{id:'F',text:'Nezelof综合征'},{id:'G',text:'普通变异型免疫缺陷病'},{id:'H',text:'共济失调毛细血管扩张症'},{id:'I',text:'黏膜皮肤念珠菌病'}],categories:[{id:'C1',label:'体液免疫缺陷'},{id:'C2',label:'联合性免疫缺陷'},{id:'C3',label:'细胞免疫缺陷'}],answer:{'A':'C1','D':'C1','G':'C1','B':'C2','E':'C2','H':'C2','C':'C3','F':'C3','I':'C3'},explanation:'体液免疫缺陷:ADG(原发性丙种球蛋白缺乏症、孤立性IgA缺乏症、普通变异型免疫缺陷病);联合性免疫缺陷:BEH(重症联合性免疫缺陷病、Wiskott-Aldrich综合征、共济失调毛细血管扩张症);细胞免疫缺陷:CFI(DiGeorge综合征、Nezelof综合征、黏膜皮肤念珠菌病)'},
   {id:'path_034',subject:'pathology',system:'female_reproductive',chapter:'女性生殖系统疾病',type:'matching',title:'宫颈上皮内瘤变/CIN分级',description:'将下列病变特征与相应的CIN分级进行匹配',options:[{id:'A',text:'病变累及鳞状上皮下1/3'},{id:'B',text:'上皮内瘤变CIN I级'},{id:'C',text:'轻度异型增生'},{id:'D',text:'病变累及鳞状上皮下2/3'},{id:'E',text:'中度异型增生'},{id:'F',text:'上皮内瘤变CIN II级'},{id:'G',text:'重度异型增生和原位癌'},{id:'H',text:'病变累及鳞状上皮下2/3以上或全层(未突破基底膜)'},{id:'I',text:'上皮内瘤变CIN III级'},{id:'J',text:'可消退,随诊即可'}],categories:[{id:'C1',label:'低级别LSIL(CIN I级)'},{id:'C2',label:'高级别HSIL(CIN II级+CIN III级)'}],answer:{'A':'C1','B':'C1','C':'C1','J':'C1','D':'C2','E':'C2','F':'C2','G':'C2','H':'C2','I':'C2'},explanation:'CIN I级=轻度异型增生,累及下1/3,属LSIL,可消退;CIN II级=中度异型,累及下2/3;CIN III级=重度异型和原位癌,累及全层,CIN II+III属HSIL'},
-  {id:'path_035',subject:'pathology',system:'female_reproductive',chapter:'女性生殖系统疾病',type:'matching',title:'宫颈癌分期',description:'将下列病变特征与相应的宫颈癌分期进行匹配',options:[{id:'A',text:'浸润深度<基底膜下5mm'},{id:'B',text:'癌进入盆腔,但未累及盆腔壁'},{id:'C',text:'癌侵及盆腔壁'},{id:'D',text:'浸润深度>基底膜下5mm'},{id:'E',text:'癌超越骨盆,或累及膀胱直肠'},{id:'F',text:'癌侵及阴道,但未累及阴道下1/3'},{id:'G',text:'癌侵及阴道下1/3'},{id:'H',text:'癌未突破基底膜'},{id:'I',text:'癌局限于子宫颈内'}],categories:[{id:'C1',label:'原位癌'},{id:'C2',label:'早期/微小浸润癌'},{id:'C3',label:'宫颈癌I期'},{id:'C4',label:'宫颈癌II期'},{id:'C5',label:'宫颈癌III期'},{id:'C6',label:'宫颈癌IV期'},{id:'C7',label:'浸润癌'}],answer:{'H':'C1','A':'C2','I':'C3','D':'C7','B':'C7','F':'C7','C':'C7','G':'C7','E':'C7'},explanation:'原位癌未突破基底膜;微小浸润<5mm;I期局限于宫颈;II期侵及阴道上2/3或盆腔;III期侵及阴道下1/3或盆腔壁;IV期超越骨盆或累及膀胱直肠。浸润癌包含各浸润期别'},
-  {id:'path_036',subject:'pathology',system:'female_reproductive',chapter:'滋养细胞疾病',type:'matching',title:'葡萄胎、侵袭性葡萄胎与绒毛膜癌的鉴别',description:'将下列病理特征与相应的滋养细胞疾病进行匹配',options:[{id:'A',text:'有合体滋养层细胞增生、细胞滋养层细胞增生'},{id:'B',text:'间质水肿、血管消失'},{id:'C',text:'合体滋养层细胞增生和细胞滋养层细胞增生比良性葡萄胎显著'},{id:'D',text:'滋养层细胞轻度异型增生、坏死出血'},{id:'E',text:'合体滋养层细胞增生和细胞滋养层细胞增生比侵袭性葡萄胎显著'},{id:'F',text:'无间质和血管'},{id:'G',text:'滋养层细胞异型增生、坏死出血比良性葡萄胎显著'},{id:'H',text:'有绒毛'},{id:'I',text:'异型性大、分化低'},{id:'J',text:'滋养层细胞异型增生、坏死出血比侵袭性葡萄胎显著'},{id:'K',text:'无绒毛'},{id:'L',text:'不侵犯子宫肌层和/或血管'},{id:'M',text:'侵犯子宫肌层和/或血管(水泡状绒毛侵入子宫肌层)'},{id:'N',text:'阴道有蓝紫色结节(经血管转移至阴道致阴道出血坏死)'},{id:'O',text:'阴道有蓝紫色结节(绒毛入血作为栓子、经血管至阴道造成栓塞致阴道出血坏死—绒毛无法继续生长)'},{id:'P',text:'癌细胞直接侵犯子宫肌层和/或血管(但无水泡状绒毛)'},{id:'Q',text:'阴道无蓝紫色结节'},{id:'R',text:'无转移'},{id:'S',text:'主要治疗方式为彻底清宫'},{id:'T',text:'血道转移,肺最常见'},{id:'U',text:'多继发于完全性葡萄胎'},{id:'V',text:'几乎不转移'},{id:'W',text:'主要治疗方式为化疗'}],categories:[{id:'C1',label:'良性葡萄胎(完全性、部分性)'},{id:'C2',label:'恶性葡萄胎(侵袭性葡萄胎)'},{id:'C3',label:'绒毛膜癌/绒癌'}],answer:{'B':'C1','D':'C1','H':'C2','L':'C1','Q':'C1','R':'C1','S':'C1','V':'C1','C':'C2','G':'C2','M':'C2','O':'C2','U':'C3','W':'C3','E':'C3','F':'C3','I':'C3','J':'C3','K':'C3','N':'C3','P':'C3','T':'C3'},explanation:'良性葡萄胎:间质水肿、有绒毛、不侵犯肌层、无转移、清宫治疗;侵袭性葡萄胎:增生显著、有绒毛、侵犯肌层、化疗;绒毛膜癌:无绒毛、异型性大、血道转移肺最常见、化疗'},
+  {id:'path_035',subject:'pathology',system:'female_reproductive',chapter:'女性生殖系统疾病',type:'matching',title:'宫颈癌分期',description:'将下列病变特征与相应的宫颈癌分期进行匹配',options:[{id:'A',text:'浸润深度≤基底膜下5mm'},{id:'B',text:'癌进入盆腔,但未累及盆腔壁'},{id:'C',text:'癌侵及盆腔壁'},{id:'D',text:'浸润深度>基底膜下5mm'},{id:'E',text:'癌超越骨盆,或累及膀胱直肠'},{id:'F',text:'癌侵及阴道,但未累及阴道下1/3'},{id:'G',text:'癌侵及阴道下1/3'},{id:'H',text:'癌未突破基底膜'},{id:'I',text:'癌局限于子宫颈内'}],categories:[{id:'C1',label:'原位癌'},{id:'C2',label:'早期/微小浸润癌'},{id:'C3',label:'宫颈癌I期'},{id:'C4',label:'宫颈癌II期'},{id:'C5',label:'宫颈癌III期'},{id:'C6',label:'宫颈癌IV期'},{id:'C7',label:'浸润癌'}],answer:{'H':'C1','A':['C2','C3','C7'],'I':['C2','C3','C7'],'D':['C3','C7'],'B':['C4','C7'],'F':['C4','C7'],'C':['C5','C7'],'G':['C5','C7'],'E':['C6','C7']},explanation:'原位癌未突破基底膜;微小浸润≤5mm;I期局限于宫颈;II期侵及阴道上2/3或盆腔;III期侵及阴道下1/3或盆腔壁;IV期超越骨盆或累及膀胱直肠。浸润癌包含各浸润期别'},
+  {id:'path_036',subject:'pathology',system:'female_reproductive',chapter:'滋养细胞疾病',type:'matching',title:'葡萄胎、侵袭性葡萄胎与绒毛膜癌的鉴别',description:'将下列病理特征与相应的滋养细胞疾病进行匹配',options:[{id:'A',text:'有合体滋养层细胞增生、细胞滋养层细胞增生'},{id:'B',text:'间质水肿、血管消失'},{id:'C',text:'合体滋养层细胞增生和细胞滋养层细胞增生比良性葡萄胎显著'},{id:'D',text:'滋养层细胞轻度异型增生、坏死出血'},{id:'E',text:'合体滋养层细胞增生和细胞滋养层细胞增生比侵袭性葡萄胎显著'},{id:'F',text:'无间质和血管'},{id:'G',text:'滋养层细胞异型增生、坏死出血比良性葡萄胎显著'},{id:'H',text:'有绒毛'},{id:'I',text:'异型性大、分化低'},{id:'J',text:'滋养层细胞异型增生、坏死出血比侵袭性葡萄胎显著'},{id:'K',text:'无绒毛'},{id:'L',text:'不侵犯子宫肌层和/或血管'},{id:'M',text:'侵犯子宫肌层和/或血管(水泡状绒毛侵入子宫肌层)'},{id:'N',text:'阴道有蓝紫色结节(经血管转移至阴道致阴道出血坏死)'},{id:'O',text:'阴道有蓝紫色结节(绒毛入血作为栓子、经血管至阴道造成栓塞致阴道出血坏死—绒毛无法继续生长)'},{id:'P',text:'癌细胞直接侵犯子宫肌层和/或血管(但无水泡状绒毛)'},{id:'Q',text:'阴道无蓝紫色结节'},{id:'R',text:'无转移'},{id:'S',text:'主要治疗方式为彻底清宫'},{id:'T',text:'血道转移,肺最常见'},{id:'U',text:'多继发于完全性葡萄胎'},{id:'V',text:'几乎不转移'},{id:'W',text:'主要治疗方式为化疗'}],categories:[{id:'C1',label:'良性葡萄胎(完全性、部分性)'},{id:'C2',label:'恶性葡萄胎(侵袭性葡萄胎)'},{id:'C3',label:'绒毛膜癌/绒癌'}],answer:{'A':'C1','B':['C1','C2'],'D':'C1','H':['C1','C2'],'L':'C1','Q':'C1','R':'C1','S':'C1','V':'C2','C':'C2','G':'C2','M':'C2','O':'C2','W':['C2','C3'],'E':'C3','F':'C3','I':'C3','J':'C3','K':'C3','N':'C3','P':'C3','T':'C3','U':'C3'},explanation:'良性葡萄胎:滋养层细胞增生(A)、间质水肿血管消失(B)、轻度异型(D)、有绒毛(H)、不侵犯肌层(L)、无蓝紫色结节(Q)、无转移(R)、清宫治疗(S);侵袭性葡萄胎:间质水肿(B)、增生比良性显著(C)、异型比良性显著(G)、有绒毛(H)、侵犯肌层(M)、蓝紫色结节栓塞(O)、几乎不转移(V)、化疗(W);绒毛膜癌:增生比侵袭性显著(E)、无间质血管(F)、异型性大(I)、异型比侵袭性显著(J)、无绒毛(K)、蓝紫色结节转移(N)、直接侵犯肌层(P)、血道转移肺最常见(T)、多继发于完全性葡萄胎(U)、化疗(W)'},
   {id:'path_037',subject:'pathology',system:'female_reproductive',chapter:'滋养细胞疾病',type:'matching',title:'完全性葡萄胎与部分性葡萄胎的染色体特征',description:'将下列染色体和病理特征与相应类型的葡萄胎进行匹配',options:[{id:'A',text:'所有绒毛呈葡萄状'},{id:'B',text:'主要:一个精子23X结合缺乏染色体的空卵'},{id:'C',text:'染色体来自父母双方'},{id:'D',text:'无胎儿组织'},{id:'E',text:'无p57核染色'},{id:'F',text:'部分绒毛呈葡萄状'},{id:'G',text:'一个双倍体精子46XY结合染色体数量正常的卵细胞23X'},{id:'H',text:'双倍体核型:46XX(主要)、46XY'},{id:'I',text:'三倍体核型:69XXX、69XXY、69XYY'},{id:'J',text:'染色体全部来自父亲'},{id:'K',text:'可有胎儿组织'},{id:'L',text:'有p57核染色'},{id:'M',text:'两个精子(23X或23Y)结合缺乏染色体的空卵'},{id:'N',text:'两个精子(23X或23Y)结合染色体数量正常的卵细胞23X'}],categories:[{id:'C1',label:'完全性葡萄胎'},{id:'C2',label:'部分性葡萄胎'}],answer:{'A':'C1','B':'C1','D':'C1','E':'C1','H':'C1','J':'C1','M':'C1','C':'C2','F':'C2','G':'C2','I':'C2','K':'C2','L':'C2','N':'C2'},explanation:'完全性葡萄胎:所有绒毛葡萄状、双倍体46XX/46XY、染色体全来自父方、无p57、无胎儿组织;部分性葡萄胎:部分绒毛葡萄状、三倍体69XXX等、来自双方、有p57、有胎儿组织'},
   {id:'path_038',subject:'pathology',system:'female_reproductive',chapter:'卵巢肿瘤',type:'matching',title:'卵巢肿瘤分类',description:'将下列卵巢肿瘤与相应的组织来源分类进行匹配',options:[{id:'A',text:'浆液性囊腺瘤'},{id:'B',text:'畸胎瘤'},{id:'C',text:'黏液性囊腺瘤'},{id:'D',text:'浆液性囊腺癌'},{id:'E',text:'无性细胞瘤(恶性)'},{id:'F',text:'肿瘤分泌雌激素'},{id:'G',text:'黏液性囊腺癌'},{id:'H',text:'内胚窦瘤/卵黄囊瘤'},{id:'I',text:'粒层细胞瘤/颗粒细胞瘤'},{id:'J',text:'胚胎性癌'},{id:'K',text:'卵泡膜细胞瘤'},{id:'L',text:'绒毛膜癌'},{id:'M',text:'支持-间质细胞瘤'},{id:'N',text:'主要发生在睾丸'},{id:'O',text:'最常见的卵巢肿瘤'}],categories:[{id:'C1',label:'上皮性肿瘤'},{id:'C2',label:'由卵母细胞发生的为生殖细胞肿瘤'},{id:'C3',label:'由卵泡细胞发生的为性索间质肿瘤'}],answer:{'A':'C1','C':'C1','D':'C1','G':'C1','O':'C1','B':'C2','E':'C2','H':'C2','J':'C2','L':'C2','F':'C3','I':'C3','K':'C3','M':'C3','N':'C3'},explanation:'上皮性肿瘤:浆液性/黏液性囊腺瘤和癌,最常见卵巢肿瘤;生殖细胞肿瘤:畸胎瘤、无性细胞瘤、内胚窦瘤、胚胎性癌、绒毛膜癌;性索间质肿瘤:粒层细胞瘤、卵泡膜瘤、支持-间质细胞瘤,分泌雌激素'},
   {id:'path_039',subject:'pathology',system:'female_reproductive',chapter:'卵巢肿瘤',type:'matching',title:'浆液性肿瘤与黏液性肿瘤的鉴别',description:'将下列特征与相应的卵巢上皮性肿瘤类型进行匹配',options:[{id:'A',text:'囊腔内含清亮囊液和实性结节'},{id:'B',text:'乳头少见'},{id:'C',text:'累及双侧卵巢多见'},{id:'D',text:'恶性即浆液性囊腺癌:癌细胞浸润间质、砂粒体/钙化小体'},{id:'E',text:'恶性即黏液性囊腺癌:癌细胞浸润间质'},{id:'F',text:'多个囊腔、内含黏稠囊液和实性结节'},{id:'G',text:'乳头多见(恶性者更多)'},{id:'H',text:'累及单侧卵巢多见'},{id:'I',text:'发病率高的上皮性肿瘤'}],categories:[{id:'C1',label:'浆液性肿瘤'},{id:'C2',label:'黏液性肿瘤'}],answer:{'A':'C1','C':'C1','D':'C1','G':'C1','I':'C1','B':'C2','E':'C2','F':'C2','H':'C2'},explanation:'浆液性肿瘤:清亮囊液、乳头多见、双侧多见、砂粒体、发病率最高;黏液性肿瘤:黏稠囊液、乳头少见、单侧多见'},
   {id:'path_040',subject:'pathology',system:'female_reproductive',chapter:'卵巢肿瘤',type:'matching',title:'畸胎瘤与内胚窦瘤/卵黄囊瘤的鉴别',description:'将下列特征与相应的卵巢生殖细胞肿瘤进行匹配',options:[{id:'A',text:'有良性和恶性'},{id:'B',text:'高度恶性'},{id:'C',text:'多含>2个胚层成分(各种组织均有如皮肤、毛囊、脂肪)'},{id:'D',text:'AFP升高'},{id:'E',text:'良性的单胚层畸胎瘤有皮样囊肿、卵巢甲状腺肿'},{id:'F',text:'S-D小体'},{id:'G',text:'疏网状结构'},{id:'H',text:'恶性:未成熟原始神经管和菊形团、骨和软骨等'},{id:'I',text:'嗜酸性小体'},{id:'J',text:'良性成熟,恶性未成熟'}],categories:[{id:'C1',label:'畸胎瘤'},{id:'C2',label:'内胚窦瘤/卵黄囊瘤'}],answer:{'A':'C1','C':'C1','E':'C1','H':'C1','J':'C1','B':'C2','D':'C2','F':'C2','G':'C2','I':'C2'},explanation:'畸胎瘤:有良恶性之分、含多胚层成分、良性成熟/恶性未成熟;内胚窦瘤:高度恶性、AFP升高、S-D小体、疏网状结构、嗜酸性小体'},
-  {id:'path_041',subject:'pathology',system:'female_reproductive',chapter:'卵巢肿瘤',type:'matching',title:'粒层细胞瘤与卵泡膜细胞瘤的鉴别',description:'将下列特征与相应的性索间质肿瘤进行匹配',options:[{id:'A',text:'低度恶性'},{id:'B',text:'良性'},{id:'C',text:'核沟、咖啡豆样,Call-Exner小体'},{id:'D',text:'细胞质富含脂肪(空泡状)'},{id:'E',text:'肿瘤分泌雌激素'}],categories:[{id:'C1',label:'粒层细胞瘤/颗粒细胞瘤'},{id:'C2',label:'卵泡膜细胞瘤'}],answer:{'A':'C1','C':'C1','E':'C1','B':'C2','D':'C2'},explanation:'粒层细胞瘤:低度恶性、核沟和Call-Exner小体、分泌雌激素;卵泡膜细胞瘤:良性、细胞质富含脂肪。E(分泌雌激素)是否同时属于两者'},
-  {id:'path_042',subject:'pathology',system:'male_reproductive',chapter:'男性生殖系统疾病',type:'matching',title:'前列腺增生/肥大与前列腺癌的鉴别',description:'将下列特征与相应的前列腺疾病进行匹配',options:[{id:'A',text:'可经椎旁静脉转移至脊椎骨等'},{id:'B',text:'好发于移行带'},{id:'C',text:'好发于外周带'},{id:'D',text:'缺失基底细胞'},{id:'E',text:'淀粉小体'},{id:'F',text:'PSA、酸性磷酸酶'},{id:'G',text:'与雄激素有关'}],categories:[{id:'C1',label:'前列腺增生/肥大'},{id:'C2',label:'前列腺癌'}],answer:{'B':'C1','E':'C1','A':'C2','C':'C2','D':'C2','F':'C2','G':'C2'},explanation:'前列腺增生:好发于移行带、淀粉小体;前列腺癌:好发于外周带、缺失基底细胞、PSA升高、椎旁静脉转移至脊椎、与雄激素有关。G(与雄激素有关)可能同时属于两者'},
-  {id:'path_043',subject:'pathology',system:'breast',chapter:'乳腺疾病',type:'matching',title:'乳腺癌分类与预后',description:'将下列乳腺癌类型与相应的分类和预后特征进行匹配',options:[{id:'A',text:'浸润癌非特殊型(浸润性导管癌)'},{id:'B',text:'小管癌/高分化腺癌'},{id:'C',text:'炎性乳癌'},{id:'D',text:'大量淋巴细胞浸润的髓样癌'},{id:'E',text:'黏液腺癌'},{id:'F',text:'导管内癌'},{id:'G',text:'浸润性小叶癌'},{id:'H',text:'分泌性癌'},{id:'I',text:'浸润性微乳头状癌'},{id:'J',text:'粉刺癌'},{id:'K',text:'富于脂质性癌'},{id:'L',text:'小叶原位癌'},{id:'M',text:'实性乳头状癌'},{id:'N',text:'高级别化生性癌'}],categories:[{id:'C1',label:'非浸润癌'},{id:'C2',label:'浸润癌'},{id:'C3',label:'浸润癌特殊型'},{id:'C4',label:'浸润癌特殊型预后较好的类型'},{id:'C5',label:'浸润癌特殊型预后较差的类型'},{id:'C6',label:'最常见的乳腺癌类型'},{id:'C7',label:'预后最差的乳腺癌类型'}],answer:{'F':'C1','J':'C1','L':'C1','A':'C6','B':'C4','C':'C3','D':'C4','E':'C4','G':'C3','H':'C4','I':'C5','K':'C5','M':'C4','N':'C7'},explanation:'非浸润癌:导管内癌、粉刺癌、小叶原位癌;浸润癌非特殊型最常见;特殊型预后好:小管癌、髓样癌、黏液腺癌、分泌性癌;预后差:微乳头状癌、富脂质癌、化生性癌'},
+  {id:'path_041',subject:'pathology',system:'female_reproductive',chapter:'卵巢肿瘤',type:'matching',title:'粒层细胞瘤与卵泡膜细胞瘤的鉴别',description:'将下列特征与相应的性索间质肿瘤进行匹配',options:[{id:'A',text:'低度恶性'},{id:'B',text:'良性'},{id:'C',text:'核沟、咖啡豆样,Call-Exner小体'},{id:'D',text:'细胞质富含脂肪(空泡状)'},{id:'E',text:'肿瘤分泌雌激素'}],categories:[{id:'C1',label:'粒层细胞瘤/颗粒细胞瘤'},{id:'C2',label:'卵泡膜细胞瘤'}],answer:{'A':'C1','C':'C1','E':['C1','C2'],'B':'C2','D':'C2'},explanation:'粒层细胞瘤:低度恶性、核沟和Call-Exner小体、分泌雌激素;卵泡膜细胞瘤:良性、细胞质富含脂肪。E(分泌雌激素)是否同时属于两者'},
+  {id:'path_042',subject:'pathology',system:'male_reproductive',chapter:'男性生殖系统疾病',type:'matching',title:'前列腺增生/肥大与前列腺癌的鉴别',description:'将下列特征与相应的前列腺疾病进行匹配',options:[{id:'A',text:'可经椎旁静脉转移至脊椎骨等'},{id:'B',text:'好发于移行带'},{id:'C',text:'好发于外周带'},{id:'D',text:'缺失基底细胞'},{id:'E',text:'淀粉小体'},{id:'F',text:'PSA、酸性磷酸酶'},{id:'G',text:'与雄激素有关'}],categories:[{id:'C1',label:'前列腺增生/肥大'},{id:'C2',label:'前列腺癌'}],answer:{'B':'C1','E':'C1','A':'C2','C':'C2','D':'C2','F':'C2','G':['C1','C2']},explanation:'前列腺增生:好发于移行带、淀粉小体;前列腺癌:好发于外周带、缺失基底细胞、PSA升高、椎旁静脉转移至脊椎、与雄激素有关。G(与雄激素有关)可能同时属于两者'},
+  {id:'path_043',subject:'pathology',system:'breast',chapter:'乳腺疾病',type:'matching',title:'乳腺癌分类与预后',description:'将下列乳腺癌类型与相应的分类和预后特征进行匹配',options:[{id:'A',text:'浸润癌非特殊型(浸润性导管癌)'},{id:'B',text:'小管癌/高分化腺癌'},{id:'C',text:'炎性乳癌'},{id:'D',text:'大量淋巴细胞浸润的髓样癌'},{id:'E',text:'黏液腺癌'},{id:'F',text:'导管内癌'},{id:'G',text:'浸润性小叶癌'},{id:'H',text:'分泌性癌'},{id:'I',text:'浸润性微乳头状癌'},{id:'J',text:'粉刺癌'},{id:'K',text:'富于脂质性癌'},{id:'L',text:'小叶原位癌'},{id:'M',text:'实性乳头状癌'},{id:'N',text:'高级别化生性癌'}],categories:[{id:'C1',label:'非浸润癌'},{id:'C2',label:'浸润癌'},{id:'C3',label:'浸润癌特殊型'},{id:'C4',label:'浸润癌特殊型预后较好的类型'},{id:'C5',label:'浸润癌特殊型预后较差的类型'},{id:'C6',label:'最常见的乳腺癌类型'},{id:'C7',label:'预后最差的乳腺癌类型'}],answer:{'F':'C1','J':'C1','L':'C1','A':['C2','C6'],'B':['C2','C3','C4'],'C':['C2','C3','C5','C7'],'D':['C2','C3','C4'],'E':['C2','C3','C4'],'G':'C2','H':['C2','C3','C4'],'I':['C2','C3','C5'],'K':['C2','C3','C5'],'M':['C2','C3','C4'],'N':['C2','C3','C5']},explanation:'非浸润癌:导管内癌(F)、粉刺癌(J)、小叶原位癌(L);浸润癌非特殊型(A)最常见;浸润癌特殊型包括小管癌(B)、炎性乳癌(C)、髓样癌(D)、黏液腺癌(E)、分泌性癌(H)、微乳头状癌(I)、富脂质癌(K)、实性乳头状癌(M)、化生性癌(N);预后较好:BDEM(H);预后较差:CIKN;预后最差:炎性乳癌(C)。注:浸润性小叶癌(G)属浸润癌但不属特殊型'},
   {id:'path_044',subject:'pathology',system:'breast',chapter:'乳腺疾病',type:'matching',title:'乳腺癌各类型的病理特征',description:'将下列病理特征与相应的乳腺癌类型进行匹配',options:[{id:'A',text:'高级别者核分裂象常见、粉刺样坏死(粉刺癌)'},{id:'B',text:'以前称为浸润性导管癌,有巢状等结构、边界不清、间质纤维组织多'},{id:'C',text:'核分裂象罕见、癌变间期长、多累及双侧乳房多个象限'},{id:'D',text:'常转移至脑脊液、浆膜表面、卵巢、子宫、骨髓'},{id:'E',text:'巢状等结构、边界清楚、癌细胞大、间质少'},{id:'F',text:'癌细胞大小一致、核分裂象少见,呈单行串珠状/列兵样/细条索状排列,或环形排列在正常导管周围(牛眼样/靶环)'}],categories:[{id:'C1',label:'导管原位癌/导管内癌'},{id:'C2',label:'浸润癌非特殊型'},{id:'C3',label:'浸润性小叶癌'},{id:'C4',label:'大量淋巴细胞浸润的髓样癌'},{id:'C5',label:'小叶原位癌'}],answer:{'A':'C1','B':'C2','D':'C3','F':'C3','E':'C4','C':'C5'},explanation:'导管内癌:粉刺样坏死;浸润性导管癌:巢状结构、边界不清;浸润性小叶癌:单行串珠状排列、常转移至脑脊液等;髓样癌:边界清楚、间质少;小叶原位癌:核分裂罕见、双侧多象限'},
   {id:'path_045',subject:'pathology',system:'respiratory',chapter:'传染病',type:'matching',title:'结核杆菌细胞壁成分与所致反应',description:'将结核杆菌细胞壁成分与相应的致病反应进行匹配',options:[{id:'A',text:'干酪样坏死、空洞'},{id:'B',text:'血清反应等免疫应答'},{id:'C',text:'皮肤红斑和结核菌素试验PPD阳性'}],categories:[{id:'C1',label:'多糖'},{id:'C2',label:'蜡质'},{id:'C3',label:'蛋白质'}],answer:{'B':'C1','A':'C2','C':'C3'},explanation:'多糖引起血清反应等免疫应答;蜡质引起干酪样坏死和空洞;蛋白质引起皮肤红斑和PPD阳性'},
   {id:'path_046',subject:'pathology',system:'respiratory',chapter:'传染病',type:'matching',title:'原发性肺结核与继发性肺结核的鉴别',description:'将下列特征与相应的肺结核类型进行匹配',options:[{id:'A',text:'机体初次感染结核杆菌,无特异免疫力'},{id:'B',text:'病变常从右肺尖开始,自上而下主要经支气管播散,病变上重下轻、上旧下新'},{id:'C',text:'好发于儿童'},{id:'D',text:'常伴空洞'},{id:'E',text:'基本病理特征—原发综合征(X线呈哑铃影)'},{id:'F',text:'若合并AIDS好发于下叶'},{id:'G',text:'机体再次感染结核杆菌(内源复发为主),有免疫力'},{id:'H',text:'肺内原发灶(起始部位):上叶下部、下叶上部近胸膜处的炎性灶'},{id:'I',text:'病变多局限于肺内'},{id:'J',text:'若合并AIDS,趋于原发性肺结核:常有肺门、纵隔淋巴结肿大,空洞少见'},{id:'K',text:'有结核性淋巴管炎'},{id:'L',text:'好发于成人,尤其是抵抗力低下者'},{id:'M',text:'若合并AIDS,PPD常呈阴性或弱阳性'},{id:'N',text:'肺门淋巴结结核:肺门淋巴结肿大,多为单侧肿大、常伴干酪样坏死'},{id:'O',text:'好发部位:上叶尖后段、下叶背段和后基底段'},{id:'P',text:'主要经淋巴道或血道播散'},{id:'Q',text:'若合并AIDS,肉芽肿少见'}],categories:[{id:'C1',label:'原发性肺结核'},{id:'C2',label:'继发性肺结核'}],answer:{'A':'C1','C':'C1','E':'C1','H':'C1','K':'C1','N':'C1','P':'C1','B':'C2','D':'C2','F':'C2','G':'C2','I':'C2','J':'C2','L':'C2','M':'C2','O':'C2','Q':'C2'},explanation:'原发性肺结核:初次感染、好发儿童、原发综合征、经淋巴/血道播散;继发性肺结核:再次感染、好发成人、上叶尖后段、经支气管播散、常伴空洞'},
   {id:'path_047',subject:'pathology',system:'respiratory',chapter:'传染病',type:'matching',title:'继发性肺结核的类型',description:'将下列特征与相应的继发性肺结核类型进行匹配',options:[{id:'A',text:'非活动性'},{id:'B',text:'病情危重'},{id:'C',text:'好发于肺尖,境界清楚的结节,增生为主'},{id:'D',text:'肺组织严重破坏、广泛纤维化、肺体积缩小变形、肺门抬高、肺纹理呈垂柳样'},{id:'E',text:'最常见的活动性继发性肺结核'},{id:'F',text:'孤立的境界清楚(纤维包裹)的干酪样坏死灶'},{id:'G',text:'湿性多见:浆液纤维蛋白性渗出性炎;干性:增生性'},{id:'H',text:'好发于肺尖和锁骨下,境界不清/缘模糊、密度不均的云雾状/云絮状影(以渗出为主)'},{id:'I',text:'好发于上叶的厚壁空洞'},{id:'J',text:'可有薄壁空洞'},{id:'K',text:'虫蚀样空洞,可有大叶性实变'},{id:'L',text:'传染性强的开放性肺结核'},{id:'M',text:'多有咳嗽、低热、盗汗等症状'},{id:'N',text:'可并发慢性肺心病'},{id:'O',text:'可致胸膜增厚粘连'},{id:'P',text:'同侧或对侧肺组织可见由支气管播散引起的很多病灶,大小不等、上旧下新'}],categories:[{id:'C1',label:'局灶型肺结核'},{id:'C2',label:'浸润型肺结核'},{id:'C3',label:'干酪样肺炎'},{id:'C4',label:'慢性纤维空洞型肺结核'},{id:'C5',label:'结核球/结核瘤'},{id:'C6',label:'结核性胸膜炎'}],answer:{'A':'C1','C':'C1','E':'C2','H':'C2','J':'C2','M':'C2','B':'C3','K':'C3','D':'C4','I':'C4','L':'C4','N':'C4','P':'C4','F':'C5','G':'C6','O':'C6'},explanation:'局灶型:非活动性、肺尖结节;浸润型:最常见活动性、云絮状影;干酪样肺炎:危重、虫蚀样空洞;慢性纤维空洞型:厚壁空洞、垂柳样;结核球:纤维包裹干酪样坏死灶;结核性胸膜炎:渗出性/增生性'},
-  {id:'path_048',subject:'pathology',system:'nervous',chapter:'神经系统传染病',type:'matching',title:'流行性脑脊髓膜炎与流行性乙型脑炎的鉴别',description:'将下列特征与相应的中枢神经系统传染病进行匹配',options:[{id:'A',text:'脑膜炎双球菌'},{id:'B',text:'主要累及大脑皮质、基底核、视丘等'},{id:'C',text:'乙脑病毒'},{id:'D',text:'有筛状软化灶'},{id:'E',text:'冬春季多见,经飞沫呼吸道传播'},{id:'F',text:'夏秋季多见,蚊子是重要媒介'},{id:'G',text:'血管周围有淋巴细胞套'},{id:'H',text:'软脑膜、软脊膜的化脓性炎'},{id:'I',text:'蛛网膜下腔大量脓性渗出物,以中性粒细胞为主'},{id:'J',text:'中枢神经系统的变质性炎'},{id:'K',text:'小胶质细胞增生及结节形成'},{id:'L',text:'血管扩张充血'},{id:'M',text:'脑膜刺激征、脑神经麻痹更严重'},{id:'N',text:'小胶质细胞吞噬神经组织崩解产物后、胞质出现大量脂质,HE染色空泡状,称为格子细胞或泡沫细胞'},{id:'O',text:'星形胶质细胞增生及胶质纤维瘢痕'},{id:'P',text:'颅内高压更严重'},{id:'Q',text:'小胶质细胞形成噬神经现象'},{id:'R',text:'少突胶质细胞形成卫星现象'},{id:'S',text:'急性暴发性流脑脑膜炎较轻,主要为广泛出血和循环衰竭(局部轻,全身重)'}],categories:[{id:'C1',label:'流行性脑脊髓膜炎'},{id:'C2',label:'流行性乙型脑炎'}],answer:{'A':'C1','E':'C1','H':'C1','I':'C1','L':'C1','M':'C1','P':'C1','S':'C1','B':'C2','C':'C2','D':'C2','F':'C2','G':'C2','J':'C2','K':'C2','N':'C2','O':'C2','Q':'C2','R':'C2'},explanation:'流脑:脑膜炎双球菌、冬春季、化脓性炎、脑膜刺激征;乙脑:乙脑病毒、夏秋季、变质性炎、筛状软化灶、噬神经现象、卫星现象、血管淋巴套'},
+  {id:'path_048',subject:'pathology',system:'nervous',chapter:'神经系统传染病',type:'matching',title:'流行性脑脊髓膜炎与流行性乙型脑炎的鉴别',description:'将下列特征与相应的中枢神经系统传染病进行匹配',options:[{id:'A',text:'脑膜炎双球菌'},{id:'B',text:'主要累及大脑皮质、基底核、视丘等'},{id:'C',text:'乙脑病毒'},{id:'D',text:'有筛状软化灶'},{id:'E',text:'冬春季多见,经飞沫呼吸道传播'},{id:'F',text:'夏秋季多见,蚊子是重要媒介'},{id:'G',text:'血管周围有淋巴细胞套'},{id:'H',text:'软脑膜、软脊膜的化脓性炎'},{id:'I',text:'蛛网膜下腔大量脓性渗出物,以中性粒细胞为主'},{id:'J',text:'中枢神经系统的变质性炎'},{id:'K',text:'小胶质细胞增生及结节形成'},{id:'L',text:'血管扩张充血'},{id:'M',text:'脑膜刺激征、脑神经麻痹更严重'},{id:'N',text:'小胶质细胞吞噬神经组织崩解产物后、胞质出现大量脂质,HE染色空泡状,称为格子细胞或泡沫细胞'},{id:'O',text:'星形胶质细胞增生及胶质纤维瘢痕'},{id:'P',text:'颅内高压更严重'},{id:'Q',text:'小胶质细胞形成噬神经现象'},{id:'R',text:'少突胶质细胞形成卫星现象'},{id:'S',text:'急性暴发性流脑脑膜炎较轻,主要为广泛出血和循环衰竭(局部轻,全身重)'}],categories:[{id:'C1',label:'流行性脑脊髓膜炎'},{id:'C2',label:'流行性乙型脑炎'}],answer:{'A':'C1','E':'C1','H':'C1','I':'C1','L':'C1','M':'C1','S':'C1','P':'C2','B':'C2','C':'C2','D':'C2','F':'C2','G':'C2','J':'C2','K':'C2','N':'C2','O':'C2','Q':'C2','R':'C2'},explanation:'流脑:脑膜炎双球菌、冬春季、化脓性炎、脑膜刺激征;乙脑:乙脑病毒、夏秋季、变质性炎、筛状软化灶、噬神经现象、卫星现象、血管淋巴套'},
   {id:'path_049',subject:'pathology',system:'digestive',chapter:'传染病',type:'matching',title:'细菌性痢疾与中毒性痢疾',description:'将下列炎症类型与相应的痢疾类型进行匹配',options:[{id:'A',text:'假膜性炎(黏膜的纤维素性炎)'},{id:'B',text:'卡他性炎—此为黏膜的浆液性炎、滤泡性炎'}],categories:[{id:'C1',label:'细菌性痢疾'},{id:'C2',label:'中毒性痢疾'}],answer:{'A':'C1','B':'C2'},explanation:'细菌性痢疾:假膜性炎(纤维素性炎);中毒性痢疾:卡他性炎(浆液性炎、滤泡性炎)'},
-  {id:'path_050',subject:'pathology',system:'digestive',chapter:'肠道传染病',type:'matching',title:'肠道疾病的病理特征鉴别',description:'将下列病理特征与相应的肠道疾病进行匹配',options:[{id:'A',text:'慢性肉芽肿'},{id:'B',text:'盲肠和升结肠'},{id:'C',text:'急性肉芽肿'},{id:'D',text:'回盲部'},{id:'E',text:'回肠末端'},{id:'F',text:'直肠和乙状结肠'},{id:'G',text:'会出现肠梗阻'},{id:'H',text:'溃疡长轴垂直肠长轴'},{id:'I',text:'溃疡长轴平行肠长轴'},{id:'J',text:'不会出现肠梗阻'},{id:'K',text:'假膜性炎'},{id:'L',text:'溃疡表浅,不规则地图状'},{id:'M',text:'多不出现肠梗阻'},{id:'N',text:'溃疡口小底大的烧瓶状,溃疡周围找滋养体'},{id:'O',text:'变质性炎'}],categories:[{id:'C1',label:'肠结核'},{id:'C2',label:'肠伤寒'},{id:'C3',label:'急性细菌性痢疾'},{id:'C4',label:'肠阿米巴'}],answer:{'A':'C1','D':'C1','G':'C1','H':'C1','C':'C2','E':'C2','I':'C2','J':'C2','F':'C3','K':'C3','L':'C3','M':'C3','B':'C4','N':'C4','O':'C4'},explanation:'肠结核:慢性肉芽肿、回盲部、环形溃疡(垂直)、可梗阻;肠伤寒:急性肉芽肿、回肠末端、溃疡平行、不梗阻;痢疾:假膜性炎、直肠乙状结肠、地图状溃疡;阿米巴:变质性炎、盲肠升结肠、烧瓶状溃疡'},
-  {id:'path_051',subject:'pathology',system:'digestive',chapter:'传染病',type:'matching',title:'结核结节与慢性虫卵结节的鉴别',description:'将下列组织学特征与相应的肉芽肿类型进行匹配',options:[{id:'A',text:'大量上皮样细胞/类上皮细胞'},{id:'B',text:'钙化'},{id:'C',text:'朗汉斯巨细胞'},{id:'D',text:'少量异物巨细胞(多核巨细胞)'},{id:'E',text:'少量淋巴细胞'},{id:'F',text:'大量淋巴细胞'},{id:'G',text:'成纤维细胞'},{id:'H',text:'干酪样坏死'},{id:'I',text:'毛蚴已死亡'}],categories:[{id:'C1',label:'结核结节'},{id:'C2',label:'慢性虫卵结节/假结核结节'}],answer:{'A':'C1','C':'C1','E':'C1','H':'C1','B':'C2','D':'C2','F':'C2','G':'C2','I':'C2'},explanation:'结核结节:大量上皮样细胞、朗汉斯巨细胞、少量淋巴细胞、干酪样坏死;慢性虫卵结节:钙化、异物巨细胞、大量淋巴细胞、成纤维细胞、毛蚴已死亡'},
-  {id:'path_052',subject:'pathology',system:'digestive',chapter:'消化性溃疡与肠道疾病',type:'matching',title:'各类溃疡的好发部位',description:'将下列好发部位与相应的疾病进行匹配',options:[{id:'A',text:'回盲部'},{id:'B',text:'直肠和乙状结肠'},{id:'C',text:'回肠末端及邻近结肠'},{id:'D',text:'胃窦小弯侧'},{id:'E',text:'胃底胃体'},{id:'F',text:'回肠末端'},{id:'G',text:'盲肠和升结肠'},{id:'H',text:'直肠和乙状结肠'},{id:'I',text:'十二指肠球部前壁'},{id:'J',text:'胃窦小弯侧'},{id:'K',text:'十二指肠球部'}],categories:[{id:'C1',label:'肠结核'},{id:'C2',label:'肠伤寒'},{id:'C3',label:'细菌性痢疾'},{id:'C4',label:'阿米巴'},{id:'C5',label:'溃疡性结肠炎'},{id:'C6',label:'克罗恩病'},{id:'C7',label:'消化性溃疡'},{id:'C8',label:'胃癌溃疡型'},{id:'C9',label:'胃泌素瘤'},{id:'C10',label:'应激性溃疡'}],answer:{'A':'C1','C':'C2','B':'C3','G':'C4','H':'C5','F':'C6','I':'C7','D':'C8','K':'C9','J':'C10'},explanation:'肠结核好发回盲部;肠伤寒好发回肠末端;痢疾好发直肠乙状结肠;阿米巴好发盲肠升结肠;溃结好发直肠乙状结肠;克罗恩好发回肠末端;消化性溃疡好发十二指肠球部前壁;胃癌好发胃窦小弯侧'},
+  {id:'path_050',subject:'pathology',system:'digestive',chapter:'肠道传染病',type:'matching',title:'肠道疾病的病理特征鉴别',description:'将下列病理特征与相应的肠道疾病进行匹配',options:[{id:'A',text:'慢性肉芽肿'},{id:'B',text:'盲肠和升结肠'},{id:'C',text:'急性肉芽肿'},{id:'D',text:'回盲部'},{id:'E',text:'回肠末端'},{id:'F',text:'直肠和乙状结肠'},{id:'G',text:'会出现肠梗阻'},{id:'H',text:'溃疡长轴垂直肠长轴'},{id:'I',text:'溃疡长轴平行肠长轴'},{id:'J',text:'不会出现肠梗阻'},{id:'K',text:'假膜性炎'},{id:'L',text:'溃疡表浅,不规则地图状'},{id:'M',text:'多不出现肠梗阻'},{id:'N',text:'溃疡口小底大的烧瓶状,溃疡周围找滋养体'},{id:'O',text:'变质性炎'}],categories:[{id:'C1',label:'肠结核'},{id:'C2',label:'肠伤寒'},{id:'C3',label:'急性细菌性痢疾'},{id:'C4',label:'肠阿米巴'}],answer:{'A':'C1','D':'C1','G':['C1','C4'],'H':'C1','C':'C2','E':'C2','I':'C2','J':'C2','F':'C3','K':'C3','L':'C3','M':'C3','B':'C4','N':'C4','O':'C4'},explanation:'肠结核:慢性肉芽肿、回盲部、环形溃疡(垂直)、可梗阻;肠伤寒:急性肉芽肿、回肠末端、溃疡平行、不梗阻;痢疾:假膜性炎、直肠乙状结肠、地图状溃疡;阿米巴:变质性炎、盲肠升结肠、烧瓶状溃疡'},
+  {id:'path_051',subject:'pathology',system:'digestive',chapter:'传染病',type:'matching',title:'结核结节与慢性虫卵结节的鉴别',description:'将下列组织学特征与相应的肉芽肿类型进行匹配',options:[{id:'A',text:'大量上皮样细胞/类上皮细胞'},{id:'B',text:'钙化'},{id:'C',text:'朗汉斯巨细胞'},{id:'D',text:'少量异物巨细胞(多核巨细胞)'},{id:'E',text:'少量淋巴细胞'},{id:'F',text:'大量淋巴细胞'},{id:'G',text:'成纤维细胞'},{id:'H',text:'干酪样坏死'},{id:'I',text:'毛蚴已死亡'}],categories:[{id:'C1',label:'结核结节'},{id:'C2',label:'慢性虫卵结节/假结核结节'}],answer:{'A':['C1','C2'],'C':'C1','E':'C2','H':'C1','B':['C1','C2'],'D':'C2','F':'C1','G':['C1','C2'],'I':'C2'},explanation:'结核结节:大量上皮样细胞、朗汉斯巨细胞、大量淋巴细胞、干酪样坏死;慢性虫卵结节:大量上皮样细胞、钙化、少量淋巴细胞、异物巨细胞、成纤维细胞、毛蚴已死亡。A/B/G为两者共有'},
+  {id:'path_052',subject:'pathology',system:'digestive',chapter:'消化性溃疡与肠道疾病',type:'matching',title:'各类溃疡的好发部位',description:'将下列好发部位与相应的疾病进行匹配',options:[{id:'A',text:'回盲部'},{id:'B',text:'直肠和乙状结肠'},{id:'C',text:'回肠末端及邻近结肠'},{id:'D',text:'胃窦小弯侧'},{id:'E',text:'胃底胃体'},{id:'F',text:'回肠末端'},{id:'G',text:'盲肠和升结肠'},{id:'H',text:'直肠和乙状结肠'},{id:'I',text:'十二指肠球部前壁'},{id:'J',text:'胃窦小弯侧'},{id:'K',text:'十二指肠球部'}],categories:[{id:'C1',label:'肠结核'},{id:'C2',label:'肠伤寒'},{id:'C3',label:'细菌性痢疾'},{id:'C4',label:'阿米巴'},{id:'C5',label:'溃疡性结肠炎'},{id:'C6',label:'克罗恩病'},{id:'C7',label:'消化性溃疡'},{id:'C8',label:'胃癌溃疡型'},{id:'C9',label:'胃泌素瘤'},{id:'C10',label:'应激性溃疡'}],answer:{'A':'C1','F':'C2','B':'C3','G':'C4','H':'C5','C':'C6','I':'C7','J':['C7','C8'],'K':'C9','E':'C10'},explanation:'肠结核好发回盲部;肠伤寒好发回肠末端;痢疾好发直肠乙状结肠;阿米巴好发盲肠升结肠;溃结好发直肠乙状结肠;克罗恩好发回肠末端及邻近结肠;消化性溃疡好发十二指肠球部前壁和胃窦小弯侧(J交叉归属消化性溃疡和胃癌);胃泌素瘤好发十二指肠球部;应激性溃疡好发胃底胃体'},
   {id:'path_053',subject:'pathology',system:'digestive',chapter:'消化性溃疡与肠道疾病',type:'matching',title:'各类溃疡的形态特征',description:'将下列溃疡形态特征与相应的疾病进行匹配',options:[{id:'A',text:'环/横形溃疡,其长轴与肠长轴垂直'},{id:'B',text:'表浅不规则地图状溃疡'},{id:'C',text:'早期鹅口疮样,后期节段性纵行裂隙状深溃疡'},{id:'D',text:'火山口状、凹凸不平、黏膜皱襞中断'},{id:'E',text:'应激—促进胃酸、胃蛋白酶原'},{id:'F',text:'圆形/椭圆形溃疡,其长轴与肠长轴平行'},{id:'G',text:'口小底大的烧瓶状溃疡'},{id:'H',text:'连续性浅溃疡'},{id:'I',text:'圆形/椭圆形的深溃疡(镜下分4层);黏膜皱襞放射状向溃疡集中'},{id:'J',text:'不典型部位(十二指肠降部和水平部、空肠近段、食管远段)出现多发溃疡'}],categories:[{id:'C1',label:'肠结核'},{id:'C2',label:'肠伤寒'},{id:'C3',label:'细菌性痢疾'},{id:'C4',label:'阿米巴'},{id:'C5',label:'溃疡性结肠炎'},{id:'C6',label:'克罗恩病'},{id:'C7',label:'消化性溃疡'},{id:'C8',label:'胃癌溃疡型'},{id:'C9',label:'胃泌素瘤'},{id:'C10',label:'应激性溃疡'}],answer:{'A':'C1','F':'C2','B':'C3','G':'C4','H':'C5','C':'C6','I':'C7','D':'C8','J':'C9','E':'C10'},explanation:'肠结核:环形溃疡垂直肠轴;肠伤寒:椭圆形溃疡平行肠轴;痢疾:地图状浅溃疡;阿米巴:烧瓶状溃疡;溃结:连续性浅溃疡;克罗恩:纵行裂隙状深溃疡;消化性溃疡:圆形深溃疡分4层'},
   {id:'path_054',subject:'pathology',system:'general_pathology',chapter:'修复与再生',type:'matching',title:'细胞再生能力分类',description:'将下列细胞类型与相应的再生能力分类进行匹配',options:[{id:'A',text:'皮肤表皮细胞'},{id:'B',text:'腹膜/胸膜/心包膜'},{id:'C',text:'淋巴造血细胞'},{id:'D',text:'腺体细胞(肝/胰/肾小管/汗腺)'},{id:'E',text:'呼吸道黏膜'},{id:'F',text:'平滑肌细胞'},{id:'G',text:'消化道'},{id:'H',text:'纤维细胞'},{id:'I',text:'神经胶质细胞'},{id:'J',text:'生殖道'},{id:'K',text:'骨细胞'},{id:'L',text:'神经元/神经细胞'},{id:'M',text:'血管内皮细胞'},{id:'N',text:'心肌细胞'},{id:'O',text:'软骨细胞'},{id:'P',text:'骨骼肌细胞'}],categories:[{id:'C1',label:'不稳定/持续分裂细胞'},{id:'C2',label:'稳定/静止细胞'},{id:'C3',label:'永久/恒定细胞'}],answer:{'A':'C1','B':'C1','C':'C1','E':'C1','G':'C1','J':'C1','D':'C2','F':'C2','H':'C2','I':'C2','K':'C2','M':'C2','O':'C2','L':'C3','N':'C3','P':'C3'},explanation:'不稳定细胞:表皮、间皮、淋巴造血、消化道黏膜;稳定细胞:腺体、纤维、骨、血管内皮、软骨、平滑肌、神经胶质;永久细胞:神经元、心肌、骨骼肌'},
-  {id:'path_055',subject:'pathology',system:'general_pathology',chapter:'修复与再生',type:'matching',title:'骨折愈合过程',description:'将下列特征与相应的骨折愈合阶段进行匹配',options:[{id:'A',text:'转分化出成骨细胞'},{id:'B',text:'排列紊乱的编织骨'},{id:'C',text:'板层骨'}],categories:[{id:'C1',label:'纤维性骨痂(暂时性骨痂)'},{id:'C2',label:'骨性骨痂'},{id:'C3',label:'骨痂改建或再塑'}],answer:{'A':'C1','B':'C2','C':'C3'},explanation:'纤维性骨痂:成纤维细胞转分化为成骨细胞;骨性骨痂:排列紊乱的编织骨;骨痂改建:编织骨改建为板层骨'},
-  {id:'path_056',subject:'pathology',system:'general_pathology',chapter:'修复与再生',type:'matching',title:'创伤愈合(一期愈合与二期愈合)',description:'将下列特征与相应的创伤愈合类型进行匹配',options:[{id:'A',text:'组织缺损少、创缘整齐、无感染'},{id:'B',text:'表皮再生在伤后1-2天再生的表皮覆盖伤口'},{id:'C',text:'伤口边缘或底部长入大量肉芽组织'},{id:'D',text:'伤口收缩不明显'},{id:'E',text:'坏死组织多'},{id:'F',text:'感染'},{id:'G',text:'创缘不整齐'},{id:'H',text:'表皮再生在坏死组织清除及感染控制后开始'},{id:'I',text:'肉芽组织在伤后2-3天从伤口边缘开始长入'},{id:'J',text:'瘢痕组织少、规则、呈线状'},{id:'K',text:'伤口收缩明显'},{id:'L',text:'坏死组织多'},{id:'M',text:'炎症反应轻'},{id:'N',text:'瘢痕组织大、不规则'}],categories:[{id:'C1',label:'一期愈合'},{id:'C2',label:'二期愈合'}],answer:{'A':'C1','B':'C1','I':'C1','J':'C1','M':'C1','D':'C1','C':'C2','E':'C2','F':'C2','G':'C2','H':'C2','K':'C2','L':'C2','N':'C2'},explanation:'一期愈合:缺损少、无感染、瘢痕少呈线状;二期愈合:缺损大、有感染、坏死组织多、瘢痕大不规则、伤口收缩明显'},
-  {id:'path_057',subject:'pathology',system:'general_pathology',chapter:'细胞损伤',type:'matching',title:'细胞损伤类型分类',description:'将下列病变类型与相应的损伤分类进行匹配',options:[{id:'A',text:'水样变性'},{id:'B',text:'萎缩'},{id:'C',text:'玻璃样/透明变性'},{id:'D',text:'增生'},{id:'E',text:'黏液样变性'},{id:'F',text:'老化'},{id:'G',text:'病理性钙化'},{id:'H',text:'坏死性凋亡'},{id:'I',text:'干酪样坏死'},{id:'J',text:'干酪样坏死'},{id:'K',text:'焦亡'},{id:'L',text:'纤维蛋白样坏死'},{id:'M',text:'自噬'},{id:'N',text:'脂肪变性'},{id:'O',text:'肥大'},{id:'P',text:'淀粉样变性'},{id:'Q',text:'化生'},{id:'R',text:'病理性色素沉着'},{id:'S',text:'液化性坏死'},{id:'T',text:'坏死性凋亡'},{id:'U',text:'脂肪坏死'},{id:'V',text:'铁死亡'},{id:'W',text:'坏疽'}],categories:[{id:'C1',label:'适应'},{id:'C2',label:'可逆性损伤'},{id:'C3',label:'意外性细胞死亡'},{id:'C4',label:'调节性细胞死亡'}],answer:{'B':'C1','D':'C1','O':'C1','Q':'C1','A':'C2','C':'C2','E':'C2','G':'C2','N':'C2','P':'C2','R':'C2','I':'C3','J':'C3','S':'C3','U':'C3','W':'C3','H':'C4','K':'C4','M':'C4','T':'C4','V':'C4','F':'C4'},explanation:'适应:萎缩、增生、肥大、化生;可逆性损伤:水样/脂肪/玻璃样/黏液样变性、钙化、色素沉着;意外性死亡:坏死类;调节性死亡:凋亡、自噬、焦亡、铁死亡'},
-  {id:'path_058',subject:'pathology',system:'general_pathology',chapter:'细胞适应',type:'matching',title:'萎缩的类型',description:'将下列萎缩表现与相应的萎缩类型进行匹配',options:[{id:'A',text:'青春期胸腺萎缩'},{id:'B',text:'首先发生在脂肪,后期发生在永久性细胞(神经元/神经细胞、骨骼肌细胞、心肌细胞)'},{id:'C',text:'久病卧床者骨骼肌萎缩'},{id:'D',text:'更年期卵巢/子宫/乳腺萎缩'},{id:'E',text:'二狭致左心室容量负荷减小可致左心室缩小'},{id:'F',text:'尿路梗阻致肾盂肾盏积水扩张压迫肾实质,但肾整体体积可增大'},{id:'G',text:'宇航员体重减轻'},{id:'H',text:'脊髓灰质炎、肌萎缩侧索硬化'},{id:'I',text:'上段胆管癌胆管无肿大甚至可缩小'},{id:'J',text:'下丘脑腺垂体缺血坏死致肾上腺皮质等萎缩'},{id:'K',text:'慢性炎症是细胞组织萎缩的常见原因'},{id:'L',text:'垂体前叶功能减退(Simmond综合征)致甲状腺、肾上腺、性腺萎缩'},{id:'M',text:'右心衰致肝细胞萎缩'},{id:'N',text:'雌激素治疗使前列腺癌细胞萎缩'},{id:'O',text:'神经细胞萎缩是大脑老化的原因,如大量神经细胞死亡致阿尔兹海默病'},{id:'P',text:'老年睾丸萎缩'}],categories:[{id:'C1',label:'生理性萎缩'},{id:'C2',label:'病理性萎缩'},{id:'C3',label:'营养不良性萎缩'},{id:'C4',label:'失用性萎缩'},{id:'C5',label:'去神经性萎缩'},{id:'C6',label:'内分泌性萎缩'},{id:'C7',label:'压迫性萎缩'},{id:'C8',label:'老化性萎缩'},{id:'C9',label:'损伤性萎缩'}],answer:{'A':'C1','B':'C1','P':'C1','D':'C2','E':'C3','F':'C7','G':'C4','H':'C5','I':'C5','J':'C6','K':'C3','L':'C6','M':'C3','N':'C6','O':'C8'},explanation:'生理性:胸腺、老年睾丸;营养不良性:二狭致心室缩小、慢性炎症、右心衰;压迫性:尿路梗阻致肾萎缩;失用性:卧床、宇航员;去神经性:脊髓灰质炎;内分泌性:Simmond综合征、雌激素治疗;老化性:阿尔兹海默'},
+  {id:'path_055',subject:'pathology',system:'general_pathology',chapter:'修复与再生',type:'matching',title:'骨折愈合过程',description:'将下列特征与相应的骨折愈合阶段进行匹配',options:[{id:'A',text:'转分化出成骨细胞'},{id:'B',text:'排列紊乱的编织骨'},{id:'C',text:'板层骨'}],categories:[{id:'C1',label:'纤维性骨痂(暂时性骨痂)'},{id:'C2',label:'骨性骨痂'},{id:'C3',label:'骨痂改建或再塑'}],answer:{'A':'C2','B':'C2','C':'C3'},explanation:'骨性骨痂:成纤维细胞转分化出成骨细胞(A)、排列紊乱的编织骨(B);骨痂改建:编织骨改建为板层骨(C)。纤维性骨痂为肉芽组织阶段,无对应选项'},
+  {id:'path_056',subject:'pathology',system:'general_pathology',chapter:'修复与再生',type:'matching',title:'创伤愈合(一期愈合与二期愈合)',description:'将下列特征与相应的创伤愈合类型进行匹配',options:[{id:'A',text:'组织缺损少、创缘整齐、无感染'},{id:'B',text:'表皮再生在伤后1-2天再生的表皮覆盖伤口'},{id:'C',text:'伤口边缘或底部长入大量肉芽组织'},{id:'D',text:'伤口收缩不明显'},{id:'E',text:'愈合时间长'},{id:'F',text:'坏死组织少'},{id:'G',text:'炎症反应重'},{id:'H',text:'表皮再生在坏死组织清除及感染控制后开始'},{id:'I',text:'肉芽组织在伤后2-3天从伤口边缘开始长入'},{id:'J',text:'瘢痕组织少、规则、呈线状'},{id:'K',text:'伤口收缩明显'},{id:'L',text:'坏死组织多'},{id:'M',text:'炎症反应轻'},{id:'N',text:'瘢痕组织大、不规则'}],categories:[{id:'C1',label:'一期愈合'},{id:'C2',label:'二期愈合'}],answer:{'A':'C1','B':'C1','D':'C1','F':'C1','I':'C1','J':'C1','M':'C1','C':'C2','E':'C2','G':'C2','H':'C2','K':'C2','L':'C2','N':'C2'},explanation:'一期愈合:缺损少创缘整齐无感染、坏死组织少、炎症反应轻、瘢痕少呈线状;二期愈合:缺损大有感染、愈合时间长、炎症反应重、坏死组织多、瘢痕大不规则、伤口收缩明显'},
+  {id:'path_057',subject:'pathology',system:'general_pathology',chapter:'细胞损伤',type:'matching',title:'细胞损伤类型分类',description:'将下列病变类型与相应的损伤分类进行匹配',options:[{id:'A',text:'水样变性'},{id:'B',text:'萎缩'},{id:'C',text:'玻璃样/透明变性'},{id:'D',text:'增生'},{id:'E',text:'黏液样变性'},{id:'F',text:'老化'},{id:'G',text:'病理性钙化'},{id:'H',text:'凝固性坏死'},{id:'I',text:'凋亡'},{id:'J',text:'干酪样坏死'},{id:'K',text:'焦亡'},{id:'L',text:'纤维蛋白样坏死'},{id:'M',text:'自噬'},{id:'N',text:'脂肪变性'},{id:'O',text:'肥大'},{id:'P',text:'淀粉样变性'},{id:'Q',text:'化生'},{id:'R',text:'病理性色素沉着'},{id:'S',text:'液化性坏死'},{id:'T',text:'坏死性凋亡'},{id:'U',text:'脂肪坏死'},{id:'V',text:'铁死亡'},{id:'W',text:'坏疽'}],categories:[{id:'C1',label:'适应'},{id:'C2',label:'可逆性损伤'},{id:'C3',label:'意外性细胞死亡'},{id:'C4',label:'调节性细胞死亡'}],answer:{'B':'C1','D':'C1','F':'C1','O':'C1','Q':'C1','A':'C2','C':'C2','E':'C2','G':'C2','N':'C2','P':'C2','R':'C2','H':'C3','J':'C3','L':'C3','S':'C3','U':'C3','W':'C3','I':'C4','K':'C4','M':'C4','T':'C4','V':'C4'},explanation:'适应:萎缩、增生、肥大、化生、老化;可逆性损伤:水样/脂肪/玻璃样/黏液样变性、钙化、色素沉着;意外性死亡:凝固性坏死、干酪样坏死、纤维蛋白样坏死、液化性坏死、脂肪坏死、坏疽;调节性死亡:凋亡、自噬、焦亡、坏死性凋亡、铁死亡'},
+  {id:'path_058',subject:'pathology',system:'general_pathology',chapter:'细胞适应',type:'matching',title:'萎缩的类型',description:'将下列萎缩表现与相应的萎缩类型进行匹配',options:[{id:'A',text:'青春期胸腺萎缩'},{id:'B',text:'首先发生在脂肪,后期发生在永久性细胞(神经元/神经细胞、骨骼肌细胞、心肌细胞)'},{id:'C',text:'久病卧床者骨骼肌萎缩'},{id:'D',text:'更年期卵巢/子宫/乳腺萎缩'},{id:'E',text:'二狭致左心室容量负荷减小可致左心室缩小'},{id:'F',text:'尿路梗阻致肾盂肾盏积水扩张压迫肾实质,但肾整体体积可增大'},{id:'G',text:'宇航员体重减轻'},{id:'H',text:'脊髓灰质炎、肌萎缩侧索硬化'},{id:'I',text:'上段胆管癌胆囊无肿大甚至可缩小'},{id:'J',text:'下丘脑腺垂体缺血坏死致肾上腺皮质等萎缩'},{id:'K',text:'慢性炎症是细胞组织萎缩的常见原因'},{id:'L',text:'垂体前叶功能减退(Simmond综合征)致甲状腺、肾上腺、性腺萎缩'},{id:'M',text:'右心衰致肝细胞萎缩'},{id:'N',text:'雌激素治疗使前列腺癌细胞萎缩'},{id:'O',text:'神经细胞萎缩是大脑老化的原因,如大量神经细胞死亡致阿尔兹海默病'},{id:'P',text:'老年睾丸萎缩'}],categories:[{id:'C1',label:'生理性萎缩'},{id:'C2',label:'病理性萎缩'},{id:'C3',label:'营养不良性萎缩'},{id:'C4',label:'失用性萎缩'},{id:'C5',label:'去神经性萎缩'},{id:'C6',label:'内分泌性萎缩'},{id:'C7',label:'压迫性萎缩'},{id:'C8',label:'老化性萎缩'},{id:'C9',label:'损伤性萎缩'}],answer:{'A':'C1','D':'C1','P':'C1','B':['C2','C3'],'C':['C2','C4'],'E':['C2','C4'],'F':['C2','C7'],'G':['C2','C4'],'H':['C2','C5'],'I':['C2','C4'],'J':['C2','C6'],'K':['C2','C9'],'L':['C2','C6'],'M':['C2','C7'],'N':['C2','C6'],'O':['C2','C8']},explanation:'生理性:胸腺(A)、更年期萎缩(D)、老年睾丸(P);营养不良性:脂肪→永久性细胞(B);失用性:卧床(C)、二狭心室缩小(E)、宇航员(G)、胆管癌胆囊萎缩(I);去神经性:脊髓灰质炎(H);压迫性:肾积水(F)、右心衰肝萎缩(M);内分泌性:垂体缺血(J)、Simmond综合征(L)、雌激素治疗(N);老化性:阿尔兹海默(O);损伤性:慢性炎症(K)。B-O均为病理性萎缩,同时交叉归属C2和各亚型'},
   {id:'path_059',subject:'pathology',system:'general_pathology',chapter:'细胞适应',type:'matching',title:'肥大的类型',description:'将下列肥大表现与相应的肥大类型进行匹配',options:[{id:'A',text:'妊娠期子宫肥大'},{id:'B',text:'高血压时左心室心肌细胞向心性肥大'},{id:'C',text:'运动员肌肉肥大'},{id:'D',text:'尿路梗阻时膀胱平滑肌肥大'}],categories:[{id:'C1',label:'生理性肥大'},{id:'C2',label:'病理性肥大'}],answer:{'A':'C1','C':'C1','B':'C2','D':'C2'},explanation:'生理性肥大:妊娠期子宫、运动员肌肉;病理性肥大:高血压左心室向心性肥大、尿路梗阻膀胱平滑肌肥大'},
   {id:'path_060',subject:'pathology',system:'general_pathology',chapter:'细胞适应',type:'matching',title:'增生的类型',description:'将下列增生表现与相应的增生类型进行匹配',options:[{id:'A',text:'妊娠后期雌激素和孕激素促进乳腺增生'},{id:'B',text:'碘缺乏致甲状腺增生肥大(单纯性甲状腺肿)'},{id:'C',text:'部分肝切除后肝细胞增生'},{id:'D',text:'雄激素过多致前列腺增生肥大'},{id:'E',text:'炎症和组织损伤致修复性增生'}],categories:[{id:'C1',label:'生理性增生'},{id:'C2',label:'病理性增生'}],answer:{'A':'C1','B':'C2','C':'C1','D':'C2','E':'C2'},explanation:'生理性增生:妊娠期乳腺、肝切除后再生;病理性增生:碘缺乏致甲状腺增生、雄激素致前列腺增生、炎症修复性增生'},
-  {id:'path_061',subject:'pathology',system:'general_pathology',chapter:'病理性钙化',type:'matching',title:'病理性钙化的类型',description:'将下列钙化表现与相应的钙化类型进行匹配',options:[{id:'A',text:'局部碱性磷酸酶'},{id:'B',text:'沉积在坏死或即将坏死的组织、异物'},{id:'C',text:'动脉粥样硬化斑块/粥瘤'},{id:'D',text:'沉积在肺'},{id:'E',text:'血钙升高'},{id:'F',text:'心瓣膜病'},{id:'G',text:'维生素D摄入过多'},{id:'H',text:'慢性血吸虫虫卵'},{id:'I',text:'沉积在肾'},{id:'J',text:'结核'},{id:'K',text:'沉积在正常血管'},{id:'L',text:'瘢痕组织'},{id:'M',text:'沉积在胃'},{id:'N',text:'甲旁亢'},{id:'O',text:'血栓(静脉石/动脉石)'},{id:'P',text:'某些骨肿瘤'}],categories:[{id:'C1',label:'营养不良性钙化'},{id:'C2',label:'转移性钙化'}],answer:{'A':'C1','B':'C1','C':'C1','F':'C1','H':'C1','J':'C1','L':'C1','O':'C1','P':'C1','D':'C2','E':'C2','G':'C2','I':'C2','K':'C2','M':'C2','N':'C2'},explanation:'营养不良性钙化:血钙不升高,沉积在坏死组织、结核、粥瘤、瘢痕、血栓;转移性钙化:血钙升高(甲旁亢、维D过多),沉积在正常组织(肺、肾、胃、血管)'},
-  {id:'path_062',subject:'pathology',system:'general_pathology',chapter:'细胞损伤',type:'matching',title:'变性病变的发生部位',description:'将下列变性类型与相应的发生部位进行匹配',options:[{id:'A',text:'水样变性'},{id:'B',text:'脂肪变性'},{id:'C',text:'玻璃样/透明变性'},{id:'D',text:'淀粉样变性'},{id:'E',text:'黏液样变性'},{id:'F',text:'病理性色素沉着'},{id:'G',text:'病理性钙化'}],categories:[{id:'C1',label:'细胞内'},{id:'C2',label:'细胞内、间质'},{id:'C3',label:'间质'}],answer:{'A':'C1','B':'C1','C':'C2','F':'C2','D':'C3','E':'C3','G':'C3'},explanation:'细胞内:水样变性、脂肪变性;细胞内和间质:玻璃样变性(细胞内如Russell小体,间质如纤维化)、色素沉着;间质:淀粉样变性、黏液样变性、钙化'},
-  {id:'path_063',subject:'pathology',system:'general_pathology',chapter:'细胞损伤',type:'matching',title:'变性病变的物质基础',description:'将下列物质与相应的变性病变类型进行匹配',options:[{id:'A',text:'Na'},{id:'B',text:'胆色素'},{id:'C',text:'水'},{id:'D',text:'含铁血黄素'},{id:'E',text:'甘油三酯'},{id:'F',text:'磷酸钙'},{id:'G',text:'蛋白质'},{id:'H',text:'黑色素'},{id:'I',text:'淀粉样蛋白'},{id:'J',text:'氢氧化钙'},{id:'K',text:'黏多糖'},{id:'L',text:'脂褐素'},{id:'M',text:'磷酸钙'}],categories:[{id:'C1',label:'水样变性'},{id:'C2',label:'脂肪变性'},{id:'C3',label:'玻璃样/透明变性'},{id:'C4',label:'淀粉样变性'},{id:'C5',label:'黏液样变性'},{id:'C6',label:'病理性色素沉着'},{id:'C7',label:'病理性钙化'}],answer:{'A':'C1','C':'C1','E':'C2','G':'C3','I':'C4','K':'C5','B':'C6','D':'C6','H':'C6','L':'C6','F':'C7','J':'C7','M':'C7'},explanation:'水样变性:水、Na;脂肪变性:甘油三酯;玻璃样变性:蛋白质;淀粉样变性:淀粉样蛋白;黏液样变性:黏多糖;色素沉着:胆色素、含铁血黄素、黑色素、脂褐素;钙化:磷酸钙、氢氧化钙'},
-  {id:'path_064',subject:'pathology',system:'general_pathology',chapter:'细胞死亡',type:'matching',title:'坏死类型分类',description:'将下列坏死特征与相应的坏死类型进行匹配',options:[{id:'A',text:'坏死组织与周围分界清楚,原有组织轮廓保留'},{id:'B',text:'可形成囊腔、囊肿'},{id:'C',text:'好发部位:心、肾、脾、肝、肠'},{id:'D',text:'好发部位:脑、脊髓、肝'},{id:'E',text:'彻底的凝固性坏死'},{id:'F',text:'伤寒的蜡样变性'},{id:'G',text:'胃溃疡'},{id:'H',text:'结缔组织、小血管壁的胶原纤维坏死'},{id:'I',text:'重症急性肾炎'},{id:'J',text:'多见于结核'},{id:'K',text:'特殊的液化性坏死'},{id:'L',text:'结节性多动脉炎'},{id:'M',text:'胰腺本身的坏死'},{id:'N',text:'风湿'},{id:'O',text:'乙脑筛状软化灶'},{id:'P',text:'坏死灶含脂质较多,呈干燥、淡黄、细腻、质实、无结构的嗜酸性红染颗粒状物质'},{id:'Q',text:'类风湿'},{id:'R',text:'高血压脑软化'},{id:'S',text:'急进型高血压'},{id:'U',text:'超急性排斥反应'},{id:'V',text:'动脉粥样硬化累计脑动脉'},{id:'W',text:'慢性肺心病(肺动脉高压)'}],categories:[{id:'C1',label:'凝固性坏死'},{id:'C2',label:'干酪样坏死'},{id:'C3',label:'液化性坏死'},{id:'C4',label:'脂肪坏死(特殊的液化性坏死)'},{id:'C5',label:'纤维素/纤维蛋白样坏死'},{id:'C6',label:'坏疽'},{id:'C7',label:'溶解性坏死'}],answer:{'A':'C1','C':'C1','F':'C1','G':'C1','E':'C2','J':'C2','P':'C2','B':'C3','D':'C3','O':'C3','R':'C3','V':'C3','K':'C4','M':'C4','W':'C4','H':'C5','I':'C5','L':'C5','N':'C5','Q':'C5','S':'C5','U':'C5'},explanation:'凝固性坏死:分界清楚、轮廓保留、好发心肾脾肝;干酪样坏死:结核、含脂质多;液化性坏死:脑脊髓、可形成囊腔;脂肪坏死:胰腺、特殊液化性;纤维素样坏死:血管壁胶原纤维坏死、风湿、SLE'},
-  {id:'path_065',subject:'pathology',system:'cell_tissue_injury',chapter:'坏死',type:'matching',title:'坏疽类型特征配伍',description:'将下列特征与相应的坏疽类型进行配伍',options:[{id:'A',text:'动脉闭塞、静脉正常'},{id:'B',text:'湿、软、大、绿、臭'},{id:'C',text:'好发深部组织开放性创伤'},{id:'D',text:'分界清楚'},{id:'E',text:'病情重'},{id:'F',text:'动、静脉均闭塞'},{id:'G',text:'湿性坏疽+厌氧菌'},{id:'H',text:'干燥、皱缩呈黑褐色'},{id:'I',text:'气泡、捻发音'},{id:'J',text:'好发肢体末端'},{id:'K',text:'好发阑尾、子宫、肺、肠、胆囊'},{id:'L',text:'分界不清'},{id:'M',text:'病情较轻'}],categories:[{id:'C1',label:'干性坏疽'},{id:'C2',label:'湿性坏疽'},{id:'C3',label:'气性坏疽'}],answer:{'A':'C1','D':'C1','H':'C1','J':'C1','M':'C1','B':'C2','E':'C2','F':'C2','K':'C2','L':'C2','C':'C3','G':'C3','I':'C3'},explanation:'干性坏疽动脉阻塞静脉回流通畅，好发肢体末端，干燥皱缩黑褐色，分界清，病情轻。湿性坏疽动静均阻塞，好发内脏，湿软大绿臭，分界不清，病情重。气性坏疽合并厌氧菌感染，深部创伤，气泡捻发音。'},
-  {id:'path_066',subject:'pathology',system:'cell_tissue_injury',chapter:'坏死',type:'matching',title:'器官与坏死类型配伍',description:'将下列器官与相应好发的坏死类型进行配伍',options:[{id:'A',text:'心'},{id:'B',text:'脑'},{id:'C',text:'脾'},{id:'D',text:'阑尾'},{id:'E',text:'胰'},{id:'F',text:'肾'},{id:'G',text:'子宫'},{id:'H',text:'乳房'},{id:'I',text:'肺'},{id:'J',text:'肠'},{id:'K',text:'胆囊'},{id:'L',text:'肾'},{id:'M',text:'肢体末端'},{id:'N',text:'脊髓'},{id:'O',text:'胰（实质）'}],categories:[{id:'C1',label:'凝固性坏死'},{id:'C2',label:'液化性坏死'},{id:'C3',label:'湿性坏疽'},{id:'C4',label:'干性坏疽'}],answer:{'A':'C1','C':'C1','F':'C1','L':'C1','O':'C1','B':'C2','E':'C2','H':'C2','N':'C2','D':'C3','G':'C3','I':'C3','J':'C3','K':'C3','M':'C4'},explanation:'凝固性坏死见于心、脾、肾等实质器官；液化性坏死见于脑、脊髓、胰等富含脂质的器官；湿性坏疽见于与外界相通的内脏如阑尾、子宫、肺、肠、胆囊；干性坏疽见于肢体末端。'},
+  {id:'path_061',subject:'pathology',system:'general_pathology',chapter:'病理性钙化',type:'matching',title:'病理性钙化的类型',description:'将下列钙化表现与相应的钙化类型进行匹配',options:[{id:'A',text:'局部碱性磷酸酶'},{id:'B',text:'沉积在坏死或即将坏死的组织、异物'},{id:'C',text:'动脉粥样硬化斑块/粥瘤'},{id:'D',text:'沉积在肺'},{id:'E',text:'血钙升高'},{id:'F',text:'心瓣膜病'},{id:'G',text:'维生素D摄入过多'},{id:'H',text:'慢性血吸虫虫卵'},{id:'I',text:'沉积在肾'},{id:'J',text:'结核'},{id:'K',text:'沉积在正常血管'},{id:'L',text:'瘢痕组织'},{id:'M',text:'沉积在胃'},{id:'N',text:'甲旁亢'},{id:'O',text:'血栓(静脉石/动脉石)'},{id:'P',text:'某些骨肿瘤'}],categories:[{id:'C1',label:'营养不良性钙化'},{id:'C2',label:'转移性钙化'}],answer:{'A':'C1','B':'C1','C':'C1','F':'C1','H':'C1','J':'C1','L':'C1','O':'C1','D':'C2','E':'C2','G':'C2','I':'C2','K':'C2','M':'C2','N':'C2','P':'C2'},explanation:'营养不良性钙化:血钙不升高,沉积在坏死组织、结核、粥瘤、瘢痕、血栓;转移性钙化:血钙升高(甲旁亢、维D过多、某些骨肿瘤),沉积在正常组织(肺、肾、胃、血管)'},
+  {id:'path_062',subject:'pathology',system:'general_pathology',chapter:'细胞损伤',type:'matching',title:'变性病变的发生部位',description:'将下列变性类型与相应的发生部位进行匹配',options:[{id:'A',text:'水样变性'},{id:'B',text:'脂肪变性'},{id:'C',text:'玻璃样/透明变性'},{id:'D',text:'淀粉样变性'},{id:'E',text:'黏液样变性'},{id:'F',text:'病理性色素沉着'},{id:'G',text:'病理性钙化'}],categories:[{id:'C1',label:'细胞内'},{id:'C2',label:'细胞内、间质'},{id:'C3',label:'间质'}],answer:{'A':'C1','B':'C1','C':'C2','F':'C2','G':'C2','D':'C3','E':'C3'},explanation:'细胞内:水样变性、脂肪变性;细胞内和间质:玻璃样变性(细胞内如Russell小体,间质如纤维化)、色素沉着、病理性钙化;间质:淀粉样变性、黏液样变性'},
+  {id:'path_063',subject:'pathology',system:'general_pathology',chapter:'细胞损伤',type:'matching',title:'变性病变的物质基础',description:'将下列物质与相应的变性病变类型进行匹配',options:[{id:'A',text:'Na'},{id:'B',text:'胆色素'},{id:'C',text:'水'},{id:'D',text:'含铁血黄素'},{id:'E',text:'甘油三酯'},{id:'F',text:'碳酸钙'},{id:'G',text:'蛋白质'},{id:'H',text:'黑色素'},{id:'I',text:'淀粉样蛋白'},{id:'J',text:'氢氧化钙'},{id:'K',text:'黏多糖'},{id:'L',text:'脂褐素'},{id:'M',text:'磷酸钙'}],categories:[{id:'C1',label:'水样变性'},{id:'C2',label:'脂肪变性'},{id:'C3',label:'玻璃样/透明变性'},{id:'C4',label:'淀粉样变性'},{id:'C5',label:'黏液样变性'},{id:'C6',label:'病理性色素沉着'},{id:'C7',label:'病理性钙化'}],answer:{'A':'C1','C':'C1','E':'C2','G':['C3','C5'],'I':['C4','C5'],'K':['C4','C5'],'B':'C6','D':'C6','H':'C6','L':'C6','F':'C7','J':'C7','M':'C7'},explanation:'水样变性:水、Na;脂肪变性:甘油三酯;玻璃样变性:蛋白质;淀粉样变性:淀粉样蛋白+黏多糖(I/K交叉);黏液样变性:蛋白质+黏多糖(G/K交叉);色素沉着:胆色素、含铁血黄素、黑色素、脂褐素;钙化:碳酸钙、氢氧化钙、磷酸钙'},
+  {id:'path_064',subject:'pathology',system:'general_pathology',chapter:'细胞死亡',type:'matching',title:'坏死类型分类',description:'将下列坏死特征与相应的坏死类型进行匹配',options:[{id:'A',text:'坏死组织与周围分界清楚,原有组织轮廓保留'},{id:'B',text:'可形成囊腔、脓肿'},{id:'C',text:'好发部位:心、肾、脾、肝、胰'},{id:'D',text:'好发部位:脑、脊髓、肝'},{id:'E',text:'彻底的凝固性坏死'},{id:'F',text:'伤寒的蜡样变性'},{id:'G',text:'胃溃疡'},{id:'H',text:'结缔组织、小血管壁的胶原纤维坏死'},{id:'I',text:'重症急性肾炎'},{id:'J',text:'多见于结核'},{id:'K',text:'特殊的液化性坏死'},{id:'L',text:'结节性多动脉炎'},{id:'M',text:'胰腺本身的坏死'},{id:'N',text:'风湿'},{id:'O',text:'乙脑筛状软化灶'},{id:'P',text:'坏死灶含脂质较多,呈干燥、淡黄、细腻、质实、无结构的嗜酸性红染颗粒状物质'},{id:'Q',text:'类风湿'},{id:'R',text:'高血压脑软化'},{id:'S',text:'急性重型胰腺炎(钙皂)'},{id:'T',text:'新月体性肾炎'},{id:'U',text:'超急性排斥反应'},{id:'V',text:'动脉粥样硬化累计脑动脉'},{id:'W',text:'女性乳房创伤'},{id:'X',text:'1型糖尿病'},{id:'Y',text:'急进型高血压'},{id:'Z',text:'慢性肺心病(肺动脉高压)'},{id:'①',text:'SLE'},{id:'②',text:'大片组织坏死后继发腐败菌感染'},{id:'③',text:'SARS/MERS/COVID-19'},{id:'④',text:'发生在与外界直接或间接相通的器官'},{id:'⑤',text:'病毒性肝炎溶解性坏死'},{id:'⑥',text:'梅毒肉芽肿'}],categories:[{id:'C1',label:'凝固性坏死'},{id:'C2',label:'干酪样坏死'},{id:'C3',label:'液化性坏死'},{id:'C4',label:'脂肪坏死(特殊的液化性坏死)'},{id:'C5',label:'纤维素/纤维蛋白样坏死'},{id:'C6',label:'坏疽'},{id:'C7',label:'溶解性坏死'}],answer:{'A':'C1','C':'C1','F':'C1','M':'C1','⑥':'C1','E':'C2','J':'C2','P':'C2','B':'C3','D':'C3','O':'C3','R':'C3','V':'C3','⑤':'C3','K':'C4','S':'C4','W':'C4','G':'C5','H':'C5','I':'C5','L':'C5','N':'C5','Q':'C5','T':'C5','U':'C5','X':'C5','Y':'C5','①':'C5','③':'C5','②':'C6','④':'C6'},explanation:'凝固性坏死:分界清楚轮廓保留,好发心肾脾肝胰,伤寒蜡样变性,胰腺实质坏死,梅毒肉芽肿;干酪样坏死:结核,含脂质多;液化性坏死:脑脊髓肝,可形成囊腔脓肿,乙脑软化灶,高血压脑软化,动脉粥样硬化,病毒性肝炎溶解性坏死;脂肪坏死:特殊液化性,急性重型胰腺炎钙皂,女性乳房创伤;纤维素样坏死:胃溃疡,胶原纤维坏死,重症急性肾炎,结节性多动脉炎,风湿,类风湿,新月体性肾炎,超急性排斥,1型糖尿病,急进型高血压,SLE,SARS/MERS/COVID-19;坏疽:大片坏死继发腐败菌感染,与外界相通器官'},
+  {id:'path_065',subject:'pathology',system:'cell_tissue_injury',chapter:'坏死',type:'matching',title:'坏疽类型特征配伍',description:'将下列特征与相应的坏疽类型进行配伍',options:[{id:'A',text:'动脉闭塞、静脉正常'},{id:'B',text:'湿、软、大、绿、臭'},{id:'C',text:'好发深部组织开放性创伤'},{id:'D',text:'分界清楚'},{id:'E',text:'病情重'},{id:'F',text:'动、静脉均闭塞'},{id:'G',text:'湿性坏疽+厌氧菌'},{id:'H',text:'干燥、皱缩呈黑褐色'},{id:'I',text:'气泡、捻发音'},{id:'J',text:'好发肢体末端'},{id:'K',text:'好发阑尾、子宫、肺、肠、胆囊'},{id:'L',text:'分界不清'},{id:'M',text:'病情较轻'}],categories:[{id:'C1',label:'干性坏疽'},{id:'C2',label:'湿性坏疽'},{id:'C3',label:'气性坏疽'}],answer:{'A':'C1','D':'C1','H':'C1','J':'C1','M':'C1','B':'C2','E':['C2','C3'],'F':'C2','K':'C2','L':['C2','C3'],'C':'C3','G':'C3','I':'C3'},explanation:'干性坏疽动脉阻塞静脉回流通畅，好发肢体末端，干燥皱缩黑褐色，分界清，病情轻。湿性坏疽动静均阻塞，好发内脏，湿软大绿臭，分界不清，病情重。气性坏疽合并厌氧菌感染，深部创伤，气泡捻发音。E(病情重)和L(分界不清)为湿性和气性坏疽交叉特征'},
+  {id:'path_066',subject:'pathology',system:'cell_tissue_injury',chapter:'坏死',type:'matching',title:'器官与坏死类型配伍',description:'将下列器官与相应好发的坏死类型进行配伍',options:[{id:'A',text:'心'},{id:'B',text:'脑'},{id:'C',text:'脾'},{id:'D',text:'阑尾'},{id:'E',text:'胰(脂肪)'},{id:'F',text:'肾'},{id:'G',text:'子宫'},{id:'H',text:'乳房'},{id:'I',text:'肺'},{id:'J',text:'肠'},{id:'K',text:'胆囊'},{id:'L',text:'肾'},{id:'M',text:'肢体末端'},{id:'N',text:'脊髓'},{id:'O',text:'胰（实质）'}],categories:[{id:'C1',label:'凝固性坏死'},{id:'C2',label:'液化性坏死'},{id:'C3',label:'湿性坏疽'},{id:'C4',label:'干性坏疽'}],answer:{'A':'C1','C':'C1','F':['C1','C2'],'L':'C1','O':'C1','B':'C2','E':'C2','H':'C2','N':'C2','D':'C3','G':'C3','I':'C3','J':'C3','K':'C3','M':'C4'},explanation:'凝固性坏死见于心、脾、肾等实质器官；液化性坏死见于脑、脊髓、胰脂肪、乳房等。肝(F)可发生凝固性坏死和液化性坏死(交叉归属);湿性坏疽见于与外界相通的内脏如阑尾、子宫、肺、肠、胆囊;干性坏疽见于肢体末端'},
   {id:'path_067',subject:'pathology',system:'cell_tissue_injury',chapter:'坏死',type:'matching',title:'组织缺损类型配伍',description:'将下列组织缺损的描述与相应的类型进行配伍',options:[{id:'A',text:'皮肤、黏膜组织坏死经分离排出后，遗留的浅表缺损'},{id:'B',text:'肺、肾等组织坏死经自然管道排出后遗留的缺损'},{id:'C',text:'皮肤、黏膜组织坏死经分离排出后深达皮下及黏膜下层的缺损'},{id:'D',text:'腰椎结核的脓液从背部病变处流出'},{id:'E',text:'阑尾切除术后切口处有肠内容物流出'}],categories:[{id:'C1',label:'糜烂'},{id:'C2',label:'空洞'},{id:'C3',label:'溃疡'},{id:'C4',label:'窦道'},{id:'C5',label:'瘘管'}],answer:{'A':'C1','B':'C2','C':'C3','D':'C4','E':'C5'},explanation:'糜烂为浅表缺损；空洞为坏死物经自然管道排出后遗留；溃疡深达皮下；窦道为深部组织脓液流出的盲管；瘘管为两端开口的通道，如肠内容物从切口流出。'},
   {id:'path_068',subject:'pathology',system:'cell_tissue_injury',chapter:'细胞死亡',type:'matching',title:'坏死与凋亡特征配伍',description:'将下列特征与坏死或凋亡进行配伍',options:[{id:'A',text:'诱因：病理性刺激'},{id:'B',text:'核固缩、核碎裂、核溶解、核染色质边集'},{id:'C',text:'死亡范围：散在个别细胞'},{id:'D',text:'细胞质致密红染'},{id:'E',text:'细胞质出芽形成均质红染的凋亡小体'},{id:'F',text:'细胞膜和细胞器膜破裂'},{id:'G',text:'有细胞自溶'},{id:'H',text:'无炎症反应'},{id:'I',text:'生化特征为琼脂凝胶电泳多不呈梯状带'},{id:'J',text:'生化特征为琼脂凝胶电泳呈梯状带（DNA规律降解）'},{id:'K',text:'结局：修复'},{id:'L',text:'诱因：生理性刺激'},{id:'M',text:'死亡范围：大片细胞群体'},{id:'N',text:'轻微病理性刺激：如病毒性肝炎肝细胞的嗜酸性坏死形成嗜酸性小体'},{id:'O',text:'非基因调控的被动死亡'},{id:'P',text:'基因调控的主动程序性死亡'},{id:'Q',text:'核固缩、核碎裂、核染色质边集（凋亡小体含核碎片和细胞器成分）'},{id:'R',text:'细胞质红染或消失'},{id:'S',text:'细胞膜和细胞器膜完整'},{id:'T',text:'膜可发泡成芽形成凋亡小体'},{id:'U',text:'无细胞自溶'},{id:'V',text:'有炎症反应'},{id:'W',text:'结局为巨噬细胞或相邻实质细胞吞噬凋亡小体'},{id:'X',text:'依赖ATP，有新蛋白合成'},{id:'Y',text:'不依赖ATP，无新蛋白合成'}],categories:[{id:'C1',label:'坏死'},{id:'C2',label:'凋亡'}],answer:{'A':'C1','B':'C1','F':'C1','G':'C1','I':'C1','K':'C1','M':'C1','O':'C1','R':'C1','V':'C1','Y':'C1','C':'C2','D':'C2','E':'C2','H':'C2','J':'C2','L':'C2','N':'C2','P':'C2','Q':'C2','S':'C2','T':'C2','U':'C2','W':'C2','X':'C2'},explanation:'坏死为病理性刺激引起的被动死亡，膜破裂、有自溶和炎症、不依赖ATP、DNA不规则降解不呈梯状带。凋亡为基因调控的主动死亡，膜完整、无自溶无炎症、依赖ATP有新蛋白合成、DNA规律降解呈梯状带。'},
   {id:'path_069',subject:'pathology',system:'circulatory',chapter:'淤血',type:'matching',title:'慢性肺淤血病理变化',description:'关于左心衰致肺淤血的病理变化，将病理变化与特征进行配伍',options:[{id:'①',text:'肺泡毛细血管扩张'},{id:'②',text:'肺泡间隔水肿'},{id:'③',text:'肺泡间隔纤维化'},{id:'④',text:'肺泡腔内伊红色水肿液（蛋白絮）'},{id:'⑤',text:'肺泡腔内漏出的红细胞'},{id:'⑥',text:'肺泡腔内心衰细胞（含有含铁血黄素的巨噬细胞）'},{id:'⑦',text:'肺褐色硬化'}],categories:[{id:'C1',label:'早期变化'},{id:'C2',label:'中期变化'},{id:'C3',label:'晚期变化'}],answer:{'①':'C1','②':'C1','④':'C1','⑤':'C2','⑥':'C2','③':'C3','⑦':'C3'},explanation:'慢性肺淤血早期肺泡毛细血管扩张充血、肺泡间隔水肿、肺泡腔内水肿液和红细胞漏出；中期巨噬细胞吞噬红细胞形成心衰细胞；晚期肺泡间隔纤维化、肺褐色硬化。题目格式和分类，。'},
   {id:'path_070',subject:'pathology',system:'circulatory',chapter:'淤血',type:'matching',title:'慢性肺淤血与大叶性肺炎配伍',description:'将下列特征与慢性左心衰（慢性肺淤血）或大叶性肺炎进行配伍',options:[{id:'A',text:'肺褐色硬化'},{id:'B',text:'肺肉质变/机化性肺炎'},{id:'C',text:'巨噬细胞分解血红蛋白产生含铁血黄素（铁锈色痰）'},{id:'D',text:'巨噬细胞分解血红蛋白产生含铁血黄素（心衰细胞）'},{id:'E',text:'多累及双侧肺'},{id:'F',text:'慢性肺淤血'},{id:'G',text:'多累及单侧肺'},{id:'H',text:'肺泡的纤维素性炎'}],categories:[{id:'C1',label:'慢性左心衰'},{id:'C2',label:'大叶性肺炎'}],answer:{'A':'C1','D':'C1','E':'C1','F':'C1','B':'C2','C':'C2','G':'C2','H':'C2'},explanation:'慢性左心衰致肺淤血：双侧肺受累、心衰细胞、肺褐色硬化。大叶性肺炎：单侧肺受累、纤维素性炎、铁锈色痰、肺肉质变（机化性肺炎）。'},
   {id:'path_071',subject:'pathology',system:'circulatory',chapter:'血栓',type:'matching',title:'血栓类型配伍',description:'将下列特征与相应的血栓类型进行配伍',options:[{id:'A',text:'血小板/析出性血栓'},{id:'B',text:'阻塞性血栓'},{id:'C',text:'主要出现心脏、动脉，可呈球状，可为附壁血栓'},{id:'D',text:'主要成分是血小板'},{id:'E',text:'主要出现在下肢深静脉'},{id:'F',text:'主要成分是纤维素'},{id:'G',text:'弥散性血管内凝血'},{id:'H',text:'主要成分是纤维素网（充满红细胞）'},{id:'I',text:'心梗的左心室附壁血栓'},{id:'J',text:'DIC'},{id:'K',text:'急性非ST段抬高心梗冠脉内'},{id:'L',text:'主要成分是灰白色血小板小梁和纤维素网交替'},{id:'M',text:'动脉瘤'},{id:'N',text:'延续性血栓：头部'},{id:'O',text:'延续性血栓：尾部'},{id:'P',text:'层状血栓'},{id:'Q',text:'透明/微血栓'},{id:'R',text:'主要出现在血流较快的心脏、动脉'},{id:'S',text:'主要出现在毛细血管'},{id:'T',text:'风湿病、SLE心瓣膜的疣状赘生物'},{id:'U',text:'二狭的左心房'},{id:'V',text:'动脉粥样硬化溃疡'},{id:'W',text:'延续性血栓：体部'},{id:'X',text:'超急性排斥反应'}],categories:[{id:'C1',label:'白色血栓'},{id:'C2',label:'混合血栓'},{id:'C3',label:'红色血栓'},{id:'C4',label:'透明血栓'}],answer:{'A':'C1','D':'C1','K':'C1','N':'C1','R':'C1','T':'C1','C':'C2','I':'C2','L':'C2','M':'C2','P':'C2','U':'C2','V':'C2','W':'C2','B':'C3','E':'C3','F':'C3','H':'C3','O':'C3','G':'C4','J':'C4','Q':'C4','S':'C4','X':'C4'},explanation:'白色血栓以血小板为主，见于血流较快的心脏动脉、疣状赘生物、延续性血栓头部。混合血栓灰白血小板小梁和纤维素网交替，见于附壁血栓、动脉瘤、延续性血栓体部。红色血栓以红细胞为主，见于静脉、延续性血栓尾部。透明血栓见于DIC、毛细血管。'},
-  {id:'path_072',subject:'pathology',system:'inflammation',chapter:'炎症类型',type:'matching',title:'炎症类型与疾病配伍',description:'将下列疾病与相应的炎症类型进行配伍',options:[{id:'A',text:'流行性乙型脑炎/乙脑'},{id:'B',text:'黏膜（感冒）'},{id:'C',text:'阿米巴'},{id:'D',text:'浆膜（浆膜腔积液）'},{id:'E',text:'中毒性心肌炎'},{id:'F',text:'滑膜（风湿性关节炎）'},{id:'G',text:'细菌性痢疾'},{id:'H',text:'病毒性肝炎'},{id:'I',text:'小叶性肺炎'},{id:'J',text:'皮肤（水痘）'},{id:'K',text:'感染性心内膜炎'},{id:'L',text:'钩端螺旋体病'},{id:'M',text:'炎性息肉：如鼻息肉、子宫颈息肉'},{id:'N',text:'白喉'},{id:'O',text:'大叶性肺炎'},{id:'P',text:'绒毛心'},{id:'Q',text:'急性和慢性肾盂肾炎'},{id:'R',text:'急性和慢性肾小球肾炎'},{id:'S',text:'大叶性肺炎（肺炎链球菌为主）'},{id:'T',text:'炭疽'},{id:'U',text:'流行性脑脊髓膜炎/流脑'},{id:'V',text:'鼠疫'},{id:'W',text:'淋病'},{id:'X',text:'炎性假瘤：如肺炎性假瘤'},{id:'Z',text:'疖、痈'},{id:'〇',text:'类风湿'},{id:'@',text:'流行性出血热'}],categories:[{id:'C1',label:'变质性炎'},{id:'C2',label:'浆液性炎'},{id:'C3',label:'纤维素性炎'},{id:'C4',label:'化脓性炎'},{id:'C5',label:'出血性炎'},{id:'C6',label:'增生性炎'}],answer:{'A':'C1','C':'C1','E':'C1','H':'C1','B':'C2','D':'C2','F':'C2','J':'C2','G':'C3','N':'C3','S':'C3','I':'C4','K':'C4','Q':'C4','U':'C4','W':'C4','Z':'C4','L':'C5','T':'C5','V':'C5','@':'C5','M':'C6','R':'C6','X':'C6','〇':'C6'},explanation:'变质性炎以变质为主如乙脑、阿米巴、病毒性肝炎。浆液性炎以浆液渗出为主如感冒、浆膜腔积液。纤维素性炎以纤维素渗出为主如菌痢、白喉、大叶性肺炎。化脓性炎以中性粒细胞渗出为主如小叶性肺炎、流脑。出血性炎以红细胞渗出为主如鼠疫、炭疽。增生性炎以增生为主如炎性息肉、肾小球肾炎。'},
-  {id:'path_073',subject:'pathology',system:'inflammation',chapter:'肉芽肿',type:'matching',title:'肉芽肿巨细胞类型配伍',description:'将下列疾病与相应出现的巨细胞类型进行配伍',options:[{id:'A',text:'结核'},{id:'B',text:'异物'},{id:'C',text:'梅毒'},{id:'D',text:'亚甲炎（亚急性甲状腺炎）'},{id:'E',text:'麻风'},{id:'F',text:'慢性血吸虫虫卵'}],categories:[{id:'C1',label:'Langhans巨细胞'},{id:'C2',label:'异物巨细胞'}],answer:{'A':'C1','C':'C1','E':'C1','B':'C2','D':'C2','F':'C2'},explanation:'Langhans巨细胞核排列呈马蹄形或环状，见于感染性肉芽肿如结核、梅毒、麻风。异物巨细胞核排列不规则，见于异物肉芽肿如亚甲炎、慢性血吸虫虫卵。'},
-  {id:'path_074',subject:'pathology',system:'inflammation',chapter:'炎症介质',type:'matching',title:'炎症介质功能配伍（部分）',description:'将下列炎症介质与相应的功能进行配伍（部分选项L、M内容）',options:[{id:'A',text:'C5a'},{id:'B',text:'TNF'},{id:'C',text:'C3a'},{id:'D',text:'LTB4'},{id:'E',text:'PG'},{id:'F',text:'细菌产物'},{id:'G',text:'P物质'},{id:'H',text:'IL-8'},{id:'I',text:'组胺'},{id:'J',text:'IL-1'},{id:'K',text:'缓激肽'},{id:'L',text:'白细胞溶酶体酶'},{id:'M',text:'NO'},{id:'N',text:'白细胞介素10(IL-10)'},{id:'O',text:'脂质素'},{id:'P',text:'活性氧'},{id:'Q',text:'转化生长因子(TGF-β)'}],categories:[{id:'C1',label:'血管扩张'},{id:'C2',label:'发热'},{id:'C3',label:'疼痛'},{id:'C4',label:'趋化因子'},{id:'C5',label:'组织损伤'},{id:'C6',label:'主动终止急性炎症反应'}],answer:{'I':'C1','K':'C1','B':'C2','E':'C2','J':'C2','G':'C3','A':'C4','C':'C4','D':'C4','F':'C4','H':'C4','P':'C5','N':'C6','O':'C6','Q':'C6'},explanation:'血管扩张：组胺、缓激肽。发热：TNF、PG、IL-1。疼痛：P物质。趋化因子：C5a、C3a、LTB4、细菌产物、IL-8。组织损伤：活性氧。终止炎症：IL-10、脂质素、TGF-β。'},
-  {id:'path_075',subject:'pathology',system:'inflammation',chapter:'肉芽肿',type:'matching',title:'常考肉芽肿特征配伍',description:'将下列特征与相应的肉芽肿性疾病进行配伍',options:[{id:'A',text:'IV型变态反应'},{id:'B',text:'干酪样坏死（无结构嗜酸性颗粒物），内源性复发，多钙化'},{id:'C',text:'非感染肉芽肿'},{id:'D',text:'最多见于风湿性心肌炎的心肌间质小血管旁，不见于皮肤环形红斑'},{id:'E',text:'类上皮细胞、朗汉斯巨细胞、淋巴细胞、成纤维细胞'},{id:'F',text:'急性肉芽肿'},{id:'G',text:'是吞噬纤维素样坏死物的巨噬细胞，核呈毛虫/枭眼状'},{id:'H',text:'回肠末端淋巴小结多见，圆形/椭圆形溃疡，其长轴与肠长轴平行，不引起肠梗阻'},{id:'I',text:'树胶肿/梅毒瘤'},{id:'J',text:'伤寒细胞是吞伤寒杆菌/红细胞/细胞碎片的巨噬细胞'},{id:'M',text:'大量浆细胞（特征）和淋巴细胞，少量类上皮和朗汉斯巨细胞'},{id:'N',text:'凝固性坏死（可见原有血管壁轮廓），极少钙化'},{id:'O',text:'大量类上皮细胞，少量异物巨、淋巴、成纤维细胞'},{id:'P',text:'假结核结节、毛蚴死亡、多钙化'}],categories:[{id:'C1',label:'结核'},{id:'C2',label:'风湿病'},{id:'C3',label:'伤寒'},{id:'C4',label:'梅毒'},{id:'C5',label:'慢性血吸虫虫卵'}],answer:{'B':'C1','E':'C1','D':'C2','G':'C2','F':'C3','H':'C3','J':'C3','I':'C4','M':'C4','N':'C4','O':'C5','P':'C5'},explanation:'结核：干酪样坏死、类上皮和朗汉斯巨细胞。风湿病：风湿小体（枭眼细胞）。伤寒：急性肉芽肿、回肠末端溃疡平行长轴、伤寒细胞。梅毒：树胶肿、大量浆细胞、凝固性坏死可见血管壁轮廓。血吸虫：假结核结节、毛蚴死亡钙化。A、C选项归属。'},
-  {id:'path_076',subject:'pathology',system:'tumor',chapter:'良恶性肿瘤',type:'matching',title:'良性肿瘤与恶性肿瘤特征配伍',description:'将下列特征与良性肿瘤或恶性肿瘤进行配伍',options:[{id:'A',text:'分化相对好（异型性相对小）'},{id:'B',text:'核分裂象多，可见病理性核分裂象'},{id:'C',text:'多不规则、边界不清（无包膜）'},{id:'D',text:'甲状腺滤泡癌'},{id:'E',text:'出血、坏死少见'},{id:'F',text:'多生长缓慢，膨胀性生长'},{id:'G',text:'体表肿瘤、体腔肿瘤、管道器官腔面、骨软骨瘤可呈外生性生长'},{id:'H',text:'多复发'},{id:'I',text:'不转移'},{id:'J',text:'有副肿瘤综合征'},{id:'L',text:'分化差（异型性大）'},{id:'M',text:'核分裂象无或少，无病理性核分裂象'},{id:'N',text:'多规则、边界较清楚（包膜完整）'},{id:'O',text:'子宫平滑肌瘤'},{id:'P',text:'大量淋巴细胞浸润的乳腺髓样瘤'},{id:'Q',text:'出血、坏死、溃疡形成等多见'},{id:'R',text:'多生长迅速，浸润性生长'},{id:'S',text:'少复发'},{id:'T',text:'会转移'},{id:'U',text:'没有副肿瘤综合征'}],categories:[{id:'C1',label:'良性肿瘤'},{id:'C2',label:'恶性肿瘤'}],answer:{'A':'C1','E':'C1','F':'C1','G':'C1','I':'C1','M':'C1','N':'C1','O':'C1','S':'C1','U':'C1','B':'C2','C':'C2','D':'C2','H':'C2','J':'C2','L':'C2','P':'C2','Q':'C2','R':'C2','T':'C2'},explanation:'良性肿瘤分化好、生长缓慢膨胀性、边界清有包膜、不转移少复发、无副肿瘤综合征。恶性肿瘤分化差异型性大、生长迅速浸润性、边界不清无包膜、核分裂多见病理性核分裂、会转移多复发、出血坏死多见。'},
+  {id:'path_072',subject:'pathology',system:'inflammation',chapter:'炎症类型',type:'matching',title:'炎症类型与疾病配伍',description:'将下列疾病与相应的炎症类型进行配伍',options:[{id:'A',text:'流行性乙型脑炎/乙脑'},{id:'B',text:'黏膜（感冒）'},{id:'C',text:'阿米巴'},{id:'D',text:'浆膜（浆膜腔积液）'},{id:'E',text:'中毒性心肌炎'},{id:'F',text:'滑膜（风湿性关节炎）'},{id:'G',text:'细菌性痢疾'},{id:'H',text:'病毒性肝炎'},{id:'I',text:'小叶性肺炎'},{id:'J',text:'皮肤（水痘）'},{id:'K',text:'感染性心内膜炎'},{id:'L',text:'钩端螺旋体病'},{id:'M',text:'炎性息肉：如鼻息肉、子宫颈息肉'},{id:'N',text:'白喉'},{id:'O',text:'急性阑尾炎'},{id:'P',text:'绒毛心'},{id:'Q',text:'急性和慢性肾盂肾炎'},{id:'R',text:'急性和慢性肾小球肾炎'},{id:'S',text:'大叶性肺炎（肺炎链球菌为主）'},{id:'T',text:'炭疽'},{id:'U',text:'流行性脑脊髓膜炎/流脑'},{id:'V',text:'鼠疫'},{id:'W',text:'淋病'},{id:'X',text:'炎性假瘤：如肺炎性假瘤'},{id:'Z',text:'疖、痈'},{id:'①',text:'类风湿'},{id:'②',text:'流行性出血热'}],categories:[{id:'C1',label:'变质性炎'},{id:'C2',label:'浆液性炎'},{id:'C3',label:'纤维素性炎'},{id:'C4',label:'化脓性炎'},{id:'C5',label:'出血性炎'},{id:'C6',label:'增生性炎'}],answer:{'A':'C1','C':'C1','E':'C1','H':'C1','B':'C2','D':'C2','F':'C2','J':'C2','G':'C3','N':'C3','P':'C3','S':'C3','I':'C4','K':'C4','O':'C4','Q':'C4','U':'C4','W':'C4','Z':'C4','L':'C5','T':'C5','V':'C5','②':'C5','M':'C6','R':'C6','X':'C6','①':'C6'},explanation:'变质性炎以变质为主如乙脑、阿米巴、病毒性肝炎。浆液性炎以浆液渗出为主如感冒、浆膜腔积液。纤维素性炎以纤维素渗出为主如菌痢、白喉、大叶性肺炎、绒毛心。化脓性炎以中性粒细胞渗出为主如小叶性肺炎、流脑、急性阑尾炎。出血性炎以红细胞渗出为主如鼠疫、炭疽、流行性出血热。增生性炎以增生为主如炎性息肉、肾小球肾炎、类风湿。'},
+  {id:'path_073',subject:'pathology',system:'inflammation',chapter:'肉芽肿',type:'matching',title:'肉芽肿巨细胞类型配伍',description:'将下列疾病与相应出现的巨细胞类型进行配伍',options:[{id:'A',text:'结核'},{id:'B',text:'异物'},{id:'C',text:'梅毒'},{id:'D',text:'亚甲炎（亚急性甲状腺炎）'},{id:'E',text:'麻风'},{id:'F',text:'慢性血吸虫虫卵'},{id:'G',text:'细胞核排列在细胞周边呈环/马蹄/U形'}],categories:[{id:'C1',label:'Langhans巨细胞'},{id:'C2',label:'异物巨细胞'}],answer:{'A':'C1','C':'C1','E':'C1','G':'C1','B':'C2','D':'C2','F':'C2'},explanation:'Langhans巨细胞核排列呈马蹄形或环状，见于感染性肉芽肿如结核、梅毒、麻风。异物巨细胞核排列不规则，见于异物肉芽肿如亚甲炎、慢性血吸虫虫卵。'},
+  {id:'path_074',subject:'pathology',system:'inflammation',chapter:'炎症介质',type:'matching',title:'炎症介质功能配伍（部分）',description:'将下列炎症介质与相应的功能进行配伍',options:[{id:'A',text:'C5a'},{id:'B',text:'TNF'},{id:'C',text:'C3a'},{id:'D',text:'LTB4'},{id:'E',text:'PG'},{id:'F',text:'细菌产物'},{id:'G',text:'P物质'},{id:'H',text:'IL-8'},{id:'I',text:'组胺'},{id:'J',text:'IL-1'},{id:'K',text:'缓激肽'},{id:'L',text:'白细胞溶酶体酶'},{id:'M',text:'NO'},{id:'N',text:'白细胞介素10(IL-10)'},{id:'O',text:'脂质素'},{id:'P',text:'活性氧'},{id:'Q',text:'转化生长因子(TGF-β)'}],categories:[{id:'C1',label:'血管扩张'},{id:'C2',label:'发热'},{id:'C3',label:'疼痛'},{id:'C4',label:'趋化因子'},{id:'C5',label:'组织损伤'},{id:'C6',label:'主动终止急性炎症反应'}],answer:{'A':['C1','C4'],'B':['C2','C4'],'C':['C1','C4'],'D':'C4','E':['C1','C2','C3'],'F':'C4','G':['C1','C3'],'H':'C4','I':'C1','J':['C2','C4'],'K':['C1','C3'],'L':'C5','M':['C1','C5'],'N':'C6','O':'C6','P':'C5','Q':'C6'},explanation:'血管扩张：组胺、缓激肽、C5a、C3a、PG、P物质、NO。发热：TNF、PG、IL-1。疼痛：PG、P物质、缓激肽。趋化因子：C5a、C3a、LTB4、细菌产物、IL-8、TNF、IL-1。组织损伤：白细胞溶酶体酶、NO、活性氧。终止炎症：IL-10、脂质素、TGF-β。'},
+  {id:'path_075',subject:'pathology',system:'inflammation',chapter:'肉芽肿',type:'matching',title:'常考肉芽肿特征配伍',description:'将下列特征与相应的肉芽肿性疾病进行配伍',options:[{id:'A',text:'IV型变态反应'},{id:'B',text:'干酪样坏死（无结构嗜酸性颗粒物），内源性复发，多钙化'},{id:'C',text:'非感染肉芽肿'},{id:'D',text:'最多见于风湿性心肌炎的心肌间质小血管旁，不见于皮肤环形红斑'},{id:'E',text:'类上皮细胞、朗汉斯巨细胞、淋巴细胞、成纤维细胞'},{id:'F',text:'急性肉芽肿'},{id:'G',text:'是吞噬纤维素样坏死物的巨噬细胞，核呈毛虫/枭眼状'},{id:'H',text:'回肠末端淋巴小结多见，圆形/椭圆形溃疡，其长轴与肠长轴平行，不引起肠梗阻'},{id:'I',text:'树胶肿/梅毒瘤'},{id:'J',text:'伤寒细胞是吞伤寒杆菌/红细胞/细胞碎片的巨噬细胞'},{id:'M',text:'大量浆细胞（特征）和淋巴细胞，少量类上皮和朗汉斯巨细胞'},{id:'N',text:'凝固性坏死（可见原有血管壁轮廓），极少钙化'},{id:'O',text:'大量类上皮细胞，少量异物巨、淋巴、成纤维细胞'},{id:'P',text:'假结核结节、毛蚴死亡、多钙化'}],categories:[{id:'C1',label:'结核'},{id:'C2',label:'风湿病'},{id:'C3',label:'伤寒'},{id:'C4',label:'梅毒'},{id:'C5',label:'慢性血吸虫虫卵'}],answer:{'A':['C1','C5'],'B':'C1','E':'C1','C':'C2','D':'C2','G':'C2','F':'C3','H':'C3','J':'C3','I':'C4','M':'C4','N':'C4','O':'C5','P':'C5'},explanation:'结核：干酪样坏死、类上皮和朗汉斯巨细胞、IV型变态反应。风湿病：风湿小体（枭眼细胞）、非感染肉芽肿。伤寒：急性肉芽肿、回肠末端溃疡平行长轴、伤寒细胞。梅毒：树胶肿、大量浆细胞、凝固性坏死可见血管壁轮廓。血吸虫：假结核结节、毛蚴死亡钙化、IV型变态反应（与结核交叉）。'},
+  {id:'path_076',subject:'pathology',system:'tumor',chapter:'良恶性肿瘤',type:'matching',title:'良性肿瘤与恶性肿瘤特征配伍',description:'将下列特征与良性肿瘤或恶性肿瘤进行配伍',options:[{id:'A',text:'分化相对好（异型性相对小）'},{id:'B',text:'核分裂象多，可见病理性核分裂象'},{id:'C',text:'多不规则、边界不清（无包膜）'},{id:'D',text:'甲状腺滤泡癌'},{id:'E',text:'出血、坏死少见'},{id:'F',text:'多生长缓慢，膨胀性生长'},{id:'G',text:'体表肿瘤、体腔肿瘤、管道器官腔面、骨软骨瘤可呈外生性生长'},{id:'H',text:'多复发'},{id:'I',text:'不转移'},{id:'J',text:'常有副肿瘤综合征'},{id:'L',text:'分化差（异型性大）'},{id:'M',text:'核分裂象无或少，无病理性核分裂象'},{id:'N',text:'多规则、边界较清楚（包膜完整）'},{id:'O',text:'子宫平滑肌瘤'},{id:'P',text:'大量淋巴细胞浸润的乳腺髓样瘤'},{id:'Q',text:'出血、坏死、溃疡形成等多见'},{id:'R',text:'多生长迅速，浸润性生长'},{id:'S',text:'少复发'},{id:'T',text:'会转移'},{id:'U',text:'没有副肿瘤综合征'}],categories:[{id:'C1',label:'良性肿瘤'},{id:'C2',label:'恶性肿瘤'}],answer:{'A':'C1','E':'C1','F':'C1','G':['C1','C2'],'I':'C1','M':'C1','N':'C1','O':'C1','S':'C1','U':'C1','B':'C2','C':'C2','D':'C2','H':'C2','J':'C2','L':'C2','P':'C2','Q':'C2','R':'C2','T':'C2'},explanation:'良性肿瘤分化好、生长缓慢膨胀性、边界清有包膜、不转移少复发、无副肿瘤综合征。恶性肿瘤分化差异型性大、生长迅速浸润性、边界不清无包膜、核分裂多见病理性核分裂、会转移多复发、出血坏死多见。外生性生长(G)良恶性均可发生。'},
   {id:'path_077',subject:'pathology',system:'tumor',chapter:'癌与肉瘤',type:'matching',title:'癌与肉瘤特征配伍',description:'将下列特征与癌或肉瘤进行配伍',options:[{id:'A',text:'来源于上皮组织'},{id:'B',text:'发病率低（骨肉瘤等多见于儿童和青少年）'},{id:'C',text:'一般质硬、色灰白、干燥'},{id:'D',text:'肿瘤细胞多弥散分布，实质与间质多分界不清，间质血管丰富、纤维组织少'},{id:'E',text:'网状纤维围绕癌巢、癌细胞间多无网状纤维'},{id:'F',text:'间叶标记（波形蛋白Vimentin）'},{id:'G',text:'多数癌早期淋巴转移、多在晚期血道转移'},{id:'H',text:'来源于间叶组织（结缔组织、肌肉、脂肪、血管、淋巴管、淋巴造血、骨、软骨）'},{id:'I',text:'发病率高、多见于40岁以上'},{id:'J',text:'一般质软、色灰红、湿润、鱼肉状'},{id:'K',text:'癌细胞多形成癌巢，实质与间质多分界清楚，纤维组织常有增生'},{id:'L',text:'肉瘤细胞间多有网状纤维'},{id:'M',text:'上皮标记（角蛋白CK、上皮膜抗原EMA）'},{id:'N',text:'血道转移'}],categories:[{id:'C1',label:'癌'},{id:'C2',label:'肉瘤'}],answer:{'A':'C1','C':'C1','E':'C1','G':'C1','I':'C1','K':'C1','M':'C1','B':'C2','D':'C2','F':'C2','H':'C2','J':'C2','L':'C2','N':'C2'},explanation:'癌来源于上皮组织，发病率高多见40岁以上，质硬色灰白干燥，形成癌巢实质间质分界清，网状纤维围绕癌巢，上皮标记CK/EMA阳性，早期淋巴转移。肉瘤来源于间叶组织，发病率低多见青少年，质软鱼肉状，弥散分布实质间质分界不清，细胞间有网状纤维，Vimentin阳性，多血道转移。'},
-  {id:'path_078',subject:'pathology',system:'tumor',chapter:'肿瘤标志物',type:'matching',title:'肿瘤标志物与肿瘤类型配伍',description:'将下列肿瘤标志物与相应的肿瘤类型进行配伍',options:[{id:'A',text:'角蛋白CK/Keratin'},{id:'B',text:'甲胎蛋白AFP'},{id:'C',text:'上皮膜抗原EMA'},{id:'D',text:'白细胞分化抗原CD'},{id:'E',text:'细胞角蛋白CYFRA21'},{id:'F',text:'扁豆素LCA'},{id:'G',text:'HMB45'},{id:'J',text:'结蛋白'},{id:'K',text:'CA125'},{id:'L',text:'酸性磷酸酶PAP'},{id:'M',text:'CA153'},{id:'N',text:'神经特异性烯醇化酶NSE'},{id:'O',text:'降钙素CT'},{id:'P',text:'CA199'},{id:'Q',text:'瘤胚抗原CEA'},{id:'S',text:'VCA-IgA抗体'},{id:'T',text:'碱性磷酸酶ALP'},{id:'U',text:'人绒毛膜促性腺激素hCG'},{id:'V',text:'实触素Syn'},{id:'W',text:'Ki-67'}],categories:[{id:'C1',label:'癌（广谱）'},{id:'C2',label:'淋巴瘤'},{id:'C3',label:'黑色素瘤'},{id:'C4',label:'肌细胞肿瘤'},{id:'C5',label:'肝癌'},{id:'C6',label:'卵黄囊癌/内胚窦瘤'},{id:'C7',label:'鼻咽癌'},{id:'C8',label:'胰腺癌'},{id:'C9',label:'胆囊癌/胆管癌'},{id:'C10',label:'成骨性病变'},{id:'C11',label:'鳞癌'},{id:'C12',label:'Burkitt淋巴瘤'},{id:'C13',label:'前列腺癌'},{id:'C14',label:'神经内分泌肿瘤'},{id:'C15',label:'滋养细胞肿瘤/绒癌'},{id:'C16',label:'甲状腺髓样癌'},{id:'C17',label:'神经元肿瘤'}],answer:{'A':'C1','C':'C1','Q':'C1','D':'C2','F':'C2','G':'C3','J':'C4','B':'C5','S':'C7','P':'C8','T':'C10','E':'C11','L':'C13','V':'C14','U':'C15','O':'C16','N':'C17'},explanation:'CK/EMA为广谱上皮标志物；CD/LCA用于淋巴瘤；HMB45用于黑色素瘤；结蛋白用于肌细胞肿瘤；AFP用于肝癌（也用于卵黄囊癌）；VCA-IgA用于鼻咽癌；CA199用于胰腺癌（也用于胆道肿瘤）；ALP用于成骨性病变；CYFRA21用于鳞癌；PAP用于前列腺癌；Syn用于神经内分泌肿瘤；hCG用于滋养细胞肿瘤/绒癌；CT用于甲状腺髓样癌；NSE用于神经元肿瘤。部分标志物对应多种肿瘤，此处归入最主要用途。答案。'},
-  {id:'path_079',subject:'pathology',system:'tumor',chapter:'肿瘤病因',type:'matching',title:'肿瘤与病因配伍',description:'将下列肿瘤与相应的病因进行配伍',options:[{id:'A',text:'肺癌'},{id:'B',text:'肝细胞癌'},{id:'C',text:'宫颈癌'},{id:'D',text:'白血病'},{id:'F',text:'胃淋巴瘤MALT'},{id:'G',text:'鼻咽癌'},{id:'H',text:'肝内胆管癌'},{id:'I',text:'皮肤癌'},{id:'J',text:'膀胱癌'},{id:'K',text:'大肠腺癌'},{id:'L',text:'胃癌'},{id:'M',text:'膀胱鳞癌'},{id:'N',text:'喉癌'},{id:'O',text:'肝癌'},{id:'P',text:'Burkitt淋巴瘤'},{id:'Q',text:'食管癌'},{id:'R',text:'NK/T细胞淋巴瘤'},{id:'S',text:'黑色素瘤'},{id:'T',text:'CHL'}],categories:[{id:'C1',label:'多环芳烃'},{id:'C2',label:'芳香胺类'},{id:'C3',label:'黄曲霉毒素'},{id:'C4',label:'亚硝胺类'},{id:'C5',label:'HPV'},{id:'C6',label:'EBV'},{id:'C7',label:'HBV、HCV'},{id:'C8',label:'紫外线'},{id:'C9',label:'Hp'},{id:'C10',label:'华支睾吸虫'},{id:'C11',label:'日本血吸虫'},{id:'C12',label:'埃及血吸虫'},{id:'C13',label:'烷化剂'}],answer:{'A':'C1','J':'C2','O':'C3','Q':'C4','C':'C5','N':'C5','G':'C6','P':'C6','R':'C6','T':'C6','B':'C7','I':'C8','S':'C8','L':'C9','F':'C9','H':'C10','K':'C11','M':'C12','D':'C13'},explanation:'多环芳烃致肺癌；芳香胺类致膀胱癌；黄曲霉毒素致肝癌；亚硝胺类致食管癌；HPV致宫颈癌、喉癌；EBV致鼻咽癌、Burkitt淋巴瘤、NK/T细胞淋巴瘤、CHL；HBV/HCV致肝细胞癌；紫外线致皮肤癌、黑色素瘤；Hp致胃癌、胃MALT淋巴瘤；华支睾吸虫致肝内胆管癌；日本血吸虫致大肠腺癌；埃及血吸虫致膀胱鳞癌；烷化剂致白血病。部分肿瘤有多个病因，此处归入最主要病因。'},
-  {id:'path_080',subject:'pathology',system:'tumor',chapter:'肿瘤相关基因',type:'matching',title:'肿瘤与相关基因配伍',description:'将下列肿瘤/综合征与相关基因进行配伍',options:[{id:'A',text:'多数人类肿瘤如弥漫大B细胞淋巴瘤'},{id:'B',text:'Li-Fraumeni综合征'},{id:'C',text:'乳腺癌'},{id:'D',text:'神经母细胞瘤'},{id:'E',text:'宫颈癌'},{id:'F',text:'胃癌'},{id:'G',text:'胰腺癌'},{id:'H',text:'骨肉瘤'},{id:'I',text:'卵巢癌'},{id:'J',text:'大肠癌'},{id:'K',text:'神经纤维瘤病'},{id:'L',text:'肾母细胞瘤'},{id:'M',text:'视网膜母细胞瘤'},{id:'N',text:'肾癌'}],categories:[{id:'C1',label:'P53'},{id:'C2',label:'Apc'},{id:'C3',label:'RB'},{id:'C4',label:'BRCA'},{id:'C5',label:'NF'},{id:'C6',label:'WT'},{id:'C7',label:'VHL'}],answer:{'A':'C1','B':'C1','E':'C1','F':'C2','J':'C2','H':'C3','M':'C3','C':'C4','I':'C4','K':'C5','L':'C6','N':'C7'},explanation:'P53突变见于Li-Fraumeni综合征、多数人类肿瘤、宫颈癌等。Apc突变见于大肠癌、胃癌。RB突变见于视网膜母细胞瘤、骨肉瘤。BRCA突变见于乳腺癌、卵巢癌。NF突变见于神经纤维瘤病。WT突变见于肾母细胞瘤。VHL突变见于肾癌。D(神经母细胞瘤)通常与MYCN相关，G(胰腺癌)基因归属，均。'},
+  {id:'path_078',subject:'pathology',system:'tumor',chapter:'肿瘤标志物',type:'matching',title:'肿瘤标志物与肿瘤类型配伍',description:'将下列肿瘤标志物与相应的肿瘤类型进行配伍',options:[{id:'A',text:'角蛋白CK/Keratin'},{id:'B',text:'甲胎蛋白AFP'},{id:'C',text:'上皮膜抗原EMA'},{id:'D',text:'白细胞分化抗原CD'},{id:'E',text:'细胞角蛋白CYFRA21'},{id:'F',text:'扁豆素LCA'},{id:'G',text:'HMB45'},{id:'H',text:'前列腺特异抗原PSA'},{id:'I',text:'S-100'},{id:'J',text:'结蛋白'},{id:'K',text:'CA125'},{id:'L',text:'酸性磷酸酶PAP'},{id:'M',text:'CA153'},{id:'N',text:'神经特异性烯醇化酶NSE'},{id:'O',text:'降钙素CT'},{id:'P',text:'CA199'},{id:'Q',text:'癌胚抗原CEA'},{id:'R',text:'酸性糖蛋白'},{id:'S',text:'VCA-IgA抗体'},{id:'T',text:'碱性磷酸酶ALP'},{id:'U',text:'人绒毛膜促性腺激素hCG'},{id:'V',text:'突触素Syn'},{id:'W',text:'Ki-67'}],categories:[{id:'C1',label:'癌（广谱）'},{id:'C2',label:'淋巴瘤'},{id:'C3',label:'黑色素瘤'},{id:'C4',label:'肌细胞肿瘤'},{id:'C5',label:'肝癌'},{id:'C6',label:'卵黄囊癌/内胚窦瘤'},{id:'C7',label:'鼻咽癌'},{id:'C8',label:'胰腺癌'},{id:'C9',label:'胆囊癌/胆管癌'},{id:'C10',label:'成骨性病变'},{id:'C11',label:'鳞癌'},{id:'C12',label:'Burkitt淋巴瘤'},{id:'C13',label:'前列腺癌'},{id:'C14',label:'神经内分泌肿瘤'},{id:'C15',label:'滋养细胞肿瘤/绒癌'},{id:'C16',label:'甲状腺髓样癌'},{id:'C17',label:'神经元肿瘤'},{id:'C18',label:'乳腺癌'},{id:'C19',label:'卵巢癌'},{id:'C20',label:'CHL'},{id:'C21',label:'NK/T细胞淋巴瘤'},{id:'C22',label:'无性细胞瘤'},{id:'C23',label:'多数腺癌'},{id:'C24',label:'肺癌'}],answer:{'A':'C1','B':['C5','C6'],'C':'C1','D':'C2','E':'C11','F':'C2','G':'C3','H':'C13','I':'C3','J':'C4','K':'C19','L':'C13','M':'C18','N':['C14','C16'],'O':'C16','P':['C8','C9'],'Q':['C8','C9','C18','C23'],'R':'C24','S':['C7','C12','C20','C21'],'T':['C10','C22'],'U':'C15','V':['C14','C16','C17'],'W':['C12','C15']},explanation:'CK/EMA为广谱上皮标志物；CD/LCA用于淋巴瘤；HMB45/S-100用于黑色素瘤；结蛋白用于肌细胞肿瘤；AFP用于肝癌和卵黄囊癌；VCA-IgA用于鼻咽癌、CHL、Burkitt、NK/T；CA199用于胰腺癌和胆道肿瘤；ALP用于成骨性病变和无性细胞瘤；CYFRA21用于鳞癌；酸性糖蛋白用于肺癌；PSA/PAP用于前列腺癌；CA153用于乳腺癌；CA125用于卵巢癌；CEA用于胰腺癌、胆道肿瘤、乳腺癌、多数腺癌；NSE/Syn用于神经内分泌肿瘤和甲状腺髓样癌；Syn也用于神经元肿瘤；hCG用于滋养细胞肿瘤/绒癌；Ki-67用于Burkitt和绒癌。'},
+  {id:'path_079',subject:'pathology',system:'tumor',chapter:'肿瘤病因',type:'matching',title:'肿瘤与病因配伍',description:'将下列肿瘤与相应的病因进行配伍',options:[{id:'A',text:'肺癌'},{id:'B',text:'肝细胞癌'},{id:'C',text:'宫颈癌'},{id:'D',text:'白血病'},{id:'F',text:'胃淋巴瘤MALT'},{id:'G',text:'鼻咽癌'},{id:'H',text:'肝内胆管癌'},{id:'I',text:'皮肤癌'},{id:'J',text:'膀胱癌'},{id:'K',text:'大肠腺癌'},{id:'L',text:'胃癌'},{id:'M',text:'膀胱鳞癌'},{id:'N',text:'喉癌'},{id:'O',text:'肝癌'},{id:'P',text:'Burkitt淋巴瘤'},{id:'Q',text:'食管癌'},{id:'R',text:'NK/T细胞淋巴瘤'},{id:'S',text:'黑色素瘤'},{id:'T',text:'CHL'}],categories:[{id:'C1',label:'多环芳烃'},{id:'C2',label:'芳香胺类'},{id:'C3',label:'黄曲霉毒素'},{id:'C4',label:'亚硝胺类'},{id:'C5',label:'HPV'},{id:'C6',label:'EBV'},{id:'C7',label:'HBV、HCV'},{id:'C8',label:'紫外线'},{id:'C9',label:'Hp'},{id:'C10',label:'华支睾吸虫'},{id:'C11',label:'日本血吸虫'},{id:'C12',label:'埃及血吸虫'},{id:'C13',label:'烷化剂'}],answer:{'A':'C1','J':'C2','B':['C3','C7'],'O':'C4','Q':'C4','C':'C5','N':'C5','G':'C6','P':'C6','R':'C6','T':'C6','I':'C8','S':'C8','L':['C1','C9'],'F':'C9','H':'C10','K':'C11','M':'C12','D':'C13'},explanation:'多环芳烃致肺癌、胃癌；芳香胺类致膀胱癌；黄曲霉毒素致肝细胞癌；亚硝胺类(对称)致肝癌、(不对称)致食管癌；HPV致宫颈癌、喉癌；EBV致鼻咽癌、Burkitt淋巴瘤、NK/T细胞淋巴瘤、CHL；HBV/HCV致肝细胞癌（与黄曲霉毒素交叉）；紫外线致皮肤癌、黑色素瘤；Hp致胃癌、胃MALT淋巴瘤；华支睾吸虫致肝内胆管癌；日本血吸虫致大肠腺癌；埃及血吸虫致膀胱鳞癌；烷化剂致白血病。'},
+  {id:'path_080',subject:'pathology',system:'tumor',chapter:'肿瘤相关基因',type:'matching',title:'肿瘤与相关基因配伍',description:'将下列肿瘤/综合征与相关基因进行配伍',options:[{id:'A',text:'多数人类肿瘤如弥漫大B细胞淋巴瘤'},{id:'B',text:'Li-Fraumeni综合征'},{id:'C',text:'乳腺癌'},{id:'D',text:'神经母细胞瘤'},{id:'E',text:'宫颈癌'},{id:'F',text:'胃癌'},{id:'G',text:'胰腺癌'},{id:'H',text:'骨肉瘤'},{id:'I',text:'卵巢癌'},{id:'J',text:'大肠癌'},{id:'K',text:'神经纤维瘤病'},{id:'L',text:'肾母细胞瘤'},{id:'M',text:'视网膜母细胞瘤'},{id:'N',text:'肾癌'}],categories:[{id:'C1',label:'P53'},{id:'C2',label:'Apc'},{id:'C3',label:'RB'},{id:'C4',label:'BRCA'},{id:'C5',label:'NF'},{id:'C6',label:'WT'},{id:'C7',label:'VHL'}],answer:{'A':'C1','B':'C1','E':'C1','F':'C2','G':'C2','J':'C2','H':'C3','M':'C3','C':'C4','I':'C4','D':'C5','K':'C5','L':'C6','N':'C7'},explanation:'P53突变见于Li-Fraumeni综合征、多数人类肿瘤、宫颈癌等。Apc突变见于大肠癌、胃癌、胰腺癌。RB突变见于视网膜母细胞瘤、骨肉瘤。BRCA突变见于乳腺癌、卵巢癌。NF突变见于神经纤维瘤病、神经母细胞瘤。WT突变见于肾母细胞瘤。VHL突变见于肾癌。'},
   {id:'path_081',subject:'pathology',system:'tumor',chapter:'癌基因',type:'matching',title:'肿瘤与癌基因配伍',description:'将下列肿瘤与相应的癌基因/染色体易位进行配伍',options:[{id:'A',text:'星形细胞瘤'},{id:'B',text:'慢粒CML'},{id:'C',text:'乳腺/胃癌'},{id:'D',text:'间质瘤'},{id:'E',text:'黑色素瘤'},{id:'F',text:'套细胞淋巴瘤'},{id:'G',text:'Burkitt淋巴瘤'},{id:'H',text:'滤泡性淋巴瘤'},{id:'I',text:'多发性骨髓瘤'}],categories:[{id:'C1',label:'PDGFRA'},{id:'C2',label:'BCR-ABL / t(9;22)'},{id:'C3',label:'ERBB2/HER2'},{id:'C4',label:'KIT'},{id:'C5',label:'BRAF'},{id:'C6',label:'CyclinD1 / t(11;14)'},{id:'C7',label:'c-MYC / t(8;14)'},{id:'C8',label:'BCL2 / t(14;18)'}],answer:{'A':'C1','B':'C2','C':'C3','D':'C4','E':'C5','F':'C6','G':'C7','H':'C8'},explanation:'星形细胞瘤与PDGFRA相关；CML与BCR-ABL/t(9;22)相关；乳腺癌/胃癌与HER2相关；GIST与KIT相关；黑色素瘤与BRAF相关；套细胞淋巴瘤与CyclinD1/t(11;14)相关；Burkitt淋巴瘤与c-MYC/t(8;14)相关；滤泡性淋巴瘤与BCL2/t(14;18)相关。。'},
   {id:'path_082',subject:'pathology',system:'tumor',chapter:'癌基因',type:'matching',title:'癌基因与功能分类配伍',description:'将下列癌基因按其功能产物分类进行配伍',options:[{id:'A',text:'PDGF'},{id:'B',text:'KIT'},{id:'C',text:'BRAF'},{id:'D',text:'CyclinD1'},{id:'E',text:'ERBB2/HER2'},{id:'F',text:'RAS'},{id:'G',text:'c-MYC'},{id:'H',text:'MYC'},{id:'I',text:'ABL'}],categories:[{id:'C1',label:'生长因子'},{id:'C2',label:'生长因子受体'},{id:'C3',label:'信号转导蛋白'},{id:'C4',label:'转录因子'},{id:'C5',label:'细胞周期调节蛋白'}],answer:{'A':'C1','B':'C2','E':'C2','C':'C3','F':'C3','I':'C3','G':'C4','H':'C4','D':'C5'},explanation:'PDGF为生长因子；KIT和ERBB2/HER2为生长因子受体；BRAF、RAS、ABL为信号转导蛋白；c-MYC和MYC为转录因子；CyclinD1为细胞周期调节蛋白。'},
   {id:'path_083',subject:'pathology',system:'tumor',chapter:'癌基因',type:'matching',title:'癌基因异常形式配伍',description:'将下列癌基因/抑癌基因与相应的异常激活/失活方式进行配伍',options:[{id:'A',text:'PDGF'},{id:'B',text:'KIT'},{id:'C',text:'BRAF'},{id:'D',text:'CyclinD1'},{id:'E',text:'ERBB2/HER2'},{id:'F',text:'RAS'},{id:'G',text:'c-MYC'},{id:'H',text:'MYC'},{id:'I',text:'ABL'},{id:'J',text:'p53'}],categories:[{id:'C1',label:'过度表达'},{id:'C2',label:'点突变'},{id:'C3',label:'转位'},{id:'C4',label:'扩增'}],answer:{'A':'C1','B':'C1','C':'C2','F':'C2','J':'C2','D':'C3','G':'C3','I':'C3','E':'C4','H':'C4'},explanation:'PDGF和KIT可过度表达；BRAF（V600E）、RAS、p53常见点突变；CyclinD1（t(11;14)）、c-MYC（t(8;14)）、ABL（t(9;22)）涉及染色体转位；ERBB2/HER2和MYC常见基因扩增。B(KIT)可能在点突变或过度表达中，。'},
@@ -332,6 +332,109 @@ const SAMPLE_QUESTIONS = [
   {id:'int_242',subject:'internal',system:'hematology',chapter:'淋巴瘤',type:'matching',title:'RS细胞的分类',description:'将下列RS细胞特征与典型RS细胞和不典型RS细胞进行匹配',options:[{id:'A',text:'双核(镜影细胞)或多核瘤巨细胞'},{id:'B',text:'霍奇金细胞(单核)'},{id:'C',text:'核大呈空泡状'},{id:'D',text:'变异RS细胞'},{id:'E',text:'核仁明显呈红色伴周围空晕'},{id:'F',text:'陷窝细胞'},{id:'G',text:'无核分裂象'},{id:'H',text:'爆米花细胞'},{id:'I',text:'嗜双性'},{id:'J',text:'木乃伊/干尸细胞(变性凋亡的RS细胞)'}],categories:[{id:'C1',label:'典型RS细胞'},{id:'C2',label:'不典型RS细胞'}],answer:{'A':'C1','B':'C2','C':'C1','D':'C2','E':'C1','F':'C2','G':'C1','H':['C1','C2'],'I':'C1','J':'C2'},explanation:'典型RS细胞:双核镜影(A)、核大空泡状(C)、核仁红色伴空晕(E)、无核分裂象(G)、嗜双性(I)、爆米花细胞(H也属不典型)；不典型RS细胞:霍奇金细胞单核(B)、变异RS(D)、陷窝细胞(F)、爆米花细胞(H)、木乃伊/干尸细胞(J)。'},
   {id:'int_243',subject:'internal',system:'hematology',chapter:'淋巴瘤',type:'matching',title:'霍奇金淋巴瘤各亚型的发病率与预后排序',description:'将下列霍奇金淋巴瘤亚型按发病率(内科)、发病率(病理)、预后排序进行匹配',options:[{id:'A',text:'结节硬化型'},{id:'B',text:'混合细胞型'},{id:'C',text:'富于淋巴细胞型'},{id:'D',text:'淋巴细胞减少型'}],categories:[{id:'C1',label:'发病率(内科)'},{id:'C2',label:'发病率(病理)'},{id:'C3',label:'预后(由好到差)'}],answer:{'A':['C1','C2','C3'],'B':['C1','C2','C3'],'C':['C1','C2','C3'],'D':['C1','C2','C3']},explanation:'发病率(内科):混合细胞型>B>结节硬化型>A>富于淋巴细胞型>C>淋巴细胞减少型>D；发病率(病理):结节硬化型>A>混合细胞型>B>富于淋巴细胞型>C>淋巴细胞减少型>D；预后:富于淋巴细胞型(C)>结节硬化型(A)>混合细胞型(B)>淋巴细胞减少型(D)。'},
   {id:'int_244',subject:'internal',system:'cardiovascular',chapter:'心力衰竭',type:'matching',title:'急性心衰治疗药物分类匹配',description:'将下列药物与对应的急性心衰治疗药物类别进行匹配',options:[{id:'A',text:'去甲肾上腺素'},{id:'B',text:'多巴酚丁胺'},{id:'C',text:'硝普钠'},{id:'D',text:'多巴胺(β-R激动剂)'},{id:'E',text:'硝酸酯类'},{id:'F',text:'米/氨力农(磷酸二酯酶抑制剂)'},{id:'G',text:'呋塞米'},{id:'H',text:'乌拉地尔(α-R拮抗剂)'},{id:'I',text:'左西孟旦(钙增敏剂)'},{id:'J',text:'托拉塞米'},{id:'K',text:'奈西立肽(重组人脑利钠肽rhBNP)'},{id:'L',text:'短效强心苷如毛花苷丙'},{id:'M',text:'肾上腺素'},{id:'N',text:'布美他尼'}],categories:[{id:'C1',label:'血管扩张剂'},{id:'C2',label:'血管收缩剂'},{id:'C3',label:'正性肌力药'},{id:'C4',label:'袢利尿剂'}],answer:{'C':'C1','E':'C1','H':'C1','K':'C1','A':'C2','M':'C2','B':'C3','D':'C3','F':'C3','I':'C3','L':'C3','G':'C4','J':'C4','N':'C4'},explanation:'血管扩张剂：硝普钠/硝酸酯类/乌拉地尔/奈西立肽；血管收缩剂：去甲肾上腺素/肾上腺素；正性肌力药：多巴酚丁胺/多巴胺/米力农/左西孟旦/毛花苷丙；袢利尿剂：呋塞米/托拉塞米/布美他尼。'},
+  {id:'surg_001',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'甲亢外科治疗术式选择',description:'将下列手术方式与对应的甲亢类型首选匹配',options:[{id:'A',text:'患侧叶或部分切+冰冻切片'},{id:'B',text:'全切、近全切'},{id:'C',text:'根据病变范围不同可选择腺叶部分、腺叶、次全、近全、或全切除术'}],categories:[{id:'C1',label:'原发性甲亢首选'},{id:'C2',label:'高功能腺瘤首选'},{id:'C3',label:'结节继发甲亢'}],answer:{'B':'C1','A':'C2','C':'C3'},explanation:'原发性甲亢首选全切或近全切；高功能腺瘤首选患侧叶或部分切除+冰冻切片；结节继发甲亢根据病变范围选择不同切除范围。'},
+  {id:'surg_002',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'甲亢术前用药',description:'将下列术前用药方案与对应的甲亢类型匹配',options:[{id:'A',text:'先抗甲状腺药、后加用碘剂2周'},{id:'B',text:'单用抗甲状腺药'}],categories:[{id:'C1',label:'原发性甲亢'},{id:'C2',label:'继发性甲亢'},{id:'C3',label:'高功能腺瘤'}],answer:{'A':'C1','B':['C2','C3']},explanation:'原发性甲亢术前先用抗甲状腺药、后加用碘剂2周；继发性甲亢和高功能腺瘤术前单用抗甲状腺药。'},
+  {id:'surg_003',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'<55岁分化型甲状腺癌分期',description:'将下列TNM组合与对应的分化型甲状腺癌(乳头状癌、滤泡癌)分期匹配',options:[{id:'A',text:'任何TNM₁'},{id:'B',text:'任何TNM₀'}],categories:[{id:'C1',label:'I期'},{id:'C2',label:'II期'}],answer:{'B':'C1','A':'C2'},explanation:'<55岁分化型甲状腺癌：任何TNM₀为I期，任何TNM₁为II期。'},
+  {id:'surg_004',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'分化型甲状腺癌切除范围',description:'将下列临床特征与对应的分化型甲状腺癌(乳头状癌、滤泡癌)切除范围匹配',options:[{id:'A',text:'双侧癌结节'},{id:'B',text:'肿瘤<1cm'},{id:'C',text:'肿瘤>4cm'},{id:'D',text:'无明显临床淋巴结转移'},{id:'E',text:'双侧颈多发淋巴结转移'},{id:'F',text:'无远处转移'},{id:'G',text:'有远处转移'},{id:'H',text:'肉眼可见的甲状腺外侵犯如甲状腺周围软组织/胸骨甲状肌/甲状舌骨肌'},{id:'I',text:'无甲状腺外侵犯'},{id:'J',text:'有颈部放射史'},{id:'K',text:'无颈部放射史'},{id:'L',text:'预后不良的病理类型如高细胞型/柱状细胞型'},{id:'M',text:'无不良病理类型'}],categories:[{id:'C1',label:'双侧全切或患侧叶全切+峡部+对侧叶近全切'},{id:'C2',label:'患侧叶全切+峡部'}],answer:{'A':'C1','C':'C1','E':'C1','G':'C1','H':'C1','J':'C1','L':'C1','B':'C2','D':'C2','F':'C2','I':'C2','K':'C2','M':'C2'},explanation:'双侧全切或患侧叶全切+峡部+对侧叶近全切适应证：双侧癌结节、肿瘤>4cm、双侧颈多发淋巴结转移、有远处转移、甲状腺外侵犯、有颈部放射史、预后不良病理类型。患侧叶全切+峡部适应证：肿瘤<1cm、无明显淋巴结转移、无远处转移、无甲状腺外侵犯、无颈部放射史、无不良病理类型。'},
+  {id:'surg_005',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'分化型甲状腺癌术后TSH抑制治疗',description:'将下列TSH抑制方案与对应的复发风险分级匹配',options:[{id:'A',text:'抑制TSH 0.5-2'},{id:'B',text:'抑制5-10年、后改为替代治疗'},{id:'C',text:'抑制TSH<0.1'},{id:'D',text:'终生抑制'},{id:'E',text:'抑制TSH 0.1-0.5'}],categories:[{id:'C1',label:'复发风险高危'},{id:'C2',label:'复发风险中危'},{id:'C3',label:'复发风险低危'}],answer:{'C':'C1','D':['C1','C2'],'E':'C2','A':'C3','B':'C3'},explanation:'复发风险高危：抑制TSH<0.1+终生抑制；中危：终生抑制+抑制TSH 0.1-0.5；低危：抑制TSH 0.5-2+抑制5-10年后改为替代治疗。'},
+  {id:'surg_006',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'甲状腺肿与甲状腺炎分类',description:'将下列临床特征与对应的甲状腺疾病类型匹配',options:[{id:'A',text:'病因:缺碘、甲状腺素合成或分泌障碍、甲状腺素需求增多(青春期/妊娠等)'},{id:'B',text:'结甲→胸骨后甲状腺肿、继发甲亢、恶变、退变(囊性变/片状钙化/纤维化)等'},{id:'C',text:'常有1-3周前驱感染(病毒感染等)'},{id:'D',text:'部分滤泡被破坏(胶质外溢)→分离现象:BMR/T3/T4↑、摄碘率↓'},{id:'E',text:'甲状腺肿大:早期双侧弥漫肿大、后期少数可变为结甲'},{id:'F',text:'甲减的表现:BMR、T3、T4、摄碘率均↓'},{id:'G',text:'囊性变伴囊内出血→结节迅速增大、胀痛'},{id:'H',text:'甲状腺迅速肿大、痛:单侧或双侧不对称肿大、可摸到结节'},{id:'I',text:'甲状腺双侧弥漫肿大、质地坚韧，广泛滤泡被破坏、伴大量淋巴细胞浸润和淋巴滤泡'},{id:'J',text:'TPOAb (90%)'}],categories:[{id:'C1',label:'单纯性甲状腺肿/弥漫性非毒性甲状腺肿'},{id:'C2',label:'结节性甲状腺肿'},{id:'C3',label:'亚急性甲状腺炎/肉芽肿性/巨细胞性甲状腺炎'},{id:'C4',label:'慢性淋巴细胞性/自身免疫性甲状腺炎/桥本'}],answer:{'A':'C1','E':'C1','B':'C2','G':'C2','C':'C3','D':'C3','H':'C3','F':'C4','I':'C4','J':'C4'},explanation:'单纯性甲状腺肿：缺碘等病因、双侧弥漫肿大后期可变结甲；结节性甲状腺肿：胸骨后甲状腺肿、继发甲亢、恶变、囊变伴出血；亚甲炎：前驱感染、分离现象、迅速肿大伴痛；桥本：甲减表现、双侧弥漫坚韧、淋巴细胞浸润、TPOAb阳性。'},
+  {id:'surg_007',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'甲状腺结节良恶性鉴别',description:'将下列临床特征与对应的良恶性倾向匹配',options:[{id:'A',text:'儿童(50%为恶性)、年轻男性'},{id:'B',text:'多发'},{id:'C',text:'可(无痛)迅速增大'},{id:'D',text:'颈部多有淋巴结肿大'},{id:'E',text:'TSH正常或↓'},{id:'F',text:'核素冷结节(功能低下)、血供丰富、边缘模糊'},{id:'G',text:'女性'},{id:'H',text:'单发'},{id:'I',text:'迅速增大少见，但腺瘤囊性变伴囊内出血可、胀痛'},{id:'J',text:'颈部多无淋巴结肿大'},{id:'K',text:'TSH↑'},{id:'L',text:'核素热、温、冷结节均可有'}],categories:[{id:'C1',label:'恶性可能大'},{id:'C2',label:'良性可能大'}],answer:{'A':'C1','C':'C1','D':'C1','F':'C1','H':'C1','K':'C1','B':'C2','E':'C2','G':'C2','I':'C2','J':'C2','L':'C2'},explanation:'恶性可能大：儿童/年轻男性、单发、迅速增大、颈部淋巴结肿大、TSH↑、冷结节血供丰富边缘模糊。良性可能大：女性、多发、迅速增大少见、颈部无淋巴结肿大、TSH正常或↓、热温冷结节均可。'},
+  {id:'surg_008',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'喉神经损伤临床表现',description:'将下列临床表现与对应的神经损伤类型匹配',options:[{id:'A',text:'眼睑下垂'},{id:'B',text:'音调降低(环甲肌瘫痪、声带松弛)'},{id:'C',text:'瞳孔缩小'},{id:'D',text:'失声'},{id:'E',text:'饮水呛咳(喉黏膜感觉异常)'},{id:'F',text:'眼球内陷'},{id:'G',text:'声音嘶哑'},{id:'H',text:'呼吸困难'},{id:'I',text:'额面部胸壁无汗'}],categories:[{id:'C1',label:'喉上神经内支'},{id:'C2',label:'喉上神经外支'},{id:'C3',label:'一侧喉返神经'},{id:'C4',label:'双侧喉返神经'},{id:'C5',label:'颈交感神经Horner综合征'}],answer:{'E':'C1','B':'C2','G':'C3','D':'C4','H':'C4','A':'C5','C':'C5','F':'C5','I':'C5'},explanation:'喉上神经内支损伤→饮水呛咳；喉上神经外支损伤→音调降低；一侧喉返神经损伤→声音嘶哑；双侧喉返神经损伤→失声/呼吸困难；颈交感神经损伤→Horner综合征(眼睑下垂、瞳孔缩小、眼球内陷、无汗)。'},
+  {id:'surg_009',subject:'surgery',system:'thyroid',chapter:'甲状腺疾病',type:'matching',title:'甲状腺疾病临床表现鉴别',description:'将下列临床特征与对应的甲状腺疾病匹配',options:[{id:'A',text:'痛'},{id:'B',text:'单侧或双侧不对称肿大'},{id:'C',text:'囊变伴出血'},{id:'D',text:'可迅速增大'},{id:'E',text:'双侧弥漫肿大'}],categories:[{id:'C1',label:'Graves病'},{id:'C2',label:'单纯性甲状腺肿'},{id:'C3',label:'结节性甲状腺肿'},{id:'C4',label:'亚急性甲状腺炎'},{id:'C5',label:'桥本甲状腺炎'},{id:'C6',label:'甲状腺腺瘤'},{id:'C7',label:'甲状腺腺癌'}],answer:{'E':['C1','C2','C5'],'A':['C3','C4','C6'],'B':['C3','C4','C6','C7'],'C':['C3','C6'],'D':['C3','C4','C6','C7']},explanation:'Graves病/单纯性甲状腺肿/桥本：双侧弥漫肿大；结节性甲状腺肿/亚甲炎/腺瘤：痛、不对称肿大、囊变伴出血、可迅速增大；腺癌：不对称肿大、可迅速增大。'},
+  {id:'surg_010',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌病理分型(基础分类)',description:'将下列病理类型与对应的乳腺癌分类匹配',options:[{id:'A',text:'非特殊癌'},{id:'B',text:'小叶原位癌'},{id:'C',text:'特殊癌'},{id:'D',text:'导管内癌'}],categories:[{id:'C1',label:'原位癌'},{id:'C2',label:'浸润癌'}],answer:{'B':'C1','D':'C1','A':'C2','C':'C2'},explanation:'原位癌包括小叶原位癌和导管内癌；浸润癌包括非特殊癌和特殊癌。'},
+  {id:'surg_011',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌病理分型(详细亚型)',description:'将下列乳腺癌病理亚型与对应的分类匹配',options:[{id:'A',text:'浸润性导管癌'},{id:'B',text:'小管癌高分化腺癌'},{id:'C',text:'粉刺癌'},{id:'D',text:'无大量淋巴细胞浸润的髓样癌'},{id:'E',text:'有大量淋巴细胞浸润的髓样癌'},{id:'F',text:'非粉刺型导管内癌'},{id:'G',text:'浸润性小叶癌'},{id:'H',text:'鳞癌'},{id:'I',text:'乳头湿疹样乳腺癌/Paget病(无肿块者)'},{id:'J',text:'腺癌'},{id:'K',text:'黏液腺癌'},{id:'L',text:'单纯癌'},{id:'M',text:'乳头状癌'},{id:'N',text:'乳头湿疹样乳腺癌/Paget病(乳晕区扪及肿块)'},{id:'O',text:'腺样囊性癌'},{id:'P',text:'硬癌'},{id:'Q',text:'大汗腺样癌'},{id:'R',text:'炎性乳癌'}],categories:[{id:'C1',label:'导管内癌'},{id:'C2',label:'非特殊癌(预后较差)'},{id:'C3',label:'特殊癌'},{id:'C4',label:'最常见'},{id:'C5',label:'预后最差'}],answer:{'C':'C1','F':'C1','I':'C1','A':['C2','C4'],'D':'C2','G':'C2','J':'C2','L':'C2','P':'C2','B':'C3','E':'C3','H':'C3','K':'C3','M':'C3','O':'C3','Q':'C3','R':['C3','C5'],'N':'C3'},explanation:'导管内癌：粉刺癌/非粉刺型/Paget病(无肿块)；非特殊癌：浸润性导管癌(最常见)/无淋巴细胞浸润髓样癌/浸润性小叶癌/腺癌/单纯癌/硬癌；特殊癌：小管癌/有淋巴细胞浸润髓样癌/鳞癌/黏液腺癌/乳头状癌/腺样囊性癌/大汗腺样癌/Paget病(有肿块)/炎性乳癌。预后最差为炎性乳癌。'},
+  {id:'surg_012',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌T分期',description:'将下列肿瘤特征与对应的乳腺癌T分期匹配',options:[{id:'A',text:'原发癌未查出，Tis原位癌排非浸润癌'},{id:'B',text:'侵犯皮肤(溃疡、卫星结节、橘皮样变)'},{id:'C',text:'长径≤2cm'},{id:'D',text:'侵犯胸壁(肋骨、肋间肌、前锯肌)'},{id:'E',text:'长径>2，≤5cm'},{id:'F',text:'仅粘附胸肌'},{id:'G',text:'炎性乳癌'},{id:'H',text:'长径>5cm'},{id:'I',text:'大小不计'}],categories:[{id:'C1',label:'T0'},{id:'C2',label:'T1'},{id:'C3',label:'T2'},{id:'C4',label:'T3'},{id:'C5',label:'T4'}],answer:{'A':'C1','C':'C2','E':'C3','H':'C4','B':'C5','D':'C5','G':'C5','I':'C5'},explanation:'T0:原发癌未查出；T1:≤2cm；T2:>2≤5cm；T3:>5cm；T4:侵犯皮肤/胸壁/炎性乳癌/大小不计。仅粘附胸肌不归入T4。'},
+  {id:'surg_013',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌N分期',description:'将下列淋巴结特征与对应的乳腺癌N分期匹配',options:[{id:'A',text:'同侧腋窝淋巴结无痛性肿大'},{id:'B',text:'同侧腋窝淋巴结无肿大'},{id:'C',text:'同侧胸骨旁或锁骨上淋巴结无痛性肿大'},{id:'D',text:'推不动(融合粘连)'},{id:'E',text:'可推动'}],categories:[{id:'C1',label:'N0'},{id:'C2',label:'N1'},{id:'C3',label:'N2'},{id:'C4',label:'N3'}],answer:{'B':'C1','A':['C2','C3'],'E':'C2','D':'C3','C':'C4'},explanation:'N0:同侧腋窝淋巴结无肿大；N1:同侧腋窝淋巴结肿大可推动；N2:同侧腋窝淋巴结肿大融合粘连推不动；N3:同侧胸骨旁或锁骨上淋巴结肿大。'},
+  {id:'surg_014',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌皮肤表现机制',description:'将下列病理机制与对应的乳腺癌皮肤表现匹配',options:[{id:'A',text:'广泛淋巴转移致淋巴液逆流使癌细胞侵犯大片皮肤'},{id:'B',text:'侵犯Cooper/乳房悬韧带'},{id:'C',text:'阻塞真皮内淋巴管'}],categories:[{id:'C1',label:'凹陷(酒窝征)'},{id:'C2',label:'水肿(橘皮样变)'},{id:'C3',label:'卫星结节'}],answer:{'B':'C1','C':'C2','A':'C3'},explanation:'侵犯Cooper韧带→酒窝征；阻塞真皮内淋巴管→橘皮样变；广泛淋巴转移淋巴液逆流→卫星结节。'},
+  {id:'surg_015',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌诊断与检查方法',description:'将下列检查方法与对应的用途匹配',options:[{id:'A',text:'活检(不宜切取部分活检)'},{id:'B',text:'显示乳腺癌骨转移灶(经椎旁静脉系统转移至脊椎骨尤其椎弓根可致腰背痛)'},{id:'C',text:'疗效、预后、复发等'},{id:'D',text:'钼靶X线(毛刺、细小密集的泥沙样钙化)+超声(可观察血供)'},{id:'E',text:'可考虑预防性乳房全切术'}],categories:[{id:'C1',label:'筛查'},{id:'C2',label:'金标准'},{id:'C3',label:'CA153'},{id:'C4',label:'抑癌基因乳腺癌易感基因缺陷'},{id:'C5',label:'放射性核素骨扫描ECT'}],answer:{'D':'C1','A':'C2','C':'C3','E':'C4','B':'C5'},explanation:'筛查用钼靶X线+超声；金标准为活检；CA153用于判断预后、监测复发、辅助诊断；抑癌基因(BRCA)缺陷者可考虑预防性乳房全切术；ECT用于显示骨转移灶。'},
+  {id:'surg_016',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'腋窝淋巴结分组(Berg分级)',description:'将下列淋巴结位置与对应的Berg分组匹配',options:[{id:'A',text:'胸小肌内侧(锁骨下)淋巴结'},{id:'B',text:'胸小肌外侧'},{id:'C',text:'胸小肌后方(腋静脉)和胸大小肌间淋巴结(Rotter淋巴结)'}],categories:[{id:'C1',label:'I腋下组'},{id:'C2',label:'II腋中组'},{id:'C3',label:'III腋上组'}],answer:{'B':'C1','C':'C2','A':'C3'},explanation:'Berg分级：I组(腋下组)在胸小肌外侧；II组(腋中组)在胸小肌后方和胸大小肌间(Rotter淋巴结)；III组(腋上组)在胸小肌内侧(锁骨下)。'},
+  {id:'surg_017',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺癌手术方式选择',description:'将下列手术适应证与对应的手术方式匹配',options:[{id:'A',text:'原位癌'},{id:'B',text:'I、II期'},{id:'C',text:'乳房有适当体积(多中心者禁用)'},{id:'D',text:'保留胸大肌，或保留胸大肌+胸小肌(不易清扫腋上组淋巴结)'},{id:'E',text:'微小癌'},{id:'F',text:'内象限+胸骨旁淋巴结肿大者'},{id:'G',text:'清扫'},{id:'H',text:'前哨淋巴结活检→阳性清扫、阴性不清扫'},{id:'I',text:'年老不宜作根治术者'},{id:'J',text:'切肿块+周围1-2cm组织'}],categories:[{id:'C1',label:'改良根治术'},{id:'C2',label:'扩大根治术'},{id:'C3',label:'全乳房切除术(不清扫淋巴结)'},{id:'C4',label:'保乳乳腺癌切除术'},{id:'C5',label:'淋巴结清扫-腋淋巴结阳性'},{id:'C6',label:'淋巴结清扫-腋淋巴结阴性'}],answer:{'B':['C1','C4'],'D':'C1','F':'C2','A':'C3','E':'C3','I':'C3','C':'C4','J':'C4','G':'C5','H':'C6'},explanation:'改良根治术：I/II期+保留胸大肌(±胸小肌)；扩大根治术：内象限+胸骨旁淋巴结肿大；全乳房切除术：原位癌/微小癌/年老不宜根治者；保乳切除术：I/II期+乳房适当体积+切肿块+周围组织。腋淋巴结阳性清扫，阴性行前哨淋巴结活检。'},
+  {id:'surg_018',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳腺疾病临床表现鉴别',description:'将下列临床特征与对应的乳腺疾病匹配',options:[{id:'A',text:'肿块增长缓慢'},{id:'B',text:'乳汁淤积、细菌入侵(金葡菌经淋巴管多见)'},{id:'C',text:'可有边界不清的肿块、乳头凹陷、皮肤粘连'},{id:'D',text:'中年多见'},{id:'E',text:'>40岁多见'},{id:'F',text:'20-25岁多见'},{id:'G',text:'初产妇多见'},{id:'H',text:'可有橘皮样变'},{id:'I',text:'最易血性溢液(若乳管阻塞呈棕褐色)，常不能触及肿块'},{id:'J',text:'肿块多单发、无痛、质硬'},{id:'K',text:'红肿热痛、寒战高热,血WBC高'},{id:'L',text:'周期性乳房胀痛和颗粒样肿块(结节大小不等、质韧)，月经后减轻'},{id:'M',text:'边界清楚、易推动'},{id:'N',text:'边界不清、不易推动(炎性乳癌可无明显肿块，皮肤呈红肿等炎症样)'},{id:'O',text:'多有患侧淋巴结癌性肿大'},{id:'P',text:'淋巴结无肿大'},{id:'Q',text:'淋巴结无痛性肿大，橘皮样变等'}],categories:[{id:'C1',label:'乳腺癌'},{id:'C2',label:'乳腺纤维腺瘤'},{id:'C3',label:'乳腺囊性增生病'},{id:'C4',label:'急性乳腺炎'},{id:'C5',label:'乳管内乳头状瘤'},{id:'C6',label:'浆细胞乳腺炎(无菌性炎症)-急性'},{id:'C7',label:'浆细胞乳腺炎(无菌性炎症)-慢性'}],answer:{'E':'C1','H':['C1','C6'],'J':['C1','C2'],'N':'C1','Q':'C1','A':'C2','F':'C2','M':'C2','P':'C2','D':'C3','L':'C3','B':'C4','G':'C4','K':'C4','O':'C4','I':'C5','C':'C7'},explanation:'乳腺癌:>40岁、橘皮样变、肿块质硬边界不清、淋巴结无痛性肿大；纤维腺瘤:20-25岁、增长缓慢、边界清楚易推动、淋巴结无肿大；囊性增生病:中年、周期性胀痛、颗粒样肿块；急性乳腺炎:初产妇、红肿热痛、淋巴结肿大；乳头状瘤:血性溢液、常无肿块；浆细胞乳腺炎急性可有橘皮样变，慢性有乳头凹陷皮肤粘连。'},
+  {id:'surg_019',subject:'surgery',system:'breast',chapter:'乳房疾病',type:'matching',title:'乳头溢液性质鉴别',description:'将下列溢液性质与对应的疾病匹配',options:[{id:'A',text:'棕褐色'},{id:'B',text:'多种颜色'},{id:'C',text:'血性'},{id:'D',text:'黄绿色脓性'},{id:'E',text:'浆液无色'}],categories:[{id:'C1',label:'乳腺癌'},{id:'C2',label:'感染'},{id:'C3',label:'乳腺囊性增生病'},{id:'C4',label:'乳管内乳头状瘤'},{id:'C5',label:'乳管内乳头状瘤-若乳管阻塞呈'}],answer:{'C':['C1','C4'],'D':'C2','B':'C3','A':'C5'},explanation:'血性溢液见于乳腺癌和乳管内乳头状瘤；棕褐色为乳管内乳头状瘤阻塞所致；多种颜色见于囊性增生病；黄绿色脓性见于感染。注：正常月经和早期妊娠可有浆液性溢液，属生理性。'},
+  {id:'surg_020',subject:'surgery',system:'thoracic',chapter:'胸部损伤',type:'matching',title:'肋骨骨折处理原则',description:'将下列处理措施与对应的肋骨骨折类型匹配',options:[{id:'A',text:'有明显反常呼吸运动'},{id:'B',text:'无明显反常呼吸运动'},{id:'C',text:'气管内插管呼吸机正压通气'},{id:'D',text:'胸带固定'},{id:'E',text:'纵隔扑动'},{id:'F',text:'切开复位内固定'}],categories:[{id:'C1',label:'非多根多处'},{id:'C2',label:'多根多处-胸壁软化范围小'},{id:'C3',label:'多根多处-胸壁软化范围大'}],answer:{'D':'C1','B':'C2','A':'C3','E':'C3','C':'C3','F':'C3'},explanation:'非多根多处：胸带固定；多根多处胸壁软化范围小：无明显反常呼吸+胸带固定；范围大：有明显反常呼吸+纵隔扑动→气管插管正压通气/切开复位内固定。'},
+  {id:'surg_021',subject:'surgery',system:'thoracic',chapter:'纵隔肿瘤',type:'matching',title:'纵隔肿瘤好发部位',description:'将下列肿瘤与对应的好发纵隔部位匹配',options:[{id:'A',text:'心包囊肿'},{id:'B',text:'畸胎瘤和皮样囊肿'},{id:'C',text:'支气管囊肿'},{id:'D',text:'胸腺瘤'},{id:'E',text:'神经源性肿瘤如神经鞘瘤'},{id:'F',text:'胸骨后甲状腺肿'},{id:'G',text:'淋巴瘤'}],categories:[{id:'C1',label:'前纵隔'},{id:'C2',label:'中纵隔'},{id:'C3',label:'后纵隔'}],answer:{'B':'C1','D':'C1','F':'C1','A':'C2','C':'C2','G':'C2','E':'C3'},explanation:'前纵隔：畸胎瘤/皮样囊肿、胸腺瘤、胸骨后甲状腺肿；中纵隔：心包囊肿、支气管囊肿、淋巴瘤；后纵隔：神经源性肿瘤。'},
+  {id:'surg_022',subject:'surgery',system:'gastric',chapter:'胃肿瘤',type:'matching',title:'胃癌Borrmann分型',description:'将下列胃癌大体分型与对应的Borrmann分型及特征匹配',options:[{id:'A',text:'溃疡局限型'},{id:'B',text:'弥漫浸润型(可致革囊胃/皮革胃)'},{id:'C',text:'溃疡浸润型'},{id:'D',text:'息肉/肿块型'}],categories:[{id:'C1',label:'BorrmannⅠ型'},{id:'C2',label:'BorrmannⅡ型'},{id:'C3',label:'BorrmannⅢ型'},{id:'C4',label:'BorrmannⅣ型'},{id:'C5',label:'边界清楚'},{id:'C6',label:'最常见'},{id:'C7',label:'预后最差'}],answer:{'D':['C1','C5'],'A':['C2','C5'],'C':['C3','C6'],'B':['C4','C7']},explanation:'BorrmannⅠ型=息肉/肿块型(D)、Ⅱ型=溃疡局限型(A)、Ⅲ型=溃疡浸润型(C)、Ⅳ型=弥漫浸润型(B)；Ⅰ、Ⅱ型边界清楚；Ⅲ型最常见；Ⅳ型预后最差。'},
+  {id:'surg_023',subject:'surgery',system:'gastric',chapter:'胃肿瘤',type:'matching',title:'胃癌诊断与分期',description:'将下列诊断方法与对应的用途匹配',options:[{id:'A',text:'CEA'},{id:'B',text:'看深度'},{id:'C',text:'大便隐血试验'},{id:'D',text:'首选、金标准'},{id:'E',text:'N M'}],categories:[{id:'C1',label:'内镜'},{id:'C2',label:'超声内镜'},{id:'C3',label:'筛查'},{id:'C4',label:'判断预后、监测复发、辅助诊断'},{id:'C5',label:'CT/MRI'}],answer:{'D':'C1','B':'C2','C':'C3','A':'C4','E':'C5'},explanation:'内镜为首选及金标准；超声内镜看浸润深度；大便隐血试验用于筛查；CEA判断预后、监测复发、辅助诊断；CT/MRI评估N、M分期。'},
+  {id:'surg_024',subject:'surgery',system:'gastric',chapter:'胃肿瘤',type:'matching',title:'肿瘤分子靶向治疗',description:'将下列靶点/药物与对应的肿瘤匹配',options:[{id:'A',text:'ABL'},{id:'B',text:'CD20'},{id:'C',text:'EGFR'},{id:'D',text:'CD117/KIT'},{id:'E',text:'HER2'},{id:'F',text:'多种激酶'},{id:'G',text:'厄洛替尼'},{id:'H',text:'利妥昔单抗'},{id:'I',text:'西妥昔单抗'},{id:'J',text:'酪氨酸激酶抑制剂TKI如伊马替尼'},{id:'K',text:'曲妥珠单抗'},{id:'M',text:'吉非替尼'},{id:'N',text:'索拉非尼'},{id:'O',text:'美罗华'},{id:'P',text:'赫赛汀'}],categories:[{id:'C1',label:'肺腺癌'},{id:'C2',label:'CML'},{id:'C3',label:'胃肠间质瘤'},{id:'C4',label:'淋巴瘤'},{id:'C5',label:'乳腺癌'},{id:'C6',label:'大肠癌'},{id:'C7',label:'肝癌'}],answer:{'C':['C1','C6'],'G':'C1','M':'C1','A':'C2','J':['C2','C3'],'D':'C3','B':'C4','H':'C4','O':'C4','E':'C5','K':'C5','P':'C5','I':'C6','F':'C7','N':'C7'},explanation:'肺腺癌:EGFR、厄洛替尼、吉非替尼；CML:ABL、伊马替尼；胃肠间质瘤:CD117、伊马替尼；淋巴瘤:CD20、利妥昔单抗、美罗华；乳腺癌:HER2、曲妥珠单抗、赫赛汀；大肠癌:EGFR、西妥昔单抗；肝癌:多种激酶、索拉非尼。'},
+  {id:'surg_025',subject:'surgery',system:'gastric',chapter:'胃肿瘤',type:'matching',title:'胃癌TNM分期-T分期',description:'将下列肿瘤浸润深度与对应的T分期匹配',options:[{id:'A',text:'穿透浆膜下结缔组织、但没有侵犯浆膜层/脏层腹膜'},{id:'B',text:'侵犯黏膜下层'},{id:'C',text:'侵犯浆膜层/脏层腹膜'},{id:'D',text:'侵犯黏膜固有层或黏膜肌层'},{id:'E',text:'侵犯邻近结构'},{id:'F',text:'原位癌'},{id:'G',text:'侵犯肌层/固有肌层'}],categories:[{id:'C1',label:'Tis'},{id:'C2',label:'T1a'},{id:'C3',label:'T1b'},{id:'C4',label:'T2'},{id:'C5',label:'T3'},{id:'C6',label:'T4a'},{id:'C7',label:'T4b'}],answer:{'F':'C1','D':'C2','B':'C3','G':'C4','A':'C5','C':'C6','E':'C7'},explanation:'Tis=原位癌；T1a=侵犯黏膜固有层或黏膜肌层；T1b=侵犯黏膜下层；T2=侵犯肌层/固有肌层；T3=穿透浆膜下结缔组织未侵犯浆膜层；T4a=侵犯浆膜层/脏层腹膜；T4b=侵犯邻近结构。'},
+  {id:'surg_026',subject:'surgery',system:'gastric',chapter:'胃肿瘤',type:'matching',title:'胃癌TNM分期-N分期',description:'将下列区域淋巴结转移数目与对应的N分期匹配',options:[{id:'A',text:'≥7个区域淋巴结转移'},{id:'B',text:'无区域淋巴结转移'},{id:'C',text:'3-6个区域淋巴结转移'},{id:'D',text:'1-2个区域淋巴结转移'}],categories:[{id:'C1',label:'N0'},{id:'C2',label:'N1'},{id:'C3',label:'N2'},{id:'C4',label:'N3'}],answer:{'B':'C1','D':'C2','C':'C3','A':'C4'},explanation:'N0=无区域淋巴结转移；N1=1-2个；N2=3-6个；N3=≥7个区域淋巴结转移。'},
+  {id:'surg_027',subject:'surgery',system:'abdominal_infection',chapter:'腹腔感染',type:'matching',title:'腹腔感染腹水性质鉴别',description:'将下列腹水性质与对应的疾病匹配',options:[{id:'A',text:'含淀粉酶血性液'},{id:'B',text:'稀薄脓性略臭液'},{id:'C',text:'草绿色透明液'},{id:'D',text:'不凝血'},{id:'E',text:'黄色浑浊含胆汁无臭液'},{id:'F',text:'臭味重血性液'}],categories:[{id:'C1',label:'结核性腹膜炎'},{id:'C2',label:'胃十二指肠穿孔'},{id:'C3',label:'急性重型胰腺炎'},{id:'C4',label:'急性阑尾炎'},{id:'C5',label:'绞窄性肠梗阻'},{id:'C6',label:'腹腔内出血'}],answer:{'C':'C1','E':'C2','A':'C3','B':'C4','F':'C5','D':'C6'},explanation:'结核性腹膜炎:草绿色透明液；胃十二指肠穿孔:黄色浑浊含胆汁无臭液；急性重型胰腺炎:含淀粉酶血性液；急性阑尾炎:稀薄脓性略臭液；绞窄性肠梗阻:臭味重血性液；腹腔内出血:不凝血。'},
+  {id:'surg_028',subject:'surgery',system:'abdominal_infection',chapter:'腹腔感染',type:'matching',title:'腹膜炎感染途径',description:'将下列感染来源与对应的感染途径匹配',options:[{id:'A',text:'多为淋球菌'},{id:'B',text:'多为大肠杆菌'},{id:'C',text:'多为链球菌(如肺部感染灶经血源性到达腹膜)'},{id:'D',text:'多见于有腹水的肝硬化'},{id:'E',text:'多见于婴幼儿'},{id:'F',text:'多见于女性'}],categories:[{id:'C1',label:'血行播散'},{id:'C2',label:'上行性'},{id:'C3',label:'透壁性'}],answer:{'C':'C1','E':'C1','A':'C2','F':'C2','B':'C3','D':'C3'},explanation:'血行播散:链球菌(肺部感染灶)、婴幼儿；上行性:淋球菌、女性；透壁性:大肠杆菌、有腹水的肝硬化。'},
+  {id:'surg_029',subject:'surgery',system:'abdominal_trauma',chapter:'腹部损伤',type:'matching',title:'腹部损伤-腹膜炎表现分类',description:'将下列器官与对应的腹膜炎表现匹配',options:[{id:'A',text:'胰'},{id:'B',text:'脾'},{id:'C',text:'空回肠'},{id:'D',text:'肝'},{id:'E',text:'十二指肠1部'},{id:'F',text:'胃后壁'},{id:'G',text:'大部分结肠'},{id:'H',text:'胃前壁'},{id:'I',text:'十二指肠2/3部'},{id:'J',text:'直肠上段'},{id:'K',text:'直肠下段'}],categories:[{id:'C1',label:'腹膜炎早而轻'},{id:'C2',label:'腹膜炎早而重'},{id:'C3',label:'腹膜炎晚而重'},{id:'C4',label:'无腹膜炎'}],answer:{'B':'C1','C':'C2','D':'C2','E':'C2','H':'C2','A':'C3','F':'C3','G':'C3','I':'C3','J':'C3','K':'C4'},explanation:'腹膜炎早而轻:脾；早而重:空回肠、肝、十二指肠1部、胃前壁；晚而重:胰、胃后壁、大部分结肠、十二指肠2/3部、直肠上段；无腹膜炎:直肠下段。'},
+  {id:'surg_030',subject:'surgery',system:'abdominal_trauma',chapter:'腹部损伤',type:'matching',title:'腹部损伤-各器官损伤特征',description:'将下列临床特征与对应的损伤器官匹配',options:[{id:'A',text:'多有早期休克'},{id:'B',text:'多无早期休克'},{id:'C',text:'腹膜炎晚而重'},{id:'D',text:'腹膜炎早而轻'},{id:'E',text:'腹膜炎早而重'},{id:'F',text:'右上腹外伤、右膈肌抬高'},{id:'G',text:'可有睾丸痛、阴茎异常勃起'},{id:'H',text:'呕血或黑便'},{id:'I',text:'多见于方向盘/车把伤(概率仅1-2%)'},{id:'J',text:'疼痛局限在腰背部或上腹偏左'},{id:'K',text:'疼痛局限在腰背部或上腹偏右，腹部体征相对轻微、但全身情况进行性恶化'},{id:'L',text:'中下腹外伤、脐周为著'},{id:'M',text:'左上腹外伤、左膈肌抬高'},{id:'N',text:'腰大肌轮廓模糊'},{id:'O',text:'腹穿淀粉酶明显高，可有假性囊肿'},{id:'P',text:'腹膜后积气呈花斑样'},{id:'Q',text:'可有肝浊音界缩小消失'},{id:'R',text:'黑便'},{id:'S',text:'直肠周围感染'},{id:'T',text:'腹膜后/右肾间隙/肠系膜根部气泡'},{id:'U',text:'无腹膜炎'},{id:'V',text:'修补或切除、同时抗休克'},{id:'W',text:'修补或切除吻合'},{id:'X',text:'一期肠修补或切除吻合'},{id:'Y',text:'可行回收式自体输血(回输浓缩红)'},{id:'Z',text:'肠修补或切除吻合+乙状结肠双腔造口'},{id:'a',text:'造口或外置、3-4周后处理'},{id:'b',text:'乙状结肠双腔造口'},{id:'c',text:'修补、同时抗休克'}],categories:[{id:'C1',label:'脾'},{id:'C2',label:'肝'},{id:'C3',label:'空回肠'},{id:'C4',label:'十二指肠2/3部'},{id:'C5',label:'胰腺'},{id:'C6',label:'结肠-污染轻'},{id:'C7',label:'结肠-污染重'},{id:'C8',label:'直肠上段'},{id:'C9',label:'直肠下段'}],answer:{'A':['C1','C2','C5'],'B':['C3','C4','C6','C8'],'C':['C4','C5','C6','C8'],'D':'C1','E':['C2','C3'],'F':'C2','G':'C4','H':['C2','C3','C4'],'I':'C5','J':'C5','K':'C4','L':'C3','M':'C1','N':'C4','O':'C5','P':'C4','Q':['C3','C6','C8'],'R':['C6','C8'],'S':'C9','T':'C4','U':'C9','V':'C1','W':'C3','X':'C6','Y':'C1','Z':'C8','a':'C7','b':'C9','c':'C2'},explanation:'脾:多有早期休克、腹膜炎早而轻、左上腹外伤左膈肌抬高、修补或切除同时抗休克、可回收式自体输血；肝:多有早期休克、腹膜炎早而重、右上腹外伤右膈肌抬高、呕血或黑便、修补同时抗休克；空回肠:多无早期休克、腹膜炎早而重、呕血或黑便、中下腹外伤脐周为著、肝浊音界缩小、修补或切除吻合；十二指肠2/3部:多无早期休克、腹膜炎晚而重、睾丸痛、呕血或黑便、腰背部偏右进行性恶化、腰大肌模糊、腹膜后积气花斑样、腹膜后气泡；胰腺:多有早期休克、腹膜炎晚而重、方向盘伤、腰背部偏左、腹穿淀粉酶高；结肠污染轻:多无早期休克、腹膜炎晚而重、肝浊音界缩小、黑便、一期肠修补或切除吻合；结肠污染重:造口或外置；直肠上段:多无早期休克、腹膜炎晚而重、肝浊音界缩小、黑便、肠修补+乙状结肠双腔造口；直肠下段:直肠周围感染、无腹膜炎、乙状结肠双腔造口。'},
+  {id:'surg_031',subject:'surgery',system:'abdominal_trauma',chapter:'腹部损伤',type:'matching',title:'腹部损伤-特殊影像学表现',description:'将下列器官损伤与对应的影像学表现匹配',options:[{id:'A',text:'结肠'},{id:'B',text:'胃后壁'},{id:'C',text:'胃前壁'},{id:'D',text:'十二指肠2/3部损伤'},{id:'E',text:'十二指肠1部'},{id:'F',text:'空回肠损伤'}],categories:[{id:'C1',label:'膈下新月形游离气体'},{id:'C2',label:'腹膜后积气'}],answer:{'A':'C1','C':'C1','E':'C1','F':'C1','B':'C2','D':'C2'},explanation:'膈下新月形游离气体:结肠、胃前壁、十二指肠1部、空回肠损伤；腹膜后积气:胃后壁、十二指肠2/3部损伤。'},
+  {id:'surg_032',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠梗阻处理原则',description:'将下列肠梗阻类型与对应的处理原则匹配',options:[{id:'A',text:'粘连性肠梗阻'},{id:'B',text:'新生儿先天肠道畸形'},{id:'C',text:'≤2岁的小孩发生肠套叠>2天'},{id:'D',text:'儿童蛔虫团导致肠梗阻'},{id:'F',text:'已绞窄'},{id:'G',text:'易绞窄'}],categories:[{id:'C1',label:'手术'},{id:'C2',label:'保守'}],answer:{'B':'C1','C':'C1','F':'C1','G':'C1','A':'C2','D':'C2'},explanation:'手术:新生儿先天肠道畸形、≤2岁肠套叠>2天、已绞窄、易绞窄；保守:粘连性肠梗阻、儿童蛔虫团导致肠梗阻。'},
+  {id:'surg_033',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠梗阻病理类型分类',description:'将下列临床表现与对应的肠梗阻病理类型匹配',options:[{id:'A',text:'阵发性绞痛'},{id:'B',text:'持续性胀痛或不适'},{id:'C',text:'腹胀不均匀不对称'},{id:'D',text:'腹胀均匀对称'},{id:'E',text:'肠鸣音增强(亢进呈金属音调)'},{id:'F',text:'肠鸣音减弱'}],categories:[{id:'C1',label:'机械性肠梗阻'},{id:'C2',label:'麻痹性肠梗阻'}],answer:{'A':'C1','C':'C1','E':'C1','B':'C2','D':'C2','F':'C2'},explanation:'机械性肠梗阻:阵发性绞痛、腹胀不均匀不对称、肠鸣音增强(亢进呈金属音调)；麻痹性肠梗阻:持续性胀痛或不适、腹胀均匀对称、肠鸣音减弱。'},
+  {id:'surg_034',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠梗阻程度分类',description:'将下列排便排气情况与对应的梗阻程度匹配',options:[{id:'A',text:'排便排气停止'},{id:'B',text:'不完全性尚有'}],categories:[{id:'C1',label:'完全性肠梗阻'},{id:'C2',label:'不完全性肠梗阻'}],answer:{'A':'C1','B':'C2'},explanation:'完全性肠梗阻:排便排气停止；不完全性肠梗阻:尚有排便排气。'},
+  {id:'surg_035',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠梗阻部位分类',description:'将下列临床表现与对应的梗阻部位匹配',options:[{id:'A',text:'腹胀明显、可见胃肠型、X线阶梯状液气平'},{id:'B',text:'呕吐不明显'},{id:'C',text:'呕吐较晚、含粪样物'},{id:'D',text:'腹胀不明显、可见胃型、X线鱼骨刺状/鱼肋征'},{id:'E',text:'呕吐早而频繁、可合并代碱'}],categories:[{id:'C1',label:'高位(空肠)'},{id:'C2',label:'回肠'},{id:'C3',label:'大肠'}],answer:{'D':'C1','E':'C1','A':['C2','C3'],'C':'C2','B':'C3'},explanation:'高位(空肠):腹胀不明显、可见胃型、X线鱼骨刺状/鱼肋征，呕吐早而频繁可合并代碱；回肠:腹胀明显、可见胃肠型、X线阶梯状液气平，呕吐较晚含粪样物；大肠:腹胀明显、可见胃肠型、X线阶梯状液气平，呕吐不明显。'},
+  {id:'surg_036',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠梗阻特殊类型-扭转(简版)',description:'将下列特征与对应的肠扭转类型匹配',options:[{id:'A',text:'钡灌肠(兼治疗作用)鸟嘴征，X线马蹄状巨大双腔充气肠袢'},{id:'B',text:'青年饱餐后剧烈运动'},{id:'C',text:'便秘的老年运动'},{id:'D',text:'若坏死→肠切除+一期吻合术'},{id:'E',text:'若坏死→肠切除+造口'},{id:'F',text:'回转复位扭转肠袢'}],categories:[{id:'C1',label:'小肠扭转'},{id:'C2',label:'乙状结肠扭转'}],answer:{'B':'C1','D':'C1','F':['C1','C2'],'A':'C2','C':'C2','E':'C2'},explanation:'小肠扭转:青年饱餐后剧烈运动、坏死则肠切除+一期吻合、回转复位扭转肠袢；乙状结肠扭转:钡灌肠鸟嘴征且兼治疗、X线马蹄状巨大双腔充气肠袢、便秘的老年运动、坏死则肠切除+造口、回转复位扭转肠袢。'},
+  {id:'surg_037',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠梗阻绞窄性/闭袢性分类',description:'将下列临床表现与对应的绞窄分类匹配',options:[{id:'A',text:'持续腹痛伴阵发加剧，压痛固定'},{id:'B',text:'腹痛可暂时减轻、随后出现腹膜炎'},{id:'C',text:'早期休克'},{id:'D',text:'肠套叠'},{id:'E',text:'有心脏疾患的老年人:房颤等病史→栓塞肠系膜上动脉等'},{id:'F',text:'X线孤立固定的肿大肠袢(不随时间变化)'},{id:'G',text:'血性呕吐物、排泄物、腹水'},{id:'H',text:'急性完全性梗阻'},{id:'I',text:'闭袢性梗阻'}],categories:[{id:'C1',label:'已绞窄'},{id:'C2',label:'易绞窄'}],answer:{'A':'C1','B':'C1','C':'C1','F':'C1','G':'C1','D':'C2','E':'C2','H':'C2','I':'C2'},explanation:'已绞窄:持续腹痛伴阵发加剧压痛固定、腹痛暂时减轻后出现腹膜炎、早期休克、X线孤立固定肿大肠袢、血性呕吐物/排泄物/腹水；易绞窄:肠套叠、有心脏疾患老年人房颤栓塞肠系膜上动脉、急性完全性梗阻、闭袢性梗阻。'},
+  {id:'surg_038',subject:'surgery',system:'intestinal_obstruction',chapter:'肠梗阻',type:'matching',title:'肠扭转详细鉴别',description:'将下列特征与对应的肠扭转类型及治疗匹配',options:[{id:'A',text:'青年人多见'},{id:'B',text:'X线见马蹄状巨大双腔充气肠袢'},{id:'C',text:'CT最佳，空回肠换位征，漩涡征'},{id:'D',text:'便秘+运动等体位改变'},{id:'E',text:'禁食补液，胃肠减压'},{id:'F',text:'顺时针扭转'},{id:'G',text:'腹胀以打结处特明显'},{id:'H',text:'肠鸣音亢进，坏死后减弱'},{id:'I',text:'原发部位:左下腹绞痛'},{id:'J',text:'呕吐早而频繁'},{id:'K',text:'X线见阶梯状液气平，结肠袋形状'},{id:'L',text:'老年人多见'},{id:'M',text:'饱餐后剧烈运动等体位改变'},{id:'N',text:'逆时针扭转'},{id:'O',text:'及早手术，回转复位扭转肠袢'},{id:'P',text:'排气排便完全停止'},{id:'Q',text:'钡灌肠可见鸟嘴征'},{id:'R',text:'原发部位:脐周绞痛'},{id:'S',text:'全腹腹胀尤以左下腹明显'},{id:'T',text:'若坏死→肠段切除+一期吻合'},{id:'U',text:'若坏死→肠段切除+造口'},{id:'V',text:'呕吐不明显，晚期可少量粪样物'}],categories:[{id:'C1',label:'小肠扭转'},{id:'C2',label:'乙状结肠扭转'},{id:'C3',label:'最基本治疗'},{id:'C4',label:'最重要治疗'}],answer:{'A':'C1','C':'C1','E':['C1','C2','C3'],'F':'C1','G':'C1','H':['C1','C2'],'J':'C1','M':'C1','O':['C1','C2','C4'],'P':['C1','C2'],'R':'C1','T':'C1','B':'C2','D':'C2','I':'C2','K':'C2','L':'C2','N':'C2','Q':'C2','S':'C2','U':'C2','V':'C2'},explanation:'小肠扭转:青年人多见、CT空回肠换位征/漩涡征、顺时针扭转、腹胀以打结处明显、呕吐早而频繁、饱餐后剧烈运动、原发部位脐周绞痛、坏死则肠段切除+一期吻合；乙状结肠扭转:X线马蹄状巨大双腔充气肠袢、便秘+运动、原发部位左下腹绞痛、X线阶梯状液气平结肠袋形状、老年人多见、逆时针扭转、钡灌肠鸟嘴征、全腹腹胀尤以左下腹明显、坏死则肠段切除+造口、呕吐不明显；最基本治疗(两者):禁食补液胃肠减压；最重要治疗(两者):及早手术回转复位扭转肠袢；两者均肠鸣音亢进坏死后减弱、排气排便完全停止。'},
+  {id:'surg_039',subject:'surgery',system:'appendix',chapter:'急性阑尾炎',type:'matching',title:'急性阑尾炎特殊体征试验',description:'将下列体征试验与对应的表现匹配',options:[{id:'A',text:'提示阑尾炎，但阴性也不能排除诊断'},{id:'B',text:'患者仰卧位'},{id:'C',text:'患者左侧卧位'},{id:'D',text:'提示阑尾位置低(盆位)。盆位的阑尾炎其腹痛在耻骨上区、直肠指检直肠前方有触痛'},{id:'E',text:'提示阑尾位置深(盲肠后位/腹膜后位)。盲肠后位/腹膜后位的阑尾炎可有右侧腰背部痛'}],categories:[{id:'C1',label:'结肠充气试验Rovsing征'},{id:'C2',label:'腰大肌试验Psoas征'},{id:'C3',label:'闭孔内肌试验Obturator征'}],answer:{'A':'C1','C':'C2','E':'C2','B':'C3','D':'C3'},explanation:'结肠充气试验(Rovsing征)提示阑尾炎但阴性不能排除；腰大肌试验(Psoas征)患者左侧卧位、提示阑尾位置深(盲肠后位/腹膜后位)可右侧腰背痛；闭孔内肌试验(Obturator征)患者仰卧位、提示阑尾位置低(盆位)腹痛在耻骨上区。'},
+  {id:'surg_040',subject:'surgery',system:'appendix',chapter:'急性阑尾炎',type:'matching',title:'阑尾炎手术处理原则',description:'将下列处理措施与对应的阑尾炎类型匹配',options:[{id:'A',text:'症状轻、无肌紧张'},{id:'B',text:'切口麦氏点'},{id:'C',text:'切口右下腹经腹直肌'},{id:'D',text:'局限性腹膜炎(局部压痛/反跳痛/肌紧张)，阑尾腔内积脓'},{id:'E',text:'生理盐水不冲腹腔'},{id:'F',text:'生理盐水冲腹腔'},{id:'G',text:'围术期用抗生素'},{id:'H',text:'看情况放引流'},{id:'I',text:'不放引流'},{id:'J',text:'生理盐水冲腹腔看情况'},{id:'K',text:'阑尾呈暗紫色，腹痛可暂时减轻、但随即弥漫性腹膜炎(全腹压痛/反跳痛/肌紧张)，体温进一步升高、肠鸣音、甚至休克'},{id:'L',text:'切口偏高'}],categories:[{id:'C1',label:'单纯性'},{id:'C2',label:'化脓性'},{id:'C3',label:'坏疽穿孔性'},{id:'C4',label:'妊娠期'}],answer:{'A':'C1','B':['C1','C2'],'E':['C1','C2'],'G':['C1','C2','C3','C4'],'I':'C1','D':'C2','F':['C2','C3'],'H':['C2','C3'],'C':'C3','K':'C3','J':'C4','L':'C4'},explanation:'单纯性:症状轻无肌紧张、麦氏点切口、不冲腹腔、不放引流；化脓性:局限性腹膜炎阑尾腔内积脓、麦氏点切口、不冲腹腔、冲腹腔、看情况放引流；坏疽穿孔性:阑尾暗紫色、右下腹经腹直肌切口、冲腹腔、看情况放引流；妊娠期:生理盐水冲腹腔看情况、切口偏高；各型均围术期用抗生素。'},
+  {id:'surg_041',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'大肠癌诊断方法',description:'将下列诊断方法与对应的用途匹配',options:[{id:'A',text:'结肠镜'},{id:'B',text:'明确局部浸润、转移等以分期'},{id:'C',text:'判断预后、监测复发、辅助诊断'},{id:'D',text:'与肿瘤分期有关'},{id:'E',text:'直肠指检'},{id:'F',text:'大便隐血试验'}],categories:[{id:'C1',label:'首选'},{id:'C2',label:'金标准'},{id:'C3',label:'CEA'},{id:'C4',label:'筛查'},{id:'C5',label:'CT/MRI、腔内超声、超声内镜'}],answer:{'E':'C1','A':'C2','C':'C3','D':['C3','C5'],'F':'C4','B':'C5'},explanation:'首选:直肠指检；金标准:结肠镜；CEA:判断预后、监测复发、辅助诊断且与肿瘤分期有关；筛查:大便隐血试验；CT/MRI、腔内超声、超声内镜:明确局部浸润转移以分期且与肿瘤分期有关。'},
+  {id:'surg_042',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'结肠癌手术方式选择',description:'将下列结肠癌部位与对应的手术方式匹配',options:[{id:'A',text:'结肠脾曲癌'},{id:'B',text:'结肠肝曲癌'},{id:'C',text:'横结肠中部癌'},{id:'D',text:'乙状结肠癌'},{id:'E',text:'降结肠癌'},{id:'F',text:'升结肠癌'},{id:'G',text:'盲肠癌'}],categories:[{id:'C1',label:'右半结肠切除术'},{id:'C2',label:'横结肠切除术'},{id:'C3',label:'左半结肠切除术'},{id:'C4',label:'乙状结肠切除术'}],answer:{'B':'C1','F':'C1','G':'C1','C':'C2','A':'C3','E':'C3','D':'C4'},explanation:'右半结肠切除术:结肠肝曲癌、升结肠癌、盲肠癌；横结肠切除术:横结肠中部癌；左半结肠切除术:结肠脾曲癌、降结肠癌；乙状结肠切除术:乙状结肠癌。'},
+  {id:'surg_043',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'结肠癌并发急性肠梗阻手术选择',description:'将下列处理方式与对应的情况匹配',options:[{id:'A',text:'切除、一期吻合术'},{id:'B',text:'支架置入、限期切除'},{id:'C',text:'右半结肠切除、一期回肠-结肠吻合术'},{id:'D',text:'切除肿瘤、近端造口与远端封闭'}],categories:[{id:'C1',label:'右半结肠癌'},{id:'C2',label:'左半结肠癌'},{id:'C3',label:'具备一期吻合条件'},{id:'C4',label:'肠管扩张、水肿明显'}],answer:{'C':'C1','B':'C2','A':'C3','D':'C4'},explanation:'右半结肠癌:右半结肠切除、一期回肠-结肠吻合术；左半结肠癌:支架置入、限期切除；具备一期吻合条件:切除、一期吻合术；肠管扩张水肿明显:切除肿瘤、近端造口与远端封闭。'},
+  {id:'surg_044',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'直肠癌手术方式选择',description:'将下列肿瘤位置与对应的手术方式匹配',options:[{id:'A',text:'腹膜返折以下/距肛缘<7距齿状线<5cm'},{id:'B',text:'腹膜返折以下/距肛缘≤7距齿状线≤5cm'},{id:'C',text:'腹膜返折以上/距肛缘≥7距齿状线≥5cm'},{id:'D',text:'腹膜返折以上/距肛缘>7/距齿状线>5cm'},{id:'E',text:'急性肠梗阻不宜行Dixon术'},{id:'F',text:'不耐受Miles术'}],categories:[{id:'C1',label:'Miles术'},{id:'C2',label:'Dixon术'},{id:'C3',label:'Hartmann术'}],answer:{'A':'C1','C':'C2','E':'C3','F':'C3'},explanation:'Miles术:腹膜返折以下/距肛缘<7距齿状线<5cm；Dixon术:腹膜返折以上/距肛缘≥7距齿状线≥5cm；Hartmann术:急性肠梗阻不宜行Dixon术、不耐受Miles术。'},
+  {id:'surg_045',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'括约肌受累与手术方式选择',description:'将下列括约肌受累情况与对应的手术方式匹配',options:[{id:'A',text:'肛门外括约肌和肛提肌受累'},{id:'B',text:'肛门外括约肌和肛提肌未受累，即使低位也可'}],categories:[{id:'C1',label:'Miles术'},{id:'C2',label:'Dixon术'}],answer:{'A':'C1','B':'C2'},explanation:'肛门外括约肌和肛提肌受累→Miles术；未受累即使低位也可→Dixon术。'},
+  {id:'surg_046',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'齿状线以上vs齿状线以下',description:'将下列结构特征与齿状线位置匹配',options:[{id:'A',text:'肛管'},{id:'B',text:'来源内胚层'},{id:'C',text:'皮肤，相对不易破裂'},{id:'D',text:'肛管动脉'},{id:'E',text:'直肠上静脉→门静脉'},{id:'F',text:'腹股沟浅淋巴结'},{id:'G',text:'直肠上动脉(主要)'},{id:'H',text:'内脏(交感、副交感)，痛觉不敏感'},{id:'I',text:'鳞癌'},{id:'J',text:'直肠'},{id:'K',text:'来源于外胚层'},{id:'L',text:'黏膜，易破裂出血'},{id:'M',text:'骶正中动脉'},{id:'N',text:'直肠下静脉和肛管静脉→下腔静脉'},{id:'O',text:'肠系膜下动脉旁和髂内淋巴结'},{id:'P',text:'直肠下动脉'},{id:'Q',text:'躯体(阴部神经)，痛觉敏感'},{id:'R',text:'腺癌'},{id:'S',text:'内痔'},{id:'T',text:'外痔'}],categories:[{id:'C1',label:'齿状线以上'},{id:'C2',label:'齿状线以下'}],answer:{'B':'C1','E':'C1','G':'C1','H':'C1','J':'C1','L':'C1','M':'C1','O':'C1','P':'C1','R':'C1','S':'C1','A':'C2','C':'C2','D':'C2','F':'C2','I':'C2','K':'C2','N':'C2','Q':'C2','T':'C2'},explanation:'齿状线以上:来源内胚层、直肠上静脉→门静脉、直肠上动脉(主要)、骶正中动脉、直肠下动脉、内脏神经痛觉不敏感、肠系膜下动脉旁和髂内淋巴结、黏膜易破裂出血、直肠、腺癌、内痔；齿状线以下:来源外胚层、肛管、皮肤相对不易破裂、肛管动脉、直肠下静脉和肛管静脉→下腔静脉、腹股沟浅淋巴结、躯体神经痛觉敏感、鳞癌、外痔。'},
+  {id:'surg_047',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'内痔分度',description:'将下列临床表现与对应的内痔分度匹配',options:[{id:'A',text:'出血(鲜血)'},{id:'B',text:'脱出(不能还纳或还纳后再次脱出)'},{id:'C',text:'脱出(需用手还纳)'},{id:'D',text:'脱出(可自行还纳)'}],categories:[{id:'C1',label:'内痔Ⅰ度'},{id:'C2',label:'内痔Ⅱ度'},{id:'C3',label:'内痔Ⅲ度'},{id:'C4',label:'内痔Ⅳ度'}],answer:{'A':['C1','C2','C3','C4'],'D':'C2','C':'C3','B':'C4'},explanation:'各度均可出血(鲜血)；Ⅰ度仅出血；Ⅱ度脱出可自行还纳；Ⅲ度脱出需用手还纳；Ⅳ度脱出不能还纳或还纳后再次脱出。'},
+  {id:'surg_048',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'体位匹配-截石位/膝胸位',description:'将下列钟表位与对应的体位及疾病匹配',options:[{id:'A',text:'12'},{id:'B',text:'9/1/5'},{id:'C',text:'6'},{id:'D',text:'3/7/11'}],categories:[{id:'C1',label:'内痔截石位'},{id:'C2',label:'内痔膝胸位'},{id:'C3',label:'肛裂截石位'},{id:'C4',label:'肛裂膝胸位'}],answer:{'D':'C1','B':'C2','C':'C3','A':'C4'},explanation:'内痔截石位:3/7/11；内痔膝胸位:9/1/5；肛裂截石位:6；肛裂膝胸位:12。'},
+  {id:'surg_049',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'肛周脓肿分类',description:'将下列临床表现与对应的脓肿类型匹配',options:[{id:'A',text:'局部症状明显'},{id:'B',text:'局部症状不明显'},{id:'C',text:'最常见'},{id:'D',text:'全身症状明显'},{id:'E',text:'最少见'},{id:'F',text:'全身症状不明显'},{id:'G',text:'可有直肠和/或膀胱刺激征'}],categories:[{id:'C1',label:'肛周脓肿'},{id:'C2',label:'骨盆直肠间隙脓肿'},{id:'C3',label:'坐骨肛管/直肠间隙脓肿'}],answer:{'A':['C1','C3'],'C':'C1','F':'C1','B':'C2','D':['C2','C3'],'E':'C2','G':'C3'},explanation:'肛周脓肿:局部症状明显、最常见、全身症状不明显；骨盆直肠间隙脓肿:局部症状不明显、全身症状明显、最少见；坐骨肛管/直肠间隙脓肿:局部症状明显、全身症状明显、可有直肠和/或膀胱刺激征。'},
+  {id:'surg_050',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'肛瘘治疗',description:'将下列治疗方法与对应的肛瘘类型匹配',options:[{id:'A',text:'挂线'},{id:'B',text:'切除肛瘘'},{id:'C',text:'切开肛瘘'}],categories:[{id:'C1',label:'低位单纯'},{id:'C2',label:'低位复杂'},{id:'C3',label:'高位单纯'},{id:'C4',label:'高位复杂'}],answer:{'A':['C1','C2','C3','C4'],'B':'C1','C':['C2','C4']},explanation:'挂线适用于各型肛瘘；切除肛瘘适用于低位单纯；切开肛瘘适用于低位复杂和高位复杂。'},
+  {id:'surg_051',subject:'surgery',system:'colorectal',chapter:'结直肠肛管疾病',type:'matching',title:'直肠指检鉴别诊断',description:'将下列直肠指检表现与对应的疾病匹配',options:[{id:'A',text:'柔软光滑'},{id:'B',text:'条索状肿物'},{id:'C',text:'可推动的、有蒂'},{id:'D',text:'不用直肠指检'},{id:'E',text:'易出血肿物'},{id:'F',text:'可出血肿物'},{id:'G',text:'触及不规则'},{id:'H',text:'柔软的血管团'},{id:'I',text:'质硬'},{id:'J',text:'波动感'}],categories:[{id:'C1',label:'直肠癌'},{id:'C2',label:'直肠息肉'},{id:'C3',label:'痔(内痔)'},{id:'C4',label:'肛瘘'},{id:'C5',label:'盆腔脓肿'},{id:'C6',label:'肛裂'}],answer:{'E':'C1','G':'C1','I':'C1','A':'C2','C':'C2','F':'C2','H':'C3','B':'C4','J':'C5','D':'C6'},explanation:'直肠癌:易出血肿物、触及不规则、质硬；直肠息肉:柔软光滑、可推动有蒂、可出血肿物；痔(内痔):柔软的血管团；肛瘘:条索状肿物；盆腔脓肿:波动感；肛裂:不用直肠指检。'},
+  {id:'surg_052',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'股管结构',description:'将下列结构与其在股管的位置匹配',options:[{id:'A',text:'腔隙韧带(腹股沟韧带的延伸结构)'},{id:'B',text:'耻骨梳/Cooper韧带(腹股沟韧带的延伸结构)'},{id:'C',text:'腹股沟韧带'},{id:'D',text:'股血管'}],categories:[{id:'C1',label:'前'},{id:'C2',label:'后'},{id:'C3',label:'内'},{id:'C4',label:'外'}],answer:{'C':'C1','B':'C2','A':'C3','D':'C4'},explanation:'股管前界:腹股沟韧带；后界:耻骨梳/Cooper韧带；内侧:腔隙韧带；外侧:股血管。'},
+  {id:'surg_053',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'腹股沟管结构',description:'将下列结构与其在腹股沟管的位置匹配',options:[{id:'A',text:'腹内斜肌和腹横肌腱膜构成的联合腱'},{id:'B',text:'腹外斜肌腱膜(主要)'},{id:'C',text:'腹横筋膜'},{id:'D',text:'腹内斜肌'},{id:'F',text:'腹股沟韧带(腹外斜肌腱膜卷曲形成)'},{id:'G',text:'腹膜'},{id:'H',text:'腹横肌'},{id:'I',text:'腔隙韧带'}],categories:[{id:'C1',label:'前'},{id:'C2',label:'后'},{id:'C3',label:'上'},{id:'C4',label:'下'}],answer:{'B':'C1','D':['C1','C3'],'A':'C2','C':'C2','G':'C2','H':'C3','F':'C4','I':'C4'},explanation:'腹股沟管前壁:腹外斜肌腱膜(主要)、腹内斜肌(外侧)；后壁:腹横筋膜、联合腱、腹膜；上壁:腹内斜肌、腹横肌；下壁:腹股沟韧带、腔隙韧带。'},
+  {id:'surg_054',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'直疝三角/海氏三角',description:'将下列结构与其在直疝三角的位置匹配',options:[{id:'A',text:'腹壁下动脉'},{id:'B',text:'腹直肌外缘'},{id:'C',text:'腹股沟韧带'}],categories:[{id:'C1',label:'内侧'},{id:'C2',label:'底部'},{id:'C3',label:'外侧'}],answer:{'B':'C1','C':'C2','A':'C3'},explanation:'直疝三角内侧:腹直肌外缘；底部:腹股沟韧带；外侧:腹壁下动脉。'},
+  {id:'surg_055',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'疝的组成结构',description:'将下列腹膜结构与对应的疝组成匹配',options:[{id:'A',text:'壁层腹膜'},{id:'B',text:'脏层腹膜'}],categories:[{id:'C1',label:'疝内容物'},{id:'C2',label:'疝囊'}],answer:{'B':'C1','A':'C2'},explanation:'疝内容物为脏层腹膜覆盖的器官；疝囊为壁层腹膜。'},
+  {id:'surg_056',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'各类疝临床表现特点',description:'将下列临床表现与对应的疝类型匹配',options:[{id:'A',text:'无腹膜刺激征'},{id:'B',text:'有疼痛'},{id:'C',text:'包块可消失'},{id:'D',text:'无疼痛'},{id:'E',text:'包块不可消失'},{id:'F',text:'有腹膜刺激征'},{id:'G',text:'包块因卡住反而增大'},{id:'H',text:'可伴机械性肠梗阻(肠鸣音亢进)'}],categories:[{id:'C1',label:'易复疝'},{id:'C2',label:'难复疝'},{id:'C3',label:'嵌顿疝'},{id:'C4',label:'绞窄疝'}],answer:{'A':['C1','C2','C3'],'C':'C1','D':['C1','C2'],'E':['C2','C3','C4'],'B':['C3','C4'],'G':'C3','H':'C3','F':'C4'},explanation:'易复疝:无腹膜刺激征、包块可消失、无疼痛；难复疝:无腹膜刺激征、无疼痛、包块不可消失；嵌顿疝:无腹膜刺激征、包块不可消失、包块因卡住反而增大、有疼痛、可伴机械性肠梗阻；绞窄疝:包块不可消失、有疼痛、有腹膜刺激征。'},
+  {id:'surg_057',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'疝内容物及特殊类型',description:'将下列内容物与对应的疝类型匹配',options:[{id:'A',text:'盲肠'},{id:'B',text:'小肠'},{id:'C',text:'阑尾'},{id:'D',text:'大网膜'},{id:'E',text:'乙状结肠'},{id:'F',text:'膀胱'}],categories:[{id:'C1',label:'疝内容物-易复疝'},{id:'C2',label:'疝内容物-难复疝'},{id:'C3',label:'特殊的难复疝-滑动性疝'}],answer:{'B':'C1','D':'C2','A':'C3','C':'C3','E':'C3','F':'C3'},explanation:'易复疝内容物:小肠；难复疝内容物:大网膜；滑动性疝(特殊难复疝):盲肠、阑尾、乙状结肠、膀胱。'},
+  {id:'surg_058',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'特殊类型嵌顿疝鉴别',description:'将下列嵌顿内容物特征与对应的特殊疝类型匹配',options:[{id:'A',text:'嵌顿内容物为小肠憩室如Meckel憩室'},{id:'B',text:'嵌顿内容物仅为部分肠管壁，局部肿块不明显、多无肠梗阻、易误诊'},{id:'C',text:'即使疝囊肠管存活也必须将腹腔内相关肠袢牵出检查以防隐匿在腹腔内的坏死肠袢被遗漏'},{id:'D',text:'嵌顿内容物为阑尾，常感染化脓'},{id:'E',text:'嵌顿肠管包括几个肠袢、呈W形'}],categories:[{id:'C1',label:'Richter/肠管壁疝'},{id:'C2',label:'Littre疝'},{id:'C3',label:'Maydl/逆行性嵌顿疝'},{id:'C4',label:'Amyand疝'}],answer:{'B':'C1','A':'C2','E':'C3','C':'C3','D':'C4'},explanation:'Richter/肠管壁疝:仅部分肠管壁嵌顿，肿块不明显、多无肠梗阻、易误诊；Littre疝:嵌顿内容物为小肠憩室如Meckel憩室；Maydl/逆行性嵌顿疝:几个肠袢呈W形，即使疝囊肠管存活也须检查腹腔内肠袢；Amyand疝:嵌顿内容物为阑尾，常感染化脓。'},
+  {id:'surg_059',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'婴幼儿疝治疗选择',description:'将下列情况与对应的治疗方式匹配',options:[{id:'A',text:'>1岁婴幼儿'},{id:'B',text:'<1岁'},{id:'C',text:'<2岁脐疝'},{id:'D',text:'绞窄疝'},{id:'E',text:'不耐受手术'}],categories:[{id:'C1',label:'保守'},{id:'C2',label:'单纯疝囊高位结扎'}],answer:{'B':'C1','C':'C1','E':'C1','A':'C2','D':'C2'},explanation:'保守:<1岁、<2岁脐疝、不耐受手术；单纯疝囊高位结扎:>1岁婴幼儿、绞窄疝。'},
+  {id:'surg_060',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'疝修补术式分类',description:'将下列疝修补术式与对应的分类匹配',options:[{id:'A',text:'Ferguson'},{id:'B',text:'Bassini'},{id:'C',text:'Rutkow'},{id:'D',text:'McVay'},{id:'E',text:'Stoppa'},{id:'F',text:'Shouldice'},{id:'G',text:'Lichtenstein'},{id:'H',text:'Halsted法'}],categories:[{id:'C1',label:'单纯疝修补/无张力疝修补'},{id:'C2',label:'疝囊高位结扎+修补 加强前壁'},{id:'C3',label:'加强后壁'}],answer:{'C':'C1','E':'C1','G':'C1','A':'C2','B':'C3','D':'C3','F':'C3','H':'C3'},explanation:'单纯疝修补/无张力疝修补:Rutkow、Stoppa、Lichtenstein；疝囊高位结扎+修补加强前壁:Ferguson；加强后壁:Bassini、McVay、Shouldice、Halsted。'},
+  {id:'surg_061',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'各疝修补术式特点/适应症',description:'将下列特点/适应症与对应的疝修补术式匹配',options:[{id:'A',text:'股疝'},{id:'B',text:'最常用'},{id:'C',text:'成人的大斜疝和直疝'},{id:'D',text:'严重薄弱者'},{id:'E',text:'重点修补腹横筋膜和内环'},{id:'F',text:'把腹内斜肌和联合腱缝合至耻骨梳韧带'}],categories:[{id:'C1',label:'Bassini'},{id:'C2',label:'McVay'},{id:'C3',label:'Shouldice'},{id:'C4',label:'Halsted'}],answer:{'B':'C1','A':'C2','D':'C2','F':'C2','C':'C3','E':'C3'},explanation:'Bassini:最常用；McVay:股疝、严重薄弱者、把腹内斜肌和联合腱缝合至耻骨梳韧带；Shouldice:成人的大斜疝和直疝、重点修补腹横筋膜和内环。'},
+  {id:'surg_062',subject:'surgery',system:'hernia',chapter:'腹外疝',type:'matching',title:'腹股沟疝鉴别（股疝/斜疝/直疝）',description:'将下列临床特征与对应的疝类型匹配',options:[{id:'A',text:'中老年肥胖女性多见'},{id:'B',text:'好发老年男性'},{id:'C',text:'包块在腹股沟韧带上方'},{id:'D',text:'疝块小呈半球形'},{id:'E',text:'半球形、基底较宽'},{id:'F',text:'多进入阴囊/大阴唇'},{id:'G',text:'偶尔进入阴囊/大阴唇'},{id:'H',text:'绝对不进入阴囊/大阴唇'},{id:'I',text:'咳嗽冲击感不明显'},{id:'J',text:'回纳疝块后压住内口疝块不再突出'},{id:'K',text:'回纳疝块后压住内口疝块仍可突出'},{id:'L',text:'咳嗽冲击感多明显'},{id:'M',text:'易嵌顿'},{id:'N',text:'最易嵌顿'},{id:'O',text:'疝囊颈在腹壁下动脉外侧'},{id:'P',text:'疝囊颈在腹壁下动脉内侧'},{id:'Q',text:'精索/子宫圆韧带在疝囊后方'},{id:'R',text:'精索/子宫圆韧带在疝囊前外方'},{id:'S',text:'好发儿童、青年男性'},{id:'T',text:'包块在腹股沟韧带下方'},{id:'U',text:'椭圆或梨形、呈蒂柄状'},{id:'V',text:'不易嵌顿'}],categories:[{id:'C1',label:'股疝'},{id:'C2',label:'斜疝'},{id:'C3',label:'直疝'}],answer:{'A':'C1','D':'C1','H':'C1','I':['C1','C3'],'K':['C1','C3'],'N':'C1','T':'C1','C':['C2','C3'],'F':'C2','J':'C2','L':'C2','M':'C2','O':'C2','Q':'C2','S':'C2','U':'C2','B':'C3','E':'C3','G':'C3','P':'C3','R':'C3','V':'C3'},explanation:'股疝:中老年肥胖女性、包块在腹股沟韧带下方、疝块小呈半球形、绝对不进入阴囊、咳嗽冲击感不明显、回纳后压内口仍可突出、最易嵌顿；斜疝:好发儿童青年男性、包块在腹股沟韧带上方、多进入阴囊、咳嗽冲击感明显、回纳后压内口不再突出、易嵌顿、疝囊颈在腹壁下动脉外侧、精索在疝囊后方、椭圆梨形蒂柄状；直疝:好发老年男性、包块在腹股沟韧带上方、半球形基底较宽、偶尔进入阴囊、咳嗽冲击感不明显、回纳后压内口仍可突出、不易嵌顿、疝囊颈在腹壁下动脉内侧、精索在疝囊前外方。'},
+  {id:'surg_063',subject:'surgery',system:'urology',chapter:'泌尿生殖系统',type:'matching',title:'隐睾治疗选择',description:'将下列治疗方案与对应的隐睾临床情况匹配',options:[{id:'A',text:'短期用hCG'},{id:'B',text:'切除未降睾丸'},{id:'C',text:'睾丸自体移植术'},{id:'D',text:'自行下降'},{id:'E',text:'睾丸固定术'}],categories:[{id:'C1',label:'1岁内'},{id:'C2',label:'1岁后'},{id:'C3',label:'2岁前'},{id:'C4',label:'睾丸萎缩+对侧睾丸正常'},{id:'C5',label:'双侧睾丸不能下降'}],answer:{'D':'C1','A':'C2','E':'C3','B':'C4','C':'C5'},explanation:'1岁内:自行下降；1岁后:短期用hCG；2岁前:睾丸固定术；睾丸萎缩+对侧正常:切除未降睾丸；双侧不能下降:睾丸自体移植术。'},
+  {id:'surg_064',subject:'surgery',system:'urology',chapter:'泌尿生殖系统',type:'matching',title:'鞘膜积液分类鉴别',description:'将下列临床特征与对应的鞘膜积液类型匹配',options:[{id:'A',text:'摸不到睾丸'},{id:'B',text:'摸到睾丸'},{id:'C',text:'平卧后不消失'},{id:'D',text:'平卧后可缩小消失'}],categories:[{id:'C1',label:'睾丸鞘膜积液'},{id:'C2',label:'精索鞘膜积液'},{id:'C3',label:'交通性鞘膜积液'}],answer:{'A':'C1','C':['C1','C2'],'B':['C2','C3'],'D':'C3'},explanation:'睾丸鞘膜积液:摸不到睾丸、平卧后不消失；精索鞘膜积液:摸到睾丸、平卧后不消失；交通性鞘膜积液:摸到睾丸、平卧后可缩小消失。透光试验阳性、无气液咕咕声。'},
+  {id:'surg_065',subject:'surgery',system:'hepatobiliary',chapter:'肝脓肿',type:'matching',title:'细菌性肝脓肿感染途径',description:'将下列病因/病原体与对应的感染途径匹配',options:[{id:'A',text:'心内膜炎'},{id:'B',text:'阑尾炎'},{id:'C',text:'胆道结石'},{id:'D',text:'皮肤化脓'},{id:'E',text:'蛔虫'},{id:'F',text:'痔感染'},{id:'G',text:'肿瘤'},{id:'H',text:'骨髓炎'},{id:'I',text:'胆肠吻合口狭窄如Whipple手术'},{id:'J',text:'菌痢'},{id:'K',text:'大肠杆菌'},{id:'L',text:'金葡菌'},{id:'M',text:'厌氧菌'},{id:'O',text:'开放性肝损伤尤其中央型'},{id:'P',text:'克雷伯杆菌'}],categories:[{id:'C1',label:'胆道梗阻'},{id:'C2',label:'肝动脉'},{id:'C3',label:'门静脉'},{id:'C4',label:'淋巴系统'},{id:'C5',label:'直接感染'}],answer:{'C':'C1','E':'C1','G':'C1','I':'C1','K':['C1','C3'],'M':'C1','P':'C1','A':'C2','D':'C2','H':'C2','L':'C2','B':'C3','F':'C3','J':'C3','O':'C5'},explanation:'胆道梗阻:胆道结石、蛔虫、肿瘤、胆肠吻合口狭窄、大肠杆菌、厌氧菌、克雷伯杆菌；肝动脉:心内膜炎、皮肤化脓、骨髓炎、金葡菌；门静脉:阑尾炎、痔感染、菌痢、大肠杆菌；直接感染:开放性肝损伤尤其中央型。'},
+  {id:'surg_066',subject:'surgery',system:'hepatobiliary',chapter:'肝脓肿',type:'matching',title:'细菌性肝脓肿并发症',description:'将下列并发症与对应的穿破部位匹配',options:[{id:'A',text:'化脓性心包炎'},{id:'B',text:'膈下脓肿'},{id:'C',text:'腹膜炎'},{id:'D',text:'脓胸'},{id:'E',text:'大量出血'},{id:'F',text:'支气管胸膜瘘'},{id:'G',text:'上消化道出血'},{id:'H',text:'支气管胆瘘'},{id:'I',text:'心脏压塞'}],categories:[{id:'C1',label:'右叶脓肿穿破'},{id:'C2',label:'左叶脓肿穿破'},{id:'C3',label:'向腹腔穿破'},{id:'C4',label:'穿破门静脉和胆管壁'}],answer:{'B':'C1','D':'C1','F':'C1','H':'C1','A':'C2','I':'C2','C':'C3','E':'C4','G':'C4'},explanation:'右叶脓肿穿破:膈下脓肿、脓胸、支气管胸膜瘘、支气管胆瘘；左叶脓肿穿破:化脓性心包炎、心脏压塞；向腹腔穿破:腹膜炎；穿破门静脉和胆管壁:大量出血、上消化道出血。'},
+  {id:'surg_067',subject:'surgery',system:'hepatobiliary',chapter:'肝脏解剖',type:'matching',title:'肝内管道结构与解剖分段',description:'将下列肝内管道与对应的解剖结构匹配',options:[{id:'A',text:'肝内胆管'},{id:'B',text:'肝动脉'},{id:'C',text:'肝静脉'},{id:'D',text:'门静脉'}],categories:[{id:'C1',label:'Glisson鞘'},{id:'C2',label:'Couinaud分段依据'}],answer:{'A':'C1','B':'C1','D':'C1','C':'C2','D':['C1','C2']},explanation:'Glisson鞘包含肝内胆管、肝动脉和门静脉；Couinaud分段以肝静脉为分界依据，门静脉也参与分段。'},
+  {id:'surg_068',subject:'surgery',system:'hepatobiliary',chapter:'胰腺疾病',type:'matching',title:'餐前/餐后低血糖鉴别',description:'将下列疾病与对应的低血糖类型匹配',options:[{id:'A',text:'倾倒综合征'},{id:'B',text:'胰岛素瘤'},{id:'C',text:'2型糖尿病'}],categories:[{id:'C1',label:'餐后低血糖'},{id:'C2',label:'餐前低血糖'}],answer:{'A':'C1','C':'C1','B':'C2'},explanation:'倾倒综合征和2型糖尿病为餐后低血糖；胰岛素瘤为餐前低血糖。'},
+  {id:'surg_069',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆结石分类',description:'将下列结石特征与对应的结石类型匹配',options:[{id:'A',text:'质地硬、杂质少'},{id:'B',text:'X线常显影'},{id:'C',text:'剖面呈放射状'},{id:'D',text:'剖面呈放射状、层状'},{id:'E',text:'质地软、杂质多'},{id:'F',text:'X线常不显影'},{id:'G',text:'胆固醇类结石'},{id:'H',text:'胆色素结石'},{id:'I',text:'几乎在胆囊'},{id:'J',text:'多在胆管'}],categories:[{id:'C1',label:'纯胆固醇结石'},{id:'C2',label:'混合性结石'},{id:'C3',label:'黑色素结石'},{id:'C4',label:'棕色结石'},{id:'C5',label:'碳酸钙、磷酸钙、棕榈酸钙等'}],answer:{'C':'C1','F':['C1','C3'],'G':['C1','C2'],'B':['C2','C4','C5'],'D':'C2','A':'C3','H':['C3','C4'],'I':'C3','E':'C4','J':'C4'},explanation:'纯胆固醇结石:剖面呈放射状、X线常不显影、胆固醇类结石；混合性结石:X线常显影、剖面呈放射状层状、胆固醇类结石；黑色素结石:质地硬杂质少、X线常不显影、胆色素结石、几乎在胆囊；棕色结石:X线常显影、质地软杂质多、胆色素结石、多在胆管；碳酸钙等:X线常显影。'},
+  {id:'surg_070',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'肝外胆管结石来源分类',description:'将下列结石来源与对应的分类匹配',options:[{id:'A',text:'胆囊结石排入胆管'},{id:'B',text:'原发于肝外胆管'},{id:'C',text:'主要来自胆囊'}],categories:[{id:'C1',label:'原发性肝外胆管结石'},{id:'C2',label:'继发性肝外胆管结石'}],answer:{'B':'C1','C':'C2','A':'C2'},explanation:'原发性肝外胆管结石:原发于肝外胆管；继发性肝外胆管结石:主要来自胆囊结石排入胆管。'},
+  {id:'surg_071',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆系疾病超声表现',description:'将下列超声表现与对应的疾病匹配',options:[{id:'A',text:'通心粉征(平行强回声带伴蠕动)'},{id:'B',text:'胆囊壁>4mm、双层征'},{id:'C',text:'肝内胆管>4mm、肝外胆管>10mm'},{id:'D',text:'固定、有血供的肿物伴壁不规则增厚'},{id:'E',text:'强回声伴后方声影、随体位移动'}],categories:[{id:'C1',label:'胆囊结石'},{id:'C2',label:'急性胆囊炎'},{id:'C3',label:'胆囊癌'},{id:'C4',label:'胆管扩张'},{id:'C5',label:'胆管蛔虫'}],answer:{'E':'C1','B':'C2','D':'C3','C':'C4','A':'C5'},explanation:'胆囊结石:强回声伴后方声影、随体位移动；急性胆囊炎:胆囊壁>4mm、双层征；胆囊癌:固定有血供肿物伴壁不规则增厚；胆管扩张:肝内胆管>4mm、肝外胆管>10mm；胆管蛔虫:通心粉征。'},
+  {id:'surg_072',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'结石与水的影像学表现',description:'将下列影像学表现与对应的内容物匹配',options:[{id:'A',text:'B超无回声'},{id:'B',text:'CT密度高低与含钙量有关'},{id:'C',text:'MRCP高信号'},{id:'D',text:'B超强回声伴声影'},{id:'E',text:'CT低密度'},{id:'F',text:'MRCP信号缺失(充盈缺损)'}],categories:[{id:'C1',label:'结石'},{id:'C2',label:'水'}],answer:{'B':'C1','D':'C1','F':'C1','A':'C2','C':'C2','E':'C2'},explanation:'结石:CT密度与含钙量有关、B超强回声伴声影、MRCP信号缺失；水:B超无回声、MRCP高信号、CT低密度。'},
+  {id:'surg_073',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆系疾病影像学检查选择',description:'将下列临床情况与对应的影像学检查方法匹配',options:[{id:'A',text:'B超'},{id:'B',text:'CT'},{id:'C',text:'MRI/MRCP'}],categories:[{id:'C1',label:'结石-首选'},{id:'C2',label:'结石-最佳'},{id:'C3',label:'感染-首选'},{id:'C4',label:'感染-最佳'},{id:'C5',label:'严重感染-首选'},{id:'C6',label:'严重感染-最佳(快)'},{id:'C7',label:'严重感染-最佳(全面)'},{id:'C8',label:'肿瘤-首选'},{id:'C9',label:'肿瘤-评估分期'},{id:'C10',label:'肿瘤-最佳'}],answer:{'A':['C1','C3','C5','C8'],'C':['C2','C4','C7','C10'],'B':['C6','C9']},explanation:'结石:首选B超、最佳MRI/MRCP；感染:首选B超、最佳MRI；严重感染:首选B超、最佳(快)CT、(全面)MRI；肿瘤:首选B超、评估分期CT、最佳MRI。'},
+  {id:'surg_074',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆道引流方式选择',description:'将下列引流方式与对应的临床情况匹配',options:[{id:'A',text:'鼻胆管引流ENBD'},{id:'B',text:'经皮经肝胆管穿刺引流PTCD'},{id:'C',text:'常规T管引流'}],categories:[{id:'C1',label:'PTC检查后引流'},{id:'C2',label:'ERCP检查后引流'},{id:'C3',label:'胆总管探查后引流'}],answer:{'B':'C1','A':'C2','C':'C3'},explanation:'PTC检查后引流用PTCD；ERCP检查后引流用ENBD；胆总管探查后引流用常规T管引流。'},
+  {id:'surg_075',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆总管探查后T管管理',description:'将下列T管管理方案与对应的临床情况匹配',options:[{id:'A',text:'胆道无结石残留→术后4周'},{id:'B',text:'术后2周T管造影，若胆道通畅继续引流1天'},{id:'C',text:'胆道有结石残留→术后4-8周'}],categories:[{id:'C1',label:'闭管'},{id:'C2',label:'拔管'},{id:'C3',label:'取残余结石'}],answer:{'B':'C1','A':'C2','C':'C3'},explanation:'闭管:术后2周T管造影，若胆道通畅继续引流1天；拔管:胆道无结石残留→术后4周；取残余结石:胆道有结石残留→术后4-8周。'},
+  {id:'surg_076',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆石病临床特征与治疗',description:'将下列临床特征/治疗与对应的疾病匹配',options:[{id:'A',text:'阵发性胆绞痛，饱餐特别是油腻食物后或夜间出现右上腹绞痛，可向右肩和背部放射'},{id:'B',text:'持续性胆绞痛(右上腹痛)伴阵发加剧'},{id:'C',text:'反复肝区、胸背部闷胀痛'},{id:'D',text:'WBC明显↑常>20×10⁹/L(以中性粒细胞为主)、Plt可↓'},{id:'E',text:'Murphy征(右上腹触及疼痛、肿大的胆囊)'},{id:'F',text:'Charcot三联征:胆绞痛、黄疸(波动性)、寒战高热'},{id:'G',text:'Reynolds五联征:Charcot三联征+中枢抑制+休克(血压<90/60)'},{id:'H',text:'无黄疸、无胆囊增大'},{id:'I',text:'多无黄疸(仅10-20%有轻度黄疸)'},{id:'J',text:'位于颈、管的结石可致Mirizzi综合征'},{id:'K',text:'好发于肝左外叶、右后叶'},{id:'L',text:'好发于肝总管、胆总管下段(汇合部位)'},{id:'M',text:'最关键:急诊解除胆管梗阻、降低胆管压力—PTCD、ENBD或胆总管切开减压+T管引流'},{id:'N',text:'急诊腹腔镜胆囊切除术'},{id:'O',text:'腹腔镜胆囊切除术LC'},{id:'P',text:'观察'},{id:'Q',text:'1-3月后彻底手术以避免复发'},{id:'R',text:'胆管切开取石，或切除病变部分肝脏'},{id:'S',text:'急诊PTGD或胆囊造口，3个月后腹腔镜胆囊切除术'},{id:'T',text:'同时抗休克(补平衡盐和胶体液)，无好转应纠酸'}],categories:[{id:'C1',label:'胆囊结石'},{id:'C2',label:'急性结石性胆囊炎'},{id:'C3',label:'肝内胆管结石及炎症'},{id:'C4',label:'肝外胆管结石及炎症'},{id:'C5',label:'急性梗阻性化脓性胆管炎AOSC'}],answer:{'A':'C1','H':['C1','C3'],'J':'C1','O':'C1','B':'C2','E':'C2','I':'C2','N':'C2','S':'C2','C':'C3','K':'C3','P':'C3','R':'C3','F':'C4','L':'C4','D':'C5','G':'C5','M':'C5','Q':'C5','T':'C5'},explanation:'胆囊结石:阵发性胆绞痛、无黄疸、Mirizzi征、LC治疗；急性结石性胆囊炎:持续性胆绞痛伴阵发加剧、Murphy征、多无黄疸、<3天急诊LC、>3天PTGD后3月LC；肝内胆管结石:反复肝区胸背闷胀痛、好发肝左外叶右后叶、无症状观察、有症状胆管切开取石或肝切除；肝外胆管结石:Charcot三联征、好发肝总管胆总管下段；AOSC:WBC>20×10⁹/L、Reynolds五联征、急诊解除胆管梗阻、1-3月后彻底手术、同时抗休克。'},
+  {id:'surg_077',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆囊息肉分类',description:'将下列息肉类型与对应的分类匹配',options:[{id:'A',text:'胆固醇息肉'},{id:'B',text:'异位胃黏膜'},{id:'C',text:'腺瘤'},{id:'D',text:'炎性息肉'},{id:'E',text:'血管瘤'},{id:'F',text:'腺肌增生'},{id:'G',text:'脂肪瘤'},{id:'H',text:'腺瘤样增生'},{id:'I',text:'平滑肌瘤'},{id:'J',text:'黄色肉芽肿'},{id:'K',text:'神经纤维瘤'},{id:'L',text:'胰腺组织'}],categories:[{id:'C1',label:'肿瘤性息肉'},{id:'C2',label:'非肿瘤性息肉'},{id:'C3',label:'癌前病变'},{id:'C4',label:'几乎不癌变'}],answer:{'C':'C1','E':'C1','G':'C1','I':'C1','K':'C1','A':'C2','B':'C2','D':'C2','F':'C2','H':'C2','J':'C2','L':'C2','C':'C3','A':'C4','D':'C4'},explanation:'肿瘤性息肉:腺瘤、血管瘤、脂肪瘤、平滑肌瘤、神经纤维瘤；非肿瘤性息肉:胆固醇息肉、异位胃黏膜、炎性息肉、腺肌增生、腺瘤样增生、黄色肉芽肿、胰腺组织；癌前病变:腺瘤；几乎不癌变:胆固醇息肉、炎性息肉。'},
+  {id:'surg_078',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆管癌分类（按部位）',description:'将下列胆管癌发生部位与对应的分类匹配',options:[{id:'A',text:'下段胆管癌'},{id:'B',text:'上段/肝门部胆管癌'},{id:'C',text:'中段胆管癌'}],categories:[{id:'C1',label:'下段胆管癌'},{id:'C2',label:'中段胆管癌'},{id:'C3',label:'上段/肝门部胆管癌'}],answer:{'A':'C1','C':'C2','B':'C3'},explanation:'胆管癌按部位分为下段、中段、上段/肝门部胆管癌。'},
+  {id:'surg_079',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'上段/肝门部胆管癌Bismuth-Corlette分型',description:'将下列肿瘤侵犯范围与对应的Bismuth-Corlette分型匹配',options:[{id:'A',text:'侵犯左右肝管(双侧)'},{id:'B',text:'达汇合部'},{id:'C',text:'汇合部以下'},{id:'D',text:'侵犯右或左肝管'}],categories:[{id:'C1',label:'TypeⅠ'},{id:'C2',label:'TypeⅡ'},{id:'C3',label:'TypeⅢ'},{id:'C4',label:'TypeⅣ'}],answer:{'C':'C1','B':'C2','D':'C3','A':'C4'},explanation:'TypeⅠ:汇合部以下；TypeⅡ:达汇合部；TypeⅢ:侵犯右或左肝管；TypeⅣ:侵犯左右肝管(双侧)。'},
+  {id:'surg_080',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆管闭锁分型',description:'将下列胆管闭锁部位与对应的分型匹配',options:[{id:'A',text:'肝门部胆管闭锁'},{id:'B',text:'肝管闭锁'},{id:'C',text:'只涉及胆总管'}],categories:[{id:'C1',label:'TypeⅠ'},{id:'C2',label:'TypeⅡ'},{id:'C3',label:'TypeⅢ'},{id:'C4',label:'最常见'}],answer:{'C':'C1','B':'C2','A':'C3','A':'C4'},explanation:'TypeⅠ:只涉及胆总管；TypeⅡ:肝管闭锁；TypeⅢ:肝门部胆管闭锁(最常见)。'},
+  {id:'surg_081',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆管闭锁手术方式与肝移植适应症',description:'将下列手术方式与对应的临床情况匹配',options:[{id:'A',text:'Kasai术后无效'},{id:'B',text:'肝外胆管或胆囊与空肠行RY吻合'},{id:'C',text:'肝内外胆管完全闭锁'},{id:'D',text:'Kasai肝门-空肠RY吻合'},{id:'E',text:'已发生肝硬化'}],categories:[{id:'C1',label:'尚有部分肝外胆管通畅、胆囊大小正常'},{id:'C2',label:'肝门部胆管闭锁、但肝内仍有胆管腔'},{id:'C3',label:'肝移植适应症'}],answer:{'B':'C1','D':'C2','A':'C3','C':'C3','E':'C3'},explanation:'尚有部分肝外胆管通畅、胆囊正常:肝外胆管或胆囊与空肠行RY吻合；肝门部胆管闭锁但肝内仍有胆管腔:Kasai肝门-空肠RY吻合；肝移植适应症:Kasai术后无效、肝内外胆管完全闭锁、已发生肝硬化。胆管闭锁尽量出生2个月内手术。'},
+  {id:'surg_082',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'先天性胆管扩张症Todani分型',description:'将下列胆管扩张特征与对应的Todani分型匹配',options:[{id:'A',text:'胆总管十二指肠壁内段呈囊状膨出'},{id:'B',text:'肝内、外胆管扩张'},{id:'C',text:'肝内胆管多发扩张、伴肝纤维化'},{id:'D',text:'肝外胆管尤其胆总管囊性扩张、直径最大可达25cm'},{id:'E',text:'胆总管侧壁局限性管囊性扩张呈憩室样'},{id:'F',text:'肝外胆管无扩张'}],categories:[{id:'C1',label:'TypeⅠ'},{id:'C2',label:'TypeⅡ'},{id:'C3',label:'TypeⅢ'},{id:'C4',label:'TypeⅣ'},{id:'C5',label:'TypeⅤ/Caroli病'},{id:'C6',label:'最常见'}],answer:{'D':'C1','E':'C2','A':'C3','B':'C4','C':'C5','F':'C5','D':'C6'},explanation:'TypeⅠ:肝外胆管尤其胆总管囊性扩张(最常见)；TypeⅡ:胆总管侧壁局限性憩室样扩张；TypeⅢ:胆总管十二指肠壁内段囊状膨出；TypeⅣ:肝内外胆管扩张；TypeⅤ/Caroli病:肝内胆管多发扩张伴肝纤维化、肝外胆管无扩张。'},
+  {id:'surg_083',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆系疾病检查方法与英文缩写',description:'将下列检查方法/术语与对应的英文缩写匹配',options:[{id:'A',text:'经皮经肝胆管穿刺引流(PTC经皮经肝胆管穿刺造影)'},{id:'B',text:'胰头十二指肠切除术'},{id:'C',text:'腹腔镜胆囊切除术'},{id:'D',text:'深吸气触及无痛/光滑/肿大的胆囊—中下段胆管癌、胰头癌、壶腹癌、十二指肠癌'},{id:'E',text:'磁共振胰胆管成像(水成像)'},{id:'F',text:'急性梗阻性化脓性胆管炎'},{id:'G',text:'ERCP经内镜逆行性胰胆管造影'},{id:'H',text:'内镜下Oddi括约肌切开EST+取石+鼻胆管引流ENBD'},{id:'I',text:'经皮经肝胆囊穿刺引流'}],categories:[{id:'C1',label:'AOSC'},{id:'C2',label:'LC'},{id:'C3',label:'PTGD'},{id:'C4',label:'PTCD'},{id:'C5',label:'MRCP'},{id:'C6',label:'治疗性ERCP'},{id:'C7',label:'Whipple术'},{id:'C8',label:'Courvoisier征'}],answer:{'F':'C1','C':'C2','I':'C3','A':'C4','E':'C5','H':'C6','B':'C7','D':'C8'},explanation:'AOSC=急性梗阻性化脓性胆管炎；LC=腹腔镜胆囊切除术；PTGD=经皮经肝胆囊穿刺引流；PTCD=经皮经肝胆管穿刺引流；MRCP=磁共振胰胆管成像；治疗性ERCP=内镜下Oddi括约肌切开EST+取石+鼻胆管引流ENBD；Whipple术=胰头十二指肠切除术；Courvoisier征=深吸气触及无痛光滑肿大的胆囊。'},
+  {id:'surg_084',subject:'surgery',system:'vascular',chapter:'周围血管疾病',type:'matching',title:'动脉硬化闭塞症与血栓闭塞性脉管炎分期',description:'将下列临床表现与对应的分期匹配',options:[{id:'A',text:'静息痛、夜间痛'},{id:'B',text:'间歇性跛行(IIa>200m/IIb<200m)、动脉搏动消失'},{id:'C',text:'坏疽发黑、ABI<0.4'},{id:'D',text:'仅麻木寒冷、动脉搏动减弱、踝/肱指数ABI<0.9'}],categories:[{id:'C1',label:'Ⅰ期'},{id:'C2',label:'Ⅱ期'},{id:'C3',label:'Ⅲ期'},{id:'C4',label:'Ⅳ期'}],answer:{'D':'C1','B':'C2','A':'C3','C':'C4'},explanation:'Ⅰ期:仅麻木寒冷、动脉搏动减弱、ABI<0.9；Ⅱ期:间歇性跛行(IIa>200m/IIb<200m)、动脉搏动消失；Ⅲ期:静息痛、夜间痛；Ⅳ期:坏疽发黑、ABI<0.4。'},
+  {id:'surg_085',subject:'surgery',system:'vascular',chapter:'周围血管疾病',type:'matching',title:'Rutherford分级',description:'将下列临床表现与对应的Rutherford分级匹配',options:[{id:'A',text:'少量组织缺损或活动性溃疡'},{id:'B',text:'静息痛、夜间痛'},{id:'C',text:'重度间歇性跛行、最大跛行距离<300m'},{id:'D',text:'轻度间歇性跛行、最大跛行距离>500m'},{id:'E',text:'大面积组织溃疡或坏疽'},{id:'F',text:'中度间歇性跛行、最大跛行距离300-500m'}],categories:[{id:'C1',label:'Grade 1'},{id:'C2',label:'Grade 2'},{id:'C3',label:'Grade 3'},{id:'C4',label:'Grade 4'},{id:'C5',label:'Grade 5'},{id:'C6',label:'Grade 6'}],answer:{'D':'C1','F':'C2','C':'C3','B':'C4','A':'C5','E':'C6'},explanation:'Grade1:轻度间歇性跛行、最大跛行距离>500m；Grade2:中度间歇性跛行、最大跛行距离300-500m；Grade3:重度间歇性跛行、最大跛行距离<300m；Grade4:静息痛、夜间痛；Grade5:少量组织缺损或活动性溃疡；Grade6:大面积组织溃疡或坏疽。'},
+  {id:'surg_086',subject:'surgery',system:'vascular',chapter:'周围血管疾病',type:'matching',title:'动脉硬化闭塞症vs血栓闭塞性脉管炎',description:'将下列临床特征与对应的疾病匹配',options:[{id:'A',text:'累及中小动静脉'},{id:'B',text:'>45岁男性多见'},{id:'C',text:'吸烟'},{id:'D',text:'广泛狭窄、钙化'},{id:'E',text:'累及中大动脉(可有血管杂音)'},{id:'F',text:'青壮年男性多见'},{id:'G',text:'高血脂、高血压、糖尿病、吸烟等'},{id:'H',text:'节段性，游走性浅静脉炎'}],categories:[{id:'C1',label:'动脉硬化闭塞症'},{id:'C2',label:'血栓闭塞性脉管炎(Buerger病)'}],answer:{'B':'C1','D':'C1','E':'C1','G':'C1','A':'C2','C':'C2','F':'C2','H':'C2'},explanation:'动脉硬化闭塞症:>45岁男性多见、广泛狭窄钙化、累及中大动脉(可有血管杂音)、高血脂高血压糖尿病吸烟等；血栓闭塞性脉管炎(Buerger病):累及中小动静脉、吸烟、青壮年男性多见、节段性游走性浅静脉炎。'},
+  {id:'surg_087',subject:'surgery',system:'vascular',chapter:'周围血管疾病',type:'matching',title:'下肢深静脉血栓分型',description:'将下列临床表现与对应的深静脉血栓分型匹配',options:[{id:'A',text:'小腿痛肿'},{id:'B',text:'髂窝、股三角区痛、全下肢肿'},{id:'C',text:'各处疼痛+全下肢肿'},{id:'D',text:'大腿痛肿'},{id:'E',text:'股白肿(苍白、皮温升高)'},{id:'F',text:'Homans征'},{id:'G',text:'股青肿(青紫、动脉搏动消失、皮温下降)'}],categories:[{id:'C1',label:'周围型'},{id:'C2',label:'中央型'},{id:'C3',label:'混合型'}],answer:{'A':'C1','D':'C1','F':'C1','B':'C2','C':'C3','E':'C3','G':'C3'},explanation:'周围型:小腿痛肿+Homans征(局限在小腿深静脉)、大腿痛肿(局限在股静脉)；中央型:髂窝、股三角区痛、全下肢肿；混合型:各处疼痛+全下肢肿、股白肿(苍白、皮温升高)、股青肿(青紫、动脉搏动消失、皮温下降)。'},
+  {id:'surg_088',subject:'surgery',system:'vascular',chapter:'周围血管疾病',type:'matching',title:'血管体格检查试验',description:'将下列检查结果与对应的体格检查试验匹配',options:[{id:'A',text:'静脉逆流或回流障碍'},{id:'B',text:'交通静脉瓣膜功能不全'},{id:'C',text:'小腿深静脉血栓'},{id:'D',text:'动脉供血不足:主要是动脉硬化闭塞症、血栓闭塞性脉管炎'},{id:'F',text:'大隐静脉瓣膜功能不全'},{id:'G',text:'深静脉阻塞如血栓(Perthes阳性→禁止结扎、剥脱、或向曲张浅静脉注射硬化剂)'},{id:'H',text:'体位性色泽改变试验'},{id:'I',text:'踝关节过度背伸试验'}],categories:[{id:'C1',label:'Buerger试验'},{id:'C2',label:'Trendelenburg试验'},{id:'C3',label:'Pratt试验'},{id:'C4',label:'Perthes试验'},{id:'C5',label:'Homans征'}],answer:{'A':'C1','D':'C1','H':'C1','F':'C2','B':'C3','G':'C4','C':'C5','I':'C5'},explanation:'Buerger试验:静脉逆流或回流障碍、动脉供血不足、体位性色泽改变试验；Trendelenburg试验:大隐静脉瓣膜功能不全；Pratt试验:交通静脉瓣膜功能不全；Perthes试验:深静脉阻塞如血栓(阳性禁止手术)；Homans征:小腿深静脉血栓、踝关节过度背伸试验。'},
+  {id:'surg_089',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'肾结核治疗选择',description:'将下列治疗方案与对应的肾结核临床情况匹配',options:[{id:'A',text:'输尿管皮肤造口术'},{id:'B',text:'抗结核+肾切除术(术前抗结核>2周)'},{id:'C',text:'仅抗结核药物治疗'},{id:'D',text:'乙状结肠膀胱扩大术'}],categories:[{id:'C1',label:'肾盏破坏轻微或无'},{id:'C2',label:'6-9个月无效、肾盏破坏严重或肾无功能'},{id:'C3',label:'肾切除+抗结核3-6个月、膀胱结核愈合后尿道狭窄'},{id:'C4',label:'膀胱挛缩无尿道狭窄'}],answer:{'C':'C1','B':'C2','A':'C3','D':'C4'},explanation:'肾盏破坏轻微或无:仅抗结核药物；6-9个月无效或肾无功能:抗结核+肾切除；肾切除+抗结核3-6月后膀胱结核愈合但尿道狭窄:输尿管皮肤造口术；膀胱挛缩无尿道狭窄:乙状结肠膀胱扩大术。'},
+  {id:'surg_090',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'膀胱癌治疗方式选择',description:'将下列治疗方式与对应的膀胱癌类型匹配',options:[{id:'A',text:'根治性膀胱切除+尿流改道'},{id:'B',text:'TURBT(经尿道膀胱肿瘤切除术)'},{id:'C',text:'以化疗为主+姑息手术'},{id:'D',text:'BCG(卡介苗)为最有效的膀胱内灌注免疫治疗'}],categories:[{id:'C1',label:'非肌层浸润性尿路上皮癌'},{id:'C2',label:'肌层浸润性尿路上皮癌'},{id:'C3',label:'非尿路上皮癌'}],answer:{'B':'C1','D':'C1','A':'C2','C':'C2','A':'C3','C':'C3'},explanation:'非肌层浸润性尿路上皮癌:TURBT+BCG膀胱内灌注免疫治疗；肌层浸润性尿路上皮癌:根治性膀胱切除+尿流改道、以化疗为主+姑息手术；非尿路上皮癌:根治性膀胱切除+尿流改道、以化疗为主+姑息手术。'},
+  {id:'surg_091',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'膀胱癌TNM分期',description:'将下列病理表现与对应的膀胱癌TNM分期匹配',options:[{id:'A',text:'T1'},{id:'B',text:'T3'},{id:'C',text:'Tis'},{id:'D',text:'T2'},{id:'E',text:'Ta'},{id:'F',text:'T4'}],categories:[{id:'C1',label:'未突破基底膜、无突向黏膜表面'},{id:'C2',label:'非浸润性乳头状癌'},{id:'C3',label:'侵犯黏膜固有层或黏膜下层'},{id:'C4',label:'达肌层'},{id:'C5',label:'原位癌/非浸润癌'},{id:'C6',label:'非肌层浸润性尿路上皮癌'},{id:'C7',label:'肌层浸润性尿路上皮癌'}],answer:{'C':'C1','E':'C2','C':'C5','E':'C5','A':'C3','D':'C4','B':'C7','D':'C7','F':'C7','A':'C6','C':'C6','E':'C6'},explanation:'Tis:未突破基底膜、原位癌；Ta:非浸润性乳头状癌；T1:侵犯黏膜固有层或黏膜下层；T2:达肌层；T3:超出肌层；T4:侵犯邻近器官。非肌层浸润性尿路上皮癌=Tis+Ta+T1；肌层浸润性尿路上皮癌=T2+T3+T4。'},
+  {id:'surg_092',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'血尿分类与疾病鉴别',description:'将下列疾病与对应的血尿类型匹配',options:[{id:'A',text:'上尿路(肾和输尿管)病变'},{id:'B',text:'膀胱炎'},{id:'C',text:'前尿道损伤'},{id:'D',text:'膀胱结石'},{id:'E',text:'少数肾结核'},{id:'F',text:'膀胱结核'},{id:'G',text:'泌外恶性肿瘤(多数膀胱癌、上尿路癌、肾癌等)'},{id:'H',text:'膀胱癌'},{id:'I',text:'多数肾结核'}],categories:[{id:'C1',label:'全程血尿'},{id:'C2',label:'初始血尿'},{id:'C3',label:'终末血尿'}],answer:{'A':'C1','E':'C1','G':'C1','C':'C2','B':'C3','D':'C3','F':'C3','H':'C3','I':'C3'},explanation:'全程血尿:上尿路病变、少数肾结核、泌外恶性肿瘤；初始血尿:前尿道损伤；终末血尿:膀胱炎、膀胱结石、膀胱结核、膀胱癌、多数肾结核。'},
+  {id:'surg_093',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'泌尿疾病临床特征鉴别',description:'将下列临床特征与对应的疾病匹配',options:[{id:'A',text:'无痛肉眼全程血尿'},{id:'B',text:'无膀胱刺激症或晚期出现'},{id:'C',text:'膀胱刺激症'},{id:'D',text:'排尿突然中断、改变体位又排尿'},{id:'E',text:'血尿常在膀胱刺激症后出现'}],categories:[{id:'C1',label:'膀胱结石'},{id:'C2',label:'膀胱癌'},{id:'C3',label:'肾结核'},{id:'C4',label:'泌外恶性肿瘤'},{id:'C5',label:'膀胱炎'},{id:'C6',label:'膀胱结核'}],answer:{'C':'C1','D':'C1','B':'C2','A':'C4','C':['C1','C3','C5','C6'],'E':['C3','C6']},explanation:'膀胱结石:膀胱刺激症+排尿突然中断改变体位又排尿；膀胱癌:无膀胱刺激症或晚期出现；肾结核:膀胱刺激症+血尿常在膀胱刺激症后出现；泌外恶性肿瘤:无痛肉眼全程血尿；膀胱炎:膀胱刺激症；膀胱结核:膀胱刺激症+血尿常在膀胱刺激症后出现。'},
+  {id:'surg_094',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'泌尿肿瘤综合鉴别与治疗',description:'将下列病理/临床特征/治疗与对应的泌尿肿瘤匹配',options:[{id:'A',text:'透明细胞癌'},{id:'B',text:'腺癌'},{id:'C',text:'移行上皮癌'},{id:'D',text:'位于前列腺外周带'},{id:'E',text:'位于前列腺中央带'},{id:'F',text:'可有凝血块'},{id:'G',text:'腰腹部肿块'},{id:'H',text:'条状血块'},{id:'I',text:'同侧精索静脉曲张且平卧不消失'},{id:'J',text:'膀胱镜输尿管口喷血'},{id:'K',text:'首选直肠指检触及肿块'},{id:'L',text:'PSA和酸性磷酸酶'},{id:'M',text:'部分切除或根治性切除'},{id:'N',text:'根治性切除患肾+全程输尿管+输尿管开口处膀胱壁'},{id:'O',text:'TURBT'},{id:'P',text:'根治性切除前列腺'},{id:'Q',text:'根治性膀胱切除+尿流改道'},{id:'R',text:'抗雄激素药+去势治疗'}],categories:[{id:'C1',label:'膀胱癌'},{id:'C2',label:'上尿路癌'},{id:'C3',label:'肾癌(肾腺癌)'},{id:'C4',label:'前列腺癌'},{id:'C5',label:'膀胱癌-Tis/Ta/T1'},{id:'C6',label:'膀胱癌-T2/T3/T4'},{id:'C7',label:'前列腺癌-局限在前列腺'},{id:'C8',label:'前列腺癌-突破前列腺'}],answer:{'C':['C1','C2'],'F':'C1','O':'C5','Q':'C6','H':'C2','J':'C2','N':'C2','A':'C3','G':'C3','I':'C3','M':'C3','B':'C4','D':'C4','K':'C4','L':'C4','P':'C7','R':'C8'},explanation:'膀胱癌:移行上皮癌、凝血块、Tis/Ta/T1行TURBT、T2/T3/T4行根治性膀胱切除+尿流改道；上尿路癌:移行上皮癌、条状血块、膀胱镜输尿管口喷血、根治性切除患肾+全程输尿管+输尿管开口处膀胱壁；肾癌:透明细胞癌、腰腹部肿块、同侧精索静脉曲张平卧不消失、部分或根治性切除；前列腺癌:腺癌、位于外周带、直肠指检触及肿块、PSA和酸性磷酸酶、局限在前列腺行根治性切除、突破前列腺行抗雄激素+去势。'},
+  {id:'surg_095',subject:'surgery',system:'urology',chapter:'泌尿系结石',type:'matching',title:'尿路结石特征',description:'将下列结石特征与对应的结石类型匹配',options:[{id:'A',text:'易碎'},{id:'B',text:'硬'},{id:'C',text:'光滑'},{id:'D',text:'蜡样'},{id:'E',text:'鹿角样'},{id:'F',text:'桑葚样'},{id:'G',text:'颗粒状'},{id:'H',text:'灰白色'},{id:'I',text:'棕褐色'},{id:'J',text:'红色'},{id:'K',text:'黄色'},{id:'L',text:'棕'},{id:'M',text:'最常见'},{id:'N',text:'酸化尿液+抗感染'},{id:'O',text:'X线高密度'},{id:'P',text:'X线不显影'}],categories:[{id:'C1',label:'草酸钙'},{id:'C2',label:'磷酸钙'},{id:'C3',label:'尿酸盐'},{id:'C4',label:'胱氨酸'}],answer:{'F':'C1','I':'C1','M':'C1','B':['C1','C3','C4'],'L':['C1','C2'],'O':['C1','C2'],'A':'C2','E':'C2','H':'C2','N':'C2','C':['C3','C4'],'G':'C3','J':'C3','P':['C3','C4'],'D':'C4','K':'C4'},explanation:'草酸钙:硬、桑葚样、棕褐色、棕、最常见、X线高密度；磷酸钙:易碎、鹿角样、灰白色、棕、酸化尿液+抗感染、X线高密度；尿酸盐:硬、光滑、颗粒状、红色、X线不显影；胱氨酸:硬、光滑、蜡样、黄色、X线不显影。'},
+  {id:'surg_096',subject:'surgery',system:'urology',chapter:'泌尿系结石',type:'matching',title:'尿路结石vs胆系结石',description:'将下列特征与对应的结石类型匹配',options:[{id:'A',text:'西北地区多见'},{id:'B',text:'与钙代谢异常有关'},{id:'C',text:'成分主要是胆固醇等'},{id:'D',text:'X线显影'},{id:'E',text:'X线部分显影'},{id:'F',text:'碎石、取石或其它'},{id:'G',text:'南方地区多见'},{id:'H',text:'与钙代谢异常无关'},{id:'I',text:'成分主要是草酸钙、磷酸钙'},{id:'J',text:'X线不显影'},{id:'K',text:'胆囊结石切胆囊、胆管结石取石或其它'}],categories:[{id:'C1',label:'尿路结石'},{id:'C2',label:'胆系结石'}],answer:{'B':'C1','F':'C1','G':'C1','I':'C1','D':['C1','C2'],'J':['C1','C2'],'A':'C2','C':'C2','H':'C2','K':'C2','E':'C2'},explanation:'尿路结石:南方地区多见、与钙代谢异常有关、成分主要是草酸钙和磷酸钙、碎石取石；胆系结石:西北地区多见、与钙代谢异常无关、成分主要是胆固醇等、胆囊结石切胆囊胆管结石取石。X线显影:尿路(草酸钙/磷酸钙)和胆系(混合性结石)；X线不显影:尿路(尿酸盐/胱氨酸)和胆系(纯胆固醇结石)；X线部分显影:胆系(胆色素结石)。'},
+  {id:'surg_097',subject:'surgery',system:'urology',chapter:'泌尿系结石',type:'matching',title:'泌尿系结石治疗原则',description:'将下列治疗方式与对应的临床情况匹配',options:[{id:'A',text:'双侧输尿管镜碎石取石，否则先处理梗阻严重的一侧'},{id:'B',text:'膀胱镜碎石取石'},{id:'C',text:'先处理容易取出的一侧'},{id:'D',text:'尽量不作尿道切开取石'},{id:'E',text:'先造瘘'},{id:'F',text:'先处理输尿管结石'},{id:'G',text:'药物+饮水'},{id:'H',text:'将结石推入膀胱按膀胱结石处理'},{id:'I',text:'石蜡润滑挤出尿道口'}],categories:[{id:'C1',label:'肾功能极差'},{id:'C2',label:'多发结石双侧肾结石'},{id:'C3',label:'双侧输尿管结石'},{id:'C4',label:'一侧肾结石一侧输尿管结石'},{id:'C5',label:'结石<0.6cm'},{id:'C6',label:'膀胱结石尤其<2cm'},{id:'C7',label:'尿道结石'},{id:'C8',label:'前尿道结石'},{id:'C9',label:'后尿道结石'}],answer:{'E':'C1','C':'C2','A':'C3','F':'C4','G':'C5','B':'C6','D':'C7','I':'C8','H':'C9'},explanation:'肾功能极差:先造瘘；双侧肾结石:先处理容易取出的一侧；双侧输尿管结石:双侧碎石取石或先处理梗阻严重侧；一侧肾一侧输尿管:先处理输尿管结石；结石<0.6cm:药物+饮水；膀胱结石<2cm:膀胱镜碎石取石；尿道结石:尽量不作尿道切开取石；前尿道:石蜡润滑挤出；后尿道:推入膀胱按膀胱结石处理。'},
+  {id:'surg_098',subject:'surgery',system:'urology',chapter:'泌尿外伤',type:'matching',title:'尿道外伤鉴别',description:'将下列临床特征与对应的尿道外伤类型匹配',options:[{id:'A',text:'尿生殖膈以上'},{id:'B',text:'会阴部骑跨'},{id:'C',text:'多损伤尿道膜部'},{id:'D',text:'会阴、阴囊、阴茎、下腹壁尿外渗血肿'},{id:'E',text:'直肠指检肿痛'},{id:'F',text:'尿生殖膈以下'},{id:'G',text:'骨盆骨折'},{id:'H',text:'多损伤尿道球部'},{id:'I',text:'膀胱周围、耻骨后间隙尿外渗血肿'},{id:'J',text:'前列腺尖端浮动感'}],categories:[{id:'C1',label:'前尿道'},{id:'C2',label:'后尿道'}],answer:{'B':'C1','D':'C1','F':'C1','H':'C1','A':'C2','C':'C2','E':'C2','G':'C2','I':'C2','J':'C2'},explanation:'前尿道:会阴部骑跨伤、尿生殖膈以下、多损伤尿道球部、会阴阴囊阴茎下腹壁尿外渗血肿；后尿道:尿生殖膈以上、多损伤尿道膜部、骨盆骨折、直肠指检肿痛、膀胱周围耻骨后间隙尿外渗血肿、前列腺尖端浮动感。'},
+  {id:'surg_099',subject:'surgery',system:'urology',chapter:'泌尿外伤',type:'matching',title:'膀胱破裂分型',description:'将下列临床特征与对应的膀胱破裂类型匹配',options:[{id:'A',text:'前壁'},{id:'B',text:'腹腔尿外渗血肿'},{id:'C',text:'下腹疼痛压痛肌紧张'},{id:'D',text:'剖腹探查'},{id:'E',text:'直肠指检肿痛'},{id:'F',text:'后壁、顶部'},{id:'G',text:'膀胱周围、耻骨后间隙尿外渗血肿'},{id:'H',text:'全腹腹膜刺激征、可有移动性浊音'},{id:'I',text:'下腹正中切口'}],categories:[{id:'C1',label:'腹膜外型膀胱破裂'},{id:'C2',label:'腹膜内型膀胱破裂'}],answer:{'A':'C1','C':'C1','E':'C1','G':'C1','I':'C1','B':'C2','D':'C2','F':'C2','H':'C2'},explanation:'腹膜外型:前壁破裂、下腹疼痛压痛肌紧张、直肠指检肿痛、膀胱周围耻骨后间隙尿外渗血肿、下腹正中切口；腹膜内型:后壁顶部破裂、腹腔尿外渗血肿、全腹腹膜刺激征可有移动性浊音、剖腹探查。'},
+  {id:'surg_100',subject:'surgery',system:'urology',chapter:'泌尿外伤',type:'matching',title:'肾外伤分类',description:'将下列临床表现与对应的肾外伤类型匹配',options:[{id:'A',text:'如全层裂伤:腰腹部肿块、大量全程肉眼血尿，可有腹膜刺激征、休克'},{id:'B',text:'最轻'},{id:'C',text:'最重:迅速出现休克、肾功能丧失'}],categories:[{id:'C1',label:'肾挫伤'},{id:'C2',label:'肾裂伤'},{id:'C3',label:'肾蒂损伤'}],answer:{'B':'C1','A':'C2','C':'C3'},explanation:'肾挫伤:最轻；肾裂伤:全层裂伤致腰腹部肿块、大量全程肉眼血尿、腹膜刺激征、休克；肾蒂损伤:最重、迅速休克、肾功能丧失。'},
+  {id:'surg_101',subject:'surgery',system:'urology',chapter:'泌尿系统疾病',type:'matching',title:'尿失禁分型',description:'将下列临床特征与对应的尿失禁类型匹配',options:[{id:'A',text:'尿液不连续从尿道口不自主流出、呈滴沥样、夜间多见'},{id:'B',text:'假性尿失禁'},{id:'C',text:'完全失去控制排尿能力，任何时间体位下尿液均持续不自主从尿道口流出'},{id:'D',text:'每次排尿时尿液难以排尽、残余尿逐渐增多、膀胱过度充盈致内压超过尿道阻力'},{id:'E',text:'多见于膀胱炎、神经源性膀胱、重度膀胱出口梗阻引起的膀胱不稳定收缩'},{id:'F',text:'平常控制排尿能力正常，但咳嗽起立等腹内压增加时少量尿液不自主从尿道口流出'},{id:'G',text:'多见于外伤手术先天性疾病引起的膀胱颈和尿道括约肌损伤'},{id:'H',text:'多见于前列腺增生肿瘤尿道狭窄等下尿路慢性梗阻或神经系统疾病导致膀胱逼尿肌收缩无力'},{id:'I',text:'严重的尿频尿急而膀胱不受意识控制就开始排尿'},{id:'J',text:'真性尿失禁'},{id:'K',text:'多见于多产妇绝经后引起的阴道前壁支撑力下降和盆腔组织功能障碍或前列腺手术后引起的尿道外括约肌损伤'}],categories:[{id:'C1',label:'持续性尿失禁'},{id:'C2',label:'充溢性尿失禁'},{id:'C3',label:'急迫性尿失禁'},{id:'C4',label:'压力性尿失禁'}],answer:{'C':'C1','G':'C1','J':'C1','A':'C2','B':'C2','D':'C2','H':'C2','E':'C3','I':'C3','F':'C4','K':'C4'},explanation:'持续性尿失禁:完全失去控制排尿能力、多见于外伤手术先天性疾病引起的膀胱颈和尿道括约肌损伤、真性尿失禁；充溢性尿失禁:假性尿失禁、滴沥样夜间多见、残余尿增多膀胱过度充盈、多见于下尿路慢性梗阻或逼尿肌收缩无力；急迫性尿失禁:膀胱炎神经源性膀胱重度膀胱出口梗阻引起的膀胱不稳定收缩、严重尿频尿急膀胱不受意识控制排尿；压力性尿失禁:咳嗽起立等腹内压增加时少量尿液流出、多见于多产妇绝经后或前列腺手术后尿道外括约肌损伤。'},
+  {id:'surg_102',subject:'surgery',system:'hepatobiliary',chapter:'胆系疾病',type:'matching',title:'胆系疾病综合鉴别',description:'将下列临床特征/治疗与对应的胆系疾病匹配',options:[{id:'A',text:'无黄疸'},{id:'B',text:'不伴胆管梗阻无黄疸'},{id:'C',text:'无黄疸,但Mirizzi征有黄疸'},{id:'D',text:'间歇性黄疸'},{id:'E',text:'波动性黄疸'},{id:'F',text:'持续性黄疸'},{id:'G',text:'进行性黄疸'},{id:'H',text:'黄疸出现晚'},{id:'I',text:'黄疸出现慢、浅'},{id:'J',text:'胆囊不大'},{id:'K',text:'胆囊不大,但胆囊梗阻、Mirizzi征时大'},{id:'L',text:'胆囊可大'},{id:'M',text:'胆囊不大甚至缩小'},{id:'N',text:'胆囊大且痛'},{id:'O',text:'胆囊大且无痛'},{id:'P',text:'阵发性胆绞痛'},{id:'Q',text:'持续胆绞痛阵发加剧、发热、腹膜炎、胆囊壁>4mm'},{id:'R',text:'阵发性钻顶样绞痛、突发突止、症征不符'},{id:'S',text:'钝/胀痛、光滑的囊性肿块'},{id:'T',text:'好发底、体部'},{id:'U',text:'上段/肝门部多见'},{id:'V',text:'好发肝左外叶和右后叶,反复肝区胸背部闷胀痛'},{id:'W',text:'发育不良、苯巴比妥无效'},{id:'X',text:'Charcot征甚至Reynolds征'},{id:'Y',text:'CT诊断和评估可切除性'},{id:'Z',text:'尽量出生2个月内手术如Kasai'},{id:'a',text:'手术'},{id:'b',text:'Whipple术'},{id:'d',text:'保守为主'},{id:'e',text:'尽早完全切除扩张胆管+胆肠吻合等'}],categories:[{id:'C1',label:'胆囊结石'},{id:'C2',label:'急性胆囊炎'},{id:'C3',label:'胆囊癌'},{id:'C4',label:'肝内胆管结石及炎症'},{id:'C5',label:'肝外胆管结石及炎症'},{id:'C6',label:'胆管癌-上段/肝门部'},{id:'C7',label:'胆管癌-中下段'},{id:'C8',label:'胆管蛔虫'},{id:'C9',label:'胆管闭锁'},{id:'C10',label:'先天性胆管扩张症'},{id:'C11',label:'胰头癌'},{id:'C12',label:'壶腹癌'},{id:'C13',label:'十二指肠癌'}],answer:{'A':['C2','C4','C8'],'B':'C3','C':'C1','D':'C10','E':['C5','C12'],'F':'C9','G':['C6','C7','C11'],'H':['C11','C13'],'I':'C13','J':'C4','K':'C1','L':'C3','M':'C6','N':'C2','O':['C7','C11','C12','C13'],'P':'C1','Q':'C2','R':'C8','S':'C10','T':'C3','U':'C6','V':'C4','W':'C9','X':'C5','Y':'C11','Z':'C9','a':'C3','b':['C11','C12','C13'],'d':'C8','e':'C10'},explanation:'胆囊结石:无黄疸但Mirizzi征有黄疸、胆囊不大但梗阻时大、阵发性胆绞痛；急性胆囊炎:无黄疸、胆囊大且痛、持续胆绞痛阵发加剧伴发热腹膜炎胆囊壁>4mm；胆囊癌:不伴胆管梗阻无黄疸、胆囊可大、好发底体部、手术治疗；肝内胆管结石:无黄疸、胆囊不大、好发肝左外叶右后叶反复肝区胸背闷胀痛；肝外胆管结石:波动性黄疸、Charcot征甚至Reynolds征；胆管癌上段:进行性黄疸、上段/肝门部多见、胆囊不大甚至缩小；胆管癌中下段:进行性黄疸、胆囊大且无痛(Courvoisier征)；胆管蛔虫:无黄疸、钻顶样绞痛突发突止症征不符、保守为主；胆管闭锁:持续性黄疸、发育不良苯巴比妥无效、出生2月内Kasai手术；先天性胆管扩张症:间歇性黄疸、钝胀痛光滑囊性肿块、尽早完全切除扩张胆管+胆肠吻合；胰头癌:进行性黄疸、黄疸出现晚、胆囊大且无痛、CT评估可切除性、Whipple术；壶腹癌:波动性黄疸、胆囊大且无痛、Whipple术；十二指肠癌:黄疸出现晚且慢浅、胆囊大且无痛、Whipple术。'},
+  {id:'surg_103',subject:'surgery',system:'urology',chapter:'泌尿系统感染和肿瘤',type:'matching',title:'泌尿系统影像学检查选择',description:'将下列影像学检查方法与对应的临床情况匹配',options:[{id:'A',text:'ECT'},{id:'B',text:'放射性核素肾显像/肾图'},{id:'C',text:'静脉肾盂/尿路造影IVP/IVU'},{id:'D',text:'CT尿路造影CTU'},{id:'E',text:'MRI'},{id:'G',text:'首选B超'},{id:'H',text:'增强CT'}],categories:[{id:'C1',label:'泌外感染'},{id:'C2',label:'肾癌-最佳'},{id:'C3',label:'泌外肿瘤'},{id:'C4',label:'膀胱癌-最佳'},{id:'C5',label:'前列腺癌骨转移-首选(经椎旁静脉系统)'},{id:'C6',label:'上尿路癌-最佳'},{id:'C7',label:'肾结核治疗-必须'},{id:'C8',label:'前列腺癌-最佳'},{id:'C9',label:'分肾功能'}],answer:{'A':'C5','B':'C9','C':['C7','C9'],'D':['C2','C6','C9'],'E':['C4','C8'],'G':['C1','C3'],'H':['C2','C6']},explanation:'泌外感染:首选B超；肾癌最佳:CTU+增强CT；泌外肿瘤:首选B超；膀胱癌最佳:MRI；前列腺癌骨转移首选:ECT(经椎旁静脉系统)；上尿路癌最佳:CTU+增强CT；肾结核治疗必须:IVP/IVU；前列腺癌最佳:MRI；分肾功能:放射性核素肾显像/肾图+IVP/IVU+CTU。'},
 ];
 
 /* ====== 3.2 科目/系统元数据 ====== */
@@ -418,10 +521,12 @@ let currentSubject = null;
 let currentSystem = null;
 let currentQuestions = [];
 let currentQuestionIndex = 0;
-let quizState = { selectedOption:null, placements:{}, answered:false };
+let quizState = { selectedOptions:[], placements:{}, answered:false };
 let allQuestions = [];
 let currentChapterName = null;
 let draftProgress = {}; // 按题目存储进度: { questionId: { placements:{...}, answered:false } }
+let jumpStack = []; // 跨科目跳转栈: [{ subject, system, chapterName, questions:[ids], index, draftProgress, scrollY }]
+let isJumpMode = false; // 是否处于跳转做题模式
 let currentNoteTarget = null;
 let currentNoteImages = [];
 let favoritedIds = new Set();
@@ -430,7 +535,11 @@ let noteFilterSubject = 'all';
 let noteFilterSystem = 'all';
 let noteFilterAuthor = 'all';
 let autoSyncEnabled = false;
-let sharedNotesAutoSyncEnabled = false;
+let sharedNotesAutoSyncEnabled = true;
+let isSyncing = false;          // 同步锁，防止并发竞态
+let isSharedNotesSyncing = false; // 共享解析同步锁
+let pendingSyncTimer = null;    // 防抖定时器
+let pendingSharedSyncTimer = null; // 共享解析防抖定时器
 let shuffleOptionsEnabled = false;
 let darkModeEnabled = false;
 let fontScalePos = 50; // 0=小(13px), 50=中(15px), 100=大(18px)
@@ -444,6 +553,51 @@ const USER_COLORS = ['#9a8e82','#7d9e7d','#7a95b0','#a08eb0','#c9a96a','#b87a7a'
 const DB_NAME = 'xuecheng_quiz_db';
 const DB_VERSION = 1;
 const STORES = ['records','wrongQuestions','favorites','notes','users','questions','settings'];
+
+/* ==========================================================
+ * COS 图片存储配置（通过 SCF 函数获取预签名 URL 上传）
+ * ========================================================== */
+const COS_SCF_URL = 'https://1464830022-67qevvihbz.ap-guangzhou.tencentscf.com';
+const COS_BASE_URL = 'https://xuecheng-quiz-1464830022.cos.ap-guangzhou.myqcloud.com';
+
+/* 获取 COS 预签名上传 URL（由 SCF 函数生成） */
+async function getCosPresignedUrl(){
+  const res = await fetch(COS_SCF_URL);
+  if(!res.ok) throw new Error('获取上传链接失败: '+res.status);
+  const data = await res.json();
+  if(!data.url) throw new Error('上传链接为空');
+  return { url:data.url, key:data.key };
+}
+
+/* 将 base64 dataUrl 转为 Blob */
+function dataUrlToBlob(dataUrl){
+  const base64Data = dataUrl.split(',')[1];
+  const mime = dataUrl.match(/:(.*?);/)[1];
+  const byteChars = atob(base64Data);
+  const byteArrays = [];
+  for(let i=0;i<byteChars.length;i+=512){
+    const slice = byteChars.slice(i, i+512);
+    const byteNumbers = new Array(slice.length);
+    for(let j=0;j<slice.length;j++){
+      byteNumbers[j] = slice.charCodeAt(j);
+    }
+    byteArrays.push(new Uint8Array(byteNumbers));
+  }
+  return new Blob(byteArrays, { type:mime });
+}
+
+/* 上传图片到 COS，返回公开访问 URL */
+async function uploadImageToCos(dataUrl){
+  const blob = dataUrlToBlob(dataUrl);
+  const { url, key } = await getCosPresignedUrl();
+  const res = await fetch(url, {
+    method:'PUT',
+    body:blob,
+    headers:{ 'Content-Type':blob.type }
+  });
+  if(!res.ok) throw new Error('上传失败: '+res.status);
+  return COS_BASE_URL + '/' + key;
+}
 
 function initDB(){
   return new Promise((resolve,reject)=>{
@@ -713,6 +867,14 @@ function switchChapter(chapterName){
 }
 
 function backToSubjects(){
+  // 如果在跳转模式，先返回原题
+  if(isJumpMode && jumpStack.length>0){
+    returnToOriginalQuestion();
+    return;
+  }
+  // 清除跳转状态
+  isJumpMode = false;
+  jumpStack = [];
   // 退出前先保存草稿（此时 currentSubject 等变量还未清空）
   saveQuizDraft();
   currentSubject = null;
@@ -722,6 +884,7 @@ function backToSubjects(){
 
 /* === 刷题草稿/进度 持久化（按题目存储） === */
 function getDraftKey(){ return `xuecheng_draft_${currentUserId}`; }
+function getJumpDraftKey(){ return `xuecheng_jump_draft_${currentUserId}`; }
 
 /* 保存当前题目进度到 draftProgress，再写入 localStorage */
 function saveQuizDraft(){
@@ -754,7 +917,9 @@ function saveQuizDraft(){
     progress: { ...draftProgress },
     timestamp: Date.now()
   };
-  localStorage.setItem(getDraftKey(), JSON.stringify(draft));
+  // 跳转模式下写入独立的 jump draft key，不污染原会话
+  const key = isJumpMode ? getJumpDraftKey() : getDraftKey();
+  localStorage.setItem(key, JSON.stringify(draft));
 }
 
 function loadQuizDraft(){
@@ -785,6 +950,207 @@ function resumeQuiz(){
   currentChapterName = draft.chapterName;
   draftProgress = draft.progress || {};
   renderQuestion();
+}
+
+/* ==========================================================
+ * 跨科目题目关联（按疾病名映射）
+ * ========================================================== */
+
+/* 疾病名归一化映射表：不同科目对同一疾病的不同叫法 → 统一 key */
+const DISEASE_NORMALIZE_MAP = {
+  '消化性溃疡':'消化性溃疡','胃溃疡':'消化性溃疡','十二指肠溃疡':'消化性溃疡','胃十二指肠溃疡':'消化性溃疡',
+  '消化性溃疡并发症':'消化性溃疡','消化性溃疡手术':'消化性溃疡','消化性溃疡术后并发症':'消化性溃疡','消化性溃疡特殊类型':'消化性溃疡',
+  '消化性溃疡与肠道疾病':'消化性溃疡','消化性溃疡病':'消化性溃疡',
+  '肝硬化':'肝硬化','肝硬化并发症':'肝硬化',
+  '慢性胃炎':'慢性胃炎','胃炎':'慢性胃炎',
+  '大肠癌':'大肠癌','结肠癌':'大肠癌','直肠癌':'大肠癌','结直肠癌':'大肠癌','结直肠肛管疾病':'大肠癌',
+  '肺炎':'肺炎',
+  '肺气肿':'肺气肿',
+  '慢性支气管炎':'慢支肺气肿','慢性支气管炎与肺气肿':'慢支肺气肿',
+  '高血压':'高血压','原发性高血压':'高血压',
+  '冠心病':'冠心病','冠状动脉性心脏病':'冠心病','冠状动脉粥样硬化':'冠心病','动脉粥样硬化':'动脉粥样硬化',
+  '心肌疾病':'心肌病','心肌病':'心肌病',
+  '风湿病':'风湿病','风湿性心脏病':'风湿病','风湿热':'风湿病',
+  '感染性心内膜炎':'感染性心内膜炎',
+  '甲状腺疾病':'甲状腺疾病','甲状腺':'甲状腺疾病','甲状腺功能亢进':'甲状腺疾病','甲状腺功能亢进症':'甲状腺疾病',
+  '甲亢':'甲状腺疾病','甲状腺功能减退':'甲状腺疾病','甲状腺功能检查':'甲状腺疾病','甲状腺炎':'甲状腺疾病','甲状腺癌':'甲状腺疾病',
+  '乳腺疾病':'乳腺疾病','乳腺癌':'乳腺疾病','乳腺':'乳腺疾病','乳房疾病':'乳腺疾病',
+  '胃癌':'胃癌','胃肿瘤':'胃癌',
+  '肝癌':'肝癌','肝脏疾病':'肝癌','原发性肝癌':'肝癌','肝脓肿':'肝癌','肝脏解剖':'肝癌',
+  '胰腺炎':'胰腺炎','胰腺疾病':'胰腺炎','急性胰腺炎':'胰腺炎',
+  '肠梗阻':'肠梗阻',
+  '阑尾炎':'阑尾炎','急性阑尾炎':'阑尾炎',
+  '疝':'疝','腹外疝':'疝',
+  '胆道疾病':'胆道疾病','胆石症':'胆道疾病','胆结石':'胆道疾病','胆囊炎':'胆道疾病','胆系疾病':'胆道疾病',
+  '尿路结石':'尿路结石','泌尿系统结石':'尿路结石','泌尿系结石':'尿路结石','肾结石':'尿路结石',
+  '下肢静脉疾病':'下肢静脉疾病','下肢深静脉血栓':'下肢静脉疾病','深静脉血栓':'下肢静脉疾病','周围血管疾病':'下肢静脉疾病',
+  '腹部损伤':'腹部损伤','腹部创伤':'腹部损伤',
+  '肾脏疾病':'肾脏疾病','肾炎':'肾脏疾病','肾病':'肾脏疾病','泌尿系统疾病':'肾脏疾病','泌尿系统感染和肿瘤':'肾脏疾病',
+  '血液系统':'血液系统疾病','贫血':'血液系统疾病','白血病':'血液系统疾病','血液系统疾病':'血液系统疾病',
+  '消化系统肿瘤':'消化系统肿瘤','消化系统恶性肿瘤':'消化系统肿瘤',
+  '肺结核':'肺结核','结核病':'肺结核',
+};
+
+/* 获取题目的知识关联点（标准化疾病名数组） */
+function getKnowledgePoints(q){
+  if(!q) return [];
+  // 优先使用 knowledgePoint 字段（如果存在）
+  if(q.knowledgePoint && Array.isArray(q.knowledgePoint) && q.knowledgePoint.length>0){
+    return q.knowledgePoint.map(kp=>DISEASE_NORMALIZE_MAP[kp]||kp);
+  }
+  // 回退到 chapter 字段
+  const chapter = q.chapter || '';
+  const normalized = DISEASE_NORMALIZE_MAP[chapter];
+  return normalized ? [normalized] : [];
+}
+
+/* 获取与当前题目关联的其他题目（跨科目，同一知识关联点） */
+function getRelatedQuestions(qId){
+  const q = allQuestions.find(x=>x.id===qId);
+  if(!q) return [];
+  const kps = getKnowledgePoints(q);
+  if(kps.length===0) return [];
+  const related = allQuestions.filter(x=>{
+    if(x.id===qId) return false;
+    if(x.subject===q.subject) return false; // 仅跨科目
+    const xKps = getKnowledgePoints(x);
+    return kps.some(kp=>xKps.includes(kp));
+  });
+  return related;
+}
+
+/* 获取科目显示名称 */
+function getSubjectDisplayName(subjKey){
+  const subj = SUBJECTS[subjKey];
+  return subj ? subj.name : subjKey;
+}
+
+/* 生成关联题目模块 HTML（home-card 分组设计） */
+function getRelatedQuestionsHtml(qId){
+  const related = getRelatedQuestions(qId);
+  if(related.length===0) return '';
+
+  // 按科目分组
+  const bySubject = {};
+  related.forEach(rq=>{
+    if(!bySubject[rq.subject]) bySubject[rq.subject] = [];
+    bySubject[rq.subject].push(rq);
+  });
+
+  const currentQ = currentQuestions[currentQuestionIndex];
+  const currentQId = currentQ ? currentQ.id : qId;
+
+  let html = '<div class="related-questions-module">';
+  html += '<div class="rq-section-header">';
+  html += '<span>🔗 跨科目关联题目</span>';
+  html += `<span class="rq-section-count">${related.length}</span>`;
+  html += '<span class="rq-section-hint">点击科目展开 · 点击题目跳转</span>';
+  html += '</div>';
+
+  // 按科目生成 home-card
+  Object.keys(bySubject).forEach(subjKey=>{
+    const subInfo = SUBJECTS[subjKey] || {name:subjKey, icon:'📝'};
+    const questions = bySubject[subjKey];
+
+    html += '<div class="rq-card collapsed">';
+    html += `<div class="rq-card-header" onclick="toggleRqCard(this)">`;
+    html += `<span class="rq-sub-icon">${subInfo.icon || '📝'}</span>`;
+    html += `<span class="rq-sub-name">${escapeHtml(subInfo.name)}</span>`;
+    html += `<span class="rq-sub-tag subj-${subjKey}">${escapeHtml(subInfo.name)}</span>`;
+    html += `<span class="rq-sub-count">${questions.length}题</span>`;
+    html += '<span class="rq-toggle">▼</span>';
+    html += '</div>';
+    html += '<div class="rq-card-body">';
+
+    questions.forEach(rq=>{
+      const isCurrent = rq.id === currentQId;
+      html += `<div class="rq-item" onclick="jumpToRelatedQuestion('${rq.id}')">`;
+      html += `<span class="rq-item-dot subj-${rq.subject}"></span>`;
+      html += '<div class="rq-item-body">';
+      html += `<div class="rq-item-title">${escapeHtml(rq.title||'')}</div>`;
+      if(rq.chapter) html += `<div class="rq-item-chapter">${escapeHtml(rq.chapter)}</div>`;
+      html += '</div>';
+      if(isCurrent) html += '<span class="rq-current-badge">当前</span>';
+      html += '<span class="rq-jump-arrow">→</span>';
+      html += '</div>';
+    });
+
+    html += '</div>';
+    html += '</div>';
+  });
+
+  // 跳转模式下显示返回提示
+  if(jumpStack.length > 0){
+    html += '<div class="rq-return-hint">';
+    html += '<span class="rq-ret-badge">⤴ 返回</span>';
+    html += '<span>跳转中 · 点击顶部返回按钮回到原题</span>';
+    html += '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+/* 展开/折叠单个科目卡片 */
+function toggleRqCard(headerEl){
+  const card = headerEl.closest('.rq-card');
+  if(card) card.classList.toggle('collapsed');
+}
+
+/* 跳转到关联题目（静默跳转，保存当前会话状态） */
+async function jumpToRelatedQuestion(targetQId){
+  const q = currentQuestions[currentQuestionIndex];
+  if(!q) return;
+  // 保存当前会话快照到跳转栈
+  saveQuizDraft();
+  jumpStack.push({
+    subject: currentSubject,
+    system: currentSystem,
+    chapterName: currentChapterName,
+    questionIds: currentQuestions.map(x=>x.id),
+    currentIndex: currentQuestionIndex,
+    draftProgress: JSON.parse(JSON.stringify(draftProgress)),
+    scrollY: window.scrollY
+  });
+  // 切换到目标题目（单题模式，不改变原会话）
+  isJumpMode = true;
+  const targetQ = allQuestions.find(x=>x.id===targetQId);
+  if(!targetQ){ isJumpMode = false; jumpStack.pop(); return; }
+  currentSubject = targetQ.subject;
+  currentSystem = targetQ.system;
+  currentChapterName = targetQ.chapter;
+  currentQuestions = [targetQ];
+  currentQuestionIndex = 0;
+  // 跳转模式下使用独立的临时草稿（不污染原会话）
+  const savedJump = localStorage.getItem(getJumpDraftKey());
+  let jumpProgress = {};
+  if(savedJump){
+    try{ jumpProgress = JSON.parse(savedJump).progress||{}; }catch(e){}
+  }
+  draftProgress = jumpProgress;
+  renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* 返回跳转前的原题 */
+async function returnToOriginalQuestion(){
+  if(jumpStack.length===0) return;
+  // saveQuizDraft 会自动写入 jump draft key（因为 isJumpMode=true）
+  saveQuizDraft();
+  // 恢复原会话
+  const snapshot = jumpStack.pop();
+  isJumpMode = jumpStack.length > 0;
+  currentSubject = snapshot.subject;
+  currentSystem = snapshot.system;
+  currentChapterName = snapshot.chapterName;
+  const qs = allQuestions.filter(q=>snapshot.questionIds.includes(q.id));
+  const ordered = snapshot.questionIds.map(id=>qs.find(q=>q.id===id)).filter(Boolean);
+  currentQuestions = ordered;
+  currentQuestionIndex = Math.min(snapshot.currentIndex, ordered.length-1);
+  draftProgress = snapshot.draftProgress;
+  renderQuestion();
+  // 恢复滚动位置
+  setTimeout(()=>{ window.scrollTo({top:snapshot.scrollY||0,behavior:'smooth'}); },100);
 }
 
 async function startQuiz(subject, system, chapterId, chapterName){
@@ -850,11 +1216,12 @@ async function renderQuestion(){
     el.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><p>该章节暂无题目</p></div>';
     return;
   }
-  // 从 draftProgress 恢复当前题目的作答状态
+  // 从 draftProgress 恢复当前题目的作答状态（包含 correct 字段，防止状态丢失）
   const saved = draftProgress[q.id];
   const savedPlacements = saved ? saved.placements : null;
   const wasAnswered = saved ? saved.answered : false;
-  quizState = { selectedOption:null, placements: savedPlacements ? {...savedPlacements} : {}, answered: wasAnswered };
+  const savedCorrect = saved ? saved.correct : undefined;
+  quizState = { selectedOptions:[], placements: savedPlacements ? {...savedPlacements} : {}, answered: wasAnswered, correct: savedCorrect };
   const progress = currentQuestions.length>0 ? ((currentQuestionIndex+1)/currentQuestions.length*100).toFixed(0) : 0;
   
   // 打乱选项顺序（仅影响显示，不影响答案判定，因答案按 ID 映射）
@@ -894,7 +1261,8 @@ async function renderQuestion(){
           </div>
         </div>
         <div class="progress-bar-wrap"><div class="progress-fill" style="width:${progress}%"></div></div>
-        ${getChapterNavHtml()}
+        ${isJumpMode?'<div class="jump-mode-banner"><span class="jm-icon">🔗</span><span class="jm-text">跨科目跳转做题中</span></div>':''}
+        ${isJumpMode?'':getChapterNavHtml()}
         ${wasAnswered?'<div class="quiz-resume-hint"><span class="qrh-icon">🔒</span><span class="qrh-text">本题已提交，答案已锁定（只读查看）</span></div>':''}
         <div style="display:flex;gap:.5rem;margin-bottom:.6rem;flex-wrap:wrap">
           <span style="background:var(--green-bg);color:var(--green);padding:.15rem .6rem;border-radius:6px;font-size:.72rem;font-weight:600">✅ 正确 ${correctCount}次</span>
@@ -903,8 +1271,13 @@ async function renderQuestion(){
         </div>
         <div style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">${escapeHtml(q.description)}</div>
         <div class="matching-layout">
-          <div class="option-pool">
-            <div class="pool-title">📋 选项池（点击选项 → 依次点击多个分类卡片放入，同一选项可放入多个分类）</div>
+          <div class="option-pool expanded" id="optionPoolContainer">
+            <div class="pool-title" onclick="toggleOptionPool()">
+              📋 选项池（可多选 → 点击分类批量放入）
+              <span class="pool-sel-badge" id="poolSelBadge" style="display:none">已选 0</span>
+              <button class="pool-clear-btn" id="poolClearBtn" style="display:none" onclick="clearOptionSelection(event)">清除选择</button>
+              <span class="pool-toggle-icon">▲</span>
+            </div>
             <div class="pool-items" id="optionPool"></div>
           </div>
           <div class="category-area" id="categoryArea">
@@ -914,6 +1287,7 @@ async function renderQuestion(){
                   <span class="q-icon">${i+1}</span>
                   ${escapeHtml(cat.label)}
                   <span class="cat-status" id="cat-status-${cat.id}"></span>
+                  ${wasAnswered?'':`<button class="cat-clear-btn" onclick="clearCategory(event,'${cat.id}')">清空</button>`}
                 </div>
                 <div class="placed-list" id="placed-${cat.id}"></div>
               </div>
@@ -921,15 +1295,17 @@ async function renderQuestion(){
           </div>
         </div>
         <div class="action-bar">
+          ${isJumpMode?'<button class="btn btn-primary jump-return-btn" onclick="returnToOriginalQuestion()">↩ 返回原题</button>':''}
           <button class="btn btn-outline" id="prevBtn" onclick="prevQuestion()" ${currentQuestionIndex===0?'disabled style="opacity:.4"':''}>← 上一题</button>
           <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" ${wasAnswered?'disabled style="opacity:.4"':''}>提交答案</button>
           <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" ${(currentQuestionIndex>=currentQuestions.length-1 && !allQuestionsAnswered())?'disabled style="opacity:.4"':''}>${currentQuestionIndex>=currentQuestions.length-1?'完成 ✓':'下一题 →'}</button>
           <button class="btn btn-outline" onclick="openNoteModal('${q.id}')">📝 添加解析</button>
           <button class="btn btn-outline" id="favBtn" onclick="toggleFavorite()">${favoritedIds.has(q.id)?'⭐ 取消收藏':'☆ 收藏'}</button>
-          <button class="btn btn-outline" onclick="backToSubjects()">退出</button>
+          ${isJumpMode?'':'<button class="btn btn-outline" onclick="backToSubjects()">退出</button>'}
         </div>
         <div id="completionHint" style="text-align:center;font-size:.74rem;color:var(--yellow);margin-top:.4rem;${(currentQuestionIndex>=currentQuestions.length-1 && !allQuestionsAnswered())?'':'display:none;'}">还有 ${currentQuestions.length-getAnsweredCount()} 题未作答，全部完成后可点击"完成"</div>
         <div class="answer-reveal" id="answerReveal"></div>
+        ${getRelatedQuestionsHtml(q.id)}
         <div class="quiz-card-overlay" id="quizCardOverlay">
           <div class="qc-overlay-header">
             <div class="qc-overlay-title">题卡 · ${escapeHtml(currentChapterName||'')}（共${currentQuestions.length}题）</div>
@@ -967,7 +1343,7 @@ function updateMatchingUI(){
       let cls = 'option-item';
       const placedCats = quizState.placements[opt.id] || [];
       if(placedCats.length>0) cls += ' placed';
-      if(quizState.selectedOption===opt.id) cls += ' selected';
+      if(quizState.selectedOptions && quizState.selectedOptions.includes(opt.id)) cls += ' selected';
       const badge = placedCats.length>0 ? `<span class="placement-badge">已放${placedCats.length}个</span>` : '';
       return `<div class="${cls}" data-opt="${opt.id}" onclick="selectOption('${opt.id}')">
         <span class="opt-letter">${opt.id}</span><span>${escapeHtml(opt.text)}</span>${badge}
@@ -975,13 +1351,26 @@ function updateMatchingUI(){
     }).join('');
   }
 
+  // 更新选择徽章和清除按钮
+  const selCount = quizState.selectedOptions ? quizState.selectedOptions.length : 0;
+  const badge = document.getElementById('poolSelBadge');
+  const clearBtn = document.getElementById('poolClearBtn');
+  if(badge){
+    badge.textContent = `已选 ${selCount}`;
+    badge.style.display = selCount > 0 ? '' : 'none';
+  }
+  if(clearBtn){
+    clearBtn.style.display = selCount > 0 ? '' : 'none';
+  }
+
   // 分类卡片
   q.categories.forEach(cat=>{
     const card = document.getElementById('cat-'+cat.id);
     if(!card) return;
+    const hasSelection = quizState.selectedOptions && quizState.selectedOptions.length > 0;
     if(quizState.answered){
       card.classList.remove('active-target');
-    } else if(quizState.selectedOption){
+    } else if(hasSelection){
       card.classList.add('active-target');
     } else {
       card.classList.remove('active-target');
@@ -1023,11 +1412,12 @@ function updateMatchingUI(){
 
 function selectOption(optId){
   if(quizState.answered) return;
-  // 再次点击同一个取消选中
-  if(quizState.selectedOption===optId){
-    quizState.selectedOption = null;
+  if(!quizState.selectedOptions) quizState.selectedOptions = [];
+  const idx = quizState.selectedOptions.indexOf(optId);
+  if(idx >= 0){
+    quizState.selectedOptions.splice(idx, 1);
   } else {
-    quizState.selectedOption = optId;
+    quizState.selectedOptions.push(optId);
   }
   updateMatchingUI();
 }
@@ -1040,13 +1430,14 @@ function getCorrectCats(answer, optId){
 
 function selectCategory(catId){
   if(quizState.answered) return;
-  if(!quizState.selectedOption) return;
-  const optId = quizState.selectedOption;
-  if(!quizState.placements[optId]) quizState.placements[optId] = [];
-  if(!quizState.placements[optId].includes(catId)){
-    quizState.placements[optId].push(catId);
-  }
-  quizState.selectedOption = null;
+  if(!quizState.selectedOptions || quizState.selectedOptions.length===0) return;
+  quizState.selectedOptions.forEach(optId=>{
+    if(!quizState.placements[optId]) quizState.placements[optId] = [];
+    if(!quizState.placements[optId].includes(catId)){
+      quizState.placements[optId].push(catId);
+    }
+  });
+  quizState.selectedOptions = [];
   updateMatchingUI();
   saveQuizDraft();
 }
@@ -1058,6 +1449,33 @@ function removePlacement(catId, optId){
   if(quizState.placements[optId].length === 0) delete quizState.placements[optId];
   updateMatchingUI();
   saveQuizDraft();
+}
+
+function clearOptionSelection(e){
+  if(e) e.stopPropagation();
+  quizState.selectedOptions = [];
+  const q = currentQuestions[currentQuestionIndex];
+  if(q && q.type === 'sub-matching'){
+    updateSubMatchingUI(q);
+  } else {
+    updateMatchingUI();
+  }
+}
+
+function clearCategory(e, catId){
+  if(e) e.stopPropagation();
+  if(quizState.answered) return;
+  Object.keys(quizState.placements).forEach(optId=>{
+    quizState.placements[optId] = quizState.placements[optId].filter(c => c !== catId);
+    if(quizState.placements[optId].length === 0) delete quizState.placements[optId];
+  });
+  updateMatchingUI();
+  saveQuizDraft();
+}
+
+function toggleOptionPool(){
+  const container = document.getElementById('optionPoolContainer');
+  if(container) container.classList.toggle('expanded');
 }
 
 /* === 答案揭示渲染（从 submitAnswer 提取，可复用于已提交题目恢复） === */
@@ -1073,6 +1491,14 @@ async function renderAnswerReveal(q){
     if(el){
       el.classList.remove('placed','selected');
       if(correctCats.length===0){
+        // 干扰项：不应放置，未放置=正确，放置了=错误
+        if(userCats.length===0){
+          correctCount++;
+          el.classList.add('correct');
+        } else {
+          wrongCount++;
+          el.classList.add('wrong');
+        }
       } else if(isCorrect){
         correctCount++;
         el.classList.add('correct');
@@ -1084,8 +1510,10 @@ async function renderAnswerReveal(q){
         el.classList.add('wrong');
       }
     } else {
-      if(correctCats.length===0) return;
-      if(isCorrect) correctCount++;
+      if(correctCats.length===0){
+        if(userCats.length===0) correctCount++;
+        else wrongCount++;
+      } else if(isCorrect) correctCount++;
       else if(userCats.length===0) missedCount++;
       else wrongCount++;
     }
@@ -1128,40 +1556,110 @@ async function renderAnswerReveal(q){
   const catNameMap = {};
   q.categories.forEach(c=>{ catNameMap[c.id] = c.label; });
 
-  let ansCards = q.categories.map((cat,ci)=>{
-    const optsInCat = q.options.filter(o=>getCorrectCats(q.answer, o.id).includes(cat.id));
+  // 按分类生成答案卡片
+  let catCardsHtml = q.categories.map((cat,ci)=>{
+    const shouldBeHere = q.options.filter(o=>getCorrectCats(q.answer, o.id).includes(cat.id));
+    const wronglyPlaced = q.options.filter(o=>{
+      const userCats = quizState.placements[o.id] || [];
+      const correctCats = getCorrectCats(q.answer, o.id);
+      return userCats.includes(cat.id) && !correctCats.includes(cat.id);
+    });
+
     let allCorrect = true;
-    const optRows = optsInCat.map(opt=>{
-      const correctCats = getCorrectCats(q.answer, opt.id);
+    let hasMissed = false;
+    let hasWrong = false;
+    const rows = [];
+
+    // 应在此分类的选项
+    shouldBeHere.forEach(opt=>{
       const userCats = quizState.placements[opt.id] || [];
-      const isCorrect = correctCats.length===userCats.length && correctCats.every(c=>userCats.includes(c));
-      const isMissed = userCats.length===0;
-      if(!isCorrect) allCorrect = false;
-      let tagHtml = '';
-      if(isCorrect){
-      } else if(isMissed){
-        tagHtml = '<span class="ar-opt-tag missed">未作答</span>';
+      const placedHere = userCats.includes(cat.id);
+
+      if(placedHere){
+        rows.push(`<div class="ar-opt-row correct">
+          <span class="ar-opt-letter right">${escapeHtml(opt.id)}</span>
+          <div class="ar-opt-body"><div class="ar-opt-text">${escapeHtml(opt.text)}</div></div>
+          <div class="ar-opt-note"><div class="ar-opt-status correct">✓ 正确</div></div>
+        </div>`);
       } else {
-        const userCatNames = userCats.map(uc=>catNameMap[uc]||uc).join('、');
-        const correctCatNames = correctCats.map(cc=>catNameMap[cc]||cc).join('、');
-        tagHtml = `<span class="ar-opt-tag your">你的选择：${escapeHtml(userCatNames)}（应为${escapeHtml(correctCatNames)}）</span>`;
+        allCorrect = false;
+        hasMissed = true;
+        let userPlacementNote = '';
+        if(userCats.length === 0){
+          userPlacementNote = '<span style="color:var(--muted)">未作答</span><br>';
+        } else {
+          const userCatNames = userCats.map(uc=>catNameMap[uc]||uc).join('、');
+          userPlacementNote = `<span class="strike">你放在了：${escapeHtml(userCatNames)}</span><br>`;
+        }
+        rows.push(`<div class="ar-opt-row missed">
+          <span class="ar-opt-letter miss">${escapeHtml(opt.id)}</span>
+          <div class="ar-opt-body"><div class="ar-opt-text">${escapeHtml(opt.text)}</div></div>
+          <div class="ar-opt-note">
+            <div class="ar-opt-status missed">⚠ 遗漏</div>
+            <div class="ar-opt-correct">${userPlacementNote}<span class="arrow y">→</span> <span class="target y">应在此处</span></div>
+          </div>
+        </div>`);
       }
-      const letterClass = isCorrect ? 'right' : (isMissed ? 'miss' : 'wrong');
-      return `<div class="ar-opt-row">
-        <span class="ar-opt-letter ${letterClass}">${escapeHtml(opt.id)}</span>
-        <span class="ar-opt-text">${escapeHtml(opt.text)}</span>
-        ${tagHtml}
-      </div>`;
-    }).join('');
+    });
+
+    // 错误放在此分类的选项
+    wronglyPlaced.forEach(opt=>{
+      const correctCats = getCorrectCats(q.answer, opt.id);
+      allCorrect = false;
+      hasWrong = true;
+      const correctCatNames = correctCats.map(c=>catNameMap[c]||c).join('、');
+      rows.push(`<div class="ar-opt-row wrong">
+        <span class="ar-opt-letter wrong">${escapeHtml(opt.id)}</span>
+        <div class="ar-opt-body"><div class="ar-opt-text">${escapeHtml(opt.text)}</div></div>
+        <div class="ar-opt-note">
+          <div class="ar-opt-status wrong">✗ 错误</div>
+          <div class="ar-opt-correct"><span class="arrow r">→</span> <span class="target r">应归入：${escapeHtml(correctCatNames)}</span></div>
+        </div>
+      </div>`);
+    });
+
+    const headerClass = allCorrect ? 'ok' : 'no';
+    const statusText = allCorrect ? '✓ 全对' : (hasWrong ? '✗ 有错误' : '⚠ 有遗漏');
+
     return `<div class="ar-card">
-      <div class="ar-card-header ${allCorrect?'ok':'no'}">
+      <div class="ar-card-header ${headerClass}">
         <span class="ar-card-num">${ci+1}</span>
         <span>${escapeHtml(cat.label)}</span>
-        <span class="ar-card-status">${allCorrect?'✓ 全对':'✗ 有错误'}</span>
+        <span class="ar-card-status">${statusText}</span>
       </div>
-      <div class="ar-card-body">${optRows}</div>
+      <div class="ar-card-body">${rows.join('')}</div>
     </div>`;
   }).join('');
+
+  // 干扰项卡片
+  const distractors = q.options.filter(o=>getCorrectCats(q.answer, o.id).length===0);
+  if(distractors.length > 0){
+    const distRows = distractors.map(opt=>{
+      const userCats = quizState.placements[opt.id] || [];
+      if(userCats.length === 0){
+        return `<div class="ar-opt-row correct">
+          <span class="ar-opt-letter right">${escapeHtml(opt.id)}</span>
+          <div class="ar-opt-body"><div class="ar-opt-text">${escapeHtml(opt.text)}</div></div>
+          <div class="ar-opt-note">
+            <div class="ar-opt-status correct">✓ 正确</div>
+            <div class="ar-opt-correct"><span class="arrow g">→</span> <span class="target g">不应放置</span></div>
+          </div>
+        </div>`;
+      }
+      return null;
+    }).filter(Boolean).join('');
+
+    if(distRows){
+      catCardsHtml += `<div class="ar-card">
+        <div class="ar-card-header ok">
+          <span class="ar-card-num">×</span>
+          <span>干扰项（不应放置）</span>
+          <span class="ar-card-status">✓ 正确未放置</span>
+        </div>
+        <div class="ar-card-body">${distRows}</div>
+      </div>`;
+    }
+  }
 
   // 查询所有用户的解析（共享模式）
   let userNoteHtml = '';
@@ -1221,10 +1719,10 @@ async function renderAnswerReveal(q){
     </div>
     <div class="ar-legend">
       <div class="ar-legend-item"><span class="ar-legend-dot green"></span>答对</div>
-      <div class="ar-legend-item"><span class="ar-legend-dot red"></span>答错</div>
-      <div class="ar-legend-item"><span class="ar-legend-dot yellow"></span>遗漏</div>
+      <div class="ar-legend-item"><span class="ar-legend-dot red"></span>答错（不应放在此分类）</div>
+      <div class="ar-legend-item"><span class="ar-legend-dot yellow"></span>遗漏（应放在此分类但没放）</div>
     </div>
-    <div class="ar-grid">${ansCards}</div>
+    <div class="ar-grid">${catCardsHtml}</div>
     <div class="ar-note"><strong>💡 解析：</strong>${escapeHtml(q.explanation)}</div>
     ${userNoteHtml}`;
   reveal.classList.add('show');
@@ -1312,7 +1810,7 @@ async function renderSubMatching(q, el, info){
     quizState.activeTab = 0;
     quizState.subCorrect = false;
   }
-  quizState.selectedOption = null;
+  quizState.selectedOptions = [];
   
   // 打乱选项顺序
   if(shuffleOptionsEnabled && q.options && q.options.length>1){
@@ -1331,7 +1829,7 @@ async function renderSubMatching(q, el, info){
     quizState.subCorrect = checkAllSubCorrect(q);
     saveQuizDraft();
   }
-  
+
   el.innerHTML = `
     <div class="quiz-player show">
       <div class="quiz-area">
@@ -1346,7 +1844,8 @@ async function renderSubMatching(q, el, info){
           </div>
         </div>
         <div class="progress-bar-wrap"><div class="progress-fill" style="width:${progress}%"></div></div>
-        ${getChapterNavHtml()}
+        ${isJumpMode?'<div class="jump-mode-banner"><span class="jm-icon">🔗</span><span class="jm-text">跨科目跳转做题中</span></div>':''}
+        ${isJumpMode?'':getChapterNavHtml()}
         ${quizState.answered?'<div class="quiz-resume-hint"><span class="qrh-icon">🔒</span><span class="qrh-text">本题已全部提交，答案已锁定（只读查看）</span></div>':''}
         <div style="display:flex;gap:.5rem;margin-bottom:.6rem;flex-wrap:wrap">
           <span style="background:var(--green-bg);color:var(--green);padding:.15rem .6rem;border-radius:6px;font-size:.72rem;font-weight:600">✅ 正确 ${correctCount}次</span>
@@ -1355,8 +1854,13 @@ async function renderSubMatching(q, el, info){
         </div>
         <div style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">${escapeHtml(q.description)}</div>
         <div class="sm-layout">
-          <div class="sm-option-pool">
-            <div class="pool-title">📋 选项池（固定不变，所有Tab共享）</div>
+          <div class="sm-option-pool expanded" id="optionPoolContainer">
+            <div class="pool-title" onclick="toggleOptionPool()">
+              📋 选项池（可多选 → 点击题目批量放入）
+              <span class="pool-sel-badge" id="poolSelBadge" style="display:none">已选 0</span>
+              <button class="pool-clear-btn" id="poolClearBtn" style="display:none" onclick="clearOptionSelection(event)">清除选择</button>
+              <span class="pool-toggle-icon">▲</span>
+            </div>
             <div class="pool-items" id="optionPool"></div>
           </div>
           <div class="sm-tab-bar" id="smTabBar"></div>
@@ -1368,14 +1872,16 @@ async function renderSubMatching(q, el, info){
           </div>
         </div>
         <div class="action-bar">
+          ${isJumpMode?'<button class="btn btn-primary jump-return-btn" onclick="returnToOriginalQuestion()">↩ 返回原题</button>':''}
           <button class="btn btn-outline" id="prevBtn" onclick="prevQuestion()" ${currentQuestionIndex===0?'disabled style="opacity:.4"':''}>← 上一题</button>
           <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" ${(currentQuestionIndex>=currentQuestions.length-1 && !allQuestionsAnswered())?'disabled style="opacity:.4"':''}>${currentQuestionIndex>=currentQuestions.length-1?'完成 ✓':'下一题 →'}</button>
           <button class="btn btn-outline" onclick="openNoteModal('${q.id}')">📝 添加解析</button>
           <button class="btn btn-outline" id="favBtn" onclick="toggleFavorite()">${favoritedIds.has(q.id)?'⭐ 取消收藏':'☆ 收藏'}</button>
-          <button class="btn btn-outline" onclick="backToSubjects()">退出</button>
+          ${isJumpMode?'':'<button class="btn btn-outline" onclick="backToSubjects()">退出</button>'}
         </div>
         <div id="completionHint" style="text-align:center;font-size:.74rem;color:var(--yellow);margin-top:.4rem;${(currentQuestionIndex>=currentQuestions.length-1 && !allQuestionsAnswered())?'':'display:none;'}">还有 ${currentQuestions.length-getAnsweredCount()} 题未作答，全部完成后可点击"完成"</div>
         <div class="answer-reveal" id="answerReveal"></div>
+        ${getRelatedQuestionsHtml(q.id)}
         <div class="quiz-card-overlay" id="quizCardOverlay">
           <div class="qc-overlay-header">
             <div class="qc-overlay-title">题卡 · ${escapeHtml(currentChapterName||'')}（共${currentQuestions.length}题）</div>
@@ -1408,11 +1914,30 @@ function updateSubMatchingUI(q){
     const displayOpts = q._displayOptions || q.options;
     pool.innerHTML = displayOpts.map(opt=>{
       let cls = 'option-item';
-      if(quizState.selectedOption===opt.id) cls += ' selected';
+      if(quizState.selectedOptions && quizState.selectedOptions.includes(opt.id)) cls += ' selected';
+      // 统计该选项已被放入多少个子题
+      let placedCount = 0;
+      Object.values(quizState.subPlacements).forEach(arr=>{
+        if(arr && arr.includes(opt.id)) placedCount++;
+      });
+      if(placedCount > 0) cls += ' placed';
+      const badge = placedCount > 0 ? `<span class="placement-badge">已放${placedCount}题</span>` : '';
       return `<div class="${cls}" data-opt="${opt.id}" onclick="selectSubOption('${opt.id}')">
-        <span class="opt-letter">${opt.id}</span><span>${escapeHtml(opt.text)}</span>
+        <span class="opt-letter">${opt.id}</span><span>${escapeHtml(opt.text)}</span>${badge}
       </div>`;
     }).join('');
+  }
+
+  // 更新选择徽章和清除按钮
+  const selCount = quizState.selectedOptions ? quizState.selectedOptions.length : 0;
+  const badge = document.getElementById('poolSelBadge');
+  const clearBtn = document.getElementById('poolClearBtn');
+  if(badge){
+    badge.textContent = `已选 ${selCount}`;
+    badge.style.display = selCount > 0 ? '' : 'none';
+  }
+  if(clearBtn){
+    clearBtn.style.display = selCount > 0 ? '' : 'none';
   }
   
   // Tab栏
@@ -1443,7 +1968,7 @@ function updateSubMatchingUI(q){
       const placements = quizState.subPlacements[key] || [];
       const isCorrect = isAnswered && isSubCorrect(q, g.id, si);
       
-      html += `<div class="sm-sub-item${isAnswered?' locked':''}${quizState.selectedOption?' has-selected':''}">`;
+      html += `<div class="sm-sub-item${isAnswered?' locked':''}${(quizState.selectedOptions && quizState.selectedOptions.length > 0)?' has-selected':''}">`;
       html += `<span class="sm-sub-num">${si+1}</span>`;
       html += `<span class="sm-sub-prompt">${escapeHtml(sq.prompt)}</span>`;
       html += `<div class="sm-sub-slots">`;
@@ -1470,8 +1995,8 @@ function updateSubMatchingUI(q){
           const opt = q.options.find(o=>o.id===p);
           html += `<span class="sm-slot" onclick="removeFromSubSlot('${g.id}',${si},'${p}')"><span class="slot-letter">${p}</span><span class="slot-remove">✕</span></span>`;
         });
-        if(quizState.selectedOption){
-          html += `<span class="sm-empty-slot" onclick="placeInSubSlot('${g.id}',${si})">点击放入</span>`;
+        if(quizState.selectedOptions && quizState.selectedOptions.length > 0){
+          html += `<span class="sm-empty-slot" onclick="placeInSubSlot('${g.id}',${si})">点击放入 (${quizState.selectedOptions.length}个)</span>`;
         } else {
           html += `<span class="sm-empty-slot">选选项后放入</span>`;
         }
@@ -1534,10 +2059,12 @@ function updateSubMatchingUI(q){
 
 function selectSubOption(optId){
   if(quizState.answered) return;
-  if(quizState.selectedOption === optId){
-    quizState.selectedOption = null;
+  if(!quizState.selectedOptions) quizState.selectedOptions = [];
+  const idx = quizState.selectedOptions.indexOf(optId);
+  if(idx >= 0){
+    quizState.selectedOptions.splice(idx, 1);
   } else {
-    quizState.selectedOption = optId;
+    quizState.selectedOptions.push(optId);
   }
   const q = currentQuestions[currentQuestionIndex];
   updateSubMatchingUI(q);
@@ -1545,14 +2072,16 @@ function selectSubOption(optId){
 
 function placeInSubSlot(groupId, subIdx){
   if(quizState.answered) return;
-  if(!quizState.selectedOption) return;
+  if(!quizState.selectedOptions || quizState.selectedOptions.length===0) return;
   const q = currentQuestions[currentQuestionIndex];
   const key = `${groupId}_${subIdx}`;
   if(!quizState.subPlacements[key]) quizState.subPlacements[key] = [];
-  if(!quizState.subPlacements[key].includes(quizState.selectedOption)){
-    quizState.subPlacements[key].push(quizState.selectedOption);
-  }
-  quizState.selectedOption = null;
+  quizState.selectedOptions.forEach(optId=>{
+    if(!quizState.subPlacements[key].includes(optId)){
+      quizState.subPlacements[key].push(optId);
+    }
+  });
+  quizState.selectedOptions = [];
   updateSubMatchingUI(q);
   saveQuizDraft();
 }
@@ -1643,9 +2172,9 @@ async function submitSubAnswer(groupId, subIdx){
     renderSubMatchingReveal(q);
     updateQuizProgress();
     
-    // 自动同步
+    // 自动同步（防抖，5秒后执行）
     if(autoSyncEnabled){
-      try{ await syncToCloudSilent(); }catch(e){ console.warn('自动同步失败',e); }
+      syncToCloudDebounced();
     }
   }
 }
@@ -1751,11 +2280,10 @@ function toggleQuizCard(){
 
 function getQuestionCardStatus(qId){
   const saved = draftProgress[qId];
+  // 未保存或未提交 → 灰色（未做）
   if(!saved || !saved.answered) return 'unanswered';
-  if(saved.correct) return 'correct';
-  // 对于 sub-matching，检查 subCorrect
-  if(saved.correct !== undefined) return saved.correct ? 'correct' : 'wrong';
-  return 'wrong';
+  // 已提交 → 根据 correct 字段判断绿/红
+  return saved.correct ? 'correct' : 'wrong';
 }
 
 function renderQuizCardGrid(){
@@ -1823,13 +2351,15 @@ async function submitAnswer(){
   await updateWrongBadge();
   await updateUserStreak();
 
-  // 自动同步（静默，每题提交后不弹窗）
+  // 自动同步（防抖，5秒后执行）
   if(autoSyncEnabled){
-    try{ await syncToCloudSilent(); }catch(e){ console.warn('自动同步失败',e); }
+    syncToCloudDebounced();
   }
 }
 
 function prevQuestion(){
+  // 跳转模式下只有一题，禁用上一题
+  if(isJumpMode) return;
   if(currentQuestionIndex > 0){
     saveQuizDraft();
     currentQuestionIndex--;
@@ -1838,6 +2368,11 @@ function prevQuestion(){
 }
 
 function nextQuestion(){
+  // 跳转模式下点击"完成"→自动返回原题
+  if(isJumpMode){
+    returnToOriginalQuestion();
+    return;
+  }
   saveQuizDraft();
   currentQuestionIndex++;
   if(currentQuestionIndex >= currentQuestions.length){
@@ -1884,9 +2419,9 @@ function showCompletion(){
   currentQuestions = [];
   currentQuestionIndex = 0;
 
-  // 章节完成后自动上传
+  // 章节完成后自动上传（防抖，5秒后执行）
   if(autoSyncEnabled){
-    syncToCloudSilent(); // 非阻塞，不影响页面渲染
+    syncToCloudDebounced();
   }
 
   const el = document.getElementById('quizContent');
@@ -2708,13 +3243,56 @@ function closeNoteModal(){
 
 function previewNoteImages(event){
   const files = Array.from(event.target.files);
+  const preview = document.getElementById('noteImagePreview');
   files.forEach(file=>{
+    compressImage(file, 1200, 0.7).then(async compressedDataUrl=>{
+      // 先用压缩后的 base64 显示预览（半透明 = 上传中）
+      const img = document.createElement('img');
+      img.src = compressedDataUrl;
+      img.style.opacity = '0.4';
+      img.style.transition = 'opacity 0.3s';
+      preview.appendChild(img);
+      try{
+        // 上传到 COS，存储公开访问 URL
+        const cosUrl = await uploadImageToCos(compressedDataUrl);
+        img.src = cosUrl;
+        img.style.opacity = '1';
+        currentNoteImages.push(cosUrl);
+      }catch(err){
+        console.error('COS 上传失败，回退到 base64:', err);
+        img.style.opacity = '1';
+        currentNoteImages.push(compressedDataUrl);
+      }
+    });
+  });
+}
+
+/* 图片压缩：将图片缩放并压缩为 JPEG，确保 base64 不超过约 200KB */
+function compressImage(file, maxDim, quality){
+  return new Promise((resolve)=>{
     const reader = new FileReader();
     reader.onload = (e)=>{
-      currentNoteImages.push(e.target.result);
-      const img = document.createElement('img');
+      const img = new Image();
+      img.onload = ()=>{
+        let w = img.width, h = img.height;
+        if(w > maxDim || h > maxDim){
+          if(w > h){ h = Math.round(h * maxDim / w); w = maxDim; }
+          else { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        let q = quality;
+        let result = canvas.toDataURL('image/jpeg', q);
+        // 如果仍然超过 200KB，逐步降低质量
+        while(result.length > 200 * 1024 && q > 0.1){
+          q -= 0.1;
+          result = canvas.toDataURL('image/jpeg', q);
+        }
+        resolve(result);
+      };
       img.src = e.target.result;
-      document.getElementById('noteImagePreview').appendChild(img);
     };
     reader.readAsDataURL(file);
   });
@@ -2732,14 +3310,14 @@ async function saveNote(){
     id, userId:currentUserId, userName:currentUserName, questionId:currentNoteTarget,
     subject:q?q.subject:'', system:q?q.system:'', chapter:q?q.chapter:'',
     title:q?q.title:currentNoteTarget,
-    text, images:currentNoteImages, createdDate:new Date().toISOString()
+    text, images:currentNoteImages, createdDate:new Date().toISOString(), lastModified:new Date().toISOString()
   });
   closeNoteModal();
   // 如果当前在解析页则刷新
   if(document.getElementById('panel-notes').classList.contains('active')) renderNotes();
-  // 保存解析后自动上传
-  if(autoSyncEnabled) syncToCloudSilent();
-  if(sharedNotesAutoSyncEnabled) syncSharedNotesSilent();
+  // 保存解析后自动上传（防抖）
+  if(autoSyncEnabled) syncToCloudDebounced();
+  if(sharedNotesAutoSyncEnabled) syncSharedNotesDebounced();
 }
 
 async function editNote(noteId){
@@ -2758,13 +3336,14 @@ async function editNote(noteId){
     const newText = document.getElementById('noteText').value.trim();
     note.text = newText;
     note.images = currentNoteImages;
+    note.lastModified = new Date().toISOString();
     await dbAdd('notes', note);
     closeNoteModal();
     document.querySelector('.btn-save').onclick = saveNote;
     renderNotes();
-    // 编辑解析后自动上传
-    if(autoSyncEnabled) syncToCloudSilent();
-    if(sharedNotesAutoSyncEnabled) syncSharedNotesSilent();
+    // 编辑解析后自动上传（防抖）
+    if(autoSyncEnabled) syncToCloudDebounced();
+    if(sharedNotesAutoSyncEnabled) syncSharedNotesDebounced();
   };
 }
 
@@ -2772,9 +3351,9 @@ async function deleteNote(noteId){
   if(!confirm('确定删除该解析？')) return;
   await dbDelete('notes', noteId);
   renderNotes();
-  // 删除解析后自动同步
-  if(autoSyncEnabled) syncToCloudSilent();
-  if(sharedNotesAutoSyncEnabled) syncSharedNotesSilent();
+  // 删除解析后自动同步（防抖）
+  if(autoSyncEnabled) syncToCloudDebounced();
+  if(sharedNotesAutoSyncEnabled) syncSharedNotesDebounced();
 }
 
 /* ==========================================================
@@ -2882,6 +3461,8 @@ async function renderSettings(){
   </div>`;
 
   // 共享解析同步
+  const sharedGistId = getSharedGistId()||'';
+  const sharedGistDisplay = sharedGistId ? sharedGistId.substring(0,8)+'...' : '未创建';
   html += `<div class="home-card" style="margin-bottom:1.2rem">
     <div class="card-title">📝 共享解析同步</div>
     <div class="setting-row">
@@ -2896,11 +3477,21 @@ async function renderSettings(){
         <div class="toggle ${sharedNotesAutoSyncEnabled?'on':''}" data-toggle="sharedNotesAutoSync" onclick="toggleSharedNotesAutoSync()"></div>
       </div>
     </div>
+    <div class="setting-row">
+      <div class="setting-label">共享解析池 Gist ID<div class="sl-desc">所有用户共用同一个 Gist。首次同步自动创建，其他设备/用户粘贴此 ID 即可加入。当前：${escapeHtml(sharedGistDisplay)}</div></div>
+      <div class="setting-control" style="display:flex;gap:.4rem;align-items:center">
+        <input type="text" id="sharedGistIdInput" placeholder="粘贴共享 Gist ID..." value="${escapeHtml(sharedGistId)}" style="padding:.4rem .6rem;border-radius:6px;border:1px solid var(--rule);font-size:.78rem;width:180px;font-family:var(--font)">
+        <button class="btn btn-outline" style="font-size:.72rem;padding:.4rem .6rem" onclick="saveSharedGistIdManual()">关联</button>
+      </div>
+    </div>
     <div style="font-size:.72rem;color:var(--muted);margin-top:.6rem;line-height:1.6">
       📝 你的解析会上传到云端共享池，其他同学同步后可以看到<br>
       👁️ 其他同学的解析为只读，不能编辑或删除<br>
       🔄 每次同步自动合并本地+云端数据，按ID去重，不会丢失<br>
-      📱 应用启动时自动检查并下载新的共享解析
+      🚀 <strong>应用启动时自动双向同步</strong>：下载最新解析 + 上传本地新增<br>
+      ⚡ 保存/编辑解析后自动上传（防抖5秒，开启上方开关即可）<br>
+      👀 切回页面时自动增量检查新解析<br>
+      💡 首次同步会自动创建共享池，把生成的 Gist ID 分享给其他设备/用户即可
     </div>
   </div>`;
 
@@ -2987,6 +3578,19 @@ function saveManualGistId(){
   renderSettings();
 }
 
+/* 保存共享解析池 Gist ID（所有用户共用） */
+function saveSharedGistIdManual(){
+  const id = document.getElementById('sharedGistIdInput').value.trim();
+  if(id){
+    setSharedGistId(id);
+    alert('✅ 共享解析池 Gist ID 已关联\n现在可以点击「一键同步」上传/下载共享解析');
+  } else {
+    localStorage.removeItem('xuecheng_shared_gist_id');
+    alert('共享解析池 Gist ID 已清除');
+  }
+  renderSettings();
+}
+
 /* 获取当前设备的唯一ID（每个设备独立，存储在localStorage） */
 function getDeviceId(){
   let id = localStorage.getItem('xuecheng_device_id');
@@ -3025,6 +3629,82 @@ function setUserGistId(userId, gistId){
   localStorage.setItem(`xuecheng_gist_id_user_${userId}`, gistId);
 }
 
+/* ====== 共享解析专用 Gist ID（所有用户共用同一个 Gist） ====== */
+function getSharedGistId(){
+  return localStorage.getItem('xuecheng_shared_gist_id');
+}
+function setSharedGistId(gistId){
+  localStorage.setItem('xuecheng_shared_gist_id', gistId);
+}
+
+/* ==========================================================
+ * Gist 文件安全读取工具（解决 >1MB 文件被 API 截断问题）
+ * ========================================================== */
+
+/**
+ * 安全获取 Gist 文件的完整内容
+ * GitHub Gist API 对超过 1MB 的文件会截断 content 字段（返回空字符串）
+ * 并设置 truncated: true，此时需通过 raw_url 获取完整内容
+ *
+ * @param {Object} file - gist.files[fileName] 对象
+ * @param {string} token - GitHub Token（raw_url 需认证）
+ * @returns {Promise<string|null>} 文件完整内容；获取失败返回 null
+ */
+async function fetchGistFileContent(file, token){
+  if(!file) return null;
+
+  // 如果 API 标记为截断，或 content 为空，通过 raw_url 获取完整内容
+  if(file.truncated || !file.content){
+    if(file.raw_url){
+      try{
+        const rawRes = await fetch(file.raw_url, {
+          headers: token ? { 'Authorization':`token ${token}`, 'Accept':'application/vnd.github.v3.raw' } : {}
+        });
+        if(rawRes.ok){
+          return await rawRes.text();
+        }
+        console.warn('raw_url 获取失败:', rawRes.status);
+      }catch(e){
+        console.warn('raw_url 请求异常:', e.message);
+      }
+      // raw_url 也失败，且文件被截断
+      if(file.truncated){
+        console.warn('文件过大被截断，且 raw_url 获取失败，跳过此文件');
+        return null;
+      }
+      return null;
+    }
+    // 无 raw_url 且 content 为空
+    return null;
+  }
+
+  // 正常情况：content 未被截断，直接使用
+  return file.content;
+}
+
+/**
+ * 安全 JSON 解析：捕获截断导致的解析错误，提供更有用的错误信息
+ * @param {string} text - JSON 文本
+ * @param {string} context - 上下文描述（如"用户数据"、"题库数据"）
+ * @returns {Object} 解析后的对象
+ */
+function safeJsonParse(text, context){
+  if(!text || typeof text !== 'string'){
+    throw new Error(`${context||'数据'}为空，无法解析`);
+  }
+  try{
+    return JSON.parse(text);
+  }catch(e){
+    const msg = e.message || '';
+    const sizeKB = Math.round(text.length / 1024);
+    // 截断类错误：内容不完整
+    if(msg.includes('Unterminated') || msg.includes('Unexpected end') || msg.includes('Unexpected token')){
+      throw new Error(`${context||'数据'}解析失败：内容可能被截断（${sizeKB}KB）。建议通过 raw_url 重新获取或检查网络连接。`);
+    }
+    throw new Error(`${context||'数据'}解析失败：${msg}（${sizeKB}KB）`);
+  }
+}
+
 /* 上传：只上传当前用户+当前设备的数据（不含题目库） */
 async function syncToCloud(){
   const token = localStorage.getItem('xuecheng_gist_token');
@@ -3045,7 +3725,7 @@ async function syncToCloud(){
   };
   
   const fileName = getUserGistFileName(currentUserId);
-  const content = JSON.stringify(data, null, 2);
+  const content = JSON.stringify(data);
   const gistId = getUserGistId(currentUserId);
   
   // 如果已有该用户的 Gist，尝试更新对应文件；否则创建新 Gist
@@ -3131,9 +3811,12 @@ async function syncFromCloud(){
   
   for(const fileName of deviceFiles){
     const file = gist.files[fileName];
-    if(!file || !file.content) continue;
+    if(!file) continue;
     
-    const data = JSON.parse(file.content);
+    const content = await fetchGistFileContent(file, token);
+    if(!content) continue;
+    
+    const data = safeJsonParse(content, '用户数据');
     if(data.deviceLabel) deviceList.push(data.deviceLabel + (data.deviceId === currentDevId ? '（本机）' : ''));
     
     // 恢复用户列表
@@ -3199,7 +3882,7 @@ async function uploadQuestionBankUpdate(){
     totalCount: allQs.length,
     questions: allQs
   };
-  const content = JSON.stringify(data, null, 2);
+  const content = JSON.stringify(data);
 
   // 上传到已有 Gist 的 question_bank.json 文件
   const res = await fetch(`https://api.github.com/gists/${gistId}`, {
@@ -3239,9 +3922,12 @@ async function checkQuestionBankUpdate(){
 
     const gist = await res.json();
     const file = gist.files && gist.files[QB_GIST_FILENAME];
-    if(!file || !file.content) return;
+    if(!file) return;
 
-    const cloudData = JSON.parse(file.content);
+    const content = await fetchGistFileContent(file, token);
+    if(!content) return;
+
+    const cloudData = safeJsonParse(content, '题库数据');
     const cloudVersion = cloudData.version || '';
     const localVersion = getLocalQuestionBankVersion();
 
@@ -3277,16 +3963,111 @@ async function checkQuestionBankUpdate(){
  * ========================================================== */
 const SHARED_NOTES_FILENAME = 'shared_notes.json';
 const SHARED_NOTES_VERSION_KEY = 'shared_notes_version';
+const SHARED_NOTES_CHUNK_PREFIX = 'shared_notes_';
+const SHARED_NOTES_CHUNK_MAX_BYTES = 800000; // 800KB 安全阈值（Gist API 截断限制为 1MB）
 
-/* 一键同步共享解析：上传本地解析 + 下载云端全量解析并合并 */
+/* 计算 UTF-8 编码后的字节长度 */
+function getUtf8ByteLength(str){
+  try{ return new TextEncoder().encode(str).length; }
+  catch(e){ return str.length * 3; } // 降级估算（中文字符最多3字节）
+}
+
+/* 将解析数组按字节大小分块，每块不超过 maxBytes */
+function splitNotesIntoChunks(notes, maxBytes){
+  const chunks = [];
+  let currentChunk = [];
+  let currentSize = 0;
+  for(const note of notes){
+    const noteSize = getUtf8ByteLength(JSON.stringify(note));
+    // 单条解析本身超限时，仍放入独立分块（无法再分割）
+    if(currentSize + noteSize > maxBytes && currentChunk.length > 0){
+      chunks.push(currentChunk);
+      currentChunk = [];
+      currentSize = 0;
+    }
+    currentChunk.push(note);
+    currentSize += noteSize;
+  }
+  if(currentChunk.length > 0) chunks.push(currentChunk);
+  return chunks;
+}
+
+/* 从 Gist 下载共享解析（自动处理分块格式）
+ * 返回 { notes: [], version: '' } 或 null
+ */
+async function downloadSharedNotesFromGist(gist, token){
+  const mainFile = gist.files && gist.files[SHARED_NOTES_FILENAME];
+  if(!mainFile) return null;
+
+  const mainContent = await fetchGistFileContent(mainFile, token);
+  if(!mainContent) return null;
+
+  const mainData = safeJsonParse(mainContent, '共享解析');
+
+  // 非分块格式：直接返回
+  if(!mainData.chunked){
+    return { notes: mainData.notes || [], version: mainData.version || '' };
+  }
+
+  // 分块格式：读取所有分块并合并
+  const chunkCount = mainData.chunkCount || 0;
+  const allNotes = [];
+  for(let i = 1; i <= chunkCount; i++){
+    const chunkFileName = `${SHARED_NOTES_CHUNK_PREFIX}${i}.json`;
+    const chunkFile = gist.files && gist.files[chunkFileName];
+    if(!chunkFile) continue;
+    const chunkContent = await fetchGistFileContent(chunkFile, token);
+    if(!chunkContent) continue;
+    const chunkData = safeJsonParse(chunkContent, `共享解析分块${i}`);
+    if(chunkData.notes && Array.isArray(chunkData.notes)){
+      allNotes.push(...chunkData.notes);
+    }
+  }
+  return { notes: allNotes, version: mainData.version || '' };
+}
+
+/* 一键同步共享解析：上传本地解析 + 下载云端全量解析并合并
+ * 使用独立的共享 Gist（所有用户共用），与个人数据 Gist 分离
+ * 首次同步时自动创建共享 Gist，后续用户只需输入同一个 Gist ID
+ */
 async function syncSharedNotes(){
   const token = localStorage.getItem('xuecheng_gist_token');
   if(!token) throw new Error('请先在云同步设置中配置 GitHub Token');
-  const gistId = getUserGistId(currentUserId);
-  if(!gistId) throw new Error('请先在云同步中上传一次用户数据以创建 Gist');
+
+  let gistId = getSharedGistId();
+  let newlyCreatedGistId = null;
 
   // 收集本地所有解析
   const localNotes = await dbGetAll('notes');
+
+  // 首次同步：如果没有共享 Gist ID，创建一个新的共享 Gist
+  if(!gistId){
+    const newVersion = new Date().toISOString();
+    const initialContent = JSON.stringify({ version: newVersion, totalCount: 0, notes: [] });
+    const createRes = await fetch('https://api.github.com/gists', {
+      method:'POST',
+      headers:{
+        'Authorization':`token ${token}`,
+        'Content-Type':'application/json',
+        'Accept':'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify({
+        description:'学成选择题 · 共享解析池（多用户多设备）',
+        public:false,
+        files:{ [SHARED_NOTES_FILENAME]:{ content: initialContent } }
+      })
+    });
+    if(!createRes.ok){
+      const err = await createRes.json().catch(()=>({}));
+      throw new Error(err.message||`创建共享Gist失败: HTTP ${createRes.status}`);
+    }
+    const newGist = await createRes.json();
+    gistId = newGist.id;
+    setSharedGistId(gistId);
+    newlyCreatedGistId = gistId;
+    // 提示用户把此 ID 分享给其他设备/用户
+    showSyncToast(`✅ 已创建共享解析池，请将 Gist ID 分享给其他设备/用户`, 'success');
+  }
 
   // 下载云端现有数据
   const res = await fetch(`https://api.github.com/gists/${gistId}`, {
@@ -3295,21 +4076,35 @@ async function syncSharedNotes(){
   if(!res.ok) throw new Error(`下载失败: HTTP ${res.status}`);
 
   const gist = await res.json();
-  const cloudFile = gist.files && gist.files[SHARED_NOTES_FILENAME];
+  
+  // 下载云端解析（自动处理分块格式）
   let cloudNotes = [];
   let cloudVersion = '';
-  if(cloudFile && cloudFile.content){
-    const cloudData = JSON.parse(cloudFile.content);
-    cloudNotes = cloudData.notes || [];
-    cloudVersion = cloudData.version || '';
+  const cloudResult = await downloadSharedNotesFromGist(gist, token);
+  if(cloudResult){
+    cloudNotes = cloudResult.notes;
+    cloudVersion = cloudResult.version;
   }
 
-  // 合并：本地 + 云端，按 ID 去重（后写入覆盖）
+  // 合并：本地 + 云端，按 ID 去重，按 lastModified 时间戳判断新旧
   const noteMap = new Map();
   // 先放入云端数据
   cloudNotes.forEach(n=>{ if(n && n.id) noteMap.set(n.id, n); });
-  // 再用本地数据覆盖（保证本地最新版本上传）
-  localNotes.forEach(n=>{ if(n && n.id) noteMap.set(n.id, n); });
+  // 用本地数据覆盖：仅当本地版本更新时才覆盖
+  localNotes.forEach(n=>{
+    if(!n || !n.id) return;
+    const existing = noteMap.get(n.id);
+    if(!existing){
+      noteMap.set(n.id, n);
+    } else {
+      // 比较 lastModified 时间戳，本地更新则覆盖
+      const localTime = n.lastModified || n.createdDate || '';
+      const cloudTime = existing.lastModified || existing.createdDate || '';
+      if(localTime >= cloudTime){
+        noteMap.set(n.id, n);
+      }
+    }
+  });
 
   const mergedNotes = Array.from(noteMap.values());
   const newVersion = new Date().toISOString();
@@ -3320,13 +4115,43 @@ async function syncSharedNotes(){
   const newFromLocal = localNotes.filter(n => !cloudNotes.some(c => c.id === n.id)).length;
   const newFromCloud = cloudNotes.filter(n => !localNotes.some(l => l.id === n.id)).length;
 
-  // 上传合并后的全量数据
-  const uploadData = {
-    version: newVersion,
-    totalCount: mergedNotes.length,
-    notes: mergedNotes
-  };
-  const content = JSON.stringify(uploadData, null, 2);
+  // 上传合并后的全量数据（自动分块：超过 800KB 则拆分为多个文件）
+  const filesPayload = {};
+  const mergedContent = JSON.stringify({ version: newVersion, totalCount: mergedNotes.length, notes: mergedNotes });
+  const mergedBytes = getUtf8ByteLength(mergedContent);
+
+  if(mergedBytes <= SHARED_NOTES_CHUNK_MAX_BYTES){
+    // 非分块模式：单个文件
+    filesPayload[SHARED_NOTES_FILENAME] = { content: mergedContent };
+    // 清理可能存在的旧分块文件
+    for(let i = 1; i <= 20; i++){
+      const chunkName = `${SHARED_NOTES_CHUNK_PREFIX}${i}.json`;
+      if(gist.files && gist.files[chunkName]){
+        filesPayload[chunkName] = null; // null = 删除该文件
+      }
+    }
+  } else {
+    // 分块模式：拆分为多个文件
+    const chunks = splitNotesIntoChunks(mergedNotes, SHARED_NOTES_CHUNK_MAX_BYTES);
+    // 主文件存元数据
+    filesPayload[SHARED_NOTES_FILENAME] = {
+      content: JSON.stringify({ version: newVersion, chunked: true, chunkCount: chunks.length, totalNotes: mergedNotes.length })
+    };
+    // 各分块文件
+    chunks.forEach((chunkNotes, i) => {
+      const chunkName = `${SHARED_NOTES_CHUNK_PREFIX}${i + 1}.json`;
+      filesPayload[chunkName] = {
+        content: JSON.stringify({ chunkIndex: i + 1, notes: chunkNotes })
+      };
+    });
+    // 清理多余的旧分块文件
+    for(let i = chunks.length + 1; i <= 20; i++){
+      const chunkName = `${SHARED_NOTES_CHUNK_PREFIX}${i}.json`;
+      if(gist.files && gist.files[chunkName]){
+        filesPayload[chunkName] = null;
+      }
+    }
+  }
 
   const uploadRes = await fetch(`https://api.github.com/gists/${gistId}`, {
     method:'PATCH',
@@ -3337,7 +4162,7 @@ async function syncSharedNotes(){
     },
     body: JSON.stringify({
       description:'学成选择题 · 共享解析',
-      files:{ [SHARED_NOTES_FILENAME]:{ content } }
+      files: filesPayload
     })
   });
   if(!uploadRes.ok){
@@ -3361,15 +4186,16 @@ async function syncSharedNotes(){
     uploaded: localNotes.length,
     newFromLocal,
     newFromCloud,
-    totalMerged: mergedNotes.length
+    totalMerged: mergedNotes.length,
+    sharedGistId: newlyCreatedGistId
   };
 }
 
-/* 启动时静默检查共享解析更新 */
+/* 启动时静默检查共享解析更新（使用共享 Gist ID） */
 async function checkSharedNotesUpdate(){
   const token = localStorage.getItem('xuecheng_gist_token');
   if(!token) return;
-  const gistId = getUserGistId(currentUserId);
+  const gistId = getSharedGistId();
   if(!gistId) return;
 
   try{
@@ -3379,17 +4205,18 @@ async function checkSharedNotesUpdate(){
     if(!res.ok) return;
 
     const gist = await res.json();
-    const file = gist.files && gist.files[SHARED_NOTES_FILENAME];
-    if(!file || !file.content) return;
 
-    const cloudData = JSON.parse(file.content);
-    const cloudVersion = cloudData.version || '';
+    // 下载云端解析（自动处理分块格式）
+    const cloudResult = await downloadSharedNotesFromGist(gist, token);
+    if(!cloudResult) return;
+
+    const cloudVersion = cloudResult.version || '';
     const localVersion = localStorage.getItem(SHARED_NOTES_VERSION_KEY) || '';
 
     if(cloudVersion === localVersion) return;
 
     // 有更新，下载并合并（仅下载本地不存在的解析，避免覆盖本地编辑）
-    const cloudNotes = cloudData.notes || [];
+    const cloudNotes = cloudResult.notes || [];
     const localNotes = await dbGetAll('notes');
     const localIds = new Set(localNotes.map(n=>n.id));
     let newCount = 0;
@@ -3414,13 +4241,17 @@ async function checkSharedNotesUpdate(){
 async function syncSharedNotesSilent(){
   const token = localStorage.getItem('xuecheng_gist_token');
   if(!token) return;
-  const gistId = getUserGistId(currentUserId);
-  if(!gistId) return;
+  if(isSharedNotesSyncing) return; // 同步锁：已有同步在进行中，跳过
+  isSharedNotesSyncing = true;
+  // 共享解析使用独立的 Gist，不再依赖个人 Gist ID
+  // syncSharedNotes() 内部会在无共享 Gist ID 时自动创建
   try{
     const stats = await syncSharedNotes();
     showSyncToast(`📝 共享解析已同步（↑${stats.uploaded} ↓${stats.newFromCloud}新）`, 'success');
   }catch(e){
     console.warn('共享解析同步失败', e);
+  }finally{
+    isSharedNotesSyncing = false;
   }
 }
 
@@ -3436,7 +4267,11 @@ async function quickSync(){
     // 同时同步共享解析
     try{
       const stats = await syncSharedNotes();
-      alert(`☁️ 同步成功！\n\n个人数据已上传\n共享解析：上传 ${stats.uploaded} 条，下载 ${stats.newFromCloud} 条新解析`);
+      let syncMsg = `☁️ 同步成功！\n\n个人数据已上传\n共享解析：上传 ${stats.uploaded} 条，下载 ${stats.newFromCloud} 条新解析`;
+      if(stats.sharedGistId){
+        syncMsg += `\n\n🔑 共享解析池已创建！Gist ID: ${stats.sharedGistId}\n请将此 ID 复制到其他设备/用户。`;
+      }
+      alert(syncMsg);
     }catch(e2){
       alert('☁️ 个人数据同步成功！\n共享解析同步失败：'+e2.message);
     }
@@ -3474,7 +4309,11 @@ async function handleSyncSharedNotes(){
   if(btn){ btn.disabled = true; btn.textContent = '⏳ 同步中...'; }
   try{
     const stats = await syncSharedNotes();
-    alert(`✅ 共享解析同步完成\n\n上传：${stats.uploaded} 条（新增 ${stats.newFromLocal} 条到云端）\n下载：${stats.newFromCloud} 条其他同学的解析\n合并后云端共 ${stats.totalMerged} 条`);
+    let msg = `✅ 共享解析同步完成\n\n上传：${stats.uploaded} 条（新增 ${stats.newFromLocal} 条到云端）\n下载：${stats.newFromCloud} 条其他同学的解析\n合并后云端共 ${stats.totalMerged} 条`;
+    if(stats.sharedGistId){
+      msg += `\n\n🔑 共享解析池已创建！\nGist ID: ${stats.sharedGistId}\n\n请将此 ID 复制到其他设备/用户的「共享解析池 Gist ID」输入框中，即可共享解析。`;
+    }
+    alert(msg);
     // 如果当前在解析页则刷新
     if(document.getElementById('panel-notes') && document.getElementById('panel-notes').classList.contains('active')){
       renderNotes();
@@ -3505,18 +4344,46 @@ function showSyncToast(msg, type){
   }, 2500);
 }
 
-/* 静默同步上传（不弹alert，失败时显示toast） */
+/* 静默同步上传（带同步锁，防止并发竞态；失败时显示toast） */
 async function syncToCloudSilent(){
   const token = localStorage.getItem('xuecheng_gist_token');
-  if(!token) return; // 无token时静默跳过
+  if(!token){
+    if(autoSyncEnabled) showSyncToast('⚠️ 自动同步未生效：未配置 GitHub Token', 'error');
+    return;
+  }
   const gistId = getUserGistId(currentUserId);
-  if(!gistId) return; // 未关联Gist时静默跳过
+  if(!gistId){
+    if(autoSyncEnabled) showSyncToast('⚠️ 自动同步未生效：未关联 Gist ID', 'error');
+    return;
+  }
+  if(isSyncing) return; // 同步锁：已有同步在进行中，跳过
+  isSyncing = true;
   try{
     await syncToCloud();
     showSyncToast('☁️ 已自动同步（' + getDeviceLabel() + '）', 'success');
   }catch(e){
     showSyncToast('⚠️ 同步失败：' + e.message, 'error');
+  }finally{
+    isSyncing = false;
   }
+}
+
+/* 防抖版同步上传：延迟5秒执行，期间多次调用只执行一次 */
+function syncToCloudDebounced(){
+  if(pendingSyncTimer) clearTimeout(pendingSyncTimer);
+  pendingSyncTimer = setTimeout(()=>{
+    pendingSyncTimer = null;
+    syncToCloudSilent();
+  }, 5000);
+}
+
+/* 防抖版共享解析同步：延迟5秒执行，期间多次调用只执行一次 */
+function syncSharedNotesDebounced(){
+  if(pendingSharedSyncTimer) clearTimeout(pendingSharedSyncTimer);
+  pendingSharedSyncTimer = setTimeout(()=>{
+    pendingSharedSyncTimer = null;
+    syncSharedNotesSilent();
+  }, 5000);
 }
 
 function toggleShuffleOptions(){
@@ -3903,13 +4770,18 @@ async function init(){
             );
             for(const fileName of deviceFiles){
               const file = gist.files[fileName];
-              if(file && file.content){
-                const cloudData = JSON.parse(file.content);
+              if(!file) continue;
+              try{
+                const content = await fetchGistFileContent(file, token);
+                if(!content) continue;
+                const cloudData = safeJsonParse(content, '用户恢复数据');
                 if(cloudData.users && Array.isArray(cloudData.users)){
                   for(const u of cloudData.users){
                     if(u && u.id) await dbAdd('users', u);
                   }
                 }
+              }catch(e2){
+                console.warn('恢复设备文件失败:', fileName, e2.message);
               }
             }
             users = await dbGetAll('users');
@@ -3967,8 +4839,9 @@ async function init(){
     }
   }
 
-  // 启动时静默检查共享解析更新（不依赖autoSync开关，独立运行）
-  checkSharedNotesUpdate();
+  // 启动时自动双向同步共享解析（不依赖任何开关，静默执行）
+  // 下载云端最新解析 + 上传本地新增解析
+  syncSharedNotesSilent();
 
   // 事件监听：点击遮罩关闭弹窗
   const modal = document.getElementById('noteModal');
@@ -3992,6 +4865,10 @@ document.addEventListener('DOMContentLoaded', init);
 window.addEventListener('pagehide', () => { saveQuizDraft(); });
 document.addEventListener('visibilitychange', () => {
   if(document.visibilityState === 'hidden') saveQuizDraft();
+  // 页面重新可见时：增量检查共享解析更新（轻量，仅下载本地没有的）
+  if(document.visibilityState === 'visible'){
+    setTimeout(() => { checkSharedNotesUpdate(); }, 1000);
+  }
 });
 
 /* ====== PWA Service Worker 注册 + 更新检测 ====== */
