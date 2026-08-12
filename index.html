@@ -1082,6 +1082,69 @@ body {
 .review-group-body {
   padding: 8px 16px;
 }
+/* Collapsible review hierarchy */
+.review-subj-group {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.review-subj-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer; user-select: none;
+  font-size: 14px; font-weight: 600;
+}
+.review-subj-header:hover { background: var(--bg3); }
+.review-subj-header .toggle-arrow {
+  font-size: 10px; color: var(--muted);
+  transition: transform 0.2s;
+  margin-left: auto;
+}
+.review-subj-header.expanded .toggle-arrow { transform: rotate(90deg); }
+.review-subj-body { display: none; }
+.review-subj-body.expanded { display: block; }
+.review-sys-group {
+  border-left: 3px solid var(--rule);
+  margin: 4px 12px;
+  border-radius: 0 6px 6px 0;
+  overflow: hidden;
+}
+.review-sys-header {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px;
+  cursor: pointer; user-select: none;
+  font-size: 13px;
+  background: var(--bg1);
+  border-radius: 0 6px 6px 0;
+}
+.review-sys-header:hover { background: var(--bg2); }
+.review-sys-header .toggle-arrow {
+  font-size: 9px; color: var(--muted);
+  transition: transform 0.2s;
+  margin-left: auto;
+}
+.review-sys-header.expanded .toggle-arrow { transform: rotate(90deg); }
+.review-sys-body { display: none; padding: 4px 12px; }
+.review-sys-body.expanded { display: block; }
+/* Date input styles */
+.dp-ce-date, .cascading-date-input {
+  padding: 4px 8px; font-size: 12px;
+  border: 1px solid var(--rule); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+  font-family: inherit; outline: none;
+}
+.cascading-date-row {
+  display: flex; align-items: center; gap: 6px;
+  margin: 8px 0;
+}
+.cascading-date-label {
+  font-size: 12px; color: var(--muted);
+}
 .chapter-row {
   display: flex;
   justify-content: space-between;
@@ -5689,6 +5752,7 @@ function renderDailyPlan() {
   html += '<div class="dp-custom-editor">';
   html += '<input type="text" id="customNewLearnInput" class="dp-ce-input" placeholder="\u8f93\u5165\u5b66\u4e60\u5185\u5bb9\uff08\u5982\uff1a\u8003\u7814\u82f1\u8bed\u9605\u8bfb2010 Text1\uff09" maxlength="200" />';
   html += '<div class="dp-ce-row">';
+  html += '<input type="date" id="customNewLearnDate" class="dp-ce-date" value="' + fmtDate(new Date()) + '" title="学习日期" />';
   html += '<select id="customNewLearnSubject" class="dp-ce-select"><option value="">\u4e0d\u9009\u79d1\u76ee</option><option value="\u82f1\u8bed">\u82f1\u8bed</option><option value="\u653f\u6cbb">\u653f\u6cbb</option><option value="\u533b\u5b66">\u533b\u5b66</option><option value="\u5176\u4ed6">\u5176\u4ed6</option></select>';
   html += '<label class="dp-ce-toggle"><div class="dp-ce-switch" id="ceReviewToggle" onclick="toggleCeReview()"></div><span>\u63a8\u9001\u5de9\u56fa\u590d\u4e60</span></label>';
   html += '<button class="dp-ce-btn" onclick="addCustomNewLearn()">+ \u6dfb\u52a0</button>';
@@ -5955,6 +6019,21 @@ function renderReviewChapterList(filterSubject) {
     const subjChapters = CHAPTER_DATA.filter(function(ch) { return ch.subject === s; });
     if (subjChapters.length === 0) return;
     
+    // Subject-level stats
+    var subjLearned = subjChapters.filter(function(ch) { return isLearned(ch.id); }).length;
+    var subjReviewed = subjChapters.filter(function(ch) { return getReviewCount(ch.id) > 0; }).length;
+    
+    // Subject group (collapsible, default collapsed)
+    html += '<div class="review-subj-group">';
+    html += '<div class="review-subj-header" onclick="toggleReviewSubj(this)">';
+    html += '<span class="subj-dot" style="background:' + SUBJECT_COLORS[s] + '"></span>';
+    html += '<span class="group-subj">' + s + '</span>';
+    html += '<span style="font-size:11px;color:var(--muted);">' + subjLearned + '/' + subjChapters.length + '\u5df2\u5b66 \u00b7 ' + subjReviewed + '\u590d\u4e60</span>';
+    html += '<span class="toggle-arrow">\u25b6</span>';
+    html += '</div>';
+    html += '<div class="review-subj-body">';
+    
+    // Group by system
     const systems = {};
     subjChapters.forEach(function(ch) {
       if (!systems[ch.system]) systems[ch.system] = [];
@@ -5963,13 +6042,16 @@ function renderReviewChapterList(filterSubject) {
     
     Object.keys(systems).forEach(function(sysName) {
       const chapters = systems[sysName];
-      html += '<div class="review-group" style="border-left:3px solid ' + SUBJECT_COLORS[s] + '">';
-      html += '<div class="review-group-header">';
-      html += '<span class="subj-dot" style="background:' + SUBJECT_COLORS[s] + '"></span>';
-      html += '<span class="group-subj">' + s + '</span>';
+      var sysLearned = chapters.filter(function(ch) { return isLearned(ch.id); }).length;
+      
+      // System group (collapsible, default collapsed)
+      html += '<div class="review-sys-group" style="border-left:3px solid ' + SUBJECT_COLORS[s] + '">';
+      html += '<div class="review-sys-header" onclick="toggleReviewSys(this)">';
       html += '<span class="group-sys">' + escapeHtml(sysName) + '</span>';
-      html += '<span class="group-count">' + chapters.length + '\u4e2a</span>';
-      html += '</div><div class="review-group-body">';
+      html += '<span class="group-count">' + sysLearned + '/' + chapters.length + '</span>';
+      html += '<span class="toggle-arrow">\u25b6</span>';
+      html += '</div>';
+      html += '<div class="review-sys-body">';
       
       chapters.forEach(function(ch) {
         const learned = isLearned(ch.id);
@@ -5994,10 +6076,24 @@ function renderReviewChapterList(filterSubject) {
       
       html += '</div></div>';
     });
+    
+    html += '</div></div>';
   });
   
   if (!html) html = '<div class="empty-hint">\u6682\u65e0\u7ae0\u8282\u6570\u636e</div>';
   container.innerHTML = html;
+}
+
+function toggleReviewSubj(headerEl) {
+  var bodyEl = headerEl.nextElementSibling;
+  headerEl.classList.toggle('expanded');
+  bodyEl.classList.toggle('expanded');
+}
+
+function toggleReviewSys(headerEl) {
+  var bodyEl = headerEl.nextElementSibling;
+  headerEl.classList.toggle('expanded');
+  bodyEl.classList.toggle('expanded');
 }
 
 function toggleLearned(chapterId) {
@@ -7338,20 +7434,22 @@ function renderCascadingForm() {
   
   // Hint and button
   html += '<div class="cascading-hint">← 依次选择科目、系统、内容</div>';
-  html += '<button class="btn-batch-add"' + (cascadingContents.length === 0 ? ' disabled' : '') + ' onclick="addBatchNewLearn()">批量添加今日新学 (' + cascadingContents.length + ')</button>';
+  html += '<div class="cascading-date-row"><label class="cascading-date-label">学习日期</label><input type="date" id="cascadingDateInput" class="cascading-date-input" value="' + fmtDate(new Date()) + '" /></div>';
+  html += '<button class="btn-batch-add"' + (cascadingContents.length === 0 ? ' disabled' : '') + ' onclick="addBatchNewLearn()">批量添加新学 (' + cascadingContents.length + ')</button>';
   
   container.innerHTML = html;
 }
 
 function addBatchNewLearn() {
   if (cascadingContents.length === 0) return;
-  const today = fmtDate(new Date());
+  var dateInput = document.getElementById('cascadingDateInput');
+  var learnDate = (dateInput && dateInput.value) ? dateInput.value : fmtDate(new Date());
   
   cascadingContents.forEach(function(chapterId) {
     const record = {
       id: 'r_' + Date.now() + '_' + chapterId,
       chapterId: chapterId,
-      date: today,
+      date: learnDate,
       completedReviews: []
     };
     store.newLearnRecords.push(record);
@@ -7362,8 +7460,8 @@ function addBatchNewLearn() {
       store.reviewRecords[chapterId] = { count: 0, lastDate: '', dates: [] };
     }
     store.reviewRecords[chapterId].count++;
-    store.reviewRecords[chapterId].lastDate = today;
-    store.reviewRecords[chapterId].dates.push(today);
+    store.reviewRecords[chapterId].lastDate = learnDate;
+    store.reviewRecords[chapterId].dates.push(learnDate);
     
     // Reset directly mapped cross-subject rolling reviews to "not done"
     resetMappedRollingReviews(chapterId);
@@ -7395,7 +7493,8 @@ function addCustomNewLearn() {
   }
   var text = input.value.trim();
   var subject = subjectSel ? subjectSel.value : '';
-  var today = fmtDate(new Date());
+  var dateInput = document.getElementById('customNewLearnDate');
+  var learnDate = (dateInput && dateInput.value) ? dateInput.value : fmtDate(new Date());
 
   if (ceReviewEnabled) {
     // Create as newLearnRecord → generates Ebbinghaus consolidation reviews
@@ -7404,7 +7503,7 @@ function addCustomNewLearn() {
       chapterId: null,
       customText: text,
       subject: subject || '\u81ea\u5b9a\u4e49',
-      date: today,
+      date: learnDate,
       completedReviews: [],
       shiftDays: 0
     };
@@ -7415,14 +7514,14 @@ function addCustomNewLearn() {
       store.reviewRecords[recKey] = { count: 0, lastDate: '', dates: [] };
     }
     store.reviewRecords[recKey].count++;
-    store.reviewRecords[recKey].lastDate = today;
-    store.reviewRecords[recKey].dates.push(today);
+    store.reviewRecords[recKey].lastDate = learnDate;
+    store.reviewRecords[recKey].dates.push(learnDate);
   } else {
     // Create as customTask → no consolidation review, toggleable
     if (!store.customTasks) store.customTasks = [];
     var task = {
       id: 't_' + Date.now() + '_custom',
-      date: today,
+      date: learnDate,
       category: 'new',
       text: text,
       subject: subject || '',
@@ -8380,6 +8479,36 @@ async function init() {
       saveStore();
       console.log('[Migration] Fixed ' + taskDateFixed + ' customTasks dates (plan date -> actual date)');
     }
+  }
+  
+  // One-time: add 2026-08-11 learning record for 外科学-其他大肠与肛管疾病 (chapterId 221)
+  if (!store.migrationAdd221_0811) {
+    var exists221 = store.newLearnRecords.some(function(r) {
+      return r.chapterId === 221 && r.date === '2026-08-11';
+    });
+    if (!exists221) {
+      var ts0811 = new Date('2026-08-11T12:00:00').getTime();
+      var rec221 = {
+        id: 'r_' + ts0811 + '_221',
+        chapterId: 221,
+        date: '2026-08-11',
+        completedReviews: [],
+        shiftDays: 0
+      };
+      store.newLearnRecords.push(rec221);
+      var numId221 = 221;
+      if (!isLearned(numId221)) store.learnedChapters.push(numId221);
+      if (!store.reviewRecords[221]) {
+        store.reviewRecords[221] = { count: 0, lastDate: '', dates: [] };
+      }
+      store.reviewRecords[221].count++;
+      store.reviewRecords[221].lastDate = '2026-08-11';
+      store.reviewRecords[221].dates.push('2026-08-11');
+      resetMappedRollingReviews(221);
+      console.log('[Migration] Added 2026-08-11 learning record for chapter 221');
+    }
+    store.migrationAdd221_0811 = true;
+    saveStore();
   }
   
   // Set default learned chapters on first run
