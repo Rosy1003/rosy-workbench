@@ -5562,7 +5562,14 @@ function renderRollingBySubject(rollingReviews, customTasks, today, groupPrefix)
     html += '</div></div>';
   });
   // Custom tasks in "其他" group
-  var rolCustom = (customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && !t.chapterId; });
+  var rolCustom = (customTasks || []).filter(function(t) {
+    if (t.category !== 'rol' || t.chapterId) return false;
+    if (t.done) {
+      var completedDate = t.lastModified ? fmtDate(new Date(t.lastModified)) : t.date;
+      return completedDate === today;
+    }
+    return true;
+  });
   if (rolCustom.length > 0) {
     var groupId = groupPrefix + '-other';
     html += renderSubGroupHeader('\u5176\u4ed6', rolCustom.length, groupId, '#b0a8a0');
@@ -5639,10 +5646,14 @@ function renderDailyPlan() {
   const todayNew = store.newLearnRecords.filter(function(r) { return r.date === today; });
   const todayCustomNew = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && !t.done && !t.chapterId; });
   const todayCustomCon = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && !t.done && !t.chapterId; });
-  const todayCustomRol = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && !t.done && !t.chapterId; });
+  const todayCustomRol = (store.customTasks || []).filter(function(t) { return t.category === 'rol' && !t.done && !t.chapterId; });
   const todayCustomNewDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'new' && t.done && !t.chapterId; });
   const todayCustomConDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'con' && t.done && !t.chapterId; });
-  const todayCustomRolDone = (store.customTasks || []).filter(function(t) { return t.date === today && t.category === 'rol' && t.done && !t.chapterId; });
+  const todayCustomRolDone = (store.customTasks || []).filter(function(t) {
+    if (t.category !== 'rol' || !t.done || t.chapterId) return false;
+    var completedDate = t.lastModified ? fmtDate(new Date(t.lastModified)) : t.date;
+    return completedDate === today;
+  });
   const allConsolidationReviews = getAllConsolidationReviews();
   const pendingConsolidationReviews = getConsolidationReviews();
   const rollingReviews = getRollingReviews();
@@ -5726,7 +5737,7 @@ function renderDailyPlan() {
 
   // Rolling group
   html += '<div class="dp-group" id="grp-rol"><div class="dp-group-header" onclick="toggleGroup(\'grp-rol\')"><span class="dp-group-arrow">\u25bc</span><span class="subj-dot" style="background:var(--morandi-purple)"></span>\u6eda\u52a8\u590d\u4e60 <span class="dp-group-count">' + rolTotal + '</span></div><div class="dp-group-body">';
-  if (rollingReviews.length > 0 || (store.customTasks || []).some(function(t) { return t.date === today && t.category === 'rol'; })) {
+  if (rollingReviews.length > 0 || (store.customTasks || []).some(function(t) { return t.category === 'rol' && !t.chapterId; })) {
     html += renderRollingBySubject(rollingReviews, store.customTasks || [], today, 'grp-rol');
   }
   if (rolTotal === 0) html += '<div class="empty-hint">\u5f53\u524d\u7cfb\u7edf\u6682\u65e0\u6eda\u52a8\u590d\u4e60\u5185\u5bb9</div>';
@@ -5769,7 +5780,7 @@ function renderDailyPlan() {
 
   // === Rolling Panel ===
   html += '<div class="dp-tab4-content' + (taskTab === 'rolling' ? ' active' : '') + '">';
-  if (rollingReviews.length > 0 || (store.customTasks || []).some(function(t) { return t.date === today && t.category === 'rol'; })) {
+  if (rollingReviews.length > 0 || (store.customTasks || []).some(function(t) { return t.category === 'rol' && !t.chapterId; })) {
     html += renderRollingBySubject(rollingReviews, store.customTasks || [], today, 'rol-panel');
   }
   
@@ -7580,7 +7591,11 @@ function renderTodayCompletedCard() {
 
   // Completed custom tasks
   (store.customTasks || []).forEach(function(t) {
-    if (t.date === todayStr && t.done) {
+    if (!t.done) return;
+    var isToday = (t.category === 'rol' && t.lastModified)
+      ? (fmtDate(new Date(t.lastModified)) === todayStr)
+      : (t.date === todayStr);
+    if (isToday) {
       var catLabel = t.category === 'new' ? '\u65b0\u5b66' : (t.category === 'con' ? '\u5de9\u56fa' : '\u6eda\u52a8');
       completedItems.push({
         text: t.text,
