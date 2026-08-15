@@ -7915,14 +7915,18 @@ function renderSAMetrics(scan) {
   var todayCount = scan.todayDue.length;
   var overdueCount = scan.overdue.length;
   var futureCount = scan.future.length;
-  var totalCount = todayCount + overdueCount + futureCount + scan.rolling.length;
+  var conTotal = todayCount + overdueCount + futureCount;
+  var rolCount = scan.rolling.length;
 
   var html = '<div class="sa-metrics">';
   html += '<div class="sa-metric"><div class="sa-metric-val green">' + todayCount + '</div><div class="sa-metric-label">今日到期</div></div>';
   html += '<div class="sa-metric"><div class="sa-metric-val red">' + overdueCount + '</div><div class="sa-metric-label">逾期待分配</div></div>';
   html += '<div class="sa-metric"><div class="sa-metric-val gold">' + futureCount + '</div><div class="sa-metric-label">未来8天到期</div></div>';
-  html += '<div class="sa-metric"><div class="sa-metric-val gray">' + totalCount + '</div><div class="sa-metric-label">总任务量</div></div>';
+  html += '<div class="sa-metric"><div class="sa-metric-val gray">' + conTotal + '</div><div class="sa-metric-label">巩固任务量</div></div>';
   html += '</div>';
+  if (rolCount > 0) {
+    html += '<div style="font-size:11px;color:var(--muted);margin:-6px 0 10px 2px;">滚动复习 ' + rolCount + ' 个（自由参考，不计入分配）</div>';
+  }
   return html;
 }
 
@@ -8038,13 +8042,20 @@ function buildInitialCards(scan) {
   return cards;
 }
 
+function countConTasks(card) {
+  if (!card || !card.tasks) return 0;
+  return card.tasks.filter(function(t) { return t.type === 'con'; }).length;
+}
+
 function renderSACards(plan, cards, showMove) {
   var todayStr = fmtDate(new Date());
   var limit = plan.dailyLimit || 3;
   var html = '<div class="sa-plan-grid">';
 
   cards.forEach(function(card, cardIdx) {
-    var isOverload = card.tasks.length > limit;
+    var conCount = countConTasks(card);
+    var rolCount = card.tasks.length - conCount;
+    var isOverload = conCount > limit;
     var isToday = card.date === todayStr;
 
     html += '<div class="sa-date-card';
@@ -8058,7 +8069,9 @@ function renderSACards(plan, cards, showMove) {
 
     html += '<div class="sa-card-header">';
     html += '<div class="sa-card-date-info"><span class="sa-card-date">' + dateLabel + '</span><span class="sa-card-weekday">周' + weekday + (isToday ? ' · 今天' : '') + '</span></div>';
-    html += '<div class="sa-card-right"><span class="sa-card-count' + (isOverload ? ' over' : '') + '">' + card.tasks.length + '/' + limit + '</span></div>';
+    var countLabel = conCount + '/' + limit;
+    if (rolCount > 0) countLabel += '<span style="color:var(--morandi-blue-dark);font-size:8px;margin-left:2px;">+' + rolCount + '滚</span>';
+    html += '<div class="sa-card-right"><span class="sa-card-count' + (isOverload ? ' over' : '') + '">' + countLabel + '</span></div>';
     html += '</div>';
 
     html += '<div class="sa-card-tasks">';
@@ -8089,7 +8102,7 @@ function groupSATasks(tasks) {
   var rolTasks = tasks.filter(function(t) { return t.type === 'rol'; });
   var groups = [];
   if (conTasks.length > 0) groups.push({ key: 'con', label: '巩固复习', tasks: conTasks });
-  if (rolTasks.length > 0) groups.push({ key: 'rol', label: '滚动复习', tasks: rolTasks });
+  if (rolTasks.length > 0) groups.push({ key: 'rol', label: '滚动复习（自由参考）', tasks: rolTasks });
   return groups;
 }
 
@@ -8107,7 +8120,7 @@ function renderSATaskItem(task, cardIdx, totalCards, showMove) {
     html += '<span class="sa-task-tag rol">滚动</span>';
   }
 
-  if (task.overdue && task.overdueDays > 0) {
+  if (task.overdue && task.overdueDays > 0 && task.type !== 'rol') {
     html += '<span class="sa-task-overdue">逾' + task.overdueDays + '天</span>';
   }
 
@@ -8179,7 +8192,7 @@ function generateSmartPlan() {
 
   var cardIdx = 0;
   allDue.forEach(function(task) {
-    while (cardIdx < cards.length && cards[cardIdx].tasks.length >= limit) {
+    while (cardIdx < cards.length && countConTasks(cards[cardIdx]) >= limit) {
       cardIdx++;
     }
     if (cardIdx >= cards.length) cardIdx = cards.length - 1;
