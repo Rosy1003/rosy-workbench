@@ -3776,7 +3776,8 @@ function getConsolidationReviews() {
       if (!isPrevIntervalsDone(record, idx)) return;
       var reviewDate = getShiftedReviewDate(record, idx);
       var reviewDateStr = fmtDate(reviewDate);
-      
+      var origReviewDateStr = fmtDate(getOriginalReviewDate(record, idx));
+
       // String comparison: only push if review date <= today
       if (reviewDateStr <= todayStr) {
         reviews.push({
@@ -3786,8 +3787,8 @@ function getConsolidationReviews() {
           intervalIdx: idx,
           intervalLabel: EBINGHAUS_LABELS[idx],
           reviewDate: reviewDateStr,
-          overdue: reviewDateStr < todayStr,
-          overdueDays: reviewDateStr < todayStr ? Math.floor((new Date(todayStr) - new Date(reviewDateStr)) / (1000*60*60*24)) : 0
+          overdue: origReviewDateStr < todayStr,
+          overdueDays: origReviewDateStr < todayStr ? Math.floor((new Date(todayStr) - new Date(origReviewDateStr)) / (1000*60*60*24)) : 0
         });
       }
     });
@@ -3816,6 +3817,7 @@ function getAllConsolidationReviews() {
       if (!isDone && !isPrevIntervalsDone(record, idx)) return;
       var reviewDate = getShiftedReviewDate(record, idx);
       var reviewDateStr = fmtDate(reviewDate);
+      var origReviewDateStr = fmtDate(getOriginalReviewDate(record, idx));
 
       if (reviewDateStr <= todayStr) {
         // Hide completed tasks from previous days; keep today's completed for strikethrough
@@ -3831,8 +3833,8 @@ function getAllConsolidationReviews() {
           intervalIdx: idx,
           intervalLabel: EBINGHAUS_LABELS[idx],
           reviewDate: reviewDateStr,
-          overdue: !isDone && reviewDateStr < todayStr,
-          overdueDays: (!isDone && reviewDateStr < todayStr) ? Math.floor((new Date(todayStr) - new Date(reviewDateStr)) / (1000*60*60*24)) : 0,
+          overdue: !isDone && origReviewDateStr < todayStr,
+          overdueDays: (!isDone && origReviewDateStr < todayStr) ? Math.floor((new Date(todayStr) - new Date(origReviewDateStr)) / (1000*60*60*24)) : 0,
           isDone: isDone
         });
       }
@@ -6073,6 +6075,15 @@ function getShiftedReviewDate(record, intervalIdx) {
   var planShift = (record.planShift && record.planShift[intervalIdx]) || 0;
   var reviewDate = new Date(learnDate);
   reviewDate.setDate(reviewDate.getDate() + EBINGHAUS_INTERVALS[intervalIdx] + shift + planShift);
+  return reviewDate;
+}
+
+// Helper: calculate original review date (without planShift) for overdue display
+function getOriginalReviewDate(record, intervalIdx) {
+  var learnDate = parseDate(record.date);
+  var shift = record.shiftDays || 0;
+  var reviewDate = new Date(learnDate);
+  reviewDate.setDate(reviewDate.getDate() + EBINGHAUS_INTERVALS[intervalIdx] + shift);
   return reviewDate;
 }
 
