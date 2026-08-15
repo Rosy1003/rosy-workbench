@@ -3172,6 +3172,17 @@ body {
 .sa-action-btn.danger:hover { background: var(--accent2); color: #fff; }
 .sa-action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+.sa-orphan-warning { margin: 10px 0; padding: 12px 14px; border-radius: var(--radius-md); background: rgba(201,169,161,0.08); border: 1px solid var(--accent2); }
+.sa-orphan-title { font-size: 13px; font-weight: 600; color: var(--accent2-dark); margin-bottom: 8px; }
+.sa-orphan-list { max-height: 160px; overflow-y: auto; margin-bottom: 10px; }
+.sa-orphan-item { display: flex; align-items: center; gap: 6px; padding: 4px 0; font-size: 12px; color: var(--ink); border-bottom: 1px dashed var(--rule); }
+.sa-orphan-item:last-child { border-bottom: none; }
+.sa-orphan-name { flex: 1; }
+.sa-orphan-tag { font-size: 10px; padding: 1px 6px; border-radius: var(--radius-full); background: rgba(176,168,160,0.15); color: var(--muted); }
+.sa-orphan-days { font-size: 11px; color: var(--accent2-dark); font-weight: 500; }
+.sa-orphan-fix-btn { width: 100%; padding: 8px; border: none; border-radius: var(--radius-sm); background: var(--accent2); color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.sa-orphan-fix-btn:hover { background: var(--accent2-dark); }
+
 @media (max-width: 768px) {
   .sa-plan-grid { grid-template-columns: repeat(2, 1fr); }
   .sa-config-bar { flex-direction: column; align-items: stretch; gap: 6px; }
@@ -7876,6 +7887,31 @@ function renderSmartAssistant() {
   if (plan.state === 'none') {
     var cards = buildInitialCards(scan);
     html += renderSACards(plan, cards, false);
+
+    // Check for orphaned planShift values
+    var orphaned = [];
+    store.newLearnRecords.forEach(function(record) {
+      if (record.planShift) {
+        var info = getRecordDisplayInfo(record);
+        for (var k in record.planShift) {
+          if (record.planShift[k] !== undefined && record.planShift[k] !== null && record.planShift[k] > 0) {
+            orphaned.push({ name: info.name, interval: EBINGHAUS_LABELS[parseInt(k)] || ('D' + (parseInt(k)+1)), days: record.planShift[k] });
+          }
+        }
+      }
+    });
+    if (orphaned.length > 0) {
+      html += '<div class="sa-orphan-warning">';
+      html += '<div class="sa-orphan-title">⚠ 发现 ' + orphaned.length + ' 个残留延迟任务</div>';
+      html += '<div class="sa-orphan-list">';
+      orphaned.forEach(function(o) {
+        html += '<div class="sa-orphan-item"><span class="sa-orphan-name">' + escapeHtml(o.name) + '</span><span class="sa-orphan-tag">' + o.interval + '</span><span class="sa-orphan-days">延迟' + o.days + '天</span></div>';
+      });
+      html += '</div>';
+      html += '<button class="sa-orphan-fix-btn" onclick="cleanupOrphanedPlanShift()">一键修复 · 清除残留</button>';
+      html += '</div>';
+    }
+
     html += '<div class="sa-action-bar"><span class="sa-estimate">初始分布预览 · 点击"生成方案"重新分配逾期任务</span></div>';
   } else {
     html += renderSACards(plan, plan.cards, plan.state === 'draft' || plan.state === 'adjusting');
@@ -8180,6 +8216,11 @@ function selectSmartLimit(limit) {
 }
 
 function generateSmartPlan() {
+  // Clear any orphaned planShift from previous plans
+  store.newLearnRecords.forEach(function(record) {
+    if (record.planShift) delete record.planShift;
+  });
+
   var scan = scanSmartTasks();
   var limit = (store.smartPlan && store.smartPlan.dailyLimit) || 3;
   var allDue = scan.todayDue.concat(scan.overdue);
@@ -8398,7 +8439,7 @@ function moveSmartTask(cardIdx, taskIdx, direction) {
     delete task.newOverdueDays;
   }
 
-  if (!task.isCustom && task.intervalIdx !== undefined) {
+  if (!task.isCustom && task.intervalIdx !== undefined && plan.state === 'adjusting') {
     applyCascadingDelay(task);
     var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
     if (record) {
@@ -8508,6 +8549,23 @@ function revokeSmartPlan() {
     }
   }
 
+  // Safety sweep: clear any remaining planShift on ALL records
+  store.newLearnRecords.forEach(function(record) {
+    if (record.planShift) {
+      for (var k in record.planShift) {
+        var ki = parseInt(k);
+        var ps = (record.planShift && record.planShift[ki]) || 0;
+        if (ps > 0) {
+          var isCompleted = record.completedReviews && record.completedReviews.indexOf(ki) >= 0;
+          if (isCompleted && !plan.originalSnapshot[record.id]) {
+            record.shiftDays = (record.shiftDays || 0) + ps;
+          }
+        }
+      }
+      delete record.planShift;
+    }
+  });
+
   store.smartPlan = { state: 'none', dailyLimit: plan.dailyLimit || 3 };
   saveStore();
   renderSmartAssistant();
@@ -8516,9 +8574,35 @@ function revokeSmartPlan() {
 }
 
 function discardSmartPlan() {
-  store.smartPlan = { state: 'none', dailyLimit: store.smartPlan ? store.smartPlan.dailyLimit : 3 };
+  var plan = store.smartPlan;
+  // If discarding an executed plan, clear planShift on records
+  if (plan && (plan.state === 'executed' || plan.state === 'adjusting')) {
+    store.newLearnRecords.forEach(function(record) {
+      if (record.planShift) delete record.planShift;
+    });
+  }
+  store.smartPlan = { state: 'none', dailyLimit: plan ? plan.dailyLimit : 3 };
   saveStore();
   renderSmartAssistant();
+  renderDailyPlan();
+  renderHome();
+}
+
+function cleanupOrphanedPlanShift() {
+  var count = 0;
+  store.newLearnRecords.forEach(function(record) {
+    if (record.planShift) {
+      count++;
+      delete record.planShift;
+    }
+  });
+  saveStore();
+  renderSmartAssistant();
+  renderDailyPlan();
+  renderHome();
+  if (count > 0) {
+    showToast('已清除 ' + count + ' 条残留延迟数据');
+  }
 }
 
 function syncSmartPlanCompletion() {
