@@ -3155,6 +3155,7 @@ body {
 .sa-task-tag.rol { background: rgba(157,174,194,0.15); color: var(--morandi-blue-dark); }
 .sa-task-tag.cus { background: rgba(201,169,161,0.15); color: var(--accent2-dark); }
 .sa-task-overdue { font-size: 8px; color: #fff; background: var(--accent2); padding: 0 3px; border-radius: var(--radius-full); flex-shrink: 0; line-height: 1.4; }
+.sa-task-new-overdue { font-size: 8px; color: #fff; background: #b8860b; padding: 0 3px; border-radius: var(--radius-full); flex-shrink: 0; line-height: 1.4; }
 .sa-task-move { display: flex; gap: 1px; flex-shrink: 0; }
 .sa-move-btn { width: 14px; height: 14px; border: none; background: transparent; border-radius: 3px; font-size: 8px; color: var(--muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
 .sa-move-btn:hover { background: var(--accent); color: #fff; }
@@ -8027,12 +8028,12 @@ function buildInitialCards(scan) {
 
     var tasks = [];
     if (i === 0) {
-      tasks = tasks.concat(scan.overdue.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); }));
-      tasks = tasks.concat(scan.todayDue.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); }));
+      tasks = tasks.concat(scan.todayDue.map(function(t) { return Object.assign({}, t, { planShiftDays: 0, assignedDate: dateStr }); }));
+      tasks = tasks.concat(scan.overdue.map(function(t) { return Object.assign({}, t, { planShiftDays: 0, assignedDate: dateStr }); }));
       tasks = tasks.concat(scan.rolling.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); }));
     } else {
       var dayFuture = scan.future.filter(function(t) { return t.originalDate === dateStr; });
-      tasks = dayFuture.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); });
+      tasks = dayFuture.map(function(t) { return Object.assign({}, t, { planShiftDays: 0, assignedDate: dateStr }); });
     }
 
     cards.push({ date: dateStr, tasks: tasks });
@@ -8123,6 +8124,9 @@ function renderSATaskItem(task, cardIdx, totalCards, showMove) {
   if (task.overdue && task.overdueDays > 0 && task.type !== 'rol') {
     html += '<span class="sa-task-overdue">逾' + task.overdueDays + '天</span>';
   }
+  if (task.newOverdueDays && task.newOverdueDays > 0 && task.type !== 'rol') {
+    html += '<span class="sa-task-new-overdue">将逾期' + task.newOverdueDays + '天</span>';
+  }
 
   if (showMove && !isCompleted) {
     html += '<div class="sa-task-move">';
@@ -8167,7 +8171,7 @@ function selectSmartLimit(limit) {
 function generateSmartPlan() {
   var scan = scanSmartTasks();
   var limit = (store.smartPlan && store.smartPlan.dailyLimit) || 3;
-  var allDue = scan.overdue.concat(scan.todayDue);
+  var allDue = scan.todayDue.concat(scan.overdue);
 
   var cards = [];
   var today = new Date();
@@ -8206,6 +8210,9 @@ function generateSmartPlan() {
       assignedDate: targetCard.date,
       completed: false
     });
+    if (targetCard.date > task.originalDate) {
+      taskCopy.newOverdueDays = daysBetween(parseDate(task.originalDate), parseDate(targetCard.date));
+    }
 
     applyCascadingDelay(taskCopy);
     targetCard.tasks.push(taskCopy);
@@ -8374,6 +8381,11 @@ function moveSmartTask(cardIdx, taskIdx, direction) {
 
   task.planShiftDays = newPlanShift;
   task.assignedDate = targetCard.date;
+  if (task.originalDate && targetCard.date > task.originalDate) {
+    task.newOverdueDays = daysBetween(parseDate(task.originalDate), parseDate(targetCard.date));
+  } else {
+    delete task.newOverdueDays;
+  }
 
   if (!task.isCustom && task.intervalIdx !== undefined) {
     applyCascadingDelay(task);
