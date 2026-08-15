@@ -9489,7 +9489,24 @@ async function init() {
     store.migrationAdd221_0811 = true;
     saveStore();
   }
-  
+
+  // Auto-cleanup: clear orphaned planShift when no active smart plan
+  var sp = store.smartPlan;
+  var spState = sp ? sp.state : 'none';
+  if (spState === 'none' || !spState) {
+    var orphanCount = 0;
+    store.newLearnRecords.forEach(function(record) {
+      if (record.planShift) {
+        orphanCount++;
+        delete record.planShift;
+      }
+    });
+    if (orphanCount > 0) {
+      saveStore();
+      console.log('[Migration] Cleared ' + orphanCount + ' orphaned planShift records');
+    }
+  }
+
   // Set default learned chapters on first run
   if (store.learnedChapters.length === 0 && CHAPTER_DATA.length > 0) {
     CHAPTER_DATA.forEach(function(ch) {
