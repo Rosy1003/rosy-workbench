@@ -1327,10 +1327,13 @@ body {
   border-radius: var(--radius-sm);
   padding: 8px 6px;
   min-height: 130px;
+  max-height: 280px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   transition: all 0.15s;
   cursor: pointer;
+  overflow: hidden;
 }
 .cal-week-day:hover {
   border-color: var(--accent);
@@ -1368,7 +1371,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
 }
+.cal-week-body::-webkit-scrollbar { width: 3px; }
+.cal-week-body::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+.cal-week-body::-webkit-scrollbar-track { background: transparent; }
 .cal-week-event {
   font-size: 10px;
   padding: 3px 5px;
