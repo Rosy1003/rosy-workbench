@@ -4185,9 +4185,8 @@ function detectBannerScene() {
   var hour = now.getHours();
   var today = fmtDate(now);
 
-  // Check streak (needs store.newLearnRecords)
-  var learnDates = (store.newLearnRecords || []).map(function(r) { return r.date; });
-  var uniqueDates = learnDates.filter(function(d, i) { return learnDates.indexOf(d) === i; }).sort();
+  // Check streak (all learning activities)
+  var uniqueDates = getActivityDates();
   var streak = 0;
   if (uniqueDates.length > 0) {
     var d = new Date(today);
@@ -4704,14 +4703,46 @@ var COUNTDOWN_TAG_LABELS = {
   battle: '\u6218\u6597\u72b6\u6001'
 };
 
+// --- Collect all learning activity dates ---
+function getActivityDates() {
+  var dates = [];
+  // 1. New learn record dates
+  (store.newLearnRecords || []).forEach(function(r) {
+    if (r.date) dates.push(r.date);
+  });
+  // 2. Custom task dates (new learning + completion dates)
+  (store.customTasks || []).forEach(function(t) {
+    if (t.date) dates.push(t.date);
+    if (t.done && t.lastModified) {
+      dates.push(fmtDate(new Date(t.lastModified)));
+    }
+  });
+  // 3. Review records (covers learning + all review completions)
+  if (store.reviewRecords) {
+    Object.keys(store.reviewRecords).forEach(function(key) {
+      var rr = store.reviewRecords[key];
+      if (rr && rr.dates) {
+        rr.dates.forEach(function(d) { if (d) dates.push(d); });
+      }
+    });
+  }
+  // 4. Rolling review completions
+  if (store.rollingStatus) {
+    Object.keys(store.rollingStatus).forEach(function(chId) {
+      if (store.rollingStatus[chId] && store.rollingStatus[chId].lastDate) {
+        dates.push(store.rollingStatus[chId].lastDate);
+      }
+    });
+  }
+  return dates.filter(function(d, i) { return dates.indexOf(d) === i; }).sort();
+}
+
 // --- Calculate consecutive study days ---
 function getStudyStreak() {
-  if (!store.newLearnRecords || store.newLearnRecords.length === 0) return 0;
-  var dates = store.newLearnRecords.map(function(r) { return r.date; });
-  var uniqueDates = dates.filter(function(d, i) { return dates.indexOf(d) === i; }).sort();
+  var uniqueDates = getActivityDates();
+  if (uniqueDates.length === 0) return 0;
 
   var streak = 0;
-  var today = fmtDate(new Date());
   var d = new Date();
 
   // Check today first, if not today, check from yesterday
