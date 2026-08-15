@@ -3084,48 +3084,86 @@ body {
 
 /* ===== Smart Assistant ===== */
 .sa-container { padding: 4px 0; }
-.sa-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.sa-header h3 { font-size: 16px; font-weight: 600; color: var(--ink); }
-.sa-header .sa-icon { font-size: 18px; }
-.sa-desc { font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+.sa-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.sa-header h3 { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sa-header .sa-icon { font-size: 16px; }
+.sa-state-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 500; margin-left: auto; }
+.sa-state-badge.draft { background: var(--bg2); color: var(--muted); }
+.sa-state-badge.executed { background: rgba(168,184,160,0.15); color: var(--accent-dark); }
+.sa-state-badge.adjusting { background: rgba(157,174,194,0.15); color: var(--morandi-blue-dark); }
 
-.sa-config-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px; }
-.sa-limit-group { display: flex; align-items: center; gap: 6px; }
-.sa-limit-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
-.sa-limit-btns { display: flex; gap: 4px; }
-.sa-limit-btn { min-width: 32px; height: 28px; border: 1px solid var(--rule); background: var(--surface); border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: inherit; padding: 0 8px; }
+.sa-config-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 8px 12px; margin-bottom: 10px; }
+.sa-limit-group { display: flex; align-items: center; gap: 5px; }
+.sa-limit-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.sa-limit-btns { display: flex; gap: 3px; }
+.sa-limit-btn { min-width: 28px; height: 26px; border: 1px solid var(--rule); background: var(--surface); border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: inherit; padding: 0 6px; }
 .sa-limit-btn:hover { border-color: var(--accent); color: var(--ink); }
 .sa-limit-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-.sa-estimate { font-size: 12px; color: var(--muted); }
+.sa-estimate { font-size: 11px; color: var(--muted); }
 .sa-estimate strong { color: var(--accent-dark); }
-.sa-generate-btn { margin-left: auto; padding: 6px 16px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.sa-generate-btn { margin-left: auto; padding: 5px 14px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: inherit; }
 .sa-generate-btn:hover { background: var(--accent-dark); }
 .sa-generate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.sa-plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
-.sa-date-card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-card); padding: 10px 12px; min-height: 120px; display: flex; flex-direction: column; transition: all 0.2s; }
+.sa-workflow { display: flex; align-items: center; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
+.sa-step { display: flex; align-items: center; gap: 3px; font-size: 11px; color: var(--muted); }
+.sa-step-num { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+.sa-step.done .sa-step-num { background: var(--accent); color: #fff; border-color: var(--accent); }
+.sa-step.active .sa-step-num { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(168,184,160,0.2); }
+.sa-step.active .sa-step-label { color: var(--ink); font-weight: 500; }
+.sa-step-arrow { color: var(--rule); font-size: 10px; }
+
+.sa-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.sa-metric { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-sm); padding: 8px 10px; text-align: center; }
+.sa-metric-val { font-size: 18px; font-weight: 700; line-height: 1.2; }
+.sa-metric-val.green { color: var(--accent-dark); }
+.sa-metric-val.red { color: var(--accent2-dark); }
+.sa-metric-val.gold { color: #b8860b; }
+.sa-metric-val.gray { color: var(--muted); }
+.sa-metric-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+.sa-plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.sa-date-card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-card); padding: 8px 10px; min-height: 100px; display: flex; flex-direction: column; transition: all 0.2s; }
 .sa-date-card.sa-overload { border-color: var(--accent2); background: rgba(201,169,161,0.06); }
 .sa-date-card.sa-today { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(168,184,160,0.15); }
-.sa-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
-.sa-card-date { font-size: 13px; font-weight: 600; color: var(--ink); }
-.sa-card-weekday { font-size: 11px; color: var(--muted); }
-.sa-card-count { font-size: 10px; padding: 1px 6px; border-radius: var(--radius-full); background: var(--bg2); color: var(--muted); }
+.sa-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+.sa-card-date-info { display: flex; flex-direction: column; }
+.sa-card-date { font-size: 12px; font-weight: 600; color: var(--ink); }
+.sa-card-weekday { font-size: 10px; color: var(--muted); }
+.sa-card-right { display: flex; align-items: center; gap: 4px; }
+.sa-card-count { font-size: 10px; padding: 1px 5px; border-radius: var(--radius-full); background: var(--bg2); color: var(--muted); }
 .sa-card-count.over { background: var(--accent2); color: #fff; }
-.sa-card-tasks { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.sa-task-item { display: flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 6px; border-radius: var(--radius-sm); background: var(--bg); transition: all 0.15s; }
-.sa-task-item:hover { background: var(--bg2); }
-.sa-task-color { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.sa-task-name { flex: 1; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sa-task-interval { font-size: 9px; color: var(--muted); background: var(--bg2); padding: 1px 4px; border-radius: var(--radius-full); flex-shrink: 0; }
-.sa-task-interval.overdue { background: var(--accent2); color: #fff; }
-.sa-task-move { display: flex; gap: 2px; flex-shrink: 0; }
-.sa-move-btn { width: 16px; height: 16px; border: none; background: var(--bg2); border-radius: 3px; font-size: 9px; color: var(--muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
-.sa-move-btn:hover { background: var(--accent); color: #fff; }
-.sa-move-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.sa-card-empty { font-size: 11px; color: var(--muted); text-align: center; padding: 8px 0; font-style: italic; }
+.sa-card-tasks { flex: 1; display: flex; flex-direction: column; gap: 3px; overflow-y: auto; max-height: 220px; }
+.sa-card-tasks::-webkit-scrollbar { width: 3px; }
+.sa-card-tasks::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
 
-.sa-action-bar { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 0; border-top: 1px solid var(--rule); margin-top: 8px; }
-.sa-action-btn { padding: 7px 18px; border: 1px solid var(--rule); background: var(--surface); border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.sa-task-group { margin-bottom: 2px; }
+.sa-task-group-header { display: flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 2px 0; user-select: none; }
+.sa-task-group-header:hover { color: var(--ink); }
+.sa-task-group-arrow { transition: transform 0.15s; font-size: 8px; }
+.sa-task-group.collapsed .sa-task-group-arrow { transform: rotate(-90deg); }
+.sa-task-group-body { display: flex; flex-direction: column; gap: 2px; }
+.sa-task-group.collapsed .sa-task-group-body { display: none; }
+
+.sa-task-item { display: flex; align-items: center; gap: 3px; font-size: 10px; padding: 2px 4px; border-radius: var(--radius-sm); background: var(--bg); transition: all 0.15s; }
+.sa-task-item:hover { background: var(--bg2); }
+.sa-task-item.completed { opacity: 0.4; text-decoration: line-through; }
+.sa-task-color { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.sa-task-name { flex: 1; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.sa-task-tag { font-size: 8px; padding: 0 3px; border-radius: var(--radius-full); flex-shrink: 0; line-height: 1.4; }
+.sa-task-tag.con { background: rgba(168,184,160,0.15); color: var(--accent-dark); }
+.sa-task-tag.rol { background: rgba(157,174,194,0.15); color: var(--morandi-blue-dark); }
+.sa-task-tag.cus { background: rgba(201,169,161,0.15); color: var(--accent2-dark); }
+.sa-task-overdue { font-size: 8px; color: #fff; background: var(--accent2); padding: 0 3px; border-radius: var(--radius-full); flex-shrink: 0; line-height: 1.4; }
+.sa-task-move { display: flex; gap: 1px; flex-shrink: 0; }
+.sa-move-btn { width: 14px; height: 14px; border: none; background: transparent; border-radius: 3px; font-size: 8px; color: var(--muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
+.sa-move-btn:hover { background: var(--accent); color: #fff; }
+.sa-move-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+.sa-card-empty { font-size: 10px; color: var(--muted); text-align: center; padding: 6px 0; font-style: italic; }
+
+.sa-action-bar { display: flex; gap: 6px; justify-content: flex-end; align-items: center; padding: 10px 0; border-top: 1px solid var(--rule); margin-top: 6px; }
+.sa-mode-badge { font-size: 10px; padding: 2px 8px; border-radius: var(--radius-full); background: rgba(201,169,161,0.1); color: var(--accent2-dark); margin-right: auto; }
+.sa-action-btn { padding: 6px 14px; border: 1px solid var(--rule); background: var(--surface); border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: inherit; }
 .sa-action-btn:hover { border-color: var(--accent); color: var(--ink); }
 .sa-action-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 .sa-action-btn.primary:hover { background: var(--accent-dark); }
@@ -3133,27 +3171,13 @@ body {
 .sa-action-btn.danger:hover { background: var(--accent2); color: #fff; }
 .sa-action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.sa-empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
-.sa-empty-state .sa-empty-icon { font-size: 32px; margin-bottom: 8px; }
-.sa-empty-state .sa-empty-text { font-size: 14px; margin-bottom: 4px; }
-.sa-empty-state .sa-empty-hint { font-size: 12px; }
-
-.sa-state-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 500; }
-.sa-state-badge.draft { background: var(--bg2); color: var(--muted); }
-.sa-state-badge.executed { background: rgba(168,184,160,0.15); color: var(--accent-dark); }
-.sa-state-badge.adjusting { background: rgba(157,174,194,0.15); color: var(--morandi-blue-dark); }
-
-.sa-summary { display: flex; gap: 16px; margin-bottom: 14px; font-size: 12px; }
-.sa-summary-item { display: flex; flex-direction: column; gap: 2px; }
-.sa-summary-label { color: var(--muted); font-size: 11px; }
-.sa-summary-value { font-size: 16px; font-weight: 600; color: var(--ink); }
-.sa-summary-value.overdue { color: var(--accent2-dark); }
-
 @media (max-width: 768px) {
   .sa-plan-grid { grid-template-columns: repeat(2, 1fr); }
-  .sa-config-bar { flex-direction: column; align-items: stretch; gap: 8px; }
+  .sa-config-bar { flex-direction: column; align-items: stretch; gap: 6px; }
   .sa-generate-btn { margin-left: 0; text-align: center; }
-  .sa-limit-btn { min-width: 36px; height: 32px; font-size: 14px; }
+  .sa-limit-btn { min-width: 32px; height: 30px; font-size: 13px; }
+  .sa-metrics { grid-template-columns: repeat(2, 1fr); }
+  .sa-workflow { font-size: 10px; }
 }
 
 </style>
@@ -7808,8 +7832,9 @@ function switchTaskPanel(panelName) {
 }
 
 // ===== Smart Assistant =====
-var SA_LIMITS = [3, 5, 8, 10, 15];
+var SA_LIMITS = [2, 3, 4, 5, 6];
 var SA_WEEKDAYS = ['日','一','二','三','四','五','六'];
+var SA_STEPS = ['扫描', '生成方案', '过目微调', '确认执行', '可调整/撤销'];
 
 function renderSmartAssistant() {
   var container = document.getElementById('smartAssistantContent');
@@ -7817,35 +7842,31 @@ function renderSmartAssistant() {
 
   var plan = store.smartPlan || { state: 'none' };
   if (!plan.state) plan.state = 'none';
-  if (!plan.dailyLimit) plan.dailyLimit = 5;
+  if (!plan.dailyLimit) plan.dailyLimit = 3;
 
   if (plan.state === 'executed' || plan.state === 'adjusting') {
     syncSmartPlanCompletion();
   }
 
+  var scan = scanSmartTasks();
   var html = '<div class="sa-container">';
   html += '<div class="sa-header"><span class="sa-icon">🎯</span><h3>智能小管家</h3>';
-
   if (plan.state !== 'none') {
     var stateLabels = { draft: '草案中', executed: '已执行', adjusting: '调整中' };
     html += '<span class="sa-state-badge ' + plan.state + '">' + (stateLabels[plan.state] || '') + '</span>';
   }
   html += '</div>';
 
+  html += renderSAWorkflow(plan);
+  html += renderSAConfigBar(plan, scan);
+  html += renderSAMetrics(scan);
+
   if (plan.state === 'none') {
-    html += renderSAConfigBar(plan);
-    html += renderSAEmptyState();
-  } else if (plan.state === 'draft') {
-    html += renderSASummary(plan);
-    html += renderSACards(plan, false);
-    html += renderSAActionBar(plan);
-  } else if (plan.state === 'executed') {
-    html += renderSASummary(plan);
-    html += renderSACards(plan, false);
-    html += renderSAActionBar(plan);
-  } else if (plan.state === 'adjusting') {
-    html += renderSASummary(plan);
-    html += renderSACards(plan, true);
+    var cards = buildInitialCards(scan);
+    html += renderSACards(plan, cards, false);
+    html += '<div class="sa-action-bar"><span class="sa-estimate">初始分布预览 · 点击"生成方案"重新分配逾期任务</span></div>';
+  } else {
+    html += renderSACards(plan, plan.cards, plan.state === 'draft' || plan.state === 'adjusting');
     html += renderSAActionBar(plan);
   }
 
@@ -7853,125 +7874,56 @@ function renderSmartAssistant() {
   container.innerHTML = html;
 }
 
-function renderSAConfigBar(plan) {
-  var limit = plan.dailyLimit || 5;
+function renderSAWorkflow(plan) {
+  var stepIdx = 0;
+  if (plan.state === 'none') stepIdx = 0;
+  else if (plan.state === 'draft') stepIdx = 2;
+  else if (plan.state === 'executed') stepIdx = 4;
+  else if (plan.state === 'adjusting') stepIdx = 4;
+
+  var html = '<div class="sa-workflow">';
+  SA_STEPS.forEach(function(label, i) {
+    var cls = '';
+    if (i < stepIdx) cls = 'done';
+    else if (i === stepIdx) cls = 'active';
+    html += '<div class="sa-step ' + cls + '"><span class="sa-step-num">' + (i + 1) + '</span><span class="sa-step-label">' + label + '</span></div>';
+    if (i < SA_STEPS.length - 1) html += '<span class="sa-step-arrow">→</span>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderSAConfigBar(plan, scan) {
+  var limit = plan.dailyLimit || 3;
+  var overdueCount = scan.overdue.length + scan.todayDue.length;
+  var estDays = Math.ceil(overdueCount / limit);
   var html = '<div class="sa-config-bar">';
   html += '<div class="sa-limit-group"><span class="sa-limit-label">每日上限</span><div class="sa-limit-btns">';
   SA_LIMITS.forEach(function(l) {
     html += '<button class="sa-limit-btn' + (l === limit ? ' active' : '') + '" onclick="selectSmartLimit(' + l + ')">' + l + '</button>';
   });
   html += '</div></div>';
-
-  var scan = scanSmartTasks();
-  var overdueCount = scan.overdue.length + scan.todayDue.length;
-  var estDays = Math.ceil(overdueCount / limit);
-  html += '<span class="sa-estimate">共 <strong>' + overdueCount + '</strong> 个待分配任务，预计 <strong>' + estDays + '</strong> 天完成</span>';
-  html += '<button class="sa-generate-btn" onclick="generateSmartPlan()" ' + (overdueCount === 0 ? 'disabled' : '') + '>生成方案</button>';
-  html += '</div>';
-  return html;
-}
-
-function renderSAEmptyState() {
-  var scan = scanSmartTasks();
-  var total = scan.overdue.length + scan.todayDue.length + scan.future.length;
-  if (total === 0) {
-    return '<div class="sa-empty-state"><div class="sa-empty-icon">✅</div><div class="sa-empty-text">暂无待复习任务</div><div class="sa-empty-hint">所有复习任务都已完成或未到复习时间</div></div>';
-  }
-  return '<div class="sa-empty-state"><div class="sa-empty-icon">📋</div><div class="sa-empty-text">点击"生成方案"开始分配</div><div class="sa-empty-hint">逾期 ' + (scan.overdue.length + scan.todayDue.length) + ' 个，未来到期 ' + scan.future.length + ' 个</div></div>';
-}
-
-function renderSASummary(plan) {
-  var totalTasks = 0;
-  var overdueTasks = 0;
-  plan.cards.forEach(function(card) {
-    totalTasks += card.tasks.length;
-    card.tasks.forEach(function(t) {
-      if (t.overdue) overdueTasks++;
-    });
-  });
-
-  var html = '<div class="sa-summary">';
-  html += '<div class="sa-summary-item"><span class="sa-summary-label">总任务数</span><span class="sa-summary-value">' + totalTasks + '</span></div>';
-  html += '<div class="sa-summary-item"><span class="sa-summary-label">逾期任务</span><span class="sa-summary-value overdue">' + overdueTasks + '</span></div>';
-  html += '<div class="sa-summary-item"><span class="sa-summary-label">每日上限</span><span class="sa-summary-value">' + plan.dailyLimit + '</span></div>';
-  html += '<div class="sa-summary-item"><span class="sa-summary-label">覆盖天数</span><span class="sa-summary-value">' + plan.cards.length + '</span></div>';
-  html += '</div>';
-  return html;
-}
-
-function renderSACards(plan, isAdjusting) {
-  var todayStr = fmtDate(new Date());
-  var html = '<div class="sa-plan-grid">';
-
-  plan.cards.forEach(function(card, cardIdx) {
-    var isOverload = card.tasks.length > plan.dailyLimit;
-    var isToday = card.date === todayStr;
-
-    html += '<div class="sa-date-card';
-    if (isOverload) html += ' sa-overload';
-    if (isToday) html += ' sa-today';
-    html += '">';
-
-    var dateObj = parseDate(card.date);
-    var weekday = SA_WEEKDAYS[dateObj.getDay()];
-    var dateLabel = (dateObj.getMonth() + 1) + '/' + dateObj.getDate();
-
-    html += '<div class="sa-card-header">';
-    html += '<div><span class="sa-card-date">' + dateLabel + '</span> <span class="sa-card-weekday">周' + weekday + '</span></div>';
-    html += '<span class="sa-card-count' + (isOverload ? ' over' : '') + '">' + card.tasks.length + '/' + plan.dailyLimit + '</span>';
-    html += '</div>';
-
-    html += '<div class="sa-card-tasks">';
-    if (card.tasks.length === 0) {
-      html += '<div class="sa-card-empty">无任务</div>';
-    } else {
-      card.tasks.forEach(function(task, taskIdx) {
-        var subjectColor = SUBJECT_COLORS[task.subject] || '#A8B8A0';
-        var isCompleted = task.completed;
-
-        html += '<div class="sa-task-item"' + (isCompleted ? ' style="opacity:0.5;text-decoration:line-through;"' : '') + '>';
-        html += '<span class="sa-task-color" style="background:' + subjectColor + ';"></span>';
-        html += '<span class="sa-task-name">' + escapeHtml(task.chapterName) + '</span>';
-        html += '<span class="sa-task-interval' + (task.overdue ? ' overdue' : '') + '">' + task.intervalLabel + '</span>';
-
-        if (isAdjusting && !isCompleted) {
-          html += '<div class="sa-task-move">';
-          html += '<button class="sa-move-btn" onclick="moveSmartTask(' + cardIdx + ',' + taskIdx + ',-1)"' + (cardIdx === 0 ? ' disabled' : '') + '>◀</button>';
-          html += '<button class="sa-move-btn" onclick="moveSmartTask(' + cardIdx + ',' + taskIdx + ',1)"' + (cardIdx === plan.cards.length - 1 ? ' disabled' : '') + '>▶</button>';
-          html += '</div>';
-        }
-        html += '</div>';
-      });
-    }
-    html += '</div>';
-    html += '</div>';
-  });
-
-  html += '</div>';
-  return html;
-}
-
-function renderSAActionBar(plan) {
-  var html = '<div class="sa-action-bar">';
-  if (plan.state === 'draft') {
-    html += '<button class="sa-action-btn" onclick="discardSmartPlan()">丢弃</button>';
-    html += '<button class="sa-action-btn primary" onclick="executeSmartPlan()">执行方案</button>';
-  } else if (plan.state === 'executed') {
-    html += '<button class="sa-action-btn danger" onclick="revokeSmartPlan()">撤销方案</button>';
-    html += '<button class="sa-action-btn primary" onclick="enterAdjustMode()">调整方案</button>';
-  } else if (plan.state === 'adjusting') {
-    html += '<button class="sa-action-btn" onclick="cancelAdjustMode()">取消</button>';
-    html += '<button class="sa-action-btn primary" onclick="saveAdjustMode()">保存</button>';
+  html += '<span class="sa-estimate">上限 ' + limit + '/天 → 预计 ' + estDays + ' 天清空逾期</span>';
+  if (plan.state === 'none') {
+    html += '<button class="sa-generate-btn" onclick="generateSmartPlan()" ' + (overdueCount === 0 ? 'disabled' : '') + '>生成方案</button>';
   }
   html += '</div>';
   return html;
 }
 
-function selectSmartLimit(limit) {
-  if (!store.smartPlan) store.smartPlan = { state: 'none' };
-  store.smartPlan.dailyLimit = limit;
-  saveStore();
-  renderSmartAssistant();
+function renderSAMetrics(scan) {
+  var todayCount = scan.todayDue.length;
+  var overdueCount = scan.overdue.length;
+  var futureCount = scan.future.length;
+  var totalCount = todayCount + overdueCount + futureCount + scan.rolling.length;
+
+  var html = '<div class="sa-metrics">';
+  html += '<div class="sa-metric"><div class="sa-metric-val green">' + todayCount + '</div><div class="sa-metric-label">今日到期</div></div>';
+  html += '<div class="sa-metric"><div class="sa-metric-val red">' + overdueCount + '</div><div class="sa-metric-label">逾期待分配</div></div>';
+  html += '<div class="sa-metric"><div class="sa-metric-val gold">' + futureCount + '</div><div class="sa-metric-label">未来8天到期</div></div>';
+  html += '<div class="sa-metric"><div class="sa-metric-val gray">' + totalCount + '</div><div class="sa-metric-label">总任务量</div></div>';
+  html += '</div>';
+  return html;
 }
 
 function scanSmartTasks() {
@@ -7980,6 +7932,7 @@ function scanSmartTasks() {
   var overdue = [];
   var todayDue = [];
   var future = [];
+  var rolling = [];
 
   store.newLearnRecords.forEach(function(record) {
     EBINGHAUS_INTERVALS.forEach(function(interval, idx) {
@@ -7996,6 +7949,7 @@ function scanSmartTasks() {
         chapterId: record.chapterId,
         chapterName: info.name,
         subject: info.subject,
+        type: 'con',
         intervalIdx: idx,
         intervalLabel: EBINGHAUS_LABELS[idx],
         originalDate: reviewDateStr,
@@ -8004,25 +7958,202 @@ function scanSmartTasks() {
         isToday: reviewDateStr === todayStr
       };
 
-      if (reviewDateStr < todayStr) {
-        overdue.push(task);
-      } else if (reviewDateStr === todayStr) {
-        todayDue.push(task);
-      } else {
-        future.push(task);
-      }
+      if (reviewDateStr < todayStr) overdue.push(task);
+      else if (reviewDateStr === todayStr) todayDue.push(task);
+      else if (reviewDateStr <= fmtDate(new Date(today.getTime() + 7 * 86400000))) future.push(task);
     });
   });
+
+  if (store.customTasks) {
+    store.customTasks.forEach(function(t) {
+      if (t.done) return;
+      if (t.category !== 'con' && t.category !== 'rol') return;
+      var taskDate = t.date || todayStr;
+      var task = {
+        recordId: t.id,
+        chapterId: t.chapterId || null,
+        chapterName: t.text || '自定义任务',
+        subject: t.subject || '其他',
+        type: t.category === 'con' ? 'con' : 'rol',
+        isCustom: true,
+        originalDate: taskDate,
+        overdue: taskDate < todayStr,
+        overdueDays: taskDate < todayStr ? daysBetween(parseDate(taskDate), today) : 0,
+        isToday: taskDate === todayStr
+      };
+      if (taskDate < todayStr) overdue.push(task);
+      else if (taskDate === todayStr) todayDue.push(task);
+      else if (taskDate <= fmtDate(new Date(today.getTime() + 7 * 86400000))) future.push(task);
+    });
+  }
+
+  if (store.rollingStatus) {
+    var rollingChapters = getRollingReviews();
+    rollingChapters.forEach(function(ch) {
+      var rs = store.rollingStatus[ch.id];
+      if (rs && rs.done) return;
+      rolling.push({
+        recordId: 'roll_' + ch.id,
+        chapterId: ch.id,
+        chapterName: ch.name,
+        subject: ch.subject,
+        type: 'rol',
+        originalDate: todayStr,
+        overdue: false,
+        overdueDays: 0,
+        isToday: true
+      });
+    });
+  }
 
   overdue.sort(function(a, b) { return b.overdueDays - a.overdueDays; });
   future.sort(function(a, b) { return a.originalDate.localeCompare(b.originalDate); });
 
-  return { overdue: overdue, todayDue: todayDue, future: future };
+  return { overdue: overdue, todayDue: todayDue, future: future, rolling: rolling };
+}
+
+function buildInitialCards(scan) {
+  var today = new Date();
+  var cards = [];
+
+  for (var i = 0; i < 8; i++) {
+    var cardDate = new Date(today);
+    cardDate.setDate(cardDate.getDate() + i);
+    var dateStr = fmtDate(cardDate);
+
+    var tasks = [];
+    if (i === 0) {
+      tasks = tasks.concat(scan.overdue.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); }));
+      tasks = tasks.concat(scan.todayDue.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); }));
+      tasks = tasks.concat(scan.rolling.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); }));
+    } else {
+      var dayFuture = scan.future.filter(function(t) { return t.originalDate === dateStr; });
+      tasks = dayFuture.map(function(t) { return Object.assign({}, t, { planShiftDays: 0 }); });
+    }
+
+    cards.push({ date: dateStr, tasks: tasks });
+  }
+
+  indexSATasks(cards);
+  return cards;
+}
+
+function renderSACards(plan, cards, showMove) {
+  var todayStr = fmtDate(new Date());
+  var limit = plan.dailyLimit || 3;
+  var html = '<div class="sa-plan-grid">';
+
+  cards.forEach(function(card, cardIdx) {
+    var isOverload = card.tasks.length > limit;
+    var isToday = card.date === todayStr;
+
+    html += '<div class="sa-date-card';
+    if (isOverload) html += ' sa-overload';
+    if (isToday) html += ' sa-today';
+    html += '">';
+
+    var dateObj = parseDate(card.date);
+    var weekday = SA_WEEKDAYS[dateObj.getDay()];
+    var dateLabel = (dateObj.getMonth() + 1) + '/' + dateObj.getDate();
+
+    html += '<div class="sa-card-header">';
+    html += '<div class="sa-card-date-info"><span class="sa-card-date">' + dateLabel + '</span><span class="sa-card-weekday">周' + weekday + (isToday ? ' · 今天' : '') + '</span></div>';
+    html += '<div class="sa-card-right"><span class="sa-card-count' + (isOverload ? ' over' : '') + '">' + card.tasks.length + '/' + limit + '</span></div>';
+    html += '</div>';
+
+    html += '<div class="sa-card-tasks">';
+    if (card.tasks.length === 0) {
+      html += '<div class="sa-card-empty">暂无任务</div>';
+    } else {
+      var groups = groupSATasks(card.tasks);
+      groups.forEach(function(group) {
+        html += '<div class="sa-task-group" data-group="' + group.key + '">';
+        html += '<div class="sa-task-group-header" onclick="toggleSAGroup(this)"><span class="sa-task-group-arrow">▼</span>' + group.label + ' (' + group.tasks.length + ')</div>';
+        html += '<div class="sa-task-group-body">';
+        group.tasks.forEach(function(task) {
+          html += renderSATaskItem(task, cardIdx, cards.length, showMove);
+        });
+        html += '</div></div>';
+      });
+    }
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  return html;
+}
+
+function groupSATasks(tasks) {
+  var conTasks = tasks.filter(function(t) { return t.type === 'con'; });
+  var rolTasks = tasks.filter(function(t) { return t.type === 'rol'; });
+  var groups = [];
+  if (conTasks.length > 0) groups.push({ key: 'con', label: '巩固复习', tasks: conTasks });
+  if (rolTasks.length > 0) groups.push({ key: 'rol', label: '滚动复习', tasks: rolTasks });
+  return groups;
+}
+
+function renderSATaskItem(task, cardIdx, totalCards, showMove) {
+  var subjectColor = SUBJECT_COLORS[task.subject] || '#A8B8A0';
+  var isCompleted = task.completed;
+
+  var html = '<div class="sa-task-item' + (isCompleted ? ' completed' : '') + '">';
+  html += '<span class="sa-task-color" style="background:' + subjectColor + ';"></span>';
+  html += '<span class="sa-task-name">' + escapeHtml(task.chapterName) + '</span>';
+
+  if (task.intervalLabel) {
+    html += '<span class="sa-task-tag con">' + task.intervalLabel + '</span>';
+  } else if (task.type === 'rol') {
+    html += '<span class="sa-task-tag rol">滚动</span>';
+  }
+
+  if (task.overdue && task.overdueDays > 0) {
+    html += '<span class="sa-task-overdue">逾' + task.overdueDays + '天</span>';
+  }
+
+  if (showMove && !isCompleted) {
+    html += '<div class="sa-task-move">';
+    html += '<button class="sa-move-btn" onclick="moveSmartTask(' + cardIdx + ',' + task._idx + ',-1)"' + (cardIdx === 0 ? ' disabled' : '') + '>◀</button>';
+    html += '<button class="sa-move-btn" onclick="moveSmartTask(' + cardIdx + ',' + task._idx + ',1)"' + (cardIdx === totalCards - 1 ? ' disabled' : '') + '>▶</button>';
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function toggleSAGroup(header) {
+  var group = header.parentElement;
+  group.classList.toggle('collapsed');
+}
+
+function renderSAActionBar(plan) {
+  var html = '<div class="sa-action-bar">';
+  if (plan.state === 'draft') {
+    html += '<button class="sa-action-btn" onclick="discardSmartPlan()">丢弃</button>';
+    html += '<button class="sa-action-btn primary" onclick="executeSmartPlan()">确认执行</button>';
+  } else if (plan.state === 'executed') {
+    html += '<button class="sa-action-btn danger" onclick="revokeSmartPlan()">撤销方案</button>';
+    html += '<button class="sa-action-btn primary" onclick="enterAdjustMode()">调整方案</button>';
+  } else if (plan.state === 'adjusting') {
+    html += '<span class="sa-mode-badge">调整模式 · 增量修改中</span>';
+    html += '<button class="sa-action-btn danger" onclick="revokeSmartPlan()">撤销方案</button>';
+    html += '<button class="sa-action-btn primary" onclick="saveAdjustMode()">保存调整</button>';
+    html += '<button class="sa-action-btn" onclick="cancelAdjustMode()">取消调整</button>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function selectSmartLimit(limit) {
+  if (!store.smartPlan) store.smartPlan = { state: 'none' };
+  store.smartPlan.dailyLimit = limit;
+  saveStore();
+  renderSmartAssistant();
 }
 
 function generateSmartPlan() {
   var scan = scanSmartTasks();
-  var limit = (store.smartPlan && store.smartPlan.dailyLimit) || 5;
+  var limit = (store.smartPlan && store.smartPlan.dailyLimit) || 3;
   var allDue = scan.overdue.concat(scan.todayDue);
 
   var cards = [];
@@ -8034,6 +8165,9 @@ function generateSmartPlan() {
     var dateStr = fmtDate(cardDate);
 
     var naturalTasks = scan.future.filter(function(t) { return t.originalDate === dateStr; });
+    if (i === 0) {
+      naturalTasks = naturalTasks.concat(scan.rolling.map(function(t) { return Object.assign({}, t); }));
+    }
 
     cards.push({
       date: dateStr,
@@ -8064,6 +8198,8 @@ function generateSmartPlan() {
     targetCard.tasks.push(taskCopy);
   });
 
+  indexSATasks(cards);
+
   store.smartPlan = {
     state: 'draft',
     dailyLimit: limit,
@@ -8076,9 +8212,18 @@ function generateSmartPlan() {
   renderSmartAssistant();
 }
 
+function indexSATasks(cards) {
+  cards.forEach(function(card, cardIdx) {
+    card.tasks.forEach(function(task, taskIdx) {
+      task._idx = taskIdx;
+      task._cardIdx = cardIdx;
+    });
+  });
+}
+
 function applyCascadingDelay(task) {
   if (task.planShiftDays <= 0) return;
-  if (task.intervalIdx >= EBINGHAUS_INTERVALS.length - 1) return;
+  if (task.intervalIdx === undefined || task.intervalIdx >= EBINGHAUS_INTERVALS.length - 1) return;
 
   var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
   if (!record) return;
@@ -8109,7 +8254,7 @@ function executeSmartPlan() {
   plan.originalSnapshot = {};
   plan.cards.forEach(function(card) {
     card.tasks.forEach(function(task) {
-      if (task.planShiftDays > 0) {
+      if (task.planShiftDays > 0 && task.recordId && !task.isCustom) {
         var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
         if (!record) return;
 
@@ -8117,9 +8262,7 @@ function executeSmartPlan() {
           plan.originalSnapshot[task.recordId] = {
             planShift: record.planShift ? Object.assign({}, record.planShift) : null,
             completedReviews: record.completedReviews ? record.completedReviews.slice() : [],
-            completedDates: record.completedDates ? Object.assign({}, record.completedDates) : {},
-            shiftDays: record.shiftDays || 0,
-            shiftDeltas: record.shiftDeltas ? Object.assign({}, record.shiftDeltas) : {}
+            shiftDays: record.shiftDays || 0
           };
         }
 
@@ -8149,7 +8292,7 @@ function enterAdjustMode() {
   plan.adjustSnapshot = {};
   plan.cards.forEach(function(card) {
     card.tasks.forEach(function(task) {
-      if (!plan.adjustSnapshot[task.recordId]) {
+      if (!plan.adjustSnapshot[task.recordId] && !task.isCustom) {
         var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
         if (record) {
           plan.adjustSnapshot[task.recordId] = {
@@ -8161,6 +8304,7 @@ function enterAdjustMode() {
   });
 
   plan.state = 'adjusting';
+  indexSATasks(plan.cards);
   saveStore();
   renderSmartAssistant();
 }
@@ -8199,17 +8343,17 @@ function cancelAdjustMode() {
 
 function moveSmartTask(cardIdx, taskIdx, direction) {
   var plan = store.smartPlan;
-  if (!plan || plan.state !== 'adjusting') return;
+  if (!plan) return;
+  var cards = plan.cards || plan._initialCards;
+  if (!cards || !cards[cardIdx] || !cards[cardIdx].tasks[taskIdx]) return;
 
   var targetCardIdx = cardIdx + direction;
-  if (targetCardIdx < 0 || targetCardIdx >= plan.cards.length) return;
+  if (targetCardIdx < 0 || targetCardIdx >= cards.length) return;
 
-  var card = plan.cards[cardIdx];
-  var targetCard = plan.cards[targetCardIdx];
+  var card = cards[cardIdx];
+  var targetCard = cards[targetCardIdx];
   var task = card.tasks[taskIdx];
-  if (!task) return;
-
-  if (task.completed) return;
+  if (!task || task.completed) return;
 
   var oldPlanShift = task.planShiftDays || 0;
   var newPlanShift = oldPlanShift + direction;
@@ -8218,24 +8362,23 @@ function moveSmartTask(cardIdx, taskIdx, direction) {
   task.planShiftDays = newPlanShift;
   task.assignedDate = targetCard.date;
 
-  applyCascadingDelay(task);
-
-  var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
-  if (record) {
-    var snap = plan.adjustSnapshot && plan.adjustSnapshot[task.recordId];
-    if (snap && snap.planShift) {
-      record.planShift = Object.assign({}, snap.planShift);
-    } else {
-      delete record.planShift;
-    }
-
-    if (newPlanShift > 0) {
-      if (!record.planShift) record.planShift = {};
-      record.planShift[task.intervalIdx] = newPlanShift;
-
-      if (task.cascadeShifts) {
-        for (var ci in task.cascadeShifts) {
-          record.planShift[ci] = (record.planShift[ci] || 0) + task.cascadeShifts[ci];
+  if (!task.isCustom && task.intervalIdx !== undefined) {
+    applyCascadingDelay(task);
+    var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
+    if (record) {
+      var snap = plan.adjustSnapshot && plan.adjustSnapshot[task.recordId];
+      if (snap && snap.planShift) {
+        record.planShift = Object.assign({}, snap.planShift);
+      } else {
+        delete record.planShift;
+      }
+      if (newPlanShift > 0) {
+        if (!record.planShift) record.planShift = {};
+        record.planShift[task.intervalIdx] = newPlanShift;
+        if (task.cascadeShifts) {
+          for (var ci in task.cascadeShifts) {
+            record.planShift[ci] = (record.planShift[ci] || 0) + task.cascadeShifts[ci];
+          }
         }
       }
     }
@@ -8243,14 +8386,15 @@ function moveSmartTask(cardIdx, taskIdx, direction) {
 
   card.tasks.splice(taskIdx, 1);
   targetCard.tasks.push(task);
+  indexSATasks(cards);
 
-  saveStore();
+  if (plan.state !== 'none') saveStore();
   renderSmartAssistant();
 }
 
 function revokeSmartPlan() {
   var plan = store.smartPlan;
-  if (!plan || plan.state !== 'executed' && plan.state !== 'adjusting') return;
+  if (!plan || (plan.state !== 'executed' && plan.state !== 'adjusting')) return;
 
   if (plan.state === 'adjusting' && plan.adjustSnapshot) {
     for (var recordId in plan.adjustSnapshot) {
@@ -8293,10 +8437,10 @@ function revokeSmartPlan() {
 
           if (task.cascadeShifts) {
             for (var ci in task.cascadeShifts) {
-              var cascadeShift = task.cascadeShifts[ci];
-              var wasCascadeCompletedBeforePlan = snap.completedReviews.indexOf(parseInt(ci)) >= 0;
-              var isCascadeCompletedNow = record.completedReviews && record.completedReviews.indexOf(parseInt(ci)) >= 0;
-              var cascadeCompletedDuringPlan = !wasCascadeCompletedBeforePlan && isCascadeCompletedNow;
+              var ciNum = parseInt(ci);
+              var wasCascadeCompletedBefore = snap.completedReviews.indexOf(ciNum) >= 0;
+              var isCascadeCompletedNow = record.completedReviews && record.completedReviews.indexOf(ciNum) >= 0;
+              var cascadeCompletedDuringPlan = !wasCascadeCompletedBefore && isCascadeCompletedNow;
 
               if (cascadeCompletedDuringPlan) {
                 var currentCascadeShift = (record.planShift && record.planShift[ci]) || 0;
@@ -8328,7 +8472,7 @@ function revokeSmartPlan() {
     }
   }
 
-  store.smartPlan = { state: 'none', dailyLimit: plan.dailyLimit || 5 };
+  store.smartPlan = { state: 'none', dailyLimit: plan.dailyLimit || 3 };
   saveStore();
   renderSmartAssistant();
   renderDailyPlan();
@@ -8336,23 +8480,36 @@ function revokeSmartPlan() {
 }
 
 function discardSmartPlan() {
-  store.smartPlan = { state: 'none', dailyLimit: store.smartPlan ? store.smartPlan.dailyLimit : 5 };
+  store.smartPlan = { state: 'none', dailyLimit: store.smartPlan ? store.smartPlan.dailyLimit : 3 };
   saveStore();
   renderSmartAssistant();
 }
 
 function syncSmartPlanCompletion() {
   var plan = store.smartPlan;
-  if (!plan || (plan.state !== 'executed' && plan.state !== 'adjusting')) return;
+  if (!plan || !plan.cards || (plan.state !== 'executed' && plan.state !== 'adjusting')) return;
 
   plan.cards.forEach(function(card) {
     card.tasks.forEach(function(task) {
+      if (task.isCustom) {
+        var ct = store.customTasks && store.customTasks.find(function(t) { return t.id === task.recordId; });
+        task.completed = ct ? ct.done : false;
+        return;
+      }
+      if (task.type === 'rol' && task.recordId && task.recordId.indexOf('roll_') === 0) {
+        var chId = parseInt(task.recordId.replace('roll_', ''));
+        task.completed = store.rollingStatus[chId] && store.rollingStatus[chId].done;
+        return;
+      }
       var record = store.newLearnRecords.find(function(r) { return r.id === task.recordId; });
       if (!record) return;
-      var isCompleted = record.completedReviews && record.completedReviews.indexOf(task.intervalIdx) >= 0;
-      task.completed = isCompleted;
+      task.completed = record.completedReviews && record.completedReviews.indexOf(task.intervalIdx) >= 0;
     });
   });
+
+  if (plan.state === 'executed' || plan.state === 'adjusting') {
+    indexSATasks(plan.cards);
+  }
 }
 
 // ===== Status Bar Panel =====
