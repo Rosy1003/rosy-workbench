@@ -3183,13 +3183,140 @@ body {
 .sa-orphan-fix-btn { width: 100%; padding: 8px; border: none; border-radius: var(--radius-sm); background: var(--accent2); color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: inherit; }
 .sa-orphan-fix-btn:hover { background: var(--accent2-dark); }
 
+/* ===== Tablet (769px - 1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sa-plan-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .sa-metrics { gap: 6px; }
+  .sa-metric { padding: 6px 8px; }
+  .sa-metric-val { font-size: 16px; }
+  .sa-config-bar { gap: 8px; padding: 8px 10px; }
+  .sa-limit-btn { min-width: 30px; height: 28px; font-size: 13px; }
+  .sa-move-btn { width: 20px; height: 20px; font-size: 10px; }
+  .sa-task-item { font-size: 11px; padding: 3px 5px; }
+  .sa-card-tasks { max-height: 180px; }
+  .sa-date-card { min-height: 90px; padding: 6px 8px; }
+  .sa-action-btn { padding: 7px 12px; font-size: 12px; }
+}
+
+/* ===== Mobile (≤ 768px) ===== */
 @media (max-width: 768px) {
-  .sa-plan-grid { grid-template-columns: repeat(2, 1fr); }
-  .sa-config-bar { flex-direction: column; align-items: stretch; gap: 6px; }
-  .sa-generate-btn { margin-left: 0; text-align: center; }
-  .sa-limit-btn { min-width: 32px; height: 30px; font-size: 13px; }
-  .sa-metrics { grid-template-columns: repeat(2, 1fr); }
-  .sa-workflow { font-size: 10px; }
+  /* Plan grid: horizontal scroll with snap */
+  .sa-plan-grid {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 8px;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+  .sa-plan-grid::-webkit-scrollbar { height: 3px; }
+  .sa-plan-grid::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+  .sa-plan-grid::-webkit-scrollbar-track { background: transparent; }
+  .sa-date-card {
+    flex: 0 0 140px;
+    scroll-snap-align: start;
+    min-height: 120px;
+  }
+
+  /* Config bar: stack vertically */
+  .sa-config-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  .sa-limit-group { justify-content: center; }
+  .sa-limit-label { font-size: 13px; }
+  .sa-limit-btn { min-width: 36px; height: 32px; font-size: 14px; }
+  .sa-estimate { text-align: center; font-size: 12px; }
+  .sa-generate-btn {
+    margin-left: 0;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  /* Metrics: 2x2 grid */
+  .sa-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .sa-metric { padding: 8px; }
+  .sa-metric-val { font-size: 20px; }
+  .sa-metric-label { font-size: 11px; }
+
+  /* Workflow: compact */
+  .sa-workflow {
+    font-size: 10px;
+    gap: 2px;
+    justify-content: center;
+  }
+  .sa-step { gap: 2px; }
+  .sa-step-num { width: 20px; height: 20px; font-size: 11px; }
+  .sa-step-label { font-size: 10px; }
+
+  /* Task items: larger touch targets */
+  .sa-task-item {
+    font-size: 12px;
+    padding: 4px 6px;
+    gap: 4px;
+  }
+  .sa-task-name { font-size: 12px; }
+  .sa-task-tag { font-size: 9px; padding: 1px 4px; }
+  .sa-task-overdue, .sa-task-new-overdue { font-size: 9px; padding: 1px 4px; }
+
+  /* Move buttons: 28px touch target */
+  .sa-move-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  /* Card tasks scroll area */
+  .sa-card-tasks { max-height: 200px; }
+  .sa-card-date { font-size: 13px; }
+  .sa-card-weekday { font-size: 11px; }
+
+  /* Action bar: full-width buttons */
+  .sa-action-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: stretch;
+  }
+  .sa-action-btn {
+    flex: 1;
+    min-width: calc(50% - 4px);
+    padding: 10px 14px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .sa-mode-badge {
+    flex: 1 0 100%;
+    text-align: center;
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  /* Orphan warning */
+  .sa-orphan-warning { padding: 10px 12px; }
+  .sa-orphan-title { font-size: 14px; }
+  .sa-orphan-item { font-size: 13px; padding: 6px 0; }
+  .sa-orphan-fix-btn { padding: 10px; font-size: 13px; }
+
+  /* Header */
+  .sa-header h3 { font-size: 16px; }
+  .sa-state-badge { font-size: 11px; padding: 3px 10px; }
+}
+
+/* ===== Small mobile (≤ 380px) ===== */
+@media (max-width: 380px) {
+  .sa-date-card { flex: 0 0 120px; min-height: 110px; }
+  .sa-metrics { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .sa-metric-val { font-size: 18px; }
+  .sa-action-btn { min-width: calc(100% - 0px); }
+  .sa-workflow { flex-wrap: wrap; }
 }
 
 </style>
